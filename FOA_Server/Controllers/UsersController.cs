@@ -11,9 +11,10 @@ namespace FOA_Server.Controllers
     {
         // GET: api/<UsersController>
         [HttpGet]
-        public IEnumerable<string> Get()
+        public List<User> Get()
         {
-            return new string[] { "value1", "value2" };
+            User u = new User();
+            return u.ReadAllUsers();
         }
 
         // GET api/<UsersController>/5
@@ -22,17 +23,21 @@ namespace FOA_Server.Controllers
         {
             return "value";
         }
-
+        
         // POST api/<UsersController>
         [HttpPost]
-        public void Post([FromBody] string value)
+        public User Post([FromBody] User user)
         {
+            User affected = user.InsertUser();
+            return affected;
         }
 
         // PUT api/<UsersController>/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
+        [HttpPut]
+        public User Put([FromBody] User user)
         {
+            User affected = user.UpdateUser();
+            return affected;
         }
 
         // DELETE api/<UsersController>/5

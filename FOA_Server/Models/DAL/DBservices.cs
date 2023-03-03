@@ -464,5 +464,60 @@ public class DBservices
 
 
 
+    // Country
+    // This method reads all Countries
+    public List<Country> ReadCountries()
+    {
+        SqlConnection con;
+        SqlCommand cmd;
+
+        try
+        {
+            con = connect("myProjDB"); // create the connection
+        }
+        catch (Exception ex)
+        {
+            // write to log
+            Console.WriteLine("Error");
+            throw (ex);
+        }
+
+        cmd = CreateCommandWithStoredProcedureRead("spReadCountries", con);      // create the command
+
+        List<Country> list = new List<Country>();
+
+        try
+        {
+            SqlDataReader dataReader = cmd.ExecuteReader(CommandBehavior.CloseConnection);
+
+            while (dataReader.Read())
+            {
+                Country c = new Country();
+                c._Country = dataReader["_Country"].ToString();
+
+                list.Add(c);
+            }
+            return list;
+        }
+        catch (Exception ex)
+        {
+            // write to log
+            Console.WriteLine("Error");
+            throw (ex);
+        }
+
+        finally
+        {
+            if (con != null)
+            {
+                // close the db connection
+                con.Close();
+            }
+        }
+    }
+
+
+
+
 
 }

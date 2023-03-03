@@ -13,7 +13,7 @@
         }
 
         // read all Volunteer Programs
-        public List<User> ReadAllVolunteerPrograms()
+        public List<VolunteerProgram> ReadAllVolunteerPrograms()
         {
             DBservices dbs = new DBservices();
             return dbs.ReadVolunteerPrograms();

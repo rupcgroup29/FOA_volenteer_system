@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using FOA_Server.Models;
+using Microsoft.AspNetCore.Mvc;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -10,9 +11,10 @@ namespace FOA_Server.Controllers
     {
         // GET: api/<VolunteerProgramsController>
         [HttpGet]
-        public IEnumerable<string> Get()
+        public List<VolunteerProgram> Get()
         {
-            return new string[] { "value1", "value2" };
+            VolunteerProgram vp = new VolunteerProgram();
+            return vp.ReadAllVolunteerPrograms();
         }
 
         // GET api/<VolunteerProgramsController>/5

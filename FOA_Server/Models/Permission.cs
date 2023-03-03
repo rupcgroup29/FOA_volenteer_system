@@ -4,6 +4,7 @@
     {
         public int PermissionID { get; set; }
         public string PermissionName { get; set; }
+        private static List<Permission> permissionsList = new List<Permission>();
 
         public Permission() { }
         public Permission(int permissionID, string permissionName)

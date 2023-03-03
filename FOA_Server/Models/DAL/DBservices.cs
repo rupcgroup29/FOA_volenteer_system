@@ -353,7 +353,60 @@ public class DBservices
     }
 
 
+    // TEAM
+    // This method reads all Teams
+    public List<Team> ReadTeams()
+    {
+        SqlConnection con;
+        SqlCommand cmd;
 
+        try
+        {
+            con = connect("myProjDB"); // create the connection
+        }
+        catch (Exception ex)
+        {
+            // write to log
+            Console.WriteLine("Error");
+            throw (ex);
+        }
+
+        cmd = CreateCommandWithStoredProcedureRead("spReadTeams", con);      // create the command
+
+        List<Team> list = new List<Team>();
+
+        try
+        {
+            SqlDataReader dataReader = cmd.ExecuteReader(CommandBehavior.CloseConnection);
+
+            while (dataReader.Read())
+            {
+                Team t = new Team();
+                t.TeamID = Convert.ToInt32(dataReader["TeamID"]);
+                t.TeamName = dataReader["TeamName"].ToString();
+                t.Description = dataReader["Description"].ToString();
+                t.TeamLeader = dataReader["TeamLeader"].ToString();
+
+                list.Add(t);
+            }
+            return list;
+        }
+        catch (Exception ex)
+        {
+            // write to log
+            Console.WriteLine("Error");
+            throw (ex);
+        }
+
+        finally
+        {
+            if (con != null)
+            {
+                // close the db connection
+                con.Close();
+            }
+        }
+    }
 
 
 

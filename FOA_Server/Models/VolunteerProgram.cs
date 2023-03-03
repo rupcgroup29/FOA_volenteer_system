@@ -4,7 +4,7 @@
     {
         public int ProgramID { get; set; }
         public string ProgramName { get; set; }
-
+        private static List<VolunteerProgram> volunteerProgramsList = new List<VolunteerProgram>();
         public VolunteerProgram() { }
         public VolunteerProgram(int programID, string programName)
         {

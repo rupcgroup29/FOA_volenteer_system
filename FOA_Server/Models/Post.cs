@@ -26,7 +26,7 @@
         public int Country { get; set; }
         public int Language { get; set; }
 
-
+        private static List<Post> postsList = new List<Post>();
 
 
 

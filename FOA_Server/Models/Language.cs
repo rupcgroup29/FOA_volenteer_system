@@ -3,7 +3,7 @@
     public class Language
     {
         public string Lang { get; set; }
-        private List<Language> _languages = new List<Language>();
+        private static List<Language> _languages = new List<Language>();
         public Language() { }
         public Language(string lang)
         {

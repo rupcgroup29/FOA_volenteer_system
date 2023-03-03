@@ -4,7 +4,7 @@
     {
         public string _Country { get; set; }
 
-        private List<Country> countryList = new List<Country>();
+        private static List<Country> countryList = new List<Country>();
 
         public Country() { }   
         public Country(string country)

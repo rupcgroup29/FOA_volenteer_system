@@ -517,6 +517,58 @@ public class DBservices
     }
 
 
+    // IHRA
+    // This method reads all IHRA
+    public List<IHRA> ReadIHRAs()
+    {
+        SqlConnection con;
+        SqlCommand cmd;
+
+        try
+        {
+            con = connect("myProjDB"); // create the connection
+        }
+        catch (Exception ex)
+        {
+            // write to log
+            Console.WriteLine("Error");
+            throw (ex);
+        }
+
+        cmd = CreateCommandWithStoredProcedureRead("spReadIHRAs", con);      // create the command
+
+        List<IHRA> list = new List<IHRA>();
+
+        try
+        {
+            SqlDataReader dataReader = cmd.ExecuteReader(CommandBehavior.CloseConnection);
+
+            while (dataReader.Read())
+            {
+                IHRA i = new IHRA();
+                i.CategoryID = Convert.ToInt32(dataReader["CategoryID"]);
+                i.CategoryName = dataReader["CategoryName"].ToString();
+
+                list.Add(i);
+            }
+            return list;
+        }
+        catch (Exception ex)
+        {
+            // write to log
+            Console.WriteLine("Error");
+            throw (ex);
+        }
+
+        finally
+        {
+            if (con != null)
+            {
+                // close the db connection
+                con.Close();
+            }
+        }
+    }
 
 
 

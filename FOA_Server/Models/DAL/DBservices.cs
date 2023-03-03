@@ -572,4 +572,60 @@ public class DBservices
 
 
 
+    // Platform
+    // This method reads all Platforms
+    public List<Platform> ReadPlatforms()
+    {
+        SqlConnection con;
+        SqlCommand cmd;
+
+        try
+        {
+            con = connect("myProjDB"); // create the connection
+        }
+        catch (Exception ex)
+        {
+            // write to log
+            Console.WriteLine("Error");
+            throw (ex);
+        }
+
+        cmd = CreateCommandWithStoredProcedureRead("spReadPlatforms", con);      // create the command
+
+        List<Platform> list = new List<Platform>();
+
+        try
+        {
+            SqlDataReader dataReader = cmd.ExecuteReader(CommandBehavior.CloseConnection);
+
+            while (dataReader.Read())
+            {
+                Platform p = new Platform();
+                p.PlatformID = Convert.ToInt32(dataReader["PlatformID"]);
+                p.PlatformName = dataReader["PlatformName"].ToString();
+
+                list.Add(p);
+            }
+            return list;
+        }
+        catch (Exception ex)
+        {
+            // write to log
+            Console.WriteLine("Error");
+            throw (ex);
+        }
+
+        finally
+        {
+            if (con != null)
+            {
+                // close the db connection
+                con.Close();
+            }
+        }
+    }
+
+
+
+
 }

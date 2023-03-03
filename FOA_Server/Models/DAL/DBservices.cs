@@ -298,4 +298,63 @@ public class DBservices
         }
     }
 
+
+    // Permission
+    // This method reads all Volunteer Programs
+    public List<Permission> ReadPermissions()
+    {
+        SqlConnection con;
+        SqlCommand cmd;
+
+        try
+        {
+            con = connect("myProjDB"); // create the connection
+        }
+        catch (Exception ex)
+        {
+            // write to log
+            Console.WriteLine("Error");
+            throw (ex);
+        }
+
+        cmd = CreateCommandWithStoredProcedureRead("spReadUsers", con);      // create the command
+
+        List<Permission> list = new List<Permission>();
+
+        try
+        {
+            SqlDataReader dataReader = cmd.ExecuteReader(CommandBehavior.CloseConnection);
+
+            while (dataReader.Read())
+            {
+                Permission per = new Permission();
+                per.PermissionID = Convert.ToInt32(dataReader["PermissionID"]);
+                per.PermissionName = dataReader["PermissionName"].ToString();
+
+                list.Add(per);
+            }
+            return list;
+        }
+        catch (Exception ex)
+        {
+            // write to log
+            Console.WriteLine("Error");
+            throw (ex);
+        }
+
+        finally
+        {
+            if (con != null)
+            {
+                // close the db connection
+                con.Close();
+            }
+        }
+    }
+
+
+
+
+
+
 }

@@ -4,6 +4,7 @@
     {
         public int PlatformID { get; set; }
         public string PlatformName { get; set; }
+
         private static List<Platform> platformList = new List<Platform>();
 
         public Platform() { }

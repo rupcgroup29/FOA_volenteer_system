@@ -17,7 +17,6 @@
         public int RemovalStatus { get; set; }
        
         // FK fields
-        public int UserName { get; set; }
         public int UserID { get; set; }
         public int PlatformID { get; set; }
         public int CategoryID { get; set; }
@@ -27,6 +26,14 @@
         public int Language { get; set; }
 
         private static List<Post> postsList = new List<Post>();
+
+
+        // read all Posts
+        public List<Post> ReadAllPosts()
+        {
+            DBservices dbs = new DBservices();
+            return dbs.ReadPosts();
+        }
 
 
 

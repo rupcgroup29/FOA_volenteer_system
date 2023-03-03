@@ -263,7 +263,7 @@ public class DBservices
             throw (ex);
         }
 
-        cmd = CreateCommandWithStoredProcedureRead("spReadUsers", con);      // create the command
+        cmd = CreateCommandWithStoredProcedureRead("spReadVolunteerProgramss", con);      // create the command
 
         List<VolunteerProgram> list = new List<VolunteerProgram>();
 
@@ -317,7 +317,7 @@ public class DBservices
             throw (ex);
         }
 
-        cmd = CreateCommandWithStoredProcedureRead("spReadUsers", con);      // create the command
+        cmd = CreateCommandWithStoredProcedureRead("spReadPermissions", con);      // create the command
 
         List<Permission> list = new List<Permission>();
 
@@ -407,6 +407,61 @@ public class DBservices
             }
         }
     }
+
+
+
+    // Language
+    // This method reads all Language
+    public List<Language> ReadLanguages()
+    {
+        SqlConnection con;
+        SqlCommand cmd;
+
+        try
+        {
+            con = connect("myProjDB"); // create the connection
+        }
+        catch (Exception ex)
+        {
+            // write to log
+            Console.WriteLine("Error");
+            throw (ex);
+        }
+
+        cmd = CreateCommandWithStoredProcedureRead("spReadLanguages", con);      // create the command
+
+        List<Language> list = new List<Language>();
+
+        try
+        {
+            SqlDataReader dataReader = cmd.ExecuteReader(CommandBehavior.CloseConnection);
+
+            while (dataReader.Read())
+            {
+                Language l = new Language();
+                l.Lang = dataReader["Lang"].ToString();
+
+                list.Add(l);
+            }
+            return list;
+        }
+        catch (Exception ex)
+        {
+            // write to log
+            Console.WriteLine("Error");
+            throw (ex);
+        }
+
+        finally
+        {
+            if (con != null)
+            {
+                // close the db connection
+                con.Close();
+            }
+        }
+    }
+
 
 
 

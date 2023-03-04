@@ -626,6 +626,63 @@ public class DBservices
     }
 
 
+    // HourReport
+    // This method reads all Hour Reports
+    public List<HourReport> ReadHourReports()
+    {
+        SqlConnection con;
+        SqlCommand cmd;
+
+        try
+        {
+            con = connect("myProjDB"); // create the connection
+        }
+        catch (Exception ex)
+        {
+            // write to log
+            Console.WriteLine("Error");
+            throw (ex);
+        }
+
+        cmd = CreateCommandWithStoredProcedureRead("spReadHourReports", con);      // create the command
+
+        List<HourReport> list = new List<HourReport>();
+
+        try
+        {
+            SqlDataReader dataReader = cmd.ExecuteReader(CommandBehavior.CloseConnection);
+
+            while (dataReader.Read())
+            {
+                HourReport h = new HourReport();
+                h.ReportID = Convert.ToInt32(dataReader["ReportID"]);
+                h.Date = Convert.ToDateTime(dataReader["Date"]);
+                h.StatTime = Convert.ToDateTime(dataReader["StatTime"]);
+                h.EndTime = Convert.ToDateTime(dataReader["EndTime"]);
+                h.Status = Convert.ToInt32(dataReader["Status"]);
+
+                list.Add(h);
+            }
+            return list;
+        }
+        catch (Exception ex)
+        {
+            // write to log
+            Console.WriteLine("Error");
+            throw (ex);
+        }
+
+        finally
+        {
+            if (con != null)
+            {
+                // close the db connection
+                con.Close();
+            }
+        }
+    }
+
+
 
     // POSTS
     // This method reads all Posts

@@ -263,7 +263,7 @@ public class DBservices
             throw (ex);
         }
 
-        cmd = CreateCommandWithStoredProcedureRead("spReadVolunteerProgramss", con);      // create the command
+        cmd = CreateCommandWithStoredProcedureRead("spReadVolunteerPrograms", con);      // create the command
 
         List<VolunteerProgram> list = new List<VolunteerProgram>();
 
@@ -657,7 +657,7 @@ public class DBservices
                 HourReport h = new HourReport();
                 h.ReportID = Convert.ToInt32(dataReader["ReportID"]);
                 h.Date = Convert.ToDateTime(dataReader["Date"]);
-                h.StatTime = Convert.ToDateTime(dataReader["StatTime"]);
+                h.StartTime = Convert.ToDateTime(dataReader["StartTime"]);
                 h.EndTime = Convert.ToDateTime(dataReader["EndTime"]);
                 h.Status = Convert.ToInt32(dataReader["Status"]);
 

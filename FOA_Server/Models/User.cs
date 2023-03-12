@@ -12,7 +12,6 @@ namespace FOA_Server.Models
         public string Password { get; set; }
         public int PhoneNum { get; set; }
         public string RoleDescription { get; set; }
-
         public bool IsActive { get; set; }
         public int PermissionID { get; set; }
         public int ProgramID { get; set; }

@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <meta name="description" content="" />
+    <meta name="author" content="" />
+    <title>Agency - Start Bootstrap Theme</title>
+    <!-- Favicon-->
+    <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
+    <!-- Font Awesome icons (free version)-->
+    <script src="https://use.fontawesome.com/releases/v6.1.0/js/all.js" crossorigin="anonymous"></script>
+    <!-- Google fonts-->
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css" />
+    <link href="https://fonts.googleapis.com/css?family=Roboto+Slab:400,100,300,700" rel="stylesheet" type="text/css" />
+    <!-- Core theme CSS (includes Bootstrap)-->
+    <link href="css/styles.css" rel="stylesheet" />
+        <script>
+            function RegisterUser() {
+                        let school = document.getElementById("school").value;
+                        let Premition = document.getElementById("Premition").value;
+                        let User_name = document.getElementById("User_name").value;
+                        let leader = document.getElementById("leader").value;
+                        let F-name = document.getElementById("F-name").value;
+                        let L-name = document.getElementById("L-name").value;
+                        let email = document.getElementById("email").value;
+                        let phone = document.getElementById("phone").value;
+                        let user = {
+                                    school:school,
+                                    Premition:Premition,
+                                    User_name :User_name,
+                                    leader:leader,
+                                    F-name:F-name,
+                                    L-name:L-name,
+                                    email:email,
+                                    phone:phone
+                                   }
+
+                        if (cgroup29.users[UserName] == undefined) {
+                            cgroup29.currentUser = UserName;
+                            cgroup29.users[UserName] = user;
+                            localStorage["cgroup29"] = JSON.stringify(cgroup29);
+                            alert("You are now registerd and logged in");
+                            window.location.href = "EX5.html"
+                        }
+
+                        else
+                            alert("User with this name already exists");
+
+            }
+        </script>
+
+
+</head>
+<body id="page-top">
+    <!-- Navigation-->
+    <nav class="navbar navbar-expand-lg navbar-dark fixed-top" id="mainNav">
+        <div class="container">
+            <a class="navbar-brand" href="#page-top"><img src="assets/img/LOGO-removebg-preview.png" alt="..." /></a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+         
+                <i class="fas fa-bars ms-1"></i>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarResponsive">
+                <ul class="navbar-nav text-uppercase ms-auto py-4 py-lg-0">
+                    <li class="nav-item"><a class="nav-link" href="#about">צוות</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#portfolio">דיווח שעות</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#services">דיווח פוסטים</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- New User Details-->
+    <section class="page-section" id="contact">
+        <div class="container">
+            <div class="text-center">
+                <h2 class="section-heading text-uppercase">רישום מתנדב חדש</h2>
+            </div>            <!-- to get an API token!-->
+            <form id="contactForm" data-sb-form-api-token="API_TOKEN">
+                <div class="row align-items-stretch mb-5">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <!-- school-->
+                            <input dir="rtl" class="form-control" id="school" type="text" placeholder="מסגרת ההתנדבות *" data-sb-validations="required" />
+                            <div class="invalid-feedback" data-sb-feedback="school:required">חובה להזין את מסגרת ההתנדבות</div>
+                        </div>
+                        <div class="form-group">
+                            <!-- Premition-->
+                            <select dir="rtl" class="form-control" id="Premition" type="text" data-sb-validations="required">
+                                <option class="opt" value="0">סוג הרשאה *</option>
+                                <option class="opt" value="1">מתנדב.ת</option>
+                                <option class="opt" value="2">מנהל.ת צוות</option>
+                                <option class="opt" value="3">מנהל.ת</option>
+                            </select>
+                            <div class="invalid-feedback" data-sb-feedback="Premition:required">חובה לבחור הרשאה למשתמש</div>
+                        </div>
+                        <div class="form-group">
+                            <!-- User_name-->
+                            <input dir="rtl" class="form-control" id="User_name" type="email" placeholder="שם משתמש *" data-sb-validations="required,email" />
+                            <div class="invalid-feedback" data-sb-feedback="User_name:required">חובה לבחור שם משתמש מקורי</div>
+                            <div class="invalid-feedback" data-sb-feedback="User_name:User_name">שם המשתמש לא תקין.</div>
+                        </div>
+                        <div class="form-group">
+                            <!-- Team leader-->
+                            <select dir="rtl" class="form-control" id="leader" type="text" data-sb-validations="required">
+                                <option class="opt" value="0">ראש צוות- לרנדר *</option>
+                                <option class="opt" value="1">מישהי 1</option>
+                                <option class="opt" value="2">מישהו 2</option>
+                                <option class="opt" value="3">מישהי 3</option>
+                            </select>
+                            <div class="invalid-feedback" data-sb-feedback="leader:required">חובה לבחור ראש צוות</div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <!-- First Name input-->
+                            <input dir="rtl" class="form-control" id="F-name" type="text" placeholder="שם פרטי *" data-sb-validations="required" />
+                            <div class="invalid-feedback" data-sb-feedback="F-name:required">חובה להזין שם פרטי</div>
+                        </div>
+                        <div class="form-group">
+                            <!--Last Name input-->
+                            <input dir="rtl" class="form-control" id="L-name" type="text" placeholder="שם משפחה *" data-sb-validations="required" />
+                            <div class="invalid-feedback" data-sb-feedback="L-name:required">חובה להזין שם משפחה</div>
+                        </div>
+                        <div class="form-group">
+                            <!-- Email address input-->
+                            <input dir="rtl" class="form-control" id="email" type="email" placeholder="אימייל *" data-sb-validations="required" />
+                            <div class="invalid-feedback" data-sb-feedback="email:required">חובה להזין כתובת אימייל</div>
+                            <div class="invalid-feedback" data-sb-feedback="email:email">כתובת האימייל אינה תקינה</div>
+                        </div>
+                        <div class="form-group mb-md-0">
+                            <!-- Phone number input-->
+                            <input dir="rtl" class="form-control" id="phone" type="tel" placeholder="טלפון *" data-sb-validations="required" />
+                            <div class="invalid-feedback" data-sb-feedback="phone:required">חובה להזין מספר טלפון</div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-12">
+                        <div class="form-group mb-md-0">
+                            <!-- Job_description-->
+                            <input dir="rtl" class="form-control" id="phone" type="tel" placeholder="תיאור תפקיד *" data-sb-validations="required" />
+                            <div class="invalid-feedback" data-sb-feedback="phone:required">חובה להזין תיאור תפקיד.</div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Submit success message-->
+                <!---->
+                <!-- This is what your users will see when the form-->
+                <!-- has successfully submitted-->
+                <div class="d-none" id="submitSuccessMessage">
+                    <div class="text-center text-white mb-3">
+                        <div class="fw-bolder">מתנדב.ת נשמר.ה בהצלחה!!</div>
+                        To activate this form, sign up at
+                        <br />
+                        <a href="https://startbootstrap.com/solution/contact-forms">https://startbootstrap.com/solution/contact-forms</a>
+                    </div>
+                </div>
+                <!-- Submit error message-->
+                <!---->
+                <!-- This is what your users will see when there is-->
+                <!-- an error submitting the form-->
+                <div class="d-none" id="submitErrorMessage"><div class="text-center text-danger mb-3">בעיה בשמירת הנתונים!</div></div>
+                <!-- Submit Button-->
+                <div class="text-center"><button class="btn btn-primary btn-xl text-uppercase disabled" id="submitButton" type="submit">שמור</button></div>
+            </form>
+        </div>
+    </section>
+    <!-- Footer-->
+    <footer class="footer py-4">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-lg-4 text-lg-start">Copyright &copy; Your Website 2022</div>
+                <div class="col-lg-4 my-3 my-lg-0">
+                    <a class="btn btn-dark btn-social mx-2" href="#!" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+                    <a class="btn btn-dark btn-social mx-2" href="#!" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+                    <a class="btn btn-dark btn-social mx-2" href="#!" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+                </div>
+                <div class="col-lg-4 text-lg-end">
+                    <a class="link-dark text-decoration-none me-3" href="#!">Privacy Policy</a>
+                    <a class="link-dark text-decoration-none" href="#!">Terms of Use</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    
+
+    <!-- Bootstrap core JS-->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Core theme JS-->
+    <script src="js/scripts.js"></script>
+    <!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *-->
+    <!-- * *                               SB Forms JS                               * *-->
+    <!-- * * Activate your form at https://startbootstrap.com/solution/contact-forms * *-->
+    <!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *-->
+    <script src="https://cdn.startbootstrap.com/sb-forms-latest.js"></script>
+</body>
+</html>

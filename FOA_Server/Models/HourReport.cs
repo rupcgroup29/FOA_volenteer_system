@@ -1,4 +1,5 @@
-﻿using System.Runtime.Serialization;
+﻿using FOA_Server.Models.DAL;
+using System.Runtime.Serialization;
 
 namespace FOA_Server.Models
 {
@@ -10,7 +11,6 @@ namespace FOA_Server.Models
         public TimeOnly EndTime { get; set; }
         public int Status { get; set; }
 
-        private static List<HourReport> hourReportlist = new List<HourReport>();
 
         public HourReport() { }
         public HourReport(int reportID, DateTime date, TimeOnly startTime, TimeOnly endTime, int status)
@@ -29,12 +29,7 @@ namespace FOA_Server.Models
             return time;
         } */
 
-        // read all Hour Reports
-        public List<HourReport> ReadAllHourReports()
-        {
-            DBservices dbs = new DBservices();
-            return dbs.ReadHourReports();
-        }
+        
 
     }
 }

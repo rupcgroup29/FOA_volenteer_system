@@ -1,4 +1,5 @@
 ﻿using FOA_Server.Models;
+using FOA_Server.Services;
 using Microsoft.AspNetCore.Mvc;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
@@ -13,7 +14,7 @@ namespace FOA_Server.Controllers
         [HttpGet]
         public List<Post> Get()
         {
-            Post p = new Post();
+            PostServices p = new PostServices();
             return p.ReadAllPosts();
         }
 

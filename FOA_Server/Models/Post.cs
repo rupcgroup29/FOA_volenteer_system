@@ -1,4 +1,6 @@
-﻿namespace FOA_Server.Models
+﻿using FOA_Server.Models.DAL;
+
+namespace FOA_Server.Models
 {
     public class Post    {
 
@@ -25,15 +27,6 @@
         public int Country { get; set; }
         public int Language { get; set; }
 
-        private static List<Post> postsList = new List<Post>();
-
-
-        // read all Posts
-        public List<Post> ReadAllPosts()
-        {
-            DBservices dbs = new DBservices();
-            return dbs.ReadPosts();
-        }
 
 
 

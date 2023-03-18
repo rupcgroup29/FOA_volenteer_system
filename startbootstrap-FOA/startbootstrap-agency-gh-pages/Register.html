@@ -15,6 +15,9 @@
     <link href="https://fonts.googleapis.com/css?family=Roboto+Slab:400,100,300,700" rel="stylesheet" type="text/css" />
     <!-- Core theme CSS (includes Bootstrap)-->
     <link href="css/styles.css" rel="stylesheet" />
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.1/dist/jquery.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
     <script>
 
         $(document).ready(function () {
@@ -24,33 +27,34 @@
             // לעדכן את הכתובת החלופית !!
             //else api = "https://proj.ruppin.ac.il/cgroup29/test2/tar1/api/Users/";
 
-
-        })
+            $('#contactForm').submit(RegisterUser());
+        });
 
         function RegisterUser() {
-            let school = document.getElementById("school").value;
-            let Permission = document.getElementById("Permission").value;
-            let User_name = document.getElementById("User_name").value;
-            let leader = document.getElementById("leader").value;
-            let F-name = document.getElementById("F-name").value;
-            let L-name = document.getElementById("L-name").value;
+            let volunteerProgram = document.getElementById("volunteerProgram").value;
+            let permission = document.getElementById("permission").value;
+            let user_name = document.getElementById("user_name").value;
+            let team = document.getElementById("team").value;
+            let firstName = document.getElementById("firstName").value;
+            let surname = document.getElementById("surname").value;
             let email = document.getElementById("email").value;
             let phone = document.getElementById("phone").value;
-            let RoleDescription = document.getElementById("RoleDescription").value;
+            let roleDescription = document.getElementById("roleDescription").value;
 
             let newUser = {
-                FirstName: F - name,
-                Surname: L - name,
-                UserName: User_name,
+                FirstName: firstName,
+                Surname: surname,
+                UserName: user_name,
                 Email: email,
                 PhoneNum: phone,
                 VolunteerProgram: school,
-                Permission: Permission,
-                RoleDescription: RoleDescription,
-                Team: leader
+                PermissionID: permission,
+                RoleDescription: roleDescription,
+                TeamID: team
             }
 
             ajaxCall("POST", api, JSON.stringify(newUser), successPostCBU, errorPostBTU);
+            return false;
 
         }
 
@@ -106,7 +110,7 @@
                             <div class="form-headers">
                                 <p> מתנדב פעיל</p>
                             </div>
-                            <select dir="rtl" class="form-control" id="leader">
+                            <select dir="rtl" class="form-control" id="Team">
                                 <option class="opt" value="0">כן </option>
                                 <option class="opt" value="1">לא </option>
                             </select>
@@ -124,7 +128,7 @@
                                 <div class="form-headers">
                                     <p> מסגרת התנדבות</p>
                                 </div>
-                                <select dir="rtl" class="form-control" id="school" required>
+                                <select dir="rtl" class="form-control" id="volunteerProgram" required>
                                     <option class="opt" value="0">מסגרת התנדבות- לרנדר *</option>
                                     <option class="opt" value="1">מקום 1</option>
                                     <option class="opt" value="2">מקום 2</option>
@@ -139,7 +143,7 @@
                             <div class="form-headers">
                                 <p> הרשאת מערכת</p>
                             </div>
-                            <select dir="rtl" class="form-control" id="Permission" required>
+                            <select dir="rtl" class="form-control" id="permission" required>
                                 <option class="opt" value="0">סוג הרשאה *</option>
                                 <option class="opt" value="1">מתנדב.ת</option>
                                 <option class="opt" value="2">מנהל.ת צוות</option>
@@ -147,11 +151,11 @@
                             </select>
                         </div>
                         <div class="form-group">
-                            <!-- Team leader-->
+                            <!-- Team Team-->
                             <div class="form-headers">
                                 <p> בחירת צוות התנדבות</p>
                             </div>
-                            <select dir="rtl" class="form-control" id="leader" required>
+                            <select dir="rtl" class="form-control" id="team" required>
                                 <option class="opt" value="0">ראש צוות- לרנדר *</option>
                                 <option class="opt" value="1">מישהי 1</option>
                                 <option class="opt" value="2">מישהו 2</option>
@@ -159,11 +163,11 @@
                             </select>
                         </div>
                         <div class="form-group">
-                            <!-- Job_description-->
+                            <!-- roleDescription-->
                             <div class="form-headers">
                                 <p> תיאור תפקיד בעמותה</p>
                             </div>
-                            <input dir="rtl" class="form-control" id="Job_description" placeholder="תיאור תפקיד " />
+                            <input dir="rtl" class="form-control" id="roleDescription" placeholder="תיאור תפקיד " />
                         </div>
                     </div>
                     <div class="col-md-6">
@@ -172,21 +176,21 @@
                             <div class="form-headers">
                                 <p> שם פרטי</p>
                             </div>
-                            <input dir="rtl" class="form-control" id="F-name" type="text" placeholder="שם פרטי *" required />
+                            <input dir="rtl" class="form-control" id="firstName" type="text" placeholder="שם פרטי *" required />
                         </div>
                         <div class="form-group">
                             <!--Last Name input-->
                             <div class="form-headers">
                                 <p> שם משפחה</p>
                             </div>
-                            <input dir="rtl" class="form-control" id="L-name" type="text" placeholder="שם משפחה *" required />
+                            <input dir="rtl" class="form-control" id="lastName" type="text" placeholder="שם משפחה *" required />
                         </div>
                         <div class="form-group">
                             <!-- User_name-->
                             <div class="form-headers">
                                 <p> שם משתמש במערכת</p>
                             </div>
-                            <input dir="rtl" class="form-control" id="User_name" type="email" placeholder="שם משתמש *" required />
+                            <input dir="rtl" class="form-control" id="user_name" type="text" placeholder="שם משתמש *" required />
                         </div>
                         <div class="form-group">
                             <!-- Email address input-->

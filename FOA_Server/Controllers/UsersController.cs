@@ -1,4 +1,5 @@
 ﻿using FOA_Server.Models;
+using FOA_Server.Services;
 using Microsoft.AspNetCore.Mvc;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
@@ -11,9 +12,11 @@ namespace FOA_Server.Controllers
     {
         // GET: api/<UsersController>
         [HttpGet]
-        public IEnumerable<string> Get()
+        public List<User> Get()
         {
-            return new string[] { "value1", "value2" };
+            //User u = new User();
+            UserServices user = new UserServices();
+            return user.ReadAllUsers();
         }
 
         // GET api/<UsersController>/5
@@ -22,17 +25,22 @@ namespace FOA_Server.Controllers
         {
             return "value";
         }
-
+        
         // POST api/<UsersController>
         [HttpPost]
-        public void Post([FromBody] string value)
+        public User Post([FromBody] UserServices user)
         {
+            //User affected = user.InsertUser();
+            User affected = user.InsertUser();
+            return affected;
         }
 
         // PUT api/<UsersController>/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
+        [HttpPut]
+        public User Put([FromBody] UserServices user)
         {
+            User affected = user.UpdateUser();
+            return affected;
         }
 
         // DELETE api/<UsersController>/5

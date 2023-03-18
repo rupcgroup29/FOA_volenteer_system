@@ -16,38 +16,60 @@
     <!-- Core theme CSS (includes Bootstrap)-->
     <link href="css/styles.css" rel="stylesheet" />
         <script>
-            function RegisterUser() {
-                        let school = document.getElementById("school").value;
-                        let Premition = document.getElementById("Premition").value;
-                        let User_name = document.getElementById("User_name").value;
-                        let leader = document.getElementById("leader").value;
-                        let F-name = document.getElementById("F-name").value;
-                        let L-name = document.getElementById("L-name").value;
-                        let email = document.getElementById("email").value;
-                        let phone = document.getElementById("phone").value;
-                        let user = {
-                                    school:school,
-                                    Premition:Premition,
-                                    User_name :User_name,
-                                    leader:leader,
-                                    F-name:F-name,
-                                    L-name:L-name,
-                                    email:email,
-                                    phone:phone
-                                   }
 
-                        if (cgroup29.users[UserName] == undefined) {
-                            cgroup29.currentUser = UserName;
-                            cgroup29.users[UserName] = user;
-                            localStorage["cgroup29"] = JSON.stringify(cgroup29);
-                            alert("You are now registerd and logged in");
-                            window.location.href = "EX5.html"
-                        }
+            $(document).ready(function () {
+                if (location.hostname === "localhost" || location.hostname === "127.0.0.1") {
+                    api = "https://localhost:7109/api/Users";
+                }
+                // לעדכן את הכתובת החלופית !!
+                //else api = "https://proj.ruppin.ac.il/cgroup29/test2/tar1/api/Users/";
 
-                        else
-                            alert("User with this name already exists");
+
+            })
+
+            function RegisterUser()
+            {
+                let school = document.getElementById("school").value;
+                let Permission = document.getElementById("Permission").value;
+                let User_name = document.getElementById("User_name").value;
+                let leader = document.getElementById("leader").value;
+                let F-name = document.getElementById("F-name").value;
+                let L-name = document.getElementById("L-name").value;
+                let email = document.getElementById("email").value;
+                let phone = document.getElementById("phone").value;
+                let RoleDescription = document.getElementById("RoleDescription").value;
+
+                let newUser = {
+                            FirstName: F-name,
+                            Surname: L - name,
+                            UserName: User_name,
+                            Email: email,
+                            PhoneNum: phone,
+                            VolunteerProgram: school,
+                            Permission: Permission,
+                            RoleDescription: RoleDescription,
+                            Team: leader
+                }
+
+                ajaxCall("POST", api, JSON.stringify(newUser), successPostCBU, errorPostBTU);
 
             }
+
+            function successPostCBU(data) {
+                console.log(data);
+                alert("המשתמש נוצר בהצלחה!");
+                window.location.replace("Flat.html");
+            }
+
+            function errorPostBTU(err) {
+                alert("משתמש עם אימייל\ שם משתמש זה כבר קיים במערכת");
+                console.log(err);
+            }
+
+
+
+
+
         </script>
 
 
@@ -81,28 +103,58 @@
                 <div class="row align-items-stretch mb-5">
                     <div class="col-md-6">
                         <div class="form-group">
-                            <!-- school-->
-                            <input dir="rtl" class="form-control" id="school" type="text" placeholder="מסגרת ההתנדבות *" data-sb-validations="required" />
-                            <div class="invalid-feedback" data-sb-feedback="school:required">חובה להזין את מסגרת ההתנדבות</div>
+                            <!-- Active_Vol-->
+                            <div class="form-headers">
+                                <p> מתנדב פעיל</p>
+                            </div>
+                            <select dir="rtl" class="form-control" id="leader">
+                                <option class="opt" value="0">כן </option>
+                                <option class="opt" value="1">לא </option>
+                            </select>
+                        </div>
+                        <div class="col-12" id="Selection+Other">
+                            <div class=" form-group schoolDiv">
+                                <!-- Different_school-->
+                                <div class="form-headers">
+                                    <p> אחר</p>
+                                </div>
+                                <input dir="rtl" class="form-control" type="text" placeholder="אחר *" data-sb-validations="required" />
+                                <div class="invalid-feedback" data-sb-feedback="Job_description:required">נא להזין מסגרת התנדבות אחרת.</div>
+                            </div>
+                            <div class=" form-group schoolDiv">
+                                <!-- school-->
+                                <div class="form-headers">
+                                    <p> מסגרת התנדבות</p>
+                                </div>
+                                <select dir="rtl" class="form-control" id="school" type="text" data-sb-validations="required">
+                                    <option class="opt" value="0">מסגרת התנדבות- לרנדר *</option>
+                                    <option class="opt" value="1">מקום 1</option>
+                                    <option class="opt" value="2">מקום 2</option>
+                                    <option class="opt" value="3">מקום 3</option>
+                                    <option class="opt" value="99">אחר </option>
+                                </select>
+                                <div class="invalid-feedback" data-sb-feedback="school:required">חובה להזין את מסגרת ההתנדבות</div>
+                            </div>
+
                         </div>
                         <div class="form-group">
-                            <!-- Premition-->
-                            <select dir="rtl" class="form-control" id="Premition" type="text" data-sb-validations="required">
+                            <!-- Permission-->
+                            <div class="form-headers">
+                                <p> הרשאת מערכת</p>
+                            </div>
+                            <select dir="rtl" class="form-control" id="Permission" type="text" data-sb-validations="required">
                                 <option class="opt" value="0">סוג הרשאה *</option>
                                 <option class="opt" value="1">מתנדב.ת</option>
                                 <option class="opt" value="2">מנהל.ת צוות</option>
                                 <option class="opt" value="3">מנהל.ת</option>
                             </select>
-                            <div class="invalid-feedback" data-sb-feedback="Premition:required">חובה לבחור הרשאה למשתמש</div>
-                        </div>
-                        <div class="form-group">
-                            <!-- User_name-->
-                            <input dir="rtl" class="form-control" id="User_name" type="email" placeholder="שם משתמש *" data-sb-validations="required,email" />
-                            <div class="invalid-feedback" data-sb-feedback="User_name:required">חובה לבחור שם משתמש מקורי</div>
-                            <div class="invalid-feedback" data-sb-feedback="User_name:User_name">שם המשתמש לא תקין.</div>
+                            <div class="invalid-feedback" data-sb-feedback="Permission:required">חובה לבחור הרשאה למשתמש</div>
                         </div>
                         <div class="form-group">
                             <!-- Team leader-->
+                            <div class="form-headers">
+                                <p> בחירת צוות התנדבות</p>
+                            </div>
                             <select dir="rtl" class="form-control" id="leader" type="text" data-sb-validations="required">
                                 <option class="opt" value="0">ראש צוות- לרנדר *</option>
                                 <option class="opt" value="1">מישהי 1</option>
@@ -111,37 +163,58 @@
                             </select>
                             <div class="invalid-feedback" data-sb-feedback="leader:required">חובה לבחור ראש צוות</div>
                         </div>
+                        <div class="form-group">
+                            <!-- Job_description-->
+                            <div class="form-headers">
+                                <p> תיאור תפקיד בעמותה</p>
+                            </div>
+                            <input dir="rtl" class="form-control" id="Job_description" type="text" placeholder="תיאור תפקיד " />
+                        </div>
                     </div>
                     <div class="col-md-6">
                         <div class="form-group">
                             <!-- First Name input-->
+                            <div class="form-headers">
+                                <p> שם פרטי</p>
+                            </div>
                             <input dir="rtl" class="form-control" id="F-name" type="text" placeholder="שם פרטי *" data-sb-validations="required" />
                             <div class="invalid-feedback" data-sb-feedback="F-name:required">חובה להזין שם פרטי</div>
                         </div>
                         <div class="form-group">
                             <!--Last Name input-->
+                            <div class="form-headers">
+                                <p> שם משפחה</p>
+                            </div>
                             <input dir="rtl" class="form-control" id="L-name" type="text" placeholder="שם משפחה *" data-sb-validations="required" />
                             <div class="invalid-feedback" data-sb-feedback="L-name:required">חובה להזין שם משפחה</div>
                         </div>
                         <div class="form-group">
+                            <!-- User_name-->
+                            <div class="form-headers">
+                                <p> שם משתמש במערכת</p>
+                            </div>
+                            <input dir="rtl" class="form-control" id="User_name" type="email" placeholder="שם משתמש *" data-sb-validations="required,email" />
+                            <div class="invalid-feedback" data-sb-feedback="User_name:required">חובה לבחור שם משתמש מקורי</div>
+                            <div class="invalid-feedback" data-sb-feedback="User_name:User_name">שם המשתמש לא תקין.</div>
+                        </div>
+                        <div class="form-group">
                             <!-- Email address input-->
+                            <div class="form-headers">
+                                <p> כתובת אימייל</p>
+                            </div>
                             <input dir="rtl" class="form-control" id="email" type="email" placeholder="אימייל *" data-sb-validations="required" />
                             <div class="invalid-feedback" data-sb-feedback="email:required">חובה להזין כתובת אימייל</div>
                             <div class="invalid-feedback" data-sb-feedback="email:email">כתובת האימייל אינה תקינה</div>
                         </div>
                         <div class="form-group mb-md-0">
                             <!-- Phone number input-->
+                            <div class="form-headers">
+                                <p> טלפון</p>
+                            </div>
                             <input dir="rtl" class="form-control" id="phone" type="tel" placeholder="טלפון *" data-sb-validations="required" />
                             <div class="invalid-feedback" data-sb-feedback="phone:required">חובה להזין מספר טלפון</div>
                         </div>
-                    </div>
 
-                    <div class="col-md-12">
-                        <div class="form-group mb-md-0">
-                            <!-- Job_description-->
-                            <input dir="rtl" class="form-control" id="phone" type="tel" placeholder="תיאור תפקיד *" data-sb-validations="required" />
-                            <div class="invalid-feedback" data-sb-feedback="phone:required">חובה להזין תיאור תפקיד.</div>
-                        </div>
                     </div>
                 </div>
                 <!-- Submit success message-->

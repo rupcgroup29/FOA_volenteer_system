@@ -183,7 +183,6 @@ namespace FOA_Server.Models.DAL
             cmd.Parameters.AddWithValue("@Surname", user.Surname);
             cmd.Parameters.AddWithValue("@UserName", user.UserName);
             cmd.Parameters.AddWithValue("@Email", user.Email);
-            cmd.Parameters.AddWithValue("@Password", user.Password);
             cmd.Parameters.AddWithValue("@PhoneNum", user.PhoneNum);
             cmd.Parameters.AddWithValue("@RoleDescription", user.RoleDescription);
             cmd.Parameters.AddWithValue("@PermissionID", user.PermissionID);

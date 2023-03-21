@@ -21,36 +21,36 @@
     <script>
 
         $(document).ready(function () {
-            //  if (location.hostname === "localhost" || location.hostname === "127.0.0.1") {
-            api = "https://localhost:7109/api/Users";
-            //}
+            if (location.hostname === "localhost" || location.hostname === "127.0.0.1") {
+                api = "https://localhost:7109/api/Users";
+            }
             // לעדכן את הכתובת החלופית !!
             //else api = "https://proj.ruppin.ac.il/cgroup29/test2/tar1/api/Users/";
 
-            $('#contactForm').submit(RegisterUser);
+            $('#contactForm').submit(RegisterUser());
         });
 
         function RegisterUser() {
-            //let volunteerProgram = document.getElementById("volunteerProgram").value;
-            //let permission = document.getElementById("permission").value;
-            //let user_name = document.getElementById("user_name").value;
-            //let team = document.getElementById("team").value;
-            //let firstName = document.getElementById("firstName").value;
-            //let surname = document.getElementById("surname").value;
-            //let email = document.getElementById("email").value;
-            //let phone = document.getElementById("phone").value;
-            //let roleDescription = document.getElementById("roleDescription").value;
+            let volunteerProgram = document.getElementById("volunteerProgram").value;
+            let permission = document.getElementById("permission").value;
+            let user_name = document.getElementById("user_name").value;
+            let team = document.getElementById("team").value;
+            let firstName = document.getElementById("firstName").value;
+            let surname = document.getElementById("surname").value;
+            let email = document.getElementById("email").value;
+            let phone = document.getElementById("phone").value;
+            let roleDescription = document.getElementById("roleDescription").value;
 
-            const newUser = {
-                FirstName: $("#firstName").val(),
-                Surname: $("#surname").val(),
-                UserName: $("#user_name").val(),
-                Email: $("#email").val(),
-                PhoneNum: $("#phone").val(),
-                RoleDescription: $("#roleDescription").val(),
-                PermissionID: $("#permission").val(),
-                VolunteerProgram: $("#volunteerProgram").val(),
-                TeamID: $("#team").val()
+            let newUser = {
+                FirstName: firstName,
+                Surname: surname,
+                UserName: user_name,
+                Email: email,
+                PhoneNum: phone,
+                VolunteerProgram: school,
+                PermissionID: permission,
+                RoleDescription: roleDescription,
+                TeamID: team
             }
 
             ajaxCall("POST", api, JSON.stringify(newUser), successPostCBU, errorPostBTU);

@@ -33,6 +33,7 @@ namespace FOA_Server.Services
             return dbs.ReadPlatforms();
         }
 
+
         // read all Languages
         public List<Language> ReadAllLanguages()
         {

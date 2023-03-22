@@ -1,6 +1,5 @@
-﻿using System.Data.SqlClient;
-using System.Data;
-using FOA_Server.Models;
+﻿using System.Data;
+using System.Data.SqlClient;
 
 namespace FOA_Server.Models.DAL
 {
@@ -41,7 +40,7 @@ namespace FOA_Server.Models.DAL
                     usr.UserName = dataReader["UserName"].ToString();
                     usr.Email = dataReader["Email"].ToString();
                     usr.Password = dataReader["Password"].ToString();
-                    usr.PhoneNum = Convert.ToInt32(dataReader["PhoneNum"]);
+                    usr.PhoneNum = dataReader["PhoneNum"].ToString();
                     usr.RoleDescription = dataReader["RoleDescription"].ToString();
                     usr.PermissionID = Convert.ToInt32(dataReader["PermissionID"]);
                     usr.VolunteerProgram = dataReader["VolunteerProgram"].ToString();
@@ -183,12 +182,11 @@ namespace FOA_Server.Models.DAL
             cmd.Parameters.AddWithValue("@Surname", user.Surname);
             cmd.Parameters.AddWithValue("@UserName", user.UserName);
             cmd.Parameters.AddWithValue("@Email", user.Email);
-            cmd.Parameters.AddWithValue("@Password", user.Password);
             cmd.Parameters.AddWithValue("@PhoneNum", user.PhoneNum);
             cmd.Parameters.AddWithValue("@RoleDescription", user.RoleDescription);
             cmd.Parameters.AddWithValue("@PermissionID", user.PermissionID);
-            cmd.Parameters.AddWithValue("@ProgramID", user.VolunteerProgram);
             cmd.Parameters.AddWithValue("@TeamID", user.TeamID);
+            cmd.Parameters.AddWithValue("@VolunteerProgram", user.VolunteerProgram);
 
             return cmd;
         }

@@ -28,7 +28,7 @@ namespace FOA_Server.Controllers
         
         // POST api/<UsersController>
         [HttpPost]
-        public User Post([FromBody] UserServices user)
+        public User Post([FromBody] User user)
         {
             //User affected = user.InsertUser();
             User affected = user.InsertUser();
@@ -37,7 +37,7 @@ namespace FOA_Server.Controllers
 
         // PUT api/<UsersController>/5
         [HttpPut]
-        public User Put([FromBody] UserServices user)
+        public User Put([FromBody] User user)
         {
             User affected = user.UpdateUser();
             return affected;

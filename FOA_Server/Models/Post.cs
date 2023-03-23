@@ -62,7 +62,7 @@ namespace FOA_Server.Models
         }
 
         //Insert new post
-        public Post InsertPost()
+   /*     public Post InsertPost()
         {
             postsList = ReadAllPosts();
             try
@@ -87,7 +87,7 @@ namespace FOA_Server.Models
                 // write to error log file
                 throw new Exception(" didn't succeed in inserting " + exp.Message);
             }
-        }
+        } */
 
         // valid unique URL link for the new post insering
         public bool UniqueUrl(string url)
@@ -104,7 +104,22 @@ namespace FOA_Server.Models
         }
 
 
+        // list of approval posts
+        public List<Post> ApprovalPosts()
+        {
+            postsList= ReadAllPosts();
+            List<Post> approvalPosts = new List<Post>();
 
+            foreach (Post post in postsList)
+            {
+                if (post.PostStatus == 1)
+                {
+                    approvalPosts.Add(post);
+                }
+            }
+
+            return approvalPosts;
+        }
 
 
 

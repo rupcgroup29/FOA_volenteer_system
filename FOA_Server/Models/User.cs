@@ -46,6 +46,7 @@ namespace FOA_Server.Models
             return dbs.ReadUsers();
         }
 
+
         //Insert new user
         public User InsertUser()
         {
@@ -193,5 +194,37 @@ namespace FOA_Server.Models
         }
 
 
+        // list on users by their role in the syster
+        public List<User> UsersByPermission(int perm)
+        {
+            UsersList = ReadAllUsers();
+            List<User> tempUsersList = new List<User>();
+
+            foreach (User u in UsersList)
+            {
+                if (u.PermissionID == perm)
+                {
+                    tempUsersList.Add(u);
+                }
+            }
+
+            return tempUsersList;
+        }
+
+
+
+
+
     }
+
+    //public class ParentForgotPass
+    //{
+    //    public string Email { get; set; }
+    //    public string Password { get; set; }
+    //    internal int PasswordResetToken(string token1, DateTime deadlineDateTime, string email)
+    //    {
+    //        throw new NotImplementedException();
+    //    }
+
+    //}
 }

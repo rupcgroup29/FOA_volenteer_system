@@ -78,7 +78,7 @@ namespace FOA_Server.Models.DAL
         }
 
         // This method insert a Post
-        public int InsertPost(Post post)
+    /*    public int InsertPost(Post post)
         {
             SqlConnection con;
             SqlCommand cmd;
@@ -116,7 +116,7 @@ namespace FOA_Server.Models.DAL
                 }
             }
 
-        }
+        } */
 
         // Language
         // This method reads all Language
@@ -395,23 +395,23 @@ namespace FOA_Server.Models.DAL
         }
 
         // Create the SqlCommand using a stored procedure for Insert a Post
-        private SqlCommand CreateCommandWithStoredProcedureInsert(String spName, SqlConnection con, Post platform)
-        {
-            SqlCommand cmd = new SqlCommand(); // create the command object
+        //private SqlCommand CreateCommandWithStoredProcedureInsert(String spName, SqlConnection con, Post platform)
+        //{
+        //    SqlCommand cmd = new SqlCommand(); // create the command object
 
-            cmd.Connection = con;              // assign the connection to the command object
+        //    cmd.Connection = con;              // assign the connection to the command object
 
-            cmd.CommandText = spName;          // can be Select, Insert, Update, Delete 
+        //    cmd.CommandText = spName;          // can be Select, Insert, Update, Delete 
 
-            cmd.CommandTimeout = 10;           // Time to wait for the execution' The default is 30 seconds
+        //    cmd.CommandTimeout = 10;           // Time to wait for the execution' The default is 30 seconds
 
-            cmd.CommandType = System.Data.CommandType.StoredProcedure; // the type of the command, can also be stored procedure
+        //    cmd.CommandType = System.Data.CommandType.StoredProcedure; // the type of the command, can also be stored procedure
 
-            cmd.Parameters.AddWithValue("@PlatformID", platform.PlatformID);
-            cmd.Parameters.AddWithValue("@PlatformName", platform.PlatformName);
+        //    cmd.Parameters.AddWithValue("@PlatformID", platform.PlatformID);
+        //    cmd.Parameters.AddWithValue("@PlatformName", platform.pla);
 
-            return cmd;
-        }
+        //    return cmd;
+        //}
 
 
 

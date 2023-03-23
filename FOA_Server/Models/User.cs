@@ -1,4 +1,5 @@
-﻿using System.Text.RegularExpressions;
+﻿using FOA_Server.Models.DAL;
+using System.Text.RegularExpressions;
 
 namespace FOA_Server.Models
 {
@@ -8,37 +9,40 @@ namespace FOA_Server.Models
         public string FirstName { get; set; }
         public string Surname { get; set; }
         public string UserName { get; set; }
-        public string Email { get; set; }
-        public string Password { get; set; }
-        public int PhoneNum { get; set; }
+        public string PhoneNum { get; set; }
         public string RoleDescription { get; set; }
         public int PermissionID { get; set; }
-        public int ProgramID { get; set; }
+        public bool IsActive { get; set; }
+        public string Password { get; set; }
         public int TeamID { get; set; }
-
-        private static List<User> UsersList = new List<User>();
+        public string VolunteerProgram { get; set; }
+        public string Email { get; set; }
 
         public User() { }
 
-        public User(int userID, string firstName, string surname, string userName, string email, string password, int phoneNum, string roleDescription, int permissionID, int programID, int teamID)
+        public User(int userID, string firstName, string surname, string userName, string phoneNum, string roleDescription, int permissionID, bool isActive, string password, int teamID, string volunteerProgram, string email)
         {
             UserID = userID;
             FirstName = firstName;
             Surname = surname;
             UserName = userName;
-            Email = email;
-            Password = password;
             PhoneNum = phoneNum;
             RoleDescription = roleDescription;
             PermissionID = permissionID;
-            ProgramID = programID;
+            IsActive = isActive;
+            Password = password;
             TeamID = teamID;
+            VolunteerProgram = volunteerProgram;
+            Email = email;
         }
+
+        private static List<User> UsersList = new List<User>();
+
 
         // read all users
         public List<User> ReadAllUsers()
         {
-            DBservices dbs = new DBservices();
+            DBusers dbs = new DBusers();
             return dbs.ReadUsers();
         }
 
@@ -78,7 +82,7 @@ namespace FOA_Server.Models
                     throw new Exception(" wrong email foramt! ");
                 }
 
-                DBservices dbs = new DBservices();
+                DBusers dbs = new DBusers();
                 int good = dbs.InsertUsr(this);
                 if (good > 0) { return this; }
                 else { return null; }
@@ -128,7 +132,7 @@ namespace FOA_Server.Models
             }
             return unique;
         }
-        public bool UniquePhone(int phone)
+        public bool UniquePhone(string phone)
         {
             bool unique = true;
             foreach (User u in UsersList)
@@ -152,7 +156,7 @@ namespace FOA_Server.Models
                 {
                     if (u.UserID == this.UserID)
                     {
-                        DBservices dbs = new DBservices();
+                        DBusers dbs = new DBusers();
                         int good = dbs.UpdateUser(this);
 
                         if (good > 0) { return this; }
@@ -175,6 +179,8 @@ namespace FOA_Server.Models
         {
             User user = new User();
             List<User> UserList = user.ReadAllUsers();
+
+            if (this.IsActive == false) { throw new Exception(" this user is not active "); }
 
             foreach (User u in UserList)
             {

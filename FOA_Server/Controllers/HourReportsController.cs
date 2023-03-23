@@ -8,36 +8,36 @@ namespace FOA_Server.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class VolunteerProgramsController : ControllerBase
+    public class HourReportsController : ControllerBase
     {
-        // GET: api/<VolunteerProgramsController>
+        // GET: api/<HourReportsController>
         [HttpGet]
-        public List<VolunteerProgram> Get()
+        public List<HourReport> Get()
         {
-            UserServices vp = new UserServices();
-            return vp.ReadAllVolunteerPrograms();
+            UserServices h = new UserServices();
+            return h.ReadAllHourReports();
         }
 
-        // GET api/<VolunteerProgramsController>/5
+        // GET api/<HourReportsController>/5
         [HttpGet("{id}")]
         public string Get(int id)
         {
             return "value";
         }
 
-        // POST api/<VolunteerProgramsController>
+        // POST api/<HourReportsController>
         [HttpPost]
         public void Post([FromBody] string value)
         {
         }
 
-        // PUT api/<VolunteerProgramsController>/5
+        // PUT api/<HourReportsController>/5
         [HttpPut("{id}")]
         public void Put(int id, [FromBody] string value)
         {
         }
 
-        // DELETE api/<VolunteerProgramsController>/5
+        // DELETE api/<HourReportsController>/5
         [HttpDelete("{id}")]
         public void Delete(int id)
         {

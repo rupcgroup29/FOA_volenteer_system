@@ -18,6 +18,14 @@ namespace FOA_Server.Controllers
             return p.ReadAllPosts();
         }
 
+        // GET: api/<PostsController>/6
+        [HttpGet("approvalPosts")]
+        public List<Post> GetAllApprovedPosts()
+        {
+            Post post = new Post();
+            return post.ApprovalPosts();
+        }
+
         // GET api/<PostsController>/5
         [HttpGet("{id}")]
         public string Get(int id)
@@ -37,10 +45,5 @@ namespace FOA_Server.Controllers
         {
         }
 
-        // DELETE api/<PostsController>/5
-        [HttpDelete("{id}")]
-        public void Delete(int id)
-        {
-        }
     }
 }

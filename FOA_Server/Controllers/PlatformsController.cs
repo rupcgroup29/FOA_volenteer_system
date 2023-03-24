@@ -1,6 +1,9 @@
 ﻿using FOA_Server.Models;
 using FOA_Server.Services;
 using Microsoft.AspNetCore.Mvc;
+using System.Diagnostics;
+using System.Net.Mail;
+using System.Net;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -15,7 +18,7 @@ namespace FOA_Server.Controllers
         public List<Platform> Get()
         {
             PostServices p = new PostServices();
-            return p.ReadAllPlatforms();   
+            return p.ReadAllPlatforms();
         }
 
         // GET api/<PlatformsController>/5
@@ -27,7 +30,7 @@ namespace FOA_Server.Controllers
 
         // POST api/<PlatformsController>
         [HttpPost]
-        public Platform Post([FromBody] PostServices plat)
+        public Platform Post([FromBody] Platform plat)
         {
             Platform affected = plat.InsertPlatform();
             return affected;
@@ -44,5 +47,7 @@ namespace FOA_Server.Controllers
         public void Delete(int id)
         {
         }
+
+
     }
 }

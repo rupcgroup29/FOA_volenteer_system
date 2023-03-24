@@ -73,12 +73,7 @@
                                     <p> מסגרת התנדבות</p>
                                 </div>
                                 <select dir="rtl" class="form-control" id="volunteerProgram" required>
-                                    <!-- לבדוק אם עובד טוב ברינדור - אם כן אפשר למחוק את השורות מתחת -->
-                                    <!--<option class="opt" value="0">מסגרת התנדבות- לרנדר *</option>
-                                    <option class="opt" value="1">מקום 1</option>
-                                    <option class="opt" value="2">מקום 2</option>
-                                    <option class="opt" value="3">מקום 3</option>
-                                    <option class="opt" value="99" onclick="showOtherSchoolDiv()">אחר </option>-->
+                                    <!-- render -->
                                 </select>
                             </div>
                             <div class="col-6 form-headers form-group " id="DifSchoolDiv">
@@ -94,9 +89,9 @@
                             </div>
                             <select dir="rtl" class="form-control" id="permission" required>
                                 <option class="opt" value="0">סוג הרשאה *</option>
-                                <option class="opt" value="1">מתנדב.ת</option>
-                                <option class="opt" value="2">מנהל.ת צוות</option>
-                                <option class="opt" value="3">מנהל.ת</option>
+                                <option class="opt" value="4">מתנדב.ת</option>
+                                <option class="opt" value="3">מנהל.ת צוות</option>
+                                <option class="opt" value="2">מנהל.ת</option>
                             </select>
                         </div>
                         <div class="form-group">
@@ -105,11 +100,7 @@
                                 <p> בחירת צוות התנדבות</p>
                             </div>
                             <select dir="rtl" class="form-control" id="team" required>
-                                <!-- לבדוק אם עובד טוב ברינדור - אם כן אפשר למחוק את השורות מתחת -->
-                                <!--<option class="opt" value="0">ראש צוות- לרנדר *</option>
-                                <option class="opt" value="1">מישהי 1</option>
-                                <option class="opt" value="2">מישהו 2</option>
-                                <option class="opt" value="3">מישהי 3</option>-->
+                                <!-- render -->
                             </select>
                         </div>
                         <div class="form-group">
@@ -171,14 +162,14 @@
                 
                  This is what your users will see when there is
                  an error submitting the form
-                <div class="d-none" id="submitErrorMessage"><div class="text-center text-danger mb-3">בעיה בשמירת הנתונים!</div></div>
-                 Submit Button
-                <div class="text-center"><button class="btn btn-primary btn-xl text-uppercase disabled" id="submitButton" type="submit">שמור</button></div>-->
+                <div class="d-none" id="submitErrorMessage"><div class="text-center text-danger mb-3">בעיה בשמירת הנתונים!</div></div>-->
+                 <!--Submit Button-->
+                <div class="text-center"><button class="btn btn-primary btn-xl text-uppercase" id="submitButton" type="submit">שמור</button></div>
             </form>
         </div>
     </section>
-    <!-- Footer-->
-    <!--<footer class="footer py-4">
+     <!--Footer-->
+    <footer class="footer py-4">
         <div class="container">
             <div class="row align-items-center">
                 <div class="col-lg-4 text-lg-start">Copyright &copy; Your Website 2022</div>
@@ -193,7 +184,7 @@
                 </div>
             </div>
         </div>
-    </footer>-->
+    </footer>
 
 </body>
 </html>

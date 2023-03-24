@@ -25,18 +25,18 @@ $(document).ready(function () {
 });
 
 function RegisterUser() {
-    let firstName = document.getElementById("#firstName").value;
-    let surname = document.getElementById("#surname").value;
-    let user_name = document.getElementById("#user_name").value;
-    let email = document.getElementById("#email").value;
-    let phone = document.getElementById("#phone").value;
-    let volunteerProgram = document.getElementById("#volunteerProgram").value;
+    let firstName = $("#firstName").val();
+    let surname = $("#surname").val();
+    let user_name = $("#user_name").val();
+    let email = $("#email").val();
+    let phone = $("#phone").val();
+    let volunteerProgram = $("#volunteerProgram").val();
     if (volunteerProgram == 999) {
-        volunteerProgram = document.getElementById("#Different_school").value;
+        volunteerProgram = $("#Different_school").val();
     }
-    let permission = document.getElementById("#permission").value;
-    let team = document.getElementById("#team").value;
-    let roleDescription = document.getElementById("#roleDescription").value;
+    let permission = $("#permission").val();
+    let team = $("#team").val();
+    let roleDescription = $("#roleDescription").val();
 
     const newUser = {
         FirstName: firstName,
@@ -49,21 +49,6 @@ function RegisterUser() {
         RoleDescription: roleDescription,
         TeamID: team
     }
-    //check if this user already exist
-    // לבדוק אם אפשר לעשות בצד שרת במקום
-    //let i = 0;
-    //while (i < usersArr.length) {
-    //    if (UserName == usersArr.UserName)
-    //    {
-    //        alert("קיים מתנדב עם שם משתמש זה")
-    //        return;
-    //    }    
-    //    if (email == usersArr.email)
-    //    {
-    //        alert("קיים מתנדב עם מייל זה");
-    //        return;
-    //    }
-    //}
 
     ajaxCall("POST", api + "Users", JSON.stringify(newUser), postRegisterSCB, postRegisterECB);
     return false;
@@ -103,7 +88,7 @@ function getVolunteerProgramsSCB(data) {
         let str = "";
         str += '<option class="opt" value="0">מסגרת לימודים דרכה מתנדב.ת *</option>';
         for (var i = 0; i < data.length; i++) {
-            str += '<option class="opt" value="'+ i + '">' + data[i].VolunteerProgram + '</option>';
+            str += '<option class="opt" value="' + data[i].programID + '">' + data[i].programName + '</option>';
         }
         str += '<option class="opt" value="999" onclick="showOtherSchoolDiv()">אחר </option>';
         document.getElementById("volunteerProgram").innerHTML += str;
@@ -126,7 +111,7 @@ function getTeamSCB(data) {
         let str = "";
         str += '<option class="opt" value="0">בחר צוות התנדבות *</option>';
         for (var i = 0; i < data.length; i++) {
-            str += '<option class="opt" value="' + data[i].TeamID + '">' + data[i].team + '</option>';
+            str += '<option class="opt" value="' + data[i].teamID + '">' + data[i].teamName + '</option>';
         }
         document.getElementById("team").innerHTML += str;
     }

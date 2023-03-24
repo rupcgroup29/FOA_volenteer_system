@@ -3,8 +3,7 @@ var isLoggedIn;
 var usersArr = [];
 var CurrentUser = sessionStorage.getItem("user");
 
-$(document).ready(function ()
-{
+$(document).ready(function () {
     if (location.hostname === "localhost" || location.hostname === "127.0.0.1") {
         api = "https://localhost:7109/api/";
     }
@@ -19,7 +18,7 @@ $(document).ready(function ()
     $('#contactForm').submit(RegisterUser);
 
     // get the volunteer Program list
-    GetVolunteerProgramList();
+    GetVolunteerProgramsList();
     // get the teams list
     GetTeamsList();
 
@@ -32,10 +31,9 @@ function RegisterUser() {
     let email = document.getElementById("#email").value;
     let phone = document.getElementById("#phone").value;
     let volunteerProgram = document.getElementById("#volunteerProgram").value;
-        if (volunteerProgram == 999)
-        {
-            volunteerProgram = document.getElementById("#Different_school").value;
-        }
+    if (volunteerProgram == 999) {
+        volunteerProgram = document.getElementById("#Different_school").value;
+    }
     let permission = document.getElementById("#permission").value;
     let team = document.getElementById("#team").value;
     let roleDescription = document.getElementById("#roleDescription").value;
@@ -74,7 +72,6 @@ function postRegisterSCB(data) { // הוספת משתמש הצליחה
     alert("משתמש נוסף בהצלחה");
     window.location.assign("Teams-main.html");
     location.assign("Teams-main.html")
-
 }
 
 function postRegisterECB(err) {
@@ -83,7 +80,8 @@ function postRegisterECB(err) {
 
 // read all users
 function readUsers() {
-    ajaxCall("GET", api+"Users", "", getAllUsersSCB, getAllUsersECB);
+    ajaxCall("GET", api + "Users", "", getAllUsersSCB, getAllUsersECB);
+    return false;
 }
 function getAllUsersSCB(data) {
     usersArr = data;
@@ -94,22 +92,21 @@ function getAllUsersECB(err) {
 
 // get the Volunteer Programs list
 function GetVolunteerProgramsList() {
-    ajaxCall("GET", api +"VolunteerPrograms", "", getVolunteerProgramsSCB, getVolunteerProgramsECB);
+    ajaxCall("GET", api + "VolunteerPrograms", "", getVolunteerProgramsSCB, getVolunteerProgramsECB);
+    return false;
 }
 
 function getVolunteerProgramsSCB(data) {
     if (data == null) {
         alert("There's no Volunteer Programs yet");
-    } else
-    {
+    } else {
         let str = "";
         str += '<option class="opt" value="0">מסגרת לימודים דרכה מתנדב.ת *</option>';
-        for (var i = 0; i < data.length; i++)
-        {
-            str += '<option class="opt" value="' + data[i].volunteerProgramID + '">' + data[i].volunteerProgram + '</option>';          
+        for (var i = 0; i < data.length; i++) {
+            str += '<option class="opt" value="'+ i + '">' + data[i].VolunteerProgram + '</option>';
         }
         str += '<option class="opt" value="999" onclick="showOtherSchoolDiv()">אחר </option>';
-        document.getElementById("volunteerProgram").innerHTML = str;
+        document.getElementById("volunteerProgram").innerHTML += str;
     }
 }
 function getVolunteerProgramsECB(err) {
@@ -118,7 +115,8 @@ function getVolunteerProgramsECB(err) {
 
 // get the Teams list
 function GetTeamsList() {
-    ajaxCall("GET", api+"Teams", "", getTeamSCB, getTeamECB);
+    ajaxCall("GET", api + "Teams", "", getTeamSCB, getTeamECB);
+    return false;
 }
 
 function getTeamSCB(data) {
@@ -130,7 +128,7 @@ function getTeamSCB(data) {
         for (var i = 0; i < data.length; i++) {
             str += '<option class="opt" value="' + data[i].TeamID + '">' + data[i].team + '</option>';
         }
-        document.getElementById("team").innerHTML = str;
+        document.getElementById("team").innerHTML += str;
     }
 }
 function getTeamECB(err) {

@@ -29,6 +29,7 @@ namespace FOA_Server.Controllers
             return user.UsersByPermission(permissionID);
         }
 
+
         // GET: api/<UsersController>/6
         [HttpGet("login")]
         public User GetLogin(int permissionID)

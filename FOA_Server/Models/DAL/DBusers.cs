@@ -43,7 +43,7 @@ namespace FOA_Server.Models.DAL
                     usr.PhoneNum = dataReader["PhoneNum"].ToString();
                     usr.RoleDescription = dataReader["RoleDescription"].ToString();
                     usr.PermissionID = Convert.ToInt32(dataReader["PermissionID"]);
-                    usr.VolunteerProgram = dataReader["VolunteerProgram"].ToString();
+                    usr.ProgramID = Convert.ToInt32(dataReader["ProgramID"]);
                     usr.TeamID = Convert.ToInt32(dataReader["TeamID"]);
 
                     list.Add(usr);
@@ -186,7 +186,7 @@ namespace FOA_Server.Models.DAL
             cmd.Parameters.AddWithValue("@RoleDescription", user.RoleDescription);
             cmd.Parameters.AddWithValue("@PermissionID", user.PermissionID);
             cmd.Parameters.AddWithValue("@TeamID", user.TeamID);
-            cmd.Parameters.AddWithValue("@VolunteerProgram", user.VolunteerProgram);
+            cmd.Parameters.AddWithValue("@ProgramID", user.ProgramID);
 
             return cmd;
         }
@@ -211,7 +211,7 @@ namespace FOA_Server.Models.DAL
             cmd.Parameters.AddWithValue("@PhoneNum", user.PhoneNum);
             cmd.Parameters.AddWithValue("@RoleDescription", user.RoleDescription);
             cmd.Parameters.AddWithValue("@PermissionID", user.PermissionID);
-            cmd.Parameters.AddWithValue("@ProgramID", user.VolunteerProgram);
+            cmd.Parameters.AddWithValue("@ProgramID", user.ProgramID);
             cmd.Parameters.AddWithValue("@TeamID", user.TeamID);
 
             return cmd;

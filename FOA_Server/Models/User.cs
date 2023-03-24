@@ -15,12 +15,12 @@ namespace FOA_Server.Models
         public bool IsActive { get; set; }
         public string Password { get; set; }
         public int TeamID { get; set; }
-        public string VolunteerProgram { get; set; }
+        public int ProgramID { get; set; }
         public string Email { get; set; }
 
         public User() { }
 
-        public User(int userID, string firstName, string surname, string userName, string phoneNum, string roleDescription, int permissionID, bool isActive, string password, int teamID, string volunteerProgram, string email)
+        public User(int userID, string firstName, string surname, string userName, string phoneNum, string roleDescription, int permissionID, bool isActive, string password, int teamID, int programID, string email)
         {
             UserID = userID;
             FirstName = firstName;
@@ -32,7 +32,7 @@ namespace FOA_Server.Models
             IsActive = isActive;
             Password = password;
             TeamID = teamID;
-            VolunteerProgram = volunteerProgram;
+            ProgramID = programID;
             Email = email;
         }
 

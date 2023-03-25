@@ -28,10 +28,8 @@ function loginUser() {
 function postLoginUserSCB(data) { // התחברות הצליחה
     isLoggedIn = true;
     sessionStorage.setItem("CurrentUser", JSON.stringify(data));
-    //name = CurrentUser.firstName;
-    //$(".hello").val("hello " + name + "!");
     window.location.assign("HomePage.html");
-    //location.assign("HomePage.html")
+
 
 }
 function postLoginUserECB(err) { // התחברות כשלה

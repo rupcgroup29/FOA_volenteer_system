@@ -34,7 +34,7 @@ function RegisterUser() {
     let email = $("#email").val();
     let phone = $("#phone").val();
     let volunteerProgram = $("#volunteerProgram").val();
-    if (volunteerProgram == 999) { otherVolunteerProgram(); } //הוספת אפשררות חדשה למסגרת התנדבות
+    if (volunteerProgram == 999) { otherVolunteerProgram(); } //הוספת אפשרות חדשה למסגרת התנדבות
     let permission = $("#permission").val();
     let team = $("#team").val();
     let roleDescription = $("#roleDescription").val();
@@ -125,9 +125,9 @@ function getTeamECB(err) {
 
 //send other volunteer program
 function otherVolunteerProgram() {
-    let ProgramName = $("#Different_school").val();
+    let programName = $("#Different_school").val();
     let volunteerProgram = {
-        ProgramID: 999,
+        ProgramID: "",
         ProgramName: programName
     }
     ajaxCall("POST", api + "VolunteerPrograms", JSON.stringify(volunteerProgram), postOtherVolunteerProgramSCB, postOtherVolunteerProgramECB);
@@ -148,7 +148,7 @@ function HideIsActiveDiv() {
     element.style.display = "none";
 }
 
-
+// Show Other volunteer program only if other selected
 function ShowOther() {
     var sel = document.getElementById('volunteerProgram');
 
@@ -159,5 +159,6 @@ function ShowOther() {
         if (sel.value === '999') {
             $("#Different_school").attr("readonly", false);
         }
+        else $("#Different_school").attr("readonly", true);
     }
 }

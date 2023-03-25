@@ -47,7 +47,8 @@ function RegisterUser() {
         PermissionID: permission,
         TeamID: team,
         ProgramID: volunteerProgram,
-        Email: email
+        Email: email,
+        Password: "1"//זמני
     }
 
     ajaxCall("POST", api + "Users", JSON.stringify(newUser), postRegisterSCB, postRegisterECB);

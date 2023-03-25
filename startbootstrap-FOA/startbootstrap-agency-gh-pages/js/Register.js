@@ -44,7 +44,7 @@ function RegisterUser() {
         UserName: user_name,
         Email: email,
         PhoneNum: phone,
-        VolunteerProgram: volunteerProgram,
+        ProgramID: volunteerProgram,
         PermissionID: permission,
         RoleDescription: roleDescription,
         TeamID: team

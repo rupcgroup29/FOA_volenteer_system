@@ -23,6 +23,7 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
     <!-- קישור לעמודי JS -->
     <script src="js/ajaxCall.js"></script>
+    <script src="js/AddPostReport.js"></script>
 
 
 </head>
@@ -87,7 +88,6 @@
                                     <p> אחר</p>
                                 </div>
                                 <input dir="rtl" class="form-control" id="Network_diff" type="text" placeholder="אחר *" data-sb-validations="required" />
-                                <div class="invalid-feedback" data-sb-feedback="Job_description:required">נא להזין רשת חברתית אחרת.</div>
                             </div>
                             <div class=" form-group NetworkDiv">
                                 <!-- Network-->
@@ -100,7 +100,6 @@
                                     <option class="opt" value="2">טוויטר </option>
                                     <option class="opt" value="3">אחר</option>
                                 </select>
-                                <div class="invalid-feedback" data-sb-feedback="school:required">חובה להזין רשת חברתית</div>
                             </div>
                         </div>
                         <div class="form-group">
@@ -114,7 +113,6 @@
                                 <option class="opt" value="2">קנדה</option>
                                 <option class="opt" value="3">לבנון</option>
                             </select>
-                            <div class="invalid-feedback" data-sb-feedback="Country:required">חובה לבחור הרשאה למשתמש</div>
                         </div>
                         <div class="form-group">
                             <!-- content_threat?-->
@@ -129,7 +127,6 @@
                                 <option class="opt" value="2">לא</option>
                                 <option class="opt" value="3">לא בטוח</option>
                             </select>
-                            <div class="invalid-feedback" data-sb-feedback="content_threat:required">חובה לבחור תשובה</div>
                         </div>
                         <div class="form-group">
                             <!-- IHRA-->
@@ -147,14 +144,25 @@
                                 <option class="opt" value="5">Holocuast (not Holocaust denial- 5) or any other material that justifies making fun of or mocking the Holocaust</option>
                                 <option class="opt" value="6">Anti Israeli\Anti Zionism (8, 10, 11, 7 ) or any other actions against Israel, such as burning or desecrating the Israeli flag</option>
                             </select>
-                            <div class="invalid-feedback" data-sb-feedback="IHRA:required">חובה לבחור תשובה</div>
                         </div>
                         <div class="form-group">
                             <!-- Screenshot-->
                             <div class="form-headers">
                                 <p> צילום מסך של הפוסט</p>
                             </div>
-                            <div class="panel">
+                            <!--קוד של בני להעאלת תמונות-->
+                            <div>
+                                <form method="post" enctype="multipart/form-data" id="formUpload">
+                                    <div>
+                                        <label for="files">Files</label>
+                                        <input type="file" id="files" name="files" multiple="multiple" />
+                                    </div>
+                                    <br />
+                                    <button type="button" id="buttonUpload">Upload files</button>
+                                </form>
+                                <div id="ph"></div>
+                            </div>
+                            <!--<div class="panel">
                                 <div class="button_outer">
                                     <div class="btn_upload">
                                         <input type="file" id="upload_file" name="">בחירת קובץ
@@ -166,7 +174,7 @@
                             <div class="error_msg"></div>
                             <div class="uploaded_file_view" id="uploaded_view">
                                 <span class="file_remove">X</span>
-                            </div>
+                            </div>-->
                         </div>
 
                     </div>
@@ -177,12 +185,11 @@
                                 <p> LINK</p>
                             </div>
                             <input dir="rtl" class="form-control" id="LINK" type="text" placeholder="LINK *" data-sb-validations="required" />
-                            <div class="invalid-feedback" data-sb-feedback="LINK:required">חובה להזין את כתובת האתר</div>
                         </div>
                         <div class="form-group">
                             <!-- language-->
                             <div class="form-headers">
-                                <p> מדינה</p>
+                                <p> שפה</p>
                             </div>
                             <select dir="rtl" class="form-control" id="language" data-sb-validations="required">
                                 <option class="opt" value="0">שפה *</option>
@@ -190,7 +197,6 @@
                                 <option class="opt" value="2">ערבית</option>
                                 <option class="opt" value="3">אנגלית</option>
                             </select>
-                            <div class="invalid-feedback" data-sb-feedback="Country:required">חובה לבחור הרשאה למשתמש</div>
                         </div>
                         <div class="form-group">
                             <!-- content-->
@@ -198,7 +204,6 @@
                                 <p>תיאור קצר של התוכן</p>
                             </div>
                             <input dir="rtl" class="form-control" id="content" type="text" placeholder="תיאור קצר של התוכן *" data-sb-validations="required,email" />
-                            <div class="invalid-feedback" data-sb-feedback="content:required">חובה לבחור שם משתמש מקורי</div>
                         </div>
                         <div class="form-group">
                             <!-- Keywords_hashtags-->
@@ -206,7 +211,6 @@
                                 <p> מילות מפתח או האשטאגים</p>
                             </div>
                             <input dir="rtl" class="form-control" id="Keywords_hashtags" type="text" placeholder="מילות מפתח או האשטאגים *" data-sb-validations="required" />
-                            <div class="invalid-feedback" data-sb-feedback="Keywords_hashtags:required">חובה להזין כתובת אימייל</div>
                         </div>
                         <div class="col-12">
                             <div class=" form-group exposureDiv">
@@ -215,7 +219,6 @@
                                     <p> לייקים</p>
                                 </div>
                                 <input dir="rtl" class="form-control" id="exposure_likes" type="text" placeholder="כמות *" data-sb-validations="required" />
-                                <div class="invalid-feedback" data-sb-feedback="exposure_likes:required">נא להזין כמות לייקים.</div>
                             </div>
                             <div class=" form-group exposureDiv">
                                 <!-- exposure_Comments-->
@@ -223,7 +226,6 @@
                                     <p> תגובות</p>
                                 </div>
                                 <input dir="rtl" class="form-control" id="exposure_Comments" type="text" placeholder="כמות *" data-sb-validations="required" />
-                                <div class="invalid-feedback" data-sb-feedback="exposure_Comments:required">נא להזין כמות תגובות.</div>
                             </div>
                             <div class=" form-group exposureDiv">
                                 <!-- exposure_shares-->
@@ -231,32 +233,11 @@
                                     <p> שיתופים</p>
                                 </div>
                                 <input dir="rtl" class="form-control" id="exposure_shares" type="text" placeholder="כמות *" data-sb-validations="required" />
-                                <div class="invalid-feedback" data-sb-feedback="exposure_shares:required">נא להזין כמות תגובות.</div>
                             </div>
                         </div>
-
-
-
                     </div>
-                    <!-- Submit success message-->
-                    <!---->
-                    <!-- This is what your users will see when the form-->
-                    <!-- has successfully submitted-->
-                    <div class="d-none" id="submitSuccessMessage">
-                        <div class="text-center text-white mb-3">
-                            <div class="fw-bolder">הדיווח נשמר בהצלחה!!</div>
-                            To activate this form, sign up at
-                            <br />
-                            <a href="https://startbootstrap.com/solution/contact-forms">https://startbootstrap.com/solution/contact-forms</a>
-                        </div>
-                    </div>
-                    <!-- Submit error message-->
-                    <!---->
-                    <!-- This is what your users will see when there is-->
-                    <!-- an error submitting the form-->
-                    <div class="d-none" id="submitErrorMessage"><div class="text-center text-danger mb-3">בעיה בשמירת הנתונים!</div></div>
                     <!-- Submit Button-->
-                    <div class="text-center"><button class="btn btn-primary btn-xl text-uppercase disabled" id="submitButton" type="submit">שמור</button></div>
+                    <div class="text-center"><button class="btn btn-primary btn-xl text-uppercase" id="submitButton" type="submit">שמור</button></div>
                 </div>
             </form>
         </div>

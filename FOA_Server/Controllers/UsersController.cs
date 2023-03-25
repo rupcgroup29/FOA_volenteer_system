@@ -46,8 +46,11 @@ namespace FOA_Server.Controllers
 
         // POST api/<UsersController>/6
         [HttpPost("login")]
-        public User GetLogin([FromBody] string email, string password)
+        public User GetLogin([FromBody] UserLogin useLog)
         {
+            string email = useLog.Email;
+            string password = useLog.Password;
+
             User user = new User();
             return user.Login(email, password);
         }

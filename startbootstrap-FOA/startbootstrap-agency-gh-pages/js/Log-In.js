@@ -10,10 +10,8 @@ $(document).ready(function () {
     // לעדכן את הכתובת החלופית !!
     //else api = "https://proj.ruppin.ac.il/cgroup29/test2/tar1/api/Users/";
 
-    readUsers();
+    $("#LogInForm").submit(loginUser);
 
-  //  $("#submitButton").click(loginUser);
-    $("#LogInForm").submit(loginUser)
 });
 
 
@@ -30,24 +28,13 @@ function loginUser() {
 function postLoginUserSCB(data) { // התחברות הצליחה
     isLoggedIn = true;
     sessionStorage.setItem("CurrentUser", JSON.stringify(data));
-    name = CurrentUser.firstName;
-    $(".hello").val("hello " + name + "!");
+    //name = CurrentUser.firstName;
+    //$(".hello").val("hello " + name + "!");
     window.location.assign("HomePage.html");
-    location.assign("HomePage.html")
+    //location.assign("HomePage.html")
 
 }
 function postLoginUserECB(err) { // התחברות כשלה
     isLoggedIn = false;
-    alert("שם המשתמש או הסיסמא אינם נכונים");
-}
-
-// read all users
-function readUsers() {
-    ajaxCall("GET", api, "", getAllUsersSCB, getAllUsersECB);
-}
-function getAllUsersSCB(data) {
-    usersArr = data;
-}
-function getAllUsersECB(err) {
-    alert("Input Error");
+    alert(err);
 }

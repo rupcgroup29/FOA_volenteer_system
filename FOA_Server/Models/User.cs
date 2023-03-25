@@ -84,7 +84,7 @@ namespace FOA_Server.Models
                 }
 
                 DBusers dbs = new DBusers();
-                int good = dbs.InsertUsr(this);
+                int good = dbs.InsertUser(this);
                 if (good > 0) { return this; }
                 else { return null; }
             }
@@ -176,17 +176,16 @@ namespace FOA_Server.Models
 
 
         // user log in
-        public User Login()
+        public User Login(string email, string password)
         {
             User user = new User();
             List<User> UserList = user.ReadAllUsers();
 
-            if (this.IsActive == false) { throw new Exception(" this user is not active "); }
-
             foreach (User u in UserList)
             {
-                if (this.Email == u.Email && this.Password == u.Password)
+                if (email == u.Email && password == u.Password)
                 {
+                    if (u.IsActive == false) { throw new Exception(" this user is not active "); }
                     return u;
                 }
             }

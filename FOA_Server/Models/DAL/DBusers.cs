@@ -40,6 +40,7 @@ namespace FOA_Server.Models.DAL
                     usr.UserName = dataReader["UserName"].ToString();
                     usr.Email = dataReader["Email"].ToString();
                     usr.Password = dataReader["Password"].ToString();
+                    usr.IsActive = Convert.ToBoolean(dataReader["TeamID"]);
                     usr.PhoneNum = dataReader["PhoneNum"].ToString();
                     usr.RoleDescription = dataReader["RoleDescription"].ToString();
                     usr.PermissionID = Convert.ToInt32(dataReader["PermissionID"]);
@@ -68,7 +69,7 @@ namespace FOA_Server.Models.DAL
         }
 
         // This method inserts a user to the user table 
-        public int InsertUsr(User user)
+        public int InsertUser(User user)
         {
             SqlConnection con;
             SqlCommand cmd;

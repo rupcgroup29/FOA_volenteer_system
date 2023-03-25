@@ -12,28 +12,36 @@ $(document).ready(function () {
 
     readUsers();
 
-    $("#submitButton").click(loginUser);
+  //  $("#submitButton").click(loginUser);
+    $("#LogInForm").submit(loginUser)
 });
 
 
 function loginUser() {
-    let succeed = false;
-    for (var i = 0; i < usersArr.length; i++) {
-        if (usersArr[i].UserName == $("#UserName-input").val() && usersArr[i].password == $("#Password-input").val()) {
-            if (usersArr[i].IsActive === false) {
-                alert("משתמש זה הוגדר משתמש לא פעיל במערכת");
-                return;
-            } else {
-                succeed = true;
-                postSCB(usersArr[i]);
-                break;
-            }
-        }
+    const loginUser = {
+        Email: $("#email-input").val(),
+        Password: $("#Password-input").val()
     }
-    if (succeed == false) { //אם ההתחברות כשלה
-        isLoggedIn = false;
-        alert("שם המשתמש או הסיסמא אינם נכונים");
-    }
+
+    ajaxCall("POST", api + "/login", JSON.stringify(loginUser), postSCB, postECB);
+    return false;
+    //let succeed = false;
+    //for (var i = 0; i < usersArr.length; i++) {
+    //    if (usersArr[i].UserName == $("#UserName-input").val() && usersArr[i].password == $("#Password-input").val()) {
+    //        if (usersArr[i].IsActive === false) {
+    //            alert("משתמש זה הוגדר משתמש לא פעיל במערכת");
+    //            return;
+    //        } else {
+    //            succeed = true;
+    //            postSCB(usersArr[i]);
+    //            break;
+    //        }
+    //    }
+    //}
+    //if (succeed == false) { //אם ההתחברות כשלה
+    //    isLoggedIn = false;
+    //    alert("שם המשתמש או הסיסמא אינם נכונים");
+    //}
 }
 
 function postSCB(data) { // התחברות הצליחה

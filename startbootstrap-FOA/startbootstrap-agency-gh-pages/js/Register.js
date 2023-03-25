@@ -42,12 +42,12 @@ function RegisterUser() {
         FirstName: firstName,
         Surname: surname,
         UserName: user_name,
-        Email: email,
         PhoneNum: phone,
-        ProgramID: volunteerProgram,
-        PermissionID: permission,
         RoleDescription: roleDescription,
-        TeamID: team
+        PermissionID: permission,
+        TeamID: team,
+        ProgramID: volunteerProgram,
+        Email: email
     }
 
     ajaxCall("POST", api + "Users", JSON.stringify(newUser), postRegisterSCB, postRegisterECB);

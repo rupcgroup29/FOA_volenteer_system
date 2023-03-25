@@ -49,7 +49,11 @@ function RegisterUser() {
         TeamID: team,
         ProgramID: volunteerProgram,
         Email: email,
+<<<<<<< Updated upstream
         Password: "1" //במטרה לשלוח אובייקט משתמש שלם, ישתנה בדאטה בייס
+=======
+        Password: ""
+>>>>>>> Stashed changes
     }
 
     ajaxCall("POST", api + "Users", JSON.stringify(newUser), postRegisterSCB, postRegisterECB);

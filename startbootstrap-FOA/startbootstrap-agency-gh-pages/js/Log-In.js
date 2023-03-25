@@ -23,28 +23,11 @@ function loginUser() {
         Password: $("#Password-input").val()
     }
 
-    ajaxCall("POST", api + "/login", JSON.stringify(loginUser), postSCB, postECB);
+    ajaxCall("POST", api + "/login", JSON.stringify(loginUser), postLoginUserSCB, postLoginUserECB);
     return false;
-    //let succeed = false;
-    //for (var i = 0; i < usersArr.length; i++) {
-    //    if (usersArr[i].UserName == $("#UserName-input").val() && usersArr[i].password == $("#Password-input").val()) {
-    //        if (usersArr[i].IsActive === false) {
-    //            alert("משתמש זה הוגדר משתמש לא פעיל במערכת");
-    //            return;
-    //        } else {
-    //            succeed = true;
-    //            postSCB(usersArr[i]);
-    //            break;
-    //        }
-    //    }
-    //}
-    //if (succeed == false) { //אם ההתחברות כשלה
-    //    isLoggedIn = false;
-    //    alert("שם המשתמש או הסיסמא אינם נכונים");
-    //}
 }
 
-function postSCB(data) { // התחברות הצליחה
+function postLoginUserSCB(data) { // התחברות הצליחה
     isLoggedIn = true;
     sessionStorage.setItem("CurrentUser", JSON.stringify(data));
     name = CurrentUser.firstName;
@@ -53,7 +36,7 @@ function postSCB(data) { // התחברות הצליחה
     location.assign("HomePage.html")
 
 }
-function postECB(err) { // התחברות כשלה
+function postLoginUserECB(err) { // התחברות כשלה
     isLoggedIn = false;
     alert("שם המשתמש או הסיסמא אינם נכונים");
 }

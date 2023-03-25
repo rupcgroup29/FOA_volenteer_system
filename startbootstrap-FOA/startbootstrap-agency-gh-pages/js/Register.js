@@ -22,6 +22,9 @@ $(document).ready(function () {
     // get the teams list
     GetTeamsList();
 
+    HideIsActiveDiv();
+    ShowOther();
+    $("#Different_school").attr("readonly", true);
 });
 
 function RegisterUser() {
@@ -31,9 +34,7 @@ function RegisterUser() {
     let email = $("#email").val();
     let phone = $("#phone").val();
     let volunteerProgram = $("#volunteerProgram").val();
-    if (volunteerProgram == 999) {
-        volunteerProgram = $("#Different_school").val();
-    }
+    if (volunteerProgram == 999) { otherVolunteerProgram(); } //הוספת אפשררות חדשה למסגרת התנדבות
     let permission = $("#permission").val();
     let team = $("#team").val();
     let roleDescription = $("#roleDescription").val();
@@ -47,7 +48,8 @@ function RegisterUser() {
         PermissionID: permission,
         TeamID: team,
         ProgramID: volunteerProgram,
-        Email: email
+        Email: email,
+        Password: "1" //במטרה לשלוח אובייקט משתמש שלם, ישתנה בדאטה בייס
     }
 
     ajaxCall("POST", api + "Users", JSON.stringify(newUser), postRegisterSCB, postRegisterECB);
@@ -118,4 +120,44 @@ function getTeamSCB(data) {
 }
 function getTeamECB(err) {
     console.log(err);
+}
+
+
+//send other volunteer program
+function otherVolunteerProgram() {
+    let ProgramName = $("#Different_school").val();
+    let volunteerProgram = {
+        ProgramID: 999,
+        ProgramName: programName
+    }
+    ajaxCall("POST", api + "VolunteerPrograms", JSON.stringify(volunteerProgram), postOtherVolunteerProgramSCB, postOtherVolunteerProgramECB);
+    return false;
+
+}
+
+function postOtherVolunteerProgramSCB(data) {
+    console.log("מסגרת התנדבות חדשה נוספה בהצלחה");
+}
+function postOtherVolunteerProgramECB(err) {
+    alert("Input Error");
+}
+
+//Hide IsActive div
+function HideIsActiveDiv() {
+    var element = document.getElementById("IsActive");
+    element.style.display = "none";
+}
+
+
+function ShowOther() {
+    var sel = document.getElementById('volunteerProgram');
+
+    sel.addEventListener("change", ShowDivIfOtherSelected);
+
+    function ShowDivIfOtherSelected() {
+
+        if (sel.value === '999') {
+            $("#Different_school").attr("readonly", false);
+        }
+    }
 }

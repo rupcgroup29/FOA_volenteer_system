@@ -11,7 +11,7 @@ $(document).ready(function () {
     //else api = "https://proj.ruppin.ac.il/cgroup29/test2/tar1/api/Users/";
 
     //Nav ber - Permission
-    if (CurrentUser.permission == 1) // Volunteer  is logged in
+    if (CurrentUser.permission == 4) // a volunteer is logged in
     {
         $(".ManagerNav").hide();
         $(".VolunteerNav").show();

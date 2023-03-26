@@ -6,6 +6,8 @@ namespace FOA_Server.Models
     {
         public int ProgramID { get; set; }
         public string ProgramName { get; set; }
+
+        private static List<VolunteerProgram> VpList = new List<VolunteerProgram>();
         public VolunteerProgram() { }
         public VolunteerProgram(int programID, string programName)
         {
@@ -13,7 +15,63 @@ namespace FOA_Server.Models
             ProgramName = programName;
         }
 
-       
+
+        // read all Volunteer Programs
+        public List<VolunteerProgram> ReadAllVolunteerPrograms()
+        {
+            DBusers dbs = new DBusers();
+            return dbs.ReadVolunteerPrograms();
+        }
+
+        //Insert new Volunteer Program
+        public int InsertVolunteerProgram()
+        {
+            VpList = ReadAllVolunteerPrograms();
+            try
+            {
+                if (VpList.Count != 0)
+                {
+                    // vaild there is not the same already in the list
+                    bool uniqueName = UniqueName(this.ProgramName);
+                    if (!uniqueName)
+                    {
+                        throw new Exception(" Volunteer Program under that name is allready exists ");
+                    }
+                }
+
+                DBusers dbs = new DBusers();
+                return dbs.InsertVolunteerProgram(this);
+
+            }
+            catch (Exception exp)
+            {
+                // write to error log file
+                throw new Exception(" didn't succeed in inserting " + exp.Message);
+            }
+        }
+
+        // vaild there is not the same already in the list
+        public bool UniqueName(string name)
+        {
+            bool unique = true;
+            var tempName = name.ToLower();
+            List<string> tempList = new List<string>();
+
+            foreach (var item in VpList)
+            {
+                string lowName = item.ProgramName.ToLower();
+                tempList.Add(lowName);
+            }
+
+            foreach (var vp in tempList)
+            {
+                if (vp == tempName)
+                {
+                    unique = false; break;
+                }
+            }
+            return unique;
+        }
 
     }
 }

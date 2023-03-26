@@ -27,8 +27,9 @@ namespace FOA_Server.Controllers
 
         // POST api/<VolunteerProgramsController>
         [HttpPost]
-        public void Post([FromBody] string value)
+        public int Post([FromBody] VolunteerProgram vp)
         {
+            return vp.InsertVolunteerProgram();
         }
 
         // PUT api/<VolunteerProgramsController>/5

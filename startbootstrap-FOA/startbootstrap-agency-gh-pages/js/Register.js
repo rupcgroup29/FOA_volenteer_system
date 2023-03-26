@@ -33,8 +33,8 @@ function RegisterUser() {
     let user_name = $("#user_name").val();
     let email = $("#email").val();
     let phone = $("#phone").val();
-    let volunteerProgram = $("#volunteerProgram").val();
-    if (volunteerProgram == 999) { otherVolunteerProgram(); } //הוספת אפשרות חדשה למסגרת התנדבות
+    volunteerProgram = $("#volunteerProgram").val();
+    //if (volunteerProgram == 999) { otherVolunteerProgram(); } //הוספת אפשרות חדשה למסגרת התנדבות
     let permission = $("#permission").val();
     let team = $("#team").val();
     let roleDescription = $("#roleDescription").val();
@@ -56,6 +56,7 @@ function RegisterUser() {
     return false;
 }
 function postRegisterSCB(data) { // הוספת משתמש הצליחה
+    if (volunteerProgram == 999) { otherVolunteerProgram(); } //הוספת אפשרות חדשה למסגרת התנדבות
     alert("משתמש נוסף בהצלחה");
     window.location.assign("Teams-main.html");
     location.assign("Teams-main.html")

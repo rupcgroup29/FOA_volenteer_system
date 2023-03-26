@@ -40,6 +40,13 @@ namespace FOA_Server.Controllers
         [HttpPost]
         public User Post([FromBody] User user)
         {
+            if (user.ProgramID == 999)
+            {
+                new VolunteerProgram(user.ProgramID, user.ProgramName).InsertVolunteerProgram();
+                //TODO:  להוסיף קריאה לפרוגרם איידי החדש מהדאטה בייס והזנה שלו ליוזר
+                //string programId = getVolunteerProgramByName(); // לשנות את המתודה למתודה שמביאה וולנטיר פרוגרם איידי לפי שם
+                //user.ProgramID(programId);
+            }
             User affected = user.InsertUser();
             return affected;
         }

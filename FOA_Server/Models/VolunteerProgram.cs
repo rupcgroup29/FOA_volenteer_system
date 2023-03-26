@@ -32,15 +32,15 @@ namespace FOA_Server.Models
                 if (VpList.Count != 0)
                 {
                     // vaild there is not the same already in the list
-                    bool uniqueName = UniqueName(this.ProgramName);
-                    if (!uniqueName)
+                    bool uniqueName = UniqueName(this.ProgramName, VpList);
+                    if (uniqueName==false)
                     {
                         throw new Exception(" Volunteer Program under that name is allready exists ");
                     }
                 }
 
                 DBusers dbs = new DBusers();
-                return dbs.InsertVolunteerProgram(this.ProgramName);
+                return dbs.InsertVolunteerProgram(this);
 
             }
             catch (Exception exp)
@@ -51,17 +51,13 @@ namespace FOA_Server.Models
         }
 
         // vaild there is not the same already in the list
-        public bool UniqueName(string name)
+        public bool UniqueName(string name , List<VolunteerProgram> VpList)
         {
             bool unique = true;
-            List<string> tempList = new List<string>();
-
-            foreach (var vp in tempList)
+            foreach (VolunteerProgram item in VpList)
             {
-                if (vp == name)
-                {
-                    unique = false; break;
-                }
+                if (item.ProgramName == name)
+                    unique = false;
             }
             return unique;
         }

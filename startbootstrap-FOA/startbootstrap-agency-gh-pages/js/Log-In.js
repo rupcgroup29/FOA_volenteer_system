@@ -1,7 +1,7 @@
 ﻿var api;
 var isLoggedIn;
 var usersArr = [];
-var CurrentUser = sessionStorage.getItem("user");
+var CurrentUser = JSON.parse(sessionStorage.getItem("user"));
 
 $(document).ready(function () {
     if (location.hostname === "localhost" || location.hostname === "127.0.0.1") {
@@ -24,12 +24,8 @@ function loginUser() {
     ajaxCall("POST", api + "/login", JSON.stringify(loginUser), postLoginUserSCB, postLoginUserECB);
     return false;
 }
-<<<<<<< Updated upstream
 
 function postLoginUserSCB(data) { // התחברות הצליחה
-=======
-function postSCB(data) { // התחברות הצליחה
->>>>>>> Stashed changes
     isLoggedIn = true;
     sessionStorage.setItem("CurrentUser", JSON.stringify(data));
     window.location.assign("HomePage.html");

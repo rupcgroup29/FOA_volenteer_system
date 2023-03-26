@@ -17,10 +17,11 @@ namespace FOA_Server.Models
         public int TeamID { get; set; }
         public int ProgramID { get; set; }
         public string Email { get; set; }
+        public string ProgramName { get; set; }
 
         public User() { }
 
-        public User(int userID, string firstName, string surname, string userName, string phoneNum, string roleDescription, int permissionID, bool isActive, string password, int teamID, int programID, string email)
+        public User(int userID, string firstName, string surname, string userName, string phoneNum, string roleDescription, int permissionID, bool isActive, string password, int teamID, int programID, string email, string programName)
         {
             UserID = userID;
             FirstName = firstName;
@@ -34,6 +35,7 @@ namespace FOA_Server.Models
             TeamID = teamID;
             ProgramID = programID;
             Email = email;
+            ProgramName = programName;
         }
 
         private static List<User> UsersList = new List<User>();
@@ -50,8 +52,8 @@ namespace FOA_Server.Models
         //Insert new user
         public User InsertUser()
         {
-            VolunteerProgram v = new VolunteerProgram();
-            v.InsertVolunteerProgram();
+            //VolunteerProgram v = new VolunteerProgram();
+            //v.InsertVolunteerProgram();
 
             UsersList = ReadAllUsers();
             try

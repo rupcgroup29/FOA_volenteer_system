@@ -50,6 +50,9 @@ namespace FOA_Server.Models
         //Insert new user
         public User InsertUser()
         {
+            VolunteerProgram v = new VolunteerProgram();
+            v.InsertVolunteerProgram();
+
             UsersList = ReadAllUsers();
             try
             {

@@ -24,7 +24,7 @@ namespace FOA_Server.Models
         }
 
         //Insert new Volunteer Program
-        public VolunteerProgram InsertVolunteerProgram()
+        public int InsertVolunteerProgram()
         {
             VpList = ReadAllVolunteerPrograms();
             try
@@ -40,9 +40,8 @@ namespace FOA_Server.Models
                 }
 
                 DBusers dbs = new DBusers();
-                int good = dbs.InsertVolunteerProgram(this);
-                if (good > 0) { return this; }
-                else { return null; }
+                return dbs.InsertVolunteerProgram(this);
+
             }
             catch (Exception exp)
             {

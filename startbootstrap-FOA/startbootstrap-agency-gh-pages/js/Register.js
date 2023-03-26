@@ -1,7 +1,7 @@
 ﻿var api;
 var isLoggedIn;
 var usersArr = [];
-var CurrentUser = sessionStorage.getItem("user");
+var CurrentUser = JSON.parse(sessionStorage.getItem("user"));
 
 $(document).ready(function () {
     if (location.hostname === "localhost" || location.hostname === "127.0.0.1") {
@@ -9,11 +9,6 @@ $(document).ready(function () {
     }
     // לעדכן את הכתובת החלופית !!
     //else api = "https://proj.ruppin.ac.il/cgroup29/test2/tar1/api/Users/";
-
-    readUsers();
-
-    //// hide DifSchoolDiv
-    //document.getElementById("Different_school").disabled = true;
 
     $('#contactForm').submit(RegisterUser);
 
@@ -23,8 +18,7 @@ $(document).ready(function () {
     GetTeamsList();
 
     HideIsActiveDiv();
-    ShowOther();
-    $("#Different_school").attr("readonly", true);
+    enableOther();
 });
 
 function RegisterUser() {
@@ -33,8 +27,7 @@ function RegisterUser() {
     let user_name = $("#user_name").val();
     let email = $("#email").val();
     let phone = $("#phone").val();
-    volunteerProgram = $("#volunteerProgram").val();
-    //if (volunteerProgram == 999) { otherVolunteerProgram(); } //הוספת אפשרות חדשה למסגרת התנדבות
+    let volunteerProgram = $("#volunteerProgram").val();
     let permission = $("#permission").val();
     let team = $("#team").val();
     let roleDescription = $("#roleDescription").val();
@@ -49,17 +42,15 @@ function RegisterUser() {
         TeamID: team,
         ProgramID: volunteerProgram,
         Email: email,
-<<<<<<< Updated upstream
-        Password: "1" //במטרה לשלוח אובייקט משתמש שלם, ישתנה בדאטה בייס
-=======
-        Password: ""
->>>>>>> Stashed changes
+        Password: "" //במטרה לשלוח אובייקט משתמש שלם, ישתנה בדאטה בייס
+
     }
 
     ajaxCall("POST", api + "Users", JSON.stringify(newUser), postRegisterSCB, postRegisterECB);
     return false;
 }
 function postRegisterSCB(data) { // הוספת משתמש הצליחה
+    let volunteerProgram = $("#volunteerProgram").val();
     if (volunteerProgram == 999) { otherVolunteerProgram(); } //הוספת אפשרות חדשה למסגרת התנדבות
     alert("משתמש נוסף בהצלחה");
     window.location.assign("Teams-main.html");
@@ -70,17 +61,7 @@ function postRegisterECB(err) {
     alert("שגיאה בהוספת המשתמש, אנא נסו שוב");
 }
 
-// read all users
-function readUsers() {
-    ajaxCall("GET", api + "Users", "", getAllUsersSCB, getAllUsersECB);
-    return false;
-}
-function getAllUsersSCB(data) {
-    usersArr = data;
-}
-function getAllUsersECB(err) {
-    alert("Input Error");
-}
+
 
 // get the Volunteer Programs list
 function GetVolunteerProgramsList() {
@@ -97,7 +78,7 @@ function getVolunteerProgramsSCB(data) {
         for (var i = 0; i < data.length; i++) {
             str += '<option class="opt" value="' + data[i].programID + '">' + data[i].programName + '</option>';
         }
-        str += '<option class="opt" value="999" onclick="showOtherSchoolDiv()">אחר </option>';
+        str += '<option class="opt" value="999">אחר </option>';
         document.getElementById("volunteerProgram").innerHTML += str;
     }
 }
@@ -153,8 +134,8 @@ function HideIsActiveDiv() {
     element.style.display = "none";
 }
 
-// Show Other volunteer program only if other selected
-function ShowOther() {
+// enable Other volunteer program only if other selected
+function enableOther() {
     var sel = document.getElementById('volunteerProgram');
 
     sel.addEventListener("change", ShowDivIfOtherSelected);

@@ -40,7 +40,7 @@ namespace FOA_Server.Models
                 }
 
                 DBusers dbs = new DBusers();
-                return dbs.InsertVolunteerProgram(this);
+                return dbs.InsertVolunteerProgram(this.ProgramName);
 
             }
             catch (Exception exp)
@@ -54,18 +54,11 @@ namespace FOA_Server.Models
         public bool UniqueName(string name)
         {
             bool unique = true;
-            var tempName = name.ToLower();
             List<string> tempList = new List<string>();
-
-            foreach (var item in VpList)
-            {
-                string lowName = item.ProgramName.ToLower();
-                tempList.Add(lowName);
-            }
 
             foreach (var vp in tempList)
             {
-                if (vp == tempName)
+                if (vp == name)
                 {
                     unique = false; break;
                 }

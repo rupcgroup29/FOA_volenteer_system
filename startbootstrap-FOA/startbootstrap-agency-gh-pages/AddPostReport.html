@@ -54,9 +54,9 @@
             </div>            <!-- to get an API token!-->
             <form id="contactForm" data-sb-form-api-token="API_TOKEN">
                 <div dir="rtl" class="row align-items-stretch mb-5" id="StatusDiv">
-                    <div class="PostStatus form-group">
+                    <div class="PostStatus form-group" id="RemovalStatus">
                         <!-- RemovalStatus-->
-                        <div class="form-headers" id="RemovalStatus">
+                        <div class="form-headers" >
                             <p> סטטוס ברשת החברתית</p>
                         </div>
                         <div>
@@ -82,37 +82,40 @@
                 <div class="row align-items-stretch mb-5">
                     <div class="col-md-6">
                         <div class="col-12">
-                            <div class=" form-group NetworkDiv">
-                                <!-- Network_diff-->
+                            <div class=" form-group platformDiv">
+                                <!-- platform_diff-->
                                 <div class="form-headers">
                                     <p> אחר</p>
                                 </div>
-                                <input dir="rtl" class="form-control" id="Network_diff" type="text" placeholder="אחר *" data-sb-validations="required" />
+                                <input dir="rtl" class="form-control" id="platform_diff" type="text" placeholder="אחר " />
                             </div>
-                            <div class=" form-group NetworkDiv">
-                                <!-- Network-->
+                            <div class=" form-group platformDiv">
+                                <!-- platform-->
                                 <div class="form-headers">
                                     <p> רשת חברתית</p>
                                 </div>
-                                <select dir="rtl" class="form-control" id="Network" data-sb-validations="required">
-                                    <option class="opt" value="0">רשת חברתית- לרנדר *</option>
-                                    <option class="opt" value="1">פייסבוק </option>
-                                    <option class="opt" value="2">טוויטר </option>
-                                    <option class="opt" value="3">אחר</option>
+                                <select dir="rtl" class="form-control" id="platform">
+                                    <!-- render list -->
                                 </select>
                             </div>
                         </div>
-                        <div class="form-group">
-                            <!-- Country-->
-                            <div class="form-headers">
-                                <p> מדינה</p>
+                        <div class="col-12">
+                            <div class=" form-group platformDiv">
+                                <!-- country_diff-->
+                                <div class="form-headers">
+                                    <p> אחר</p>
+                                </div>
+                                <input dir="rtl" class="form-control" id="country_diff" type="text" placeholder="אחר " />
                             </div>
-                            <select dir="rtl" class="form-control" id="Country" data-sb-validations="required">
-                                <option class="opt" value="0">מדינה *</option>
-                                <option class="opt" value="1">ישראל</option>
-                                <option class="opt" value="2">קנדה</option>
-                                <option class="opt" value="3">לבנון</option>
-                            </select>
+                            <div class="form-group">
+                                <!-- Country-->
+                                <div class="form-headers">
+                                    <p> מדינה</p>
+                                </div>
+                                <select dir="rtl" class="form-control" id="country">
+                                    <!-- render list -->
+                                </select>
+                            </div>
                         </div>
                         <div class="form-group">
                             <!-- content_threat?-->
@@ -150,18 +153,7 @@
                             <div class="form-headers">
                                 <p> צילום מסך של הפוסט</p>
                             </div>
-                            <!--קוד של בני להעאלת תמונות-->
-                            <div>
-                                <form method="post" enctype="multipart/form-data" id="formUpload">
-                                    <div>
-                                        <label for="files">Files</label>
-                                        <input type="file" id="files" name="files" multiple="multiple" />
-                                    </div>
-                                    <br />
-                                    <button type="button" id="buttonUpload">Upload files</button>
-                                </form>
-                                <div id="ph"></div>
-                            </div>
+                            <input dir="rtl" class="form-control" id="Screenshot" type="text" placeholder="לינק לדרייב " />
                             <!--<div class="panel">
                                 <div class="button_outer">
                                     <div class="btn_upload">
@@ -180,24 +172,31 @@
                     </div>
                     <div class="col-md-6">
                         <div class="form-group">
-                            <!-- LINK-->
+                            <!-- UrlLink-->
                             <div class="form-headers">
                                 <p> LINK</p>
                             </div>
-                            <input dir="rtl" class="form-control" id="LINK" type="text" placeholder="LINK *" data-sb-validations="required" />
+                            <input dir="rtl" class="form-control" id="UrlLink" type="text" placeholder="LINK *" data-sb-validations="required" />
                         </div>
-                        <div class="form-group">
-                            <!-- language-->
-                            <div class="form-headers">
-                                <p> שפה</p>
+                        <div class="col-12">
+                            <div class=" form-group languageDiv">
+                                <!-- language_diff-->
+                                <div class="form-headers">
+                                    <p> אחר</p>
+                                </div>
+                                <input dir="rtl" class="form-control" id="language_diff" type="text" placeholder="אחר " />
                             </div>
-                            <select dir="rtl" class="form-control" id="language" data-sb-validations="required">
-                                <option class="opt" value="0">שפה *</option>
-                                <option class="opt" value="1">עברית</option>
-                                <option class="opt" value="2">ערבית</option>
-                                <option class="opt" value="3">אנגלית</option>
-                            </select>
+                            <div class="form-group">
+                                <!-- language-->
+                                <div class="form-headers">
+                                    <p> שפה</p>
+                                </div>
+                                <select dir="rtl" class="form-control" id="language" data-sb-validations="required">
+                                    <!-- render list -->
+                                </select>
+                            </div>
                         </div>
+
                         <div class="form-group">
                             <!-- content-->
                             <div class="form-headers">

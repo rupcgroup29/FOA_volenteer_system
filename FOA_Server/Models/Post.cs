@@ -9,9 +9,8 @@ namespace FOA_Server.Models
         public string UrlLink { get; set; }
         public string Description { get; set; }
         public string KeyWordsAndHashtages { get; set; }
-        public string Threat { get; set; }
-        public string Screenshot { get; set; }
-        public DateTime Date { get; set; }
+        public int Threat { get; set; }
+       // public string Screenshot { get; set; }
         public int AmoutOfLikes { get; set; }
         public int AmoutOfShares { get; set; }
         public int AmoutOfComments { get; set; }
@@ -24,21 +23,20 @@ namespace FOA_Server.Models
         public int CategoryID { get; set; }
         public int PostStatusManager { get; set; }
         public int RemovalStatusManager { get; set; }
-        public int Country { get; set; }
-        public int Language { get; set; }
+        public int CountryID { get; set; }
+        public int LanguageID { get; set; }
 
         private static List<Post> postsList = new List<Post>();
 
         public Post() { }
-        public Post(int postID, string urlLink, string description, string keyWordsAndHashtages, string threat, string screenshot, DateTime date, int amoutOfLikes, int amoutOfShares, int amoutOfComments, int postStatus, int removalStatus, int userID, int platformID, int categoryID, int postStatusManager, int removalStatusManager, int country, int language)
+        public Post(int postID, string urlLink, string description, string keyWordsAndHashtages, int threat, int amoutOfLikes, int amoutOfShares, int amoutOfComments, int postStatus, int removalStatus, int userID, int platformID, int categoryID, int postStatusManager, int removalStatusManager, int country, int language)
         {
             PostID = postID;
             UrlLink = urlLink;
             Description = description;
             KeyWordsAndHashtages = keyWordsAndHashtages;
             Threat = threat;
-            Screenshot = screenshot;
-            Date = date;
+           // Screenshot = screenshot;
             AmoutOfLikes = amoutOfLikes;
             AmoutOfShares = amoutOfShares;
             AmoutOfComments = amoutOfComments;
@@ -49,8 +47,8 @@ namespace FOA_Server.Models
             CategoryID = categoryID;
             PostStatusManager = postStatusManager;
             RemovalStatusManager = removalStatusManager;
-            Country = country;
-            Language = language;
+            CountryID = country;
+            LanguageID = language;
         }
 
 
@@ -62,7 +60,7 @@ namespace FOA_Server.Models
         }
 
         //Insert new post
-   /*     public Post InsertPost()
+        public Post InsertPost()
         {
             postsList = ReadAllPosts();
             try
@@ -87,7 +85,7 @@ namespace FOA_Server.Models
                 // write to error log file
                 throw new Exception(" didn't succeed in inserting " + exp.Message);
             }
-        } */
+        }
 
         // valid unique URL link for the new post insering
         public bool UniqueUrl(string url)

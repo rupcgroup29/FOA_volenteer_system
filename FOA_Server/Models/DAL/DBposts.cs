@@ -39,9 +39,8 @@ namespace FOA_Server.Models.DAL
                     p.UrlLink = dataReader["UrlLink"].ToString();
                     p.Description = dataReader["Description"].ToString();
                     p.KeyWordsAndHashtages = dataReader["KeyWordsAndHashtages"].ToString();
-                    p.Threat = dataReader["Threat"].ToString();
-                    p.Screenshot = dataReader["Screenshot"].ToString();
-                    p.Date = Convert.ToDateTime(dataReader["Date"]);
+                    p.Threat = Convert.ToInt32(dataReader["Threat"]);
+                  //  p.Screenshot = dataReader["Screenshot"].ToString();
                     p.AmoutOfLikes = Convert.ToInt32(dataReader["AmoutOfLikes"]);
                     p.AmoutOfShares = Convert.ToInt32(dataReader["AmoutOfShares"]);
                     p.AmoutOfComments = Convert.ToInt32(dataReader["AmoutOfComments"]);
@@ -53,8 +52,8 @@ namespace FOA_Server.Models.DAL
                     p.PostStatusManager = Convert.ToInt32(dataReader["PostStatusManager"]);
                     p.RemovalStatusManager = Convert.ToInt32(dataReader["RemovalStatusManager"]);
                     p.RemovalStatusManager = Convert.ToInt32(dataReader["RemovalStatusManager"]);
-                    p.Country = Convert.ToInt32(dataReader["Country"]);
-                    p.Language = Convert.ToInt32(dataReader["Language"]);
+                    p.CountryID = Convert.ToInt32(dataReader["Country"]);
+                    p.LanguageID = Convert.ToInt32(dataReader["Language"]);
 
                     list.Add(p);
                 }
@@ -78,7 +77,7 @@ namespace FOA_Server.Models.DAL
         }
 
         // This method insert a Post
-    /*    public int InsertPost(Post post)
+        public int InsertPost(Post post)
         {
             SqlConnection con;
             SqlCommand cmd;
@@ -116,7 +115,7 @@ namespace FOA_Server.Models.DAL
                 }
             }
 
-        } */
+        }
 
         // Language
         // This method reads all Language
@@ -148,6 +147,7 @@ namespace FOA_Server.Models.DAL
                 {
                     Language l = new Language();
                     l.Lang = dataReader["Lang"].ToString();
+                    l.LangID = Convert.ToInt32(dataReader["LangID"]);
 
                     list.Add(l);
                 }
@@ -201,7 +201,8 @@ namespace FOA_Server.Models.DAL
                 while (dataReader.Read())
                 {
                     Country c = new Country();
-                    c._Country = dataReader["_Country"].ToString();
+                    c.CountryName = dataReader["_Country"].ToString();
+                    c.CountryID = Convert.ToInt32(dataReader["CountryID"]);
 
                     list.Add(c);
                 }
@@ -376,8 +377,6 @@ namespace FOA_Server.Models.DAL
         }
 
 
-
-
         // Create the SqlCommand using a stored procedure for Read
         private SqlCommand CreateCommandWithStoredProcedureRead(string spName, SqlConnection con)
         {
@@ -394,24 +393,41 @@ namespace FOA_Server.Models.DAL
             return cmd;
         }
 
-        // Create the SqlCommand using a stored procedure for Insert a Post
-        //private SqlCommand CreateCommandWithStoredProcedureInsert(String spName, SqlConnection con, Post platform)
-        //{
-        //    SqlCommand cmd = new SqlCommand(); // create the command object
+        //Create the SqlCommand using a stored procedure for Insert a Post
+        private SqlCommand CreateCommandWithStoredProcedureInsert(String spName, SqlConnection con, Post post)
+        {
+            SqlCommand cmd = new SqlCommand(); // create the command object
 
-        //    cmd.Connection = con;              // assign the connection to the command object
+            cmd.Connection = con;              // assign the connection to the command object
 
-        //    cmd.CommandText = spName;          // can be Select, Insert, Update, Delete 
+            cmd.CommandText = spName;          // can be Select, Insert, Update, Delete 
 
-        //    cmd.CommandTimeout = 10;           // Time to wait for the execution' The default is 30 seconds
+            cmd.CommandTimeout = 10;           // Time to wait for the execution' The default is 30 seconds
 
-        //    cmd.CommandType = System.Data.CommandType.StoredProcedure; // the type of the command, can also be stored procedure
+            cmd.CommandType = System.Data.CommandType.StoredProcedure; // the type of the command, can also be stored procedure
 
-        //    cmd.Parameters.AddWithValue("@PlatformID", platform.PlatformID);
-        //    cmd.Parameters.AddWithValue("@PlatformName", platform.pla);
+            cmd.Parameters.AddWithValue("@PostID", post.PostID);//
+            cmd.Parameters.AddWithValue("@UserID", post.UserID);//
+            cmd.Parameters.AddWithValue("@PlatformID", post.PlatformID);//
+            cmd.Parameters.AddWithValue("@CategoryID", post.CategoryID);//
+            cmd.Parameters.AddWithValue("@PostStatusManager", post.PostStatusManager);      // 1018
+            cmd.Parameters.AddWithValue("@RemovalStatusManager", post.RemovalStatusManager);  // 1018
+            cmd.Parameters.AddWithValue("@CountryID", post.CountryID);//
+            cmd.Parameters.AddWithValue("@LanguageID", post.LanguageID);//
+            cmd.Parameters.AddWithValue("@UrlLink", post.UrlLink);//
+            cmd.Parameters.AddWithValue("@Description", post.Description);//
+            cmd.Parameters.AddWithValue("@KeyWordsAndHashtages", post.KeyWordsAndHashtages);//
+            cmd.Parameters.AddWithValue("@Threat", post.Threat);//
+            cmd.Parameters.AddWithValue("@AmoutOfLikes", post.AmoutOfLikes);//
+            cmd.Parameters.AddWithValue("@AmoutOfShares", post.AmoutOfShares);//
+            cmd.Parameters.AddWithValue("@AmoutOfComments", post.AmoutOfComments);//
+           // cmd.Parameters.AddWithValue("@PostStatus", post.PostStatus);//
+           // cmd.Parameters.AddWithValue("@RemovalStatus", post.RemovalStatus);//
 
-        //    return cmd;
-        //}
+
+
+            return cmd;
+        }
 
 
 

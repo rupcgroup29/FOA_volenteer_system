@@ -4,13 +4,15 @@ namespace FOA_Server.Models
 {
     public class Country
     {
-        public string _Country { get; set; }
+        public string CountryName { get; set; }
+        public int CountryID { get; set; }
 
 
         public Country() { }   
-        public Country(string country)
+        public Country(string country, int countryID)
         {
-            _Country = country;
+            CountryName = country;
+            CountryID = countryID;
         }
 
 

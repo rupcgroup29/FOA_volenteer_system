@@ -24,7 +24,7 @@ namespace FOA_Server.Models
         }
 
         //Insert new Volunteer Program
-        public int InsertVolunteerProgram()
+        public VolunteerProgram InsertVolunteerProgram()
         {
             VpList = ReadAllVolunteerPrograms();
             try
@@ -40,7 +40,9 @@ namespace FOA_Server.Models
                 }
 
                 DBusers dbs = new DBusers();
-                return dbs.InsertVolunteerProgram(this);
+                int good = dbs.InsertVolunteerProgram(this);
+                if (good > 0) { return this; }
+                else { return null; }
 
             }
             catch (Exception exp)
@@ -54,11 +56,23 @@ namespace FOA_Server.Models
         public bool UniqueName(string name , List<VolunteerProgram> VpList)
         {
             bool unique = true;
+<<<<<<< Updated upstream
             foreach (VolunteerProgram item in VpList)
             {
                 if (item.ProgramName == name)
                     unique = false;
+=======
+            List<VolunteerProgram> tempList = ReadAllVolunteerPrograms();
+
+            foreach (var item in tempList)
+            {
+                if (name == item.ProgramName)
+                {
+                    unique = false; break;
+                }
+>>>>>>> Stashed changes
             }
+
             return unique;
         }
 

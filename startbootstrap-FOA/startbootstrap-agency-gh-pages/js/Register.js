@@ -1,8 +1,6 @@
 ﻿var api;
-var isLoggedIn;
-var usersArr = [];
-var CurrentUser = JSON.parse(sessionStorage.getItem("user"));
-var NewProgram;
+var currentUser = JSON.parse(sessionStorage.getItem("user"));
+var newProgram;
 
 $(document).ready(function () {
     if (location.hostname === "localhost" || location.hostname === "127.0.0.1") {
@@ -21,6 +19,7 @@ $(document).ready(function () {
     HideIsActiveDiv();
     enableOther();
 });
+
 
 function RegisterUser() {
     let firstName = $("#firstName").val();
@@ -46,7 +45,6 @@ function RegisterUser() {
         Email: email,
         Password: "", //במטרה לשלוח אובייקט משתמש שלם, ישתנה בדאטה בייס
         ProgramName: programName,
-
     }
 
     ajaxCall("POST", api + "Users", JSON.stringify(newUser), postRegisterSCB, postRegisterECB);

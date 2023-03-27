@@ -1,7 +1,4 @@
 ﻿var api;
-var isLoggedIn;
-var usersArr = [];
-var CurrentUser = JSON.parse(sessionStorage.getItem("user"));
 
 $(document).ready(function () {
     if (location.hostname === "localhost" || location.hostname === "127.0.0.1") {
@@ -27,10 +24,8 @@ function loginUser() {
 
 function postLoginUserSCB(data) { // התחברות הצליחה
     isLoggedIn = true;
-    sessionStorage.setItem("CurrentUser", JSON.stringify(data));
+    sessionStorage.setItem("user", JSON.stringify(data));   //לטם: מחקתי מהמשתנים למעלה את מה שהוספת על הסשיין כי זה לא רלוונטי לעשות גט-אייטם מהזיכרון כשאין עדין אף משתמש שהתחבר בשביל שהוא ישתמר בזכרון. בדף הלוג אין למעשה מאתחלים את שמירת היוזר שמתחבר בזיכרון
     window.location.assign("HomePage.html");
-
-
 }
 function postLoginUserECB(err) { // התחברות כשלה
     isLoggedIn = false;

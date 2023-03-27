@@ -40,19 +40,19 @@ namespace FOA_Server.Models.DAL
                     p.Description = dataReader["Description"].ToString();
                     p.KeyWordsAndHashtages = dataReader["KeyWordsAndHashtages"].ToString();
                     p.Threat = Convert.ToInt32(dataReader["Threat"]);
-                    //  p.Screenshot = dataReader["Screenshot"].ToString();
+                    // p.Screenshot = dataReader["Screenshot"].ToString();
                     p.AmoutOfLikes = Convert.ToInt32(dataReader["AmoutOfLikes"]);
                     p.AmoutOfShares = Convert.ToInt32(dataReader["AmoutOfShares"]);
                     p.AmoutOfComments = Convert.ToInt32(dataReader["AmoutOfComments"]);
-                    //p.PostStatus = Convert.ToInt32(dataReader["PostStatus"]);
-                    // p.RemovalStatus = Convert.ToInt32(dataReader["RemovalStatus"]);
+                    p.PostStatus = Convert.ToInt32(dataReader["PostStatus"]);
+                    p.RemovalStatus = Convert.ToInt32(dataReader["RemovalStatus"]);
                     p.UserID = Convert.ToInt32(dataReader["UserID"]);
                     p.PlatformID = Convert.ToInt32(dataReader["PlatformID"]);
                     p.CategoryID = Convert.ToInt32(dataReader["CategoryID"]);
                     p.PostStatusManager = Convert.ToInt32(dataReader["PostStatusManager"]);
                     p.RemovalStatusManager = Convert.ToInt32(dataReader["RemovalStatusManager"]);
-                    p.CountryID = Convert.ToInt32(dataReader["Country"]);
-                    p.LanguageID = Convert.ToInt32(dataReader["Language"]);
+                    p.CountryID = Convert.ToInt32(dataReader["CountryID"]);
+                    p.LanguageID = Convert.ToInt32(dataReader["LanguageID"]);
 
                     list.Add(p);
                 }

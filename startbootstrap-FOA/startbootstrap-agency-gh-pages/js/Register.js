@@ -34,18 +34,6 @@ function RegisterUser() {
     let roleDescription = $("#roleDescription").val();
     let programName = $("#Different_school").val();
 
-    //if (volunteerProgram == 999) {
-    //    let newProgramName = $("#Different_school").val();
-    //    const newVolunteerProgram = {
-    //        ProgramID: 999,
-    //        ProgramName: newProgramName
-    //    }
-    //    ajaxCall("POST", api + "VolunteerPrograms", JSON.stringify(newvolunteerProgram), postOtherVolunteerProgramSCB, postOtherVolunteerProgramECB);
-    //    searchNewProgramID();
-    //    volunteerProgram = sessionStorage.getItem("NewProgram");
-    ////    return false;
-    //}
-
     const newUser = {
         FirstName: firstName,
         Surname: surname,
@@ -65,8 +53,6 @@ function RegisterUser() {
     return false;
 }
 function postRegisterSCB(data) { // הוספת משתמש הצליחה
-    //let volunteerProgram = $("#volunteerProgram").val();
-    //if (volunteerProgram == 999) { otherVolunteerProgram(); } //הוספת אפשרות חדשה למסגרת התנדבות
     alert("משתמש נוסף בהצלחה");
     window.location.assign("Teams-main.html");
     location.assign("Teams-main.html")
@@ -124,25 +110,6 @@ function getTeamECB(err) {
 }
 
 
-//send other volunteer program
-//function otherVolunteerProgram() {
-//    let programName = $("#Different_school").val();
-//    const newvolunteerProgram = {
-//        ProgramID: 1,
-//        ProgramName: programName
-//    }
-//    ajaxCall("POST", api + "VolunteerPrograms", JSON.stringify(newvolunteerProgram), postOtherVolunteerProgramSCB, postOtherVolunteerProgramECB);
-//    return false;
-//}
-
-function postOtherVolunteerProgramSCB(data) {
-    console.log("מסגרת התנדבות חדשה נוספה בהצלחה");
-}
-function postOtherVolunteerProgramECB(err) {
-    alert("Input Error");
-}
-
-//Hide IsActive div
 function HideIsActiveDiv() {
     var element = document.getElementById("IsActive");
     element.style.display = "none";
@@ -163,29 +130,3 @@ function enableOther() {
     }
 }
 
-
-// חיפוש של המסגרת התנדבות החדשה שנוספה
-function searchNewProgramID() {
-    ajaxCall("GET", api + "VolunteerPrograms", "", getNewProgramIDSCB, getNewProgramIDECB);
-    return false;
-}
-
-function getNewProgramIDSCB(data) {
-    if (data == null) {
-        alert("There's no Volunteer Programs yet");
-    }
-    else {
-        let NewVolunteerProgram = $("#Different_school").val();
-        for (var i = 0; i < data.length; i++) {
-            if (NewVolunteerProgram == data[i].programName) {
-                let NewProgramID = data[i].programID;
-                sessionStorage.setItem("NewProgramID", JSON.stringify(data));
-            }
-        }
-    }
-}
-
-
-function getNewProgramIDECB(err) {
-    console.log(err);
-}

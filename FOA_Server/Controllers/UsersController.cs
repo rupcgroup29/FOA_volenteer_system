@@ -44,8 +44,10 @@ namespace FOA_Server.Controllers
             {
                 new VolunteerProgram(user.ProgramID, user.ProgramName).InsertVolunteerProgram();
                 //TODO:  להוסיף קריאה לפרוגרם איידי החדש מהדאטה בייס והזנה שלו ליוזר
-                //string programId = getVolunteerProgramByName(); // לשנות את המתודה למתודה שמביאה וולנטיר פרוגרם איידי לפי שם
-                //user.ProgramID(programId);
+                // int programId = getVolunteerProgramByName(user.ProgramName); // לשנות את המתודה למתודה שמביאה וולנטיר פרוגרם איידי לפי שם
+                VolunteerProgram newID = new VolunteerProgram();
+                int programID = newID.getVolunteerProgramByName(user.ProgramName);
+                user.ProgramID = programID;
             }
             User affected = user.InsertUser();
             return affected;

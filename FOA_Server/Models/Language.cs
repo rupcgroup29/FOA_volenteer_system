@@ -4,16 +4,22 @@ namespace FOA_Server.Models
 {
     public class Language
     {
-        public string Lang { get; set; }
-        public int LangID { get; set; }
+        public string LanguageName { get; set; }
+        public int LanguageID { get; set; }
         public Language() { }
         public Language(string lang, int langID)
         {
-            Lang = lang;
-            LangID = langID;
+            LanguageName = lang;
+            LanguageID = langID;
         }
 
-     
+        // read all Languages
+        public List<Language> ReadAllLanguages()
+        {
+            DBposts dbs = new DBposts();
+            return dbs.ReadLanguages();
+        }
+
 
 
     }

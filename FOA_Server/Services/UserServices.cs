@@ -18,37 +18,37 @@ namespace FOA_Server.Services
         private static List<VolunteerProgram> volunteerProgramsList = new List<VolunteerProgram>();
 
 
-        // read all users
-        public List<User> ReadAllUsers()
-        {
-            DBusers dbs = new DBusers();
-            return dbs.ReadUsers();
-        }
+        /* // read all users
+         public List<User> ReadAllUsers()
+         {
+             DBusers dbs = new DBusers();
+             return dbs.ReadUsers();
+         }
 
 
-        // read all Permissions
-        public List<Permission> ReadAllPermissions()
-        {
-            DBusers dbs = new DBusers();
-            return dbs.ReadPermissions();
-        }
+         // read all Permissions
+         public List<Permission> ReadAllPermissions()
+         {
+             DBusers dbs = new DBusers();
+             return dbs.ReadPermissions();
+         }
 
 
-        // read all Hour Reports
-        public List<HourReport> ReadAllHourReports()
-        {
-            DBusers dbs = new DBusers();
-            return dbs.ReadHourReports();
-        }
+         // read all Hour Reports
+         public List<HourReport> ReadAllHourReports()
+         {
+             DBusers dbs = new DBusers();
+             return dbs.ReadHourReports();
+         }
 
 
-        // read all Volunteer Programs
-        public List<VolunteerProgram> ReadAllVolunteerPrograms()
-        {
-            DBusers dbs = new DBusers();
-            return dbs.ReadVolunteerPrograms();
-        }
-
+         // read all Volunteer Programs
+         public List<VolunteerProgram> ReadAllVolunteerPrograms()
+         {
+             DBusers dbs = new DBusers();
+             return dbs.ReadVolunteerPrograms();
+         }
+         */
 
 
     }

@@ -386,6 +386,7 @@ namespace FOA_Server.Models.DAL
             }
         }
 
+
         // HourReport
         // This method reads all Hour Reports
         public List<HourReport> ReadHourReports()

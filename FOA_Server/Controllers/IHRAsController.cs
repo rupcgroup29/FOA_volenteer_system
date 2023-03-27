@@ -14,7 +14,7 @@ namespace FOA_Server.Controllers
         [HttpGet]
         public List<IHRA> Get()
         {
-            PostServices i = new PostServices();
+            IHRA i = new IHRA();
             return i.ReadAllIHRAs();
         }
 

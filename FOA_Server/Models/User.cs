@@ -52,9 +52,6 @@ namespace FOA_Server.Models
         //Insert new user
         public User InsertUser()
         {
-            //VolunteerProgram v = new VolunteerProgram();
-            //v.InsertVolunteerProgram();
-
             UsersList = ReadAllUsers();
             try
             {
@@ -216,19 +213,16 @@ namespace FOA_Server.Models
         }
 
 
+        //public class ParentForgotPass
+        //{
+        //    public string Email { get; set; }
+        //    public string Password { get; set; }
+        //    internal int PasswordResetToken(string token1, DateTime deadlineDateTime, string email)
+        //    {
+        //        throw new NotImplementedException();
+        //    }
 
-
+        //}
 
     }
-
-    //public class ParentForgotPass
-    //{
-    //    public string Email { get; set; }
-    //    public string Password { get; set; }
-    //    internal int PasswordResetToken(string token1, DateTime deadlineDateTime, string email)
-    //    {
-    //        throw new NotImplementedException();
-    //    }
-
-    //}
 }

@@ -14,7 +14,7 @@ namespace FOA_Server.Controllers
         [HttpGet]
         public List<HourReport> Get()
         {
-            UserServices h = new UserServices();
+            HourReport h = new HourReport();
             return h.ReadAllHourReports();
         }
 

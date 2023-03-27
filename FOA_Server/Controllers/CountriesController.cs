@@ -1,4 +1,5 @@
 ﻿using FOA_Server.Models;
+using FOA_Server.Models.DAL;
 using FOA_Server.Services;
 using Microsoft.AspNetCore.Mvc;
 
@@ -14,7 +15,7 @@ namespace FOA_Server.Controllers
         [HttpGet]
         public List<Country> Get()
         {
-            PostServices c = new PostServices();
+            Country c = new Country();
             return c.ReadAllCountries();
         }
 

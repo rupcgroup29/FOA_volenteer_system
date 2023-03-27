@@ -33,7 +33,7 @@ namespace FOA_Server.Models
                 {
                     // vaild there is not the same already in the list
                     bool uniqueName = UniqueName(this.ProgramName, VpList);
-                    if (uniqueName==false)
+                    if (uniqueName == false)
                     {
                         throw new Exception(" Volunteer Program under that name is allready exists ");
                     }
@@ -53,28 +53,34 @@ namespace FOA_Server.Models
         }
 
         // vaild there is not the same already in the list
-        public bool UniqueName(string name , List<VolunteerProgram> VpList)
+        public bool UniqueName(string name, List<VolunteerProgram> VpList)
         {
             bool unique = true;
-<<<<<<< Updated upstream
+
             foreach (VolunteerProgram item in VpList)
             {
                 if (item.ProgramName == name)
-                    unique = false;
-=======
-            List<VolunteerProgram> tempList = ReadAllVolunteerPrograms();
-
-            foreach (var item in tempList)
-            {
-                if (name == item.ProgramName)
-                {
-                    unique = false; break;
-                }
->>>>>>> Stashed changes
+                { unique = false; break; }
             }
-
             return unique;
         }
+
+
+        // returns programID by program name
+        public int getVolunteerProgramByName(string name)
+        {
+            VpList = ReadAllVolunteerPrograms();
+
+            foreach (VolunteerProgram item in VpList)
+            {
+                if (item.ProgramName == name)
+                {
+                    return item.ProgramID;
+                }
+            }
+            return -1;
+        }
+
 
     }
 }

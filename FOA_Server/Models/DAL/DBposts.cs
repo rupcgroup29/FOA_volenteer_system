@@ -146,8 +146,8 @@ namespace FOA_Server.Models.DAL
                 while (dataReader.Read())
                 {
                     Language l = new Language();
-                    l.Lang = dataReader["Lang"].ToString();
-                    l.LangID = Convert.ToInt32(dataReader["LangID"]);
+                    l.LanguageName = dataReader["LanguageName"].ToString();
+                    l.LanguageID = Convert.ToInt32(dataReader["LanguageID"]);
 
                     list.Add(l);
                 }
@@ -201,7 +201,7 @@ namespace FOA_Server.Models.DAL
                 while (dataReader.Read())
                 {
                     Country c = new Country();
-                    c.CountryName = dataReader["_Country"].ToString();
+                    c.CountryName = dataReader["CountryName"].ToString();
                     c.CountryID = Convert.ToInt32(dataReader["CountryID"]);
 
                     list.Add(c);

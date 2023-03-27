@@ -14,7 +14,7 @@ namespace FOA_Server.Controllers
         [HttpGet]
         public List<Post> Get()
         {
-            PostServices p = new PostServices();
+            Post p = new Post();
             return p.ReadAllPosts();
         }
 

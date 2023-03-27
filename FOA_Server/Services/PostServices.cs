@@ -19,7 +19,7 @@ namespace FOA_Server.Services
         private static List<Country> countryList = new List<Country>();
 
 
-        // read all Posts
+      /*  // read all Posts
         public List<Post> ReadAllPosts()
         {
             DBposts dbs = new DBposts();
@@ -55,6 +55,8 @@ namespace FOA_Server.Services
             DBposts dbs = new DBposts();
             return dbs.ReadCountries();
         }
+
+        */
 
     }
 }

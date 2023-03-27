@@ -17,7 +17,7 @@ namespace FOA_Server.Controllers
         [HttpGet]
         public List<Platform> Get()
         {
-            PostServices p = new PostServices();
+            Platform p = new Platform();
             return p.ReadAllPlatforms();
         }
 

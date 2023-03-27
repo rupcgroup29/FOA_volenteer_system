@@ -14,7 +14,7 @@ namespace FOA_Server.Controllers
         [HttpGet]
         public List<Team> Get()
         {
-            TeamServices t = new TeamServices();
+            Team t = new Team();
             return t.ReadAllTeams();
         }
 

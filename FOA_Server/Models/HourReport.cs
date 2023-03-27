@@ -22,6 +22,15 @@ namespace FOA_Server.Models
             Status = status;
         }
 
+
+        // read all Hour Reports
+        public List<HourReport> ReadAllHourReports()
+        {
+            DBusers dbs = new DBusers();
+            return dbs.ReadHourReports();
+        }
+
+
         /* // conver date to time
         private TimeOnly TimeFormat(DateTime date)
         {
@@ -29,7 +38,7 @@ namespace FOA_Server.Models
             return time;
         } */
 
-        
+
 
     }
 }

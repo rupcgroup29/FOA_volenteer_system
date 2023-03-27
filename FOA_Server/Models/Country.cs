@@ -15,7 +15,12 @@ namespace FOA_Server.Models
             CountryID = countryID;
         }
 
-
+        // read all countries
+        public List<Country> ReadAllCountries()
+        {
+            DBposts dbs = new DBposts();
+            return dbs.ReadCountries();
+        }
 
 
     }

@@ -1,4 +1,6 @@
-﻿namespace FOA_Server.Models
+﻿using FOA_Server.Models.DAL;
+
+namespace FOA_Server.Models
 {
     public class Permission
     {
@@ -13,6 +15,13 @@
         }
 
 
+
+        // read all Permissions
+        public List<Permission> ReadAllPermissions()
+        {
+            DBusers dbs = new DBusers();
+            return dbs.ReadPermissions();
+        }
 
     }
 }

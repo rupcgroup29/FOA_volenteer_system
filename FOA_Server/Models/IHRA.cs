@@ -14,7 +14,12 @@ namespace FOA_Server.Models
             CategoryName = categoryName;
         }
 
-
+        // read all IHRAs
+        public List<IHRA> ReadAllIHRAs()
+        {
+            DBposts dbs = new DBposts();
+            return dbs.ReadIHRAs();
+        }
 
 
     }

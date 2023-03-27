@@ -10,12 +10,12 @@ namespace FOA_Server.Services
         private static List<Team> teamsList = new List<Team>();
 
 
-        // read all teams
+      /*  // read all teams
         public List<Team> ReadAllTeams()
         {
             DBteams dbs = new DBteams();
             return dbs.ReadTeams();
         }
-
+      */
     }
 }

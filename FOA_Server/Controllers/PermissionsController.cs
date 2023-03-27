@@ -14,7 +14,7 @@ namespace FOA_Server.Controllers
         [HttpGet]
         public List<Permission> Get()
         {
-            UserServices per = new UserServices();
+            Permission per = new Permission();
             return per.ReadAllPermissions();
         }
 

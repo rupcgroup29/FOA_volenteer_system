@@ -14,7 +14,7 @@ namespace FOA_Server.Controllers
         [HttpGet]
         public List<VolunteerProgram> Get()
         {
-            UserServices vp = new UserServices();
+            VolunteerProgram vp = new VolunteerProgram();
             return vp.ReadAllVolunteerPrograms();
         }
 

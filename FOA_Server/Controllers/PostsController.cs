@@ -35,8 +35,10 @@ namespace FOA_Server.Controllers
 
         // POST api/<PostsController>
         [HttpPost]
-        public void Post([FromBody] string value)
+        public Post Post([FromBody] Post post)
         {
+            Post affected = post.InsertPost();
+            return affected;
         }
 
         // PUT api/<PostsController>/5

@@ -2,7 +2,8 @@
 
 namespace FOA_Server.Models
 {
-    public class Post    {
+    public class Post
+    {
 
         // its fields
         public int PostID { get; set; }
@@ -10,13 +11,13 @@ namespace FOA_Server.Models
         public string Description { get; set; }
         public string KeyWordsAndHashtages { get; set; }
         public int Threat { get; set; }
-       // public string Screenshot { get; set; }
+        // public string Screenshot { get; set; }
         public int AmoutOfLikes { get; set; }
         public int AmoutOfShares { get; set; }
         public int AmoutOfComments { get; set; }
         public int PostStatus { get; set; }
         public int RemovalStatus { get; set; }
-       
+
         // FK fields
         public int UserID { get; set; }
         public int PlatformID { get; set; }
@@ -36,7 +37,7 @@ namespace FOA_Server.Models
             Description = description;
             KeyWordsAndHashtages = keyWordsAndHashtages;
             Threat = threat;
-           // Screenshot = screenshot;
+            // Screenshot = screenshot;
             AmoutOfLikes = amoutOfLikes;
             AmoutOfShares = amoutOfShares;
             AmoutOfComments = amoutOfComments;
@@ -62,18 +63,18 @@ namespace FOA_Server.Models
         //Insert new post
         public Post InsertPost()
         {
-            postsList = ReadAllPosts();
+            // postsList = ReadAllPosts();
             try
             {
-                if (postsList.Count != 0)
-                {
-                    // check new user email uniqueness
-                    bool uniqueUrl = UniqueUrl(this.UrlLink);
-                    if (!uniqueUrl)
-                    {
-                        throw new Exception(" post under that URL link is allready exists in the system ");
-                    }
-                }
+                //if (postsList.Count != 0)
+                //{
+                //    // check new user email uniqueness
+                //    bool uniqueUrl = UniqueUrl(this.UrlLink);
+                //    if (!uniqueUrl)
+                //    {
+                //        throw new Exception(" post under that URL link is allready exists in the system ");
+                //    }
+                //}
 
                 DBposts dbs = new DBposts();
                 int good = dbs.InsertPost(this);
@@ -105,7 +106,7 @@ namespace FOA_Server.Models
         // list of approval posts
         public List<Post> ApprovalPosts()
         {
-            postsList= ReadAllPosts();
+            postsList = ReadAllPosts();
             List<Post> approvalPosts = new List<Post>();
 
             foreach (Post post in postsList)

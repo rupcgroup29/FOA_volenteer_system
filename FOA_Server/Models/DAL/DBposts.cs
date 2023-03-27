@@ -40,17 +40,16 @@ namespace FOA_Server.Models.DAL
                     p.Description = dataReader["Description"].ToString();
                     p.KeyWordsAndHashtages = dataReader["KeyWordsAndHashtages"].ToString();
                     p.Threat = Convert.ToInt32(dataReader["Threat"]);
-                  //  p.Screenshot = dataReader["Screenshot"].ToString();
+                    //  p.Screenshot = dataReader["Screenshot"].ToString();
                     p.AmoutOfLikes = Convert.ToInt32(dataReader["AmoutOfLikes"]);
                     p.AmoutOfShares = Convert.ToInt32(dataReader["AmoutOfShares"]);
                     p.AmoutOfComments = Convert.ToInt32(dataReader["AmoutOfComments"]);
-                    p.PostStatus = Convert.ToInt32(dataReader["PostStatus"]);
-                    p.RemovalStatus = Convert.ToInt32(dataReader["RemovalStatus"]);
+                    //p.PostStatus = Convert.ToInt32(dataReader["PostStatus"]);
+                    // p.RemovalStatus = Convert.ToInt32(dataReader["RemovalStatus"]);
                     p.UserID = Convert.ToInt32(dataReader["UserID"]);
                     p.PlatformID = Convert.ToInt32(dataReader["PlatformID"]);
                     p.CategoryID = Convert.ToInt32(dataReader["CategoryID"]);
                     p.PostStatusManager = Convert.ToInt32(dataReader["PostStatusManager"]);
-                    p.RemovalStatusManager = Convert.ToInt32(dataReader["RemovalStatusManager"]);
                     p.RemovalStatusManager = Convert.ToInt32(dataReader["RemovalStatusManager"]);
                     p.CountryID = Convert.ToInt32(dataReader["Country"]);
                     p.LanguageID = Convert.ToInt32(dataReader["Language"]);
@@ -406,26 +405,22 @@ namespace FOA_Server.Models.DAL
 
             cmd.CommandType = System.Data.CommandType.StoredProcedure; // the type of the command, can also be stored procedure
 
-            cmd.Parameters.AddWithValue("@PostID", post.PostID);//
-            cmd.Parameters.AddWithValue("@UserID", post.UserID);//
-            cmd.Parameters.AddWithValue("@PlatformID", post.PlatformID);//
-            cmd.Parameters.AddWithValue("@CategoryID", post.CategoryID);//
-            cmd.Parameters.AddWithValue("@PostStatusManager", post.PostStatusManager);      // 1018
-            cmd.Parameters.AddWithValue("@RemovalStatusManager", post.RemovalStatusManager);  // 1018
-            cmd.Parameters.AddWithValue("@CountryID", post.CountryID);//
-            cmd.Parameters.AddWithValue("@LanguageID", post.LanguageID);//
-            cmd.Parameters.AddWithValue("@UrlLink", post.UrlLink);//
-            cmd.Parameters.AddWithValue("@Description", post.Description);//
-            cmd.Parameters.AddWithValue("@KeyWordsAndHashtages", post.KeyWordsAndHashtages);//
-            cmd.Parameters.AddWithValue("@Threat", post.Threat);//
-            cmd.Parameters.AddWithValue("@AmoutOfLikes", post.AmoutOfLikes);//
-            cmd.Parameters.AddWithValue("@AmoutOfShares", post.AmoutOfShares);//
-            cmd.Parameters.AddWithValue("@AmoutOfComments", post.AmoutOfComments);//
-           // cmd.Parameters.AddWithValue("@PostStatus", post.PostStatus);//
-           // cmd.Parameters.AddWithValue("@RemovalStatus", post.RemovalStatus);//
-
-
-
+            cmd.Parameters.AddWithValue("@UserID", post.UserID);
+            cmd.Parameters.AddWithValue("@PlatformID", post.PlatformID);
+            cmd.Parameters.AddWithValue("@CategoryID", post.CategoryID);
+            cmd.Parameters.AddWithValue("@PostStatusManager", post.PostStatusManager);      
+            cmd.Parameters.AddWithValue("@RemovalStatusManager", post.RemovalStatusManager);  
+            cmd.Parameters.AddWithValue("@CountryID", post.CountryID);
+            cmd.Parameters.AddWithValue("@LanguageID", post.LanguageID);
+            cmd.Parameters.AddWithValue("@UrlLink", post.UrlLink);
+            cmd.Parameters.AddWithValue("@Description", post.Description);
+            cmd.Parameters.AddWithValue("@KeyWordsAndHashtages", post.KeyWordsAndHashtages);
+            cmd.Parameters.AddWithValue("@Threat", post.Threat);
+            cmd.Parameters.AddWithValue("@AmoutOfLikes", post.AmoutOfLikes);
+            cmd.Parameters.AddWithValue("@AmoutOfShares", post.AmoutOfShares);
+            cmd.Parameters.AddWithValue("@AmoutOfComments", post.AmoutOfComments);
+            cmd.Parameters.AddWithValue("@Screenshot", "");
+                                                                                
             return cmd;
         }
 

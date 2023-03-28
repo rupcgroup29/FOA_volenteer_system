@@ -60,6 +60,13 @@ namespace FOA_Server.Models
             return dbs.ReadPosts();
         }
 
+        // read Posts without menager's status
+        public List<Post> ReadPostsWithoutStatus()
+        {
+            DBposts dbs = new DBposts();
+            return dbs.ReadPostsWithoutStatus();
+        }
+
         //Insert new post
         public Post InsertPost()
         {

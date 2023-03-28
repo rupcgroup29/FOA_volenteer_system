@@ -5,7 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
     <meta name="description" content="" />
     <meta name="author" content="" />
-    <title>Agency - Start Bootstrap Theme</title>
+    <title>FOA - ADD POST</title>   <!--לטם: שיניתי את הטייטל של העמוד-->
+
     <!-- Favicon-->
     <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
     <!-- Font Awesome icons (free version)-->
@@ -21,6 +22,11 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
+
+    <!-- for the checkbox -->
+    <link href="https://cdn.rtlcss.com/mdl/1.2.1/material.rtl.min.css" rel="stylesheet" />
+    <script src="https://cdn.rtlcss.com/mdl/1.2.1/material.min.js"></script>
+
     <!-- קישור לעמודי JS -->
     <script src="js/ajaxCall.js"></script>
     <script src="js/AddPostReport.js"></script>
@@ -140,34 +146,9 @@
                                 </p>
                             </div>
 
-
-                            <div class="checkbox-dropdown">
-                                Choose city
-                                <ul class="checkbox-dropdown-list">
-                                    <li>
-                                        <label>
-                                            <input type="checkbox" value="Vejle" name="city" />Milwaukee
-                                        </label>
-                                    </li>
-                                    <li>
-                                        <label>
-                                            <input type="checkbox" value="Horsens" name="city" />Denver
-                                        </label>
-                                    </li>
-                                    <li>
-                                        <label>
-                                            <input type="checkbox" value="Kolding" name="city" />Boston
-                                        </label>
-                                    </li>
-                                    <li>
-                                        <label>
-                                            <input type="checkbox" value="Kolding" name="city" />LA
-                                        </label>
-                                    </li>
-
-                                </ul>
+                            <div id="checkBoxIHRA">
+                                <!-- render list -->
                             </div>
-
 
 
                             <!--<select dir="rtl" class="form-control" id="IHRA" data-sb-validations="required" required>
@@ -179,6 +160,71 @@
                             <option class="opt" value="5">Holocuast (not Holocaust denial- 5) or any other material that justifies making fun of or mocking the Holocaust</option>
                             <option class="opt" value="6">Anti Israeli\Anti Zionism (8, 10, 11, 7 ) or any other actions against Israel, such as burning or desecrating the Israeli flag</option>
                                                 </select>-->
+                        </div>
+
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <!-- UrlLink-->
+                            <div class="form-headers">
+                                <p> LINK</p>
+                            </div>
+                            <input dir="rtl" class="form-control" id="urlLink" type="text" placeholder="LINK *" required data-sb-validations="required" />
+                        </div>
+                        <div class="col-12">
+                            <div class=" form-group languageDiv">
+                                <!-- language_diff-->
+                                <div class="form-headers">
+                                    <p> אחר</p>
+                                </div>
+                                <input dir="rtl" class="form-control" id="language_diff" type="text" placeholder="אחר " />
+                            </div>
+                            <div class="form-group">
+                                <!-- language-->
+                                <div class="form-headers">
+                                    <p> שפה</p>
+                                </div>
+                                <select dir="rtl" class="form-control" id="language" required data-sb-validations="required">
+                                    <!-- render list -->
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <!-- content-->
+                            <div class="form-headers">
+                                <p>תיאור קצר של התוכן</p>
+                            </div>
+                            <input dir="rtl" class="form-control" id="description" type="text" required placeholder="תיאור קצר של התוכן *" data-sb-validations="required,email" />
+                        </div>
+                        <div class="form-group">
+                            <!-- Keywords_hashtags-->
+                            <div class="form-headers">
+                                <p> מילות מפתח או האשטאגים</p>
+                            </div>
+                            <input dir="rtl" class="form-control" id="keywords_hashtags" type="text" placeholder="מילות מפתח או האשטאגים *" data-sb-validations="required" />
+                        </div>
+                        <div class="col-12">
+                            <div class=" form-group exposureDiv">
+                                <!-- exposure_likes-->
+                                <div class="form-headers">
+                                    <p> לייקים</p>
+                                </div>
+                                <input dir="rtl" class="form-control" id="exposure_likes" type="number" placeholder="כמות *" required data-sb-validations="required" />
+                            </div>
+                            <div class=" form-group exposureDiv">
+                                <!-- exposure_Comments-->
+                                <div class="form-headers">
+                                    <p> תגובות</p>
+                                </div>
+                                <input dir="rtl" class="form-control" id="exposure_Comments" type="number" placeholder="כמות *" required data-sb-validations="required" />
+                            </div>
+                            <div class=" form-group exposureDiv">
+                                <!-- exposure_shares-->
+                                <div class="form-headers">
+                                    <p> שיתופים</p>
+                                </div>
+                                <input dir="rtl" class="form-control" id="exposure_shares" type="number" placeholder="כמות *" required data-sb-validations="required" />
                             </div>
                             <div class="form-group">
                                 <!-- Screenshot-->
@@ -201,74 +247,10 @@
                                 </div>-->
                             </div>
                         </div>
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <!-- UrlLink-->
-                                <div class="form-headers">
-                                    <p> LINK</p>
-                                </div>
-                                <input dir="rtl" class="form-control" id="urlLink" type="text" placeholder="LINK *" required data-sb-validations="required" />
-                            </div>
-                            <div class="col-12">
-                                <div class=" form-group languageDiv">
-                                    <!-- language_diff-->
-                                    <div class="form-headers">
-                                        <p> אחר</p>
-                                    </div>
-                                    <input dir="rtl" class="form-control" id="language_diff" type="text" placeholder="אחר " />
-                                </div>
-                                <div class="form-group">
-                                    <!-- language-->
-                                    <div class="form-headers">
-                                        <p> שפה</p>
-                                    </div>
-                                    <select dir="rtl" class="form-control" id="language" required data-sb-validations="required">
-                                        <!-- render list -->
-                                    </select>
-                                </div>
-                            </div>
-
-                            <div class="form-group">
-                                <!-- content-->
-                                <div class="form-headers">
-                                    <p>תיאור קצר של התוכן</p>
-                                </div>
-                                <input dir="rtl" class="form-control" id="description" type="text" required placeholder="תיאור קצר של התוכן *" data-sb-validations="required,email" />
-                            </div>
-                            <div class="form-group">
-                                <!-- Keywords_hashtags-->
-                                <div class="form-headers">
-                                    <p> מילות מפתח או האשטאגים</p>
-                                </div>
-                                <input dir="rtl" class="form-control" id="keywords_hashtags" type="text" placeholder="מילות מפתח או האשטאגים *" data-sb-validations="required" />
-                            </div>
-                            <div class="col-12">
-                                <div class=" form-group exposureDiv">
-                                    <!-- exposure_likes-->
-                                    <div class="form-headers">
-                                        <p> לייקים</p>
-                                    </div>
-                                    <input dir="rtl" class="form-control" id="exposure_likes" type="number" placeholder="כמות *" required data-sb-validations="required" />
-                                </div>
-                                <div class=" form-group exposureDiv">
-                                    <!-- exposure_Comments-->
-                                    <div class="form-headers">
-                                        <p> תגובות</p>
-                                    </div>
-                                    <input dir="rtl" class="form-control" id="exposure_Comments" type="number" placeholder="כמות *" required data-sb-validations="required" />
-                                </div>
-                                <div class=" form-group exposureDiv">
-                                    <!-- exposure_shares-->
-                                    <div class="form-headers">
-                                        <p> שיתופים</p>
-                                    </div>
-                                    <input dir="rtl" class="form-control" id="exposure_shares" type="number" placeholder="כמות *" required data-sb-validations="required" />
-                                </div>
-                            </div>
-                        </div>
-                        <!-- Submit Button-->
-                        <div class="text-center"><button class="btn btn-primary btn-xl text-uppercase" id="submitButton" type="submit">שמור</button></div>
                     </div>
+                    <!-- Submit Button-->
+                    <div class="text-center"><button class="btn btn-primary btn-xl text-uppercase" id="submitButton" type="submit">הוספה</button></div>
+                </div>
             </form>
         </div>
     </section>

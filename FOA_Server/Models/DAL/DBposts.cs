@@ -75,6 +75,74 @@ namespace FOA_Server.Models.DAL
             }
         }
 
+        // This method reads Posts without menager's status
+        public List<Post> ReadPostsWithoutStatus()
+        {
+            SqlConnection con;
+            SqlCommand cmd;
+
+            try
+            {
+                con = connect("myProjDB"); // create the connection
+            }
+            catch (Exception ex)
+            {
+                // write to log
+                Console.WriteLine("Error");
+                throw (ex);
+            }
+
+            cmd = CreateCommandWithStoredProcedureRead("spReadPostsWitoutStatus", con);      // create the command
+
+            List<Post> list = new List<Post>();
+
+            try
+            {
+                SqlDataReader dataReader = cmd.ExecuteReader(CommandBehavior.CloseConnection);
+
+                while (dataReader.Read())
+                {
+                    Post p = new Post();
+                    p.PostID = Convert.ToInt32(dataReader["PostID"]);
+                    p.UrlLink = dataReader["UrlLink"].ToString();
+                    p.Description = dataReader["Description"].ToString();
+                    p.KeyWordsAndHashtages = dataReader["KeyWordsAndHashtages"].ToString();
+                    p.Threat = Convert.ToInt32(dataReader["Threat"]);
+                    // p.Screenshot = dataReader["Screenshot"].ToString();
+                    p.AmoutOfLikes = Convert.ToInt32(dataReader["AmoutOfLikes"]);
+                    p.AmoutOfShares = Convert.ToInt32(dataReader["AmoutOfShares"]);
+                    p.AmoutOfComments = Convert.ToInt32(dataReader["AmoutOfComments"]);
+                    p.PostStatus = Convert.ToInt32(dataReader["PostStatus"]);
+                    p.RemovalStatus = Convert.ToInt32(dataReader["RemovalStatus"]);
+                    p.UserID = Convert.ToInt32(dataReader["UserID"]);
+                    p.PlatformID = Convert.ToInt32(dataReader["PlatformID"]);
+                    p.CategoryID = Convert.ToInt32(dataReader["CategoryID"]);
+                    //p.PostStatusManager = Convert.ToInt32(dataReader["PostStatusManager"]);
+                    //p.RemovalStatusManager = Convert.ToInt32(dataReader["RemovalStatusManager"]);
+                    p.CountryID = Convert.ToInt32(dataReader["CountryID"]);
+                    p.LanguageID = Convert.ToInt32(dataReader["LanguageID"]);
+
+                    list.Add(p);
+                }
+                return list;
+            }
+            catch (Exception ex)
+            {
+                // write to log
+                Console.WriteLine("Error");
+                throw (ex);
+            }
+
+            finally
+            {
+                if (con != null)
+                {
+                    // close the db connection
+                    con.Close();
+                }
+            }
+        }
+
         // This method insert a Post
         public int InsertPost(Post post)
         {
@@ -408,8 +476,8 @@ namespace FOA_Server.Models.DAL
             cmd.Parameters.AddWithValue("@UserID", post.UserID);
             cmd.Parameters.AddWithValue("@PlatformID", post.PlatformID);
             cmd.Parameters.AddWithValue("@CategoryID", post.CategoryID);
-            cmd.Parameters.AddWithValue("@PostStatusManager", post.PostStatusManager);      
-            cmd.Parameters.AddWithValue("@RemovalStatusManager", post.RemovalStatusManager);  
+            // cmd.Parameters.AddWithValue("@PostStatusManager", post.PostStatusManager);      
+            // cmd.Parameters.AddWithValue("@RemovalStatusManager", post.RemovalStatusManager);  
             cmd.Parameters.AddWithValue("@CountryID", post.CountryID);
             cmd.Parameters.AddWithValue("@LanguageID", post.LanguageID);
             cmd.Parameters.AddWithValue("@UrlLink", post.UrlLink);
@@ -420,7 +488,7 @@ namespace FOA_Server.Models.DAL
             cmd.Parameters.AddWithValue("@AmoutOfShares", post.AmoutOfShares);
             cmd.Parameters.AddWithValue("@AmoutOfComments", post.AmoutOfComments);
             cmd.Parameters.AddWithValue("@Screenshot", "");
-                                                                                
+
             return cmd;
         }
 

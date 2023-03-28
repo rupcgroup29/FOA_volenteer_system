@@ -19,6 +19,14 @@ namespace FOA_Server.Controllers
         }
 
         // GET: api/<PostsController>/6
+        [HttpGet("noStatusPosts")]
+        public List<Post> GetNoneStatusPosts()
+        {
+            Post post = new Post();
+            return post.ReadPostsWithoutStatus();
+        }
+
+        // GET: api/<PostsController>/6
         [HttpGet("approvalPosts")]
         public List<Post> GetAllApprovedPosts()
         {

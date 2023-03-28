@@ -13,32 +13,17 @@ $(document).ready(function () {
     GetPlatformsList();
     GetCountriesList();
     GetLanguagesList();
-    //GetIHRAList();                          // לטם: הוספתי פונק' שתרנדר את הרשימה הזו מהשרת > מהדאטה בייס'
+    GetIHRAList();                          // לטם: הוספתי פונק' שתרנדר את הרשימה הזו מהשרת > מהדאטה בייס
 
-    HideRemovalStatusDiv();
-    HideManagerStatusDiv();
+    //HideRemovalStatusDiv();       //לטם: זמנית הורדתי את זה כי זה עשה תקלה בהרצה
+    //HideManagerStatusDiv();       //לטם: זמנית הורדתי את זה כי זה עשה תקלה בהרצה
     enableOtherPlatform();           //לטם: הוספתי לכאן את הפונק' כי צריך לקרוא לפונק' שרושמים בשביל שהיא תתבצע
     enableOtherCountry();            //לטם: הוספתי לכאן את הפונק' כי צריך לקרוא לפונק' שרושמים בשביל שהיא תתבצע
     enableOtherLanguage()            //לטם: הוספתי לכאן את הפונק' כי צריך לקרוא לפונק' שרושמים בשביל שהיא תתבצע
     // ShowOther();                  //לטם: הפכתי את זה להערה כי זו קריאה לפונק' בלי שהפונק' עצמה כתובה'
 
 
-    // לדרופ-ליסט עם צ'קבוקס'
-    $(".checkbox-dropdown").click(function () {
-        $(this).toggleClass("is-active");
-    });
-
-    $(".checkbox-dropdown ul").click(function (e) {
-        e.stopPropagation();
-    });
-
-
 });
-
-
-
-
-
 
 
 // add new post - submit
@@ -48,12 +33,12 @@ function AddNewPost() {
     let keyWordsAndHashtages = $("#keywords_hashtags").val();
     let threat = $("#content_threat").val();
     // let screenshot = $("#UrlLink").val();            //לטם: כרגע אנחנו מנסות לעשות את זה בלי הוספת התמונה, באופן זמני בלבד
-    let amoutOfLikes = $("#exposure_likes").val();
-    let AmoutOfShares = $("#exposure_shares").val();
-    let AmoutOfComments = $("#exposure_Comments").val();    //לטם: עדכנתי פה לכל הפרמטרים את האיי-די לפי מה שיש בדף של הוספת פוסט וגם בדף עצמו הפכתי שדברים שהם מספרים כמו כמות לייקים יהיה מסוג מספר ולא מסוג טקסט כמו שהיה רשום שם
+    let amoutOfLikes = $("#exposure_likes").val();      //לטם: עדכנתי פה לכל הפרמטרים את האיי-די לפי מה שיש בדף של הוספת פוסט וגם בדף עצמו הפכתי שדברים שהם מספרים כמו כמות לייקים יהיה מסוג מספר ולא מסוג טקסט כמו שהיה רשום שם
+    let amoutOfShares = $("#exposure_shares").val();        //לטם: החלפי לאות ראשונה קטנה, במקום גדולה כמו שהיה רשום- זאת בשביל שיתאים לאובייקט שיוצרים למטה 
+    let amoutOfComments = $("#exposure_Comments").val();    //לטם: החלפי לאות ראשונה קטנה, במקום גדולה כמו שהיה רשום- זאת בשביל שיתאים לאובייקט שיוצרים למטה 
     let userID = currentUser.userID;
     let platformID = $("#platform").val();
-    let categoryID = $("#IHRA").val();
+    let categoryID = getChecked();
     let country = $("#country").val();
     let language = $("#language").val();
 
@@ -63,7 +48,7 @@ function AddNewPost() {
         Description: description,
         KeyWordsAndHashtages: keyWordsAndHashtages,
         Threat: threat,
-        //Screenshot: screenshot,
+        //Screenshot: screenshot,       //עד שננסה לשמור תמונות, כרגע זה בהערה גם בצד שרת
         AmoutOfLikes: amoutOfLikes,
         AmoutOfShares: amoutOfShares,
         AmoutOfComments: amoutOfComments,
@@ -72,8 +57,8 @@ function AddNewPost() {
         UserID: userID,
         PlatformID: platformID,
         CategoryID: categoryID,
-        PostStatusManager: "1013",// במטרה לשלוח עם יוזר איידי קיים, ישתנה בעריכת פוסט
-        RemovalStatusManager: "1013",// במטרה לשלוח עם יוזר איידי קיים, ישתנה בעריכת פוסט
+        //PostStatusManager: "1016",      // במטרה לשלוח עם יוזר איידי קיים, ישתנה בעריכת פוסט
+        //RemovalStatusManager: "1016",   // במטרה לשלוח עם יוזר איידי קיים, ישתנה בעריכת פוסט
         CountryID: country,
         LanguageID: language
     }
@@ -161,35 +146,61 @@ function getLanguagesECB(err) {
 
 
 // get the IHRA list                     //לטם: הוספתי את זה שיורונדר לדף של הוספת פוסט כי זה צריך לצאת מתוך הדאטה בייס
-//function GetIHRAList() {
-//    ajaxCall("GET", api + "IHRAs", "", getIHRAsSCB, getIHRAsECB);
-//    return false;
-//}
-//function getIHRAsSCB(data) {
-//    let str = "";
-//    str += '<option class="opt" value="0">בחר קטגוריה *</option>';
-//    for (var i = 0; i < data.length; i++) {
-//        str += '<option class="opt" value="' + data[i].categoryID + '">' + data[i].categoryName + '</option>';
-//    }
-//    document.getElementById("IHRA").innerHTML += str;
-//}
-//function getIHRAsECB(err) {
-//    console.log(err);
-//}
-
-
-//Hide RemovalStatus div
-function HideRemovalStatusDiv() {
-    var element = document.getElementById("RemovalStatus");
-    element.style.display = "none";
+function GetIHRAList() {
+    ajaxCall("GET", api + "IHRAs", "", getIHRAsSCB, getIHRAsECB);
+    return false;
+}
+function getIHRAsSCB(data) {
+    let str = "";
+    for (var i = 0; i < data.length; i++) {
+        str += '<label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="' + data[i].categoryID + '">';
+        str += data[i].categoryName;
+        str += '<input type="checkbox" name="ihraOption" class="mdl-checkbox__input" id="' + data[i].categoryID + '" value="' + data[i].categoryID + '"" /';
+        str += '<span class="checkmark mdl-checkbox__label"></span> </label>';
+    }
+    document.getElementById("checkBoxIHRA").innerHTML += str;
+}
+function getIHRAsECB(err) {
+    console.log(err);
 }
 
+// get the value from the check box
+function getChecked() {
+    var checkboxes = document.getElementsByName("ihraOption");
+    var checkedValue;
 
-//Hide ManagerStatus div
-function HideManagerStatusDiv() {
-    var element = document.getElementById("ManagerStatus");
-    element.style.display = "none";
+    for (var i = 0; i < checkboxes.length; i++) {
+        if (checkboxes[i].checked) {
+            checkedValue = checkboxes[i].value;
+        }
+    }
+    return checkedValue;
+
+    ////לטם: אחרי שנגדיר את הקטגוריות שיהיו מערך בדאטה בייס נשתמש בקוד הבא בשביל הפונקציה
+
+    //var checkboxes = document.getElementsByName("ihraOption");
+    //var checkedValues = [];
+
+    //for (var i = 0; i < checkboxes.length; i++) {
+    //    if (checkboxes[i].checked) {
+    //        checkedValues.push(checkboxes[i].value);
+    //    }
+    //}
+    //return checkedValues;
 }
+
+////Hide RemovalStatus div
+//function HideRemovalStatusDiv() {
+//    var element = document.getElementById("RemovalStatus");
+//    element.style.display = "none";
+//}
+
+
+////Hide ManagerStatus div
+//function HideManagerStatusDiv() {
+//    var element = document.getElementById("ManagerStatus");
+//    element.style.display = "none";
+//}
 
 // enable Other platform only if other selected
 function enableOtherPlatform() {

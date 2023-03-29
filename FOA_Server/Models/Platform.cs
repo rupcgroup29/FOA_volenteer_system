@@ -40,6 +40,22 @@ namespace FOA_Server.Models
             }
         }
 
+        // ענת: הוספתי כדי לקבל את שם הרשת החברתית לפי שם 
+        // returns PlatformID by Platform name
+        public int getPlatformByName(string name)
+        {
+            platformList = ReadAllPlatforms();
+
+            foreach (Platform item in platformList)
+            {
+                if (item.PlatformName == name)
+                {
+                    return item.PlatformID;
+                }
+            }
+            return -1;
+        }
+
 
     }
 }

@@ -6,7 +6,6 @@
     <meta name="description" content="" />
     <meta name="author" content="" />
     <title>FOA - ADD POST</title>   <!--לטם: שיניתי את הטייטל של העמוד-->
-
     <!-- Favicon-->
     <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
     <!-- Font Awesome icons (free version)-->
@@ -88,42 +87,6 @@
                 </div>-->
                 <div class="row align-items-stretch mb-5">
                     <div class="col-md-6">
-                        <div class="col-12">
-                            <div class=" form-group platformDiv">
-                                <!-- platform_diff-->
-                                <div class="form-headers">
-                                    <p> אחר</p>
-                                </div>
-                                <input dir="rtl" class="form-control" id="platform_diff" type="text" placeholder="אחר " />
-                            </div>
-                            <div class=" form-group platformDiv">
-                                <!-- platform-->
-                                <div class="form-headers">
-                                    <p> רשת חברתית</p>
-                                </div>
-                                <select dir="rtl" class="form-control" id="platform" required>
-                                    <!-- render list -->
-                                </select>
-                            </div>
-                        </div>
-                        <div class="col-12">
-                            <div class=" form-group platformDiv">
-                                <!-- country_diff-->
-                                <div class="form-headers">
-                                    <p> אחר</p>
-                                </div>
-                                <input dir="rtl" class="form-control" id="country_diff" type="text" placeholder="אחר " />
-                            </div>
-                            <div class="form-group">
-                                <!-- Country-->
-                                <div class="form-headers">
-                                    <p> מדינה</p>
-                                </div>
-                                <select dir="rtl" class="form-control" id="country">
-                                    <!-- render list -->
-                                </select>
-                            </div>
-                        </div>
                         <div class="form-group">
                             <!-- content_threat?-->
                             <div class="form-headers">
@@ -138,48 +101,51 @@
                                 <option class="opt" value="3">לא בטוח</option>
                             </select>
                         </div>
-                        <div class="form-group">
-                            <!-- IHRA-->
-                            <div class="form-headers">
-                                <p>
-                                    IHRA קטגוריה
-                                </p>
+                        <div class="row">
+                            <div class="col-6 form-group platformDiv">
+                                <!-- platform_diff-->
+                                <div class="form-headers">
+                                    <p> אחר</p>
+                                </div>
+                                <input dir="rtl" class="form-control" id="platform_diff" type="text" placeholder="אחר " />
                             </div>
-
-                            <div id="checkBoxIHRA">
-                                <!-- render list -->
+                            <div class="col-6 form-group platformDiv">
+                                <!-- platform-->
+                                <div class="form-headers">
+                                    <p> רשת חברתית</p>
+                                </div>
+                                <select dir="rtl" class="form-control" id="platform" required>
+                                    <!-- render list -->
+                                </select>
                             </div>
-
-
-                            <!--<select dir="rtl" class="form-control" id="IHRA" data-sb-validations="required" required>
-                            <option class="opt" value="0">בחר *</option>
-                            <option class="opt" value="1"> incitement to violence (1) </option>
-                            <option class="opt" value="2">Old\Classic Antisemitism (2,9)</option>
-                            <option class="opt" value="3">Conspiracy theory (3,6)</option>
-                            <option class="opt" value="4">Holocuast Denial  (4,5)</option>
-                            <option class="opt" value="5">Holocuast (not Holocaust denial- 5) or any other material that justifies making fun of or mocking the Holocaust</option>
-                            <option class="opt" value="6">Anti Israeli\Anti Zionism (8, 10, 11, 7 ) or any other actions against Israel, such as burning or desecrating the Israeli flag</option>
-                                                </select>-->
                         </div>
-
-                    </div>
-                    <div class="col-md-6">
-                        <div class="form-group">
-                            <!-- UrlLink-->
-                            <div class="form-headers">
-                                <p> LINK</p>
+                        <div class="row ">
+                            <div class="col-6 form-group platformDiv">
+                                <!-- country_diff-->
+                                <div class="form-headers">
+                                    <p> אחר</p>
+                                </div>
+                                <input dir="rtl" class="form-control" id="country_diff" type="text" placeholder="אחר " />
                             </div>
-                            <input dir="rtl" class="form-control" id="urlLink" type="text" placeholder="LINK *" required data-sb-validations="required" />
+                            <div class="col-6 form-group">
+                                <!-- Country-->
+                                <div class="form-headers">
+                                    <p> מדינה</p>
+                                </div>
+                                <select dir="rtl" class="form-control" id="country">
+                                    <!-- render list -->
+                                </select>
+                            </div>
                         </div>
-                        <div class="col-12">
-                            <div class=" form-group languageDiv">
+                        <div class="row ">
+                            <div class="col-6 form-group languageDiv">
                                 <!-- language_diff-->
                                 <div class="form-headers">
                                     <p> אחר</p>
                                 </div>
                                 <input dir="rtl" class="form-control" id="language_diff" type="text" placeholder="אחר " />
                             </div>
-                            <div class="form-group">
+                            <div class="col-6 form-group ">
                                 <!-- language-->
                                 <div class="form-headers">
                                     <p> שפה</p>
@@ -191,20 +157,21 @@
                         </div>
 
                         <div class="form-group">
-                            <!-- content-->
+                            <!-- IHRA-->
                             <div class="form-headers">
-                                <p>תיאור קצר של התוכן</p>
+                                <p>
+                                    IHRA קטגוריה
+                                </p>
                             </div>
-                            <input dir="rtl" class="form-control" id="description" type="text" required placeholder="תיאור קצר של התוכן *" data-sb-validations="required,email" />
-                        </div>
-                        <div class="form-group">
-                            <!-- Keywords_hashtags-->
-                            <div class="form-headers">
-                                <p> מילות מפתח או האשטאגים</p>
+
+                            <div id="checkBoxIHRA">
+                                <!-- render list -->
                             </div>
-                            <input dir="rtl" class="form-control" id="keywords_hashtags" type="text" placeholder="מילות מפתח או האשטאגים *" data-sb-validations="required" />
                         </div>
-                        <div class="col-12">
+
+                    </div>
+                    <div class="col-md-6">
+                        <div class="row ">
                             <div class=" form-group exposureDiv">
                                 <!-- exposure_likes-->
                                 <div class="form-headers">
@@ -226,26 +193,50 @@
                                 </div>
                                 <input dir="rtl" class="form-control" id="exposure_shares" type="number" placeholder="כמות *" required data-sb-validations="required" />
                             </div>
-                            <div class="form-group">
-                                <!-- Screenshot-->
-                                <div class="form-headers">
-                                    <p> צילום מסך של הפוסט</p>
-                                </div>
-                                <input dir="rtl" class="form-control" id="Screenshot" type="text" placeholder="לינק לדרייב " />
-                                <!--<div class="panel">
-                                    <div class="button_outer">
-                                        <div class="btn_upload">
-                                            <input type="file" id="upload_file" name="">בחירת קובץ
-                                        </div>
-                                        <div class="processing_bar"></div>
-                                        <div class="success_box"></div>
-                                    </div>
-                                </div>
-                                <div class="error_msg"></div>
-                                <div class="uploaded_file_view" id="uploaded_view">
-                                    <span class="file_remove">X</span>
-                                </div>-->
+                        </div>
+                        <div class="form-group">
+                            <!-- UrlLink-->
+                            <div class="form-headers">
+                                <p> LINK</p>
                             </div>
+                            <input dir="rtl" class="form-control" id="urlLink" type="text" placeholder="LINK *" required data-sb-validations="required" />
+                        </div>
+  
+
+                        <div class="form-group">
+                            <!-- content-->
+                            <div class="form-headers">
+                                <p>תיאור קצר של התוכן</p>
+                            </div>
+                            <input dir="rtl" class="form-control" id="description" type="text" required placeholder="תיאור קצר של התוכן *" data-sb-validations="required,email" />
+                        </div>
+                        <div class="form-group">
+                            <!-- Keywords_hashtags-->
+                            <div class="form-headers">
+                                <p> מילות מפתח או האשטאגים</p>
+                            </div>
+                            <input dir="rtl" class="form-control" id="keywords_hashtags" type="text" placeholder="מילות מפתח או האשטאגים *" data-sb-validations="required" />
+                        </div>
+
+                        <div class="form-group">
+                            <!-- Screenshot-->
+                            <div class="form-headers">
+                                <p> צילום מסך של הפוסט</p>
+                            </div>
+                            <input dir="rtl" class="form-control" id="Screenshot" type="text" placeholder="לינק לדרייב " />
+                            <!--<div class="panel">
+            <div class="button_outer">
+                <div class="btn_upload">
+                    <input type="file" id="upload_file" name="">בחירת קובץ
+                </div>
+                <div class="processing_bar"></div>
+                <div class="success_box"></div>
+            </div>
+        </div>
+        <div class="error_msg"></div>
+        <div class="uploaded_file_view" id="uploaded_view">
+            <span class="file_remove">X</span>
+        </div>-->
                         </div>
                     </div>
                     <!-- Submit Button-->

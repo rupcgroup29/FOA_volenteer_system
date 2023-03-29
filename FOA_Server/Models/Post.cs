@@ -27,10 +27,16 @@ namespace FOA_Server.Models
         public int CountryID { get; set; }
         public int LanguageID { get; set; }
 
+        //ענת: הוספת 3 שדות חדשים על מנת לקבל אותם במידה ומישהו מקליד "אחר" בשדה
+        public string CountryName { get; set; }
+        public string LanguageName { get; set; }
+        public string PlatformName { get; set; }
+
+
         private static List<Post> postsList = new List<Post>();
 
         public Post() { }
-        public Post(int postID, string urlLink, string description, string keyWordsAndHashtages, int threat, int amoutOfLikes, int amoutOfShares, int amoutOfComments, int postStatus, int removalStatus, int userID, int platformID, int categoryID, int postStatusManager, int removalStatusManager, int country, int language)
+        public Post(int postID, string urlLink, string description, string keyWordsAndHashtages, int threat, int amoutOfLikes, int amoutOfShares, int amoutOfComments, int postStatus, int removalStatus, int userID, int platformID, int categoryID, int postStatusManager, int removalStatusManager, int country, int language, string countryName, string languageName, string platformName)
         {
             PostID = postID;
             UrlLink = urlLink;
@@ -50,6 +56,10 @@ namespace FOA_Server.Models
             RemovalStatusManager = removalStatusManager;
             CountryID = country;
             LanguageID = language;
+            //  ענת: הוספתי כדי לשלוח במידה ומקלידים אחר
+            CountryName = countryName; 
+            LanguageName = languageName;
+            PlatformName = platformName;
         }
 
 

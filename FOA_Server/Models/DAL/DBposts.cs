@@ -443,6 +443,89 @@ namespace FOA_Server.Models.DAL
 
         }
 
+        // ענת: הוספתי על מנת שנוכל להוסיף מדינה חדשה
+        // This method insert a Country
+        public int InsertCountry(Country country)
+        {
+            SqlConnection con;
+            SqlCommand cmd;
+
+            try
+            {
+                con = connect("myProjDB"); // create the connection
+            }
+            catch (Exception ex)
+            {
+                // write to log
+                throw (ex);
+            }
+            // ענת: אני לא בטוחה שיש לנו סטופ פרוסיג'ר כזה, אבל צריך לייצר
+            cmd = CreateCommandWithStoredProcedureInsertCountry("spInsertCountry", con, country);             // create the command
+
+            try
+            {
+                int numEffected = cmd.ExecuteNonQuery(); // execute the command
+                return numEffected;
+            }
+            catch (Exception ex)
+            {
+                // write to log
+                Console.WriteLine("Error");
+                throw (ex);
+            }
+
+            finally
+            {
+                if (con != null)
+                {
+                    // close the db connection
+                    con.Close();
+                }
+            }
+
+        }
+
+        // ענת: הוספתי על מנת שנוכל להוסיף שפה חדשה
+        // This method insert a language
+        public int InsertLanguage(Language language)
+        {
+            SqlConnection con;
+            SqlCommand cmd;
+
+            try
+            {
+                con = connect("myProjDB"); // create the connection
+            }
+            catch (Exception ex)
+            {
+                // write to log
+                throw (ex);
+            }
+            // ענת: אני לא בטוחה שיש לנו סטופ פרוסיג'ר כזה, אבל צריך לייצר
+            cmd = CreateCommandWithStoredProcedureInsertLanguage("spInsertCountry", con, language);             // create the command
+
+            try
+            {
+                int numEffected = cmd.ExecuteNonQuery(); // execute the command
+                return numEffected;
+            }
+            catch (Exception ex)
+            {
+                // write to log
+                Console.WriteLine("Error");
+                throw (ex);
+            }
+
+            finally
+            {
+                if (con != null)
+                {
+                    // close the db connection
+                    con.Close();
+                }
+            }
+
+        }
 
         // Create the SqlCommand using a stored procedure for Read
         private SqlCommand CreateCommandWithStoredProcedureRead(string spName, SqlConnection con)
@@ -513,9 +596,45 @@ namespace FOA_Server.Models.DAL
             return cmd;
         }
 
+        // ענת: הוספתי כדי להוסיף מדינה חדשה
+        // Create the SqlCommand using a stored procedure for Insert a Country
+        private SqlCommand CreateCommandWithStoredProcedureInsertCountry(String spName, SqlConnection con, Country country)
+        {
+            SqlCommand cmd = new SqlCommand(); // create the command object
 
+            cmd.Connection = con;              // assign the connection to the command object
 
+            cmd.CommandText = spName;          // can be Select, Insert, Update, Delete 
 
+            cmd.CommandTimeout = 10;           // Time to wait for the execution' The default is 30 seconds
+
+            cmd.CommandType = System.Data.CommandType.StoredProcedure; // the type of the command, can also be stored procedure
+
+            cmd.Parameters.AddWithValue("@CountryID", country.CountryID);
+            cmd.Parameters.AddWithValue("@CountryName", country.CountryName);
+
+            return cmd;
+        }
+
+        // ענת: הוספתי כדי להוסיף שפה חדשה
+        // Create the SqlCommand using a stored procedure for Insert a language
+        private SqlCommand CreateCommandWithStoredProcedureInsertLanguage(String spName, SqlConnection con, Language language)
+        {
+            SqlCommand cmd = new SqlCommand(); // create the command object
+
+            cmd.Connection = con;              // assign the connection to the command object
+
+            cmd.CommandText = spName;          // can be Select, Insert, Update, Delete 
+
+            cmd.CommandTimeout = 10;           // Time to wait for the execution' The default is 30 seconds
+
+            cmd.CommandType = System.Data.CommandType.StoredProcedure; // the type of the command, can also be stored procedure
+
+            cmd.Parameters.AddWithValue("@LanguageID", language.LanguageID);
+            cmd.Parameters.AddWithValue("@LanguageName", language.LanguageName);
+
+            return cmd;
+        }
 
     }
 }

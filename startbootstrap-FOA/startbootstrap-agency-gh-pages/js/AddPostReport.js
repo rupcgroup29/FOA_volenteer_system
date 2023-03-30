@@ -8,20 +8,18 @@ $(document).ready(function () {
     // לעדכן את הכתובת החלופית !!
     //else api = "https://proj.ruppin.ac.il/cgroup29/test2/tar1/api/Users/";
 
-    $('#contactForm').submit(AddNewPost);       //לטם: שיניתי את שם הפונקציה
+    $('#contactForm').submit(AddNewPost); 
 
     GetPlatformsList();
     GetCountriesList();
     GetLanguagesList();
-    GetIHRAList();                          // לטם: הוספתי פונק' שתרנדר את הרשימה הזו מהשרת > מהדאטה בייס
+    GetIHRAList();           
 
     //HideRemovalStatusDiv();       //לטם: זמנית הורדתי את זה כי זה עשה תקלה בהרצה
     //HideManagerStatusDiv();       //לטם: זמנית הורדתי את זה כי זה עשה תקלה בהרצה
-    enableOtherPlatform();           //לטם: הוספתי לכאן את הפונק' כי צריך לקרוא לפונק' שרושמים בשביל שהיא תתבצע
-    enableOtherCountry();            //לטם: הוספתי לכאן את הפונק' כי צריך לקרוא לפונק' שרושמים בשביל שהיא תתבצע
-    enableOtherLanguage()            //לטם: הוספתי לכאן את הפונק' כי צריך לקרוא לפונק' שרושמים בשביל שהיא תתבצע
-    // ShowOther();                  //לטם: הפכתי את זה להערה כי זו קריאה לפונק' בלי שהפונק' עצמה כתובה'
-
+    enableOtherPlatform();           
+    enableOtherCountry();            
+    enableOtherLanguage()            
 
 });
 
@@ -36,14 +34,17 @@ function AddNewPost() {
     let amoutOfLikes = $("#exposure_likes").val();      //לטם: עדכנתי פה לכל הפרמטרים את האיי-די לפי מה שיש בדף של הוספת פוסט וגם בדף עצמו הפכתי שדברים שהם מספרים כמו כמות לייקים יהיה מסוג מספר ולא מסוג טקסט כמו שהיה רשום שם
     let amoutOfShares = $("#exposure_shares").val();        //לטם: החלפי לאות ראשונה קטנה, במקום גדולה כמו שהיה רשום- זאת בשביל שיתאים לאובייקט שיוצרים למטה 
     let amoutOfComments = $("#exposure_Comments").val();    //לטם: החלפי לאות ראשונה קטנה, במקום גדולה כמו שהיה רשום- זאת בשביל שיתאים לאובייקט שיוצרים למטה 
-    let userID = currentUser.userID;
+    let userID = currentUser.UserID;
     let platformID = $("#platform").val();
     let categoryID = getChecked();
-    let country = $("#country").val();
-    let language = $("#language").val();
+    let countryID = $("#country").val();
+    let languageID = $("#language").val();
+    let platformName = $("#platform_diff").val();
+    let countryName = $("#country_diff").val();
+    let languageName = $("#language_diff").val();
 
     const newPost = {
-        //PostID: "1", 
+        PostID: "1", 
         UrlLink: urlLink,
         Description: description,
         KeyWordsAndHashtages: keyWordsAndHashtages,
@@ -52,15 +53,18 @@ function AddNewPost() {
         AmoutOfLikes: amoutOfLikes,
         AmoutOfShares: amoutOfShares,
         AmoutOfComments: amoutOfComments,
-        //PostStatus: "1",
-        //RemovalStatus: "1", 
+        PostStatus: "1",
+        RemovalStatus: "1", 
         UserID: userID,
         PlatformID: platformID,
         CategoryID: categoryID,
-        //PostStatusManager: "1016",      // במטרה לשלוח עם יוזר איידי קיים, ישתנה בעריכת פוסט
-        //RemovalStatusManager: "1016",   // במטרה לשלוח עם יוזר איידי קיים, ישתנה בעריכת פוסט
-        CountryID: country,
-        LanguageID: language
+        PostStatusManager: "1016",      // במטרה לשלוח עם יוזר איידי קיים, ישתנה בעריכת פוסט
+        RemovalStatusManager: "1016",   // במטרה לשלוח עם יוזר איידי קיים, ישתנה בעריכת פוסט
+        CountryID: countryID,
+        LanguageID: languageID,
+        PlatformName: platformName,
+        CountryName: countryName,
+        LanguageName: languageName
     }
 
     ajaxCall("POST", api + "Posts", JSON.stringify(newPost), postAddNewPostSCB, postAddNewPostECB);
@@ -145,7 +149,7 @@ function getLanguagesECB(err) {
 }
 
 
-// get the IHRA list                     //לטם: הוספתי את זה שיורונדר לדף של הוספת פוסט כי זה צריך לצאת מתוך הדאטה בייס
+// get the IHRA list                     
 function GetIHRAList() {
     ajaxCall("GET", api + "IHRAs", "", getIHRAsSCB, getIHRAsECB);
     return false;

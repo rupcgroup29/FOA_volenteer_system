@@ -45,6 +45,28 @@ namespace FOA_Server.Controllers
         [HttpPost]
         public Post Post([FromBody] Post post)
         {
+            // ענת: הוספת פונקציות הבודקות אם המשתמש הקליד אחר באחד השדות והפעלת פונקציה מתאימה
+            if (post.CountryID == 999)
+            {
+                new Country(post.CountryName, post.CountryID).InsertCountry();
+                Country newID = new Country();
+                int countryID = newID.getCountryByName(post.CountryName);
+                post.CountryID = countryID;
+            }
+            if (post.LanguageID == 999)
+            {
+                new Language(post.LanguageName, post.LanguageID).InsertLanguage();
+                Language newID = new Language();
+                int LanguageID = newID.getLanguageByName(post.CountryName);
+                post.LanguageID = LanguageID;
+            }
+            if (post.PlatformID == 999)
+            {
+                new Platform(post.PlatformID,post.PlatformName).InsertPlatform();
+                Platform newID = new Platform();
+                int PlatformID = newID.getPlatformByName(post.PlatformName);
+                post.PlatformID = PlatformID;
+            }
             Post affected = post.InsertPost();
             return affected;
         }

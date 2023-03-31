@@ -7,7 +7,7 @@ namespace FOA_Server.Models
         public string CountryName { get; set; }
         public int CountryID { get; set; }
 
-        private static List<Country> CountriesList = new List<Country>();  // ענת: יצרתי רשימת מדינות
+        private static List<Country> CountriesList = new List<Country>();  
 
 
         public Country() { }   
@@ -24,7 +24,6 @@ namespace FOA_Server.Models
             return dbs.ReadCountries();
         }
 
-        //ענת: הוספתי את הפונקציה שתוסיף מדינה חדשה במידה ומישהו בחר "אחר" בשדה
         //Insert new Volunteer Program
         public Country InsertCountry()
         {
@@ -37,7 +36,7 @@ namespace FOA_Server.Models
                     bool uniqueName = UniqueName(this.CountryName, CountriesList);
                     if (uniqueName == false)
                     {
-                        throw new Exception(" Volunteer Program under that name is allready exists ");
+                        throw new Exception(" Country under that name is allready exists ");
                     }
                 }
 
@@ -54,7 +53,6 @@ namespace FOA_Server.Models
             }
         }
 
-        // ענת: הוספתי כדי לוודא שהמדינה עוד לא קיימת ברשימה
         // vaild there is not the same country already in the list
         public bool UniqueName(string name, List<Country> CountriesList)
         {
@@ -67,6 +65,7 @@ namespace FOA_Server.Models
             }
             return unique;
         }
+
 
         // ענת: הוספתי כדי לקבל את שם המדינה לפי שם 
         // returns CountryID by Country name

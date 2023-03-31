@@ -77,6 +77,7 @@ namespace FOA_Server.Models
             return dbs.ReadPostsWithoutStatus();
         }
 
+
         //Insert new post
         public Post InsertPost()
         {

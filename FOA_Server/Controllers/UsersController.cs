@@ -43,8 +43,6 @@ namespace FOA_Server.Controllers
             if (user.ProgramID == 999)
             {
                 new VolunteerProgram(user.ProgramID, user.ProgramName).InsertVolunteerProgram();
-                //TODO:  להוסיף קריאה לפרוגרם איידי החדש מהדאטה בייס והזנה שלו ליוזר
-                // int programId = getVolunteerProgramByName(user.ProgramName); // לשנות את המתודה למתודה שמביאה וולנטיר פרוגרם איידי לפי שם
                 VolunteerProgram newID = new VolunteerProgram();
                 int programID = newID.getVolunteerProgramByName(user.ProgramName);
                 user.ProgramID = programID;

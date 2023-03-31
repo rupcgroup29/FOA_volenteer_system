@@ -1,6 +1,5 @@
 ﻿var api;
 var currentUser = JSON.parse(sessionStorage.getItem("user"));
-var newProgram;
 
 $(document).ready(function () {
     if (location.hostname === "localhost" || location.hostname === "127.0.0.1") {
@@ -12,11 +11,11 @@ $(document).ready(function () {
     $('#contactForm').submit(RegisterUser);
 
     // get the volunteer Program list
-    GetVolunteerProgramsList();
+    getVolunteerProgramsList();
     // get the teams list
-    GetTeamsList();
+    getTeamsList();
 
-    HideIsActiveDiv();
+    hideIsActiveDiv();
     enableOther();
 });
 
@@ -63,7 +62,7 @@ function postRegisterECB(err) {
 
 
 // get the Volunteer Programs list
-function GetVolunteerProgramsList() {
+function getVolunteerProgramsList() {
     ajaxCall("GET", api + "VolunteerPrograms", "", getVolunteerProgramsSCB, getVolunteerProgramsECB);
     return false;
 }
@@ -86,7 +85,7 @@ function getVolunteerProgramsECB(err) {
 }
 
 // get the Teams list
-function GetTeamsList() {
+function getTeamsList() {
     ajaxCall("GET", api + "Teams", "", getTeamSCB, getTeamECB);
     return false;
 }
@@ -108,7 +107,7 @@ function getTeamECB(err) {
 }
 
 
-function HideIsActiveDiv() {
+function hideIsActiveDiv() {
     var element = document.getElementById("IsActive");
     element.style.display = "none";
 }

@@ -28,6 +28,16 @@ namespace FOA_Server.Models
             platformList = ReadAllPlatforms();
             try
             {
+                if (platformList.Count != 0)
+                {
+                    // vaild there is not the same already in the list
+                    bool uniqueName = UniqueName(this.PlatformName, platformList);
+                    if (uniqueName == false)
+                    {
+                        throw new Exception(" Platform under that name is allready exists ");
+                    }
+                }
+
                 DBposts dbs = new DBposts();
                 int good = dbs.InsertPlatform(this);
                 if (good > 0) { return this; }
@@ -38,6 +48,19 @@ namespace FOA_Server.Models
                 // write to error log file
                 throw new Exception(" didn't succeed in inserting " + exp.Message);
             }
+        }
+
+        // vaild there is not the same Platform already in the list
+        public bool UniqueName(string name, List<Platform> platformList)
+        {
+            bool unique = true;
+
+            foreach (Platform item in platformList)
+            {
+                if (item.PlatformName == name)
+                { unique = false; break; }
+            }
+            return unique;
         }
 
         // ענת: הוספתי כדי לקבל את שם הרשת החברתית לפי שם 

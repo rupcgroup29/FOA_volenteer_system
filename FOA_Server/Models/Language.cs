@@ -7,7 +7,7 @@ namespace FOA_Server.Models
         public string LanguageName { get; set; }
         public int LanguageID { get; set; }
 
-        private static List<Language> LanguagesList = new List<Language>();  // ענת: יצרתי רשימת שפות
+        private static List<Language> LanguagesList = new List<Language>(); 
 
         public Language() { }
         public Language(string lang, int langID)
@@ -23,7 +23,6 @@ namespace FOA_Server.Models
             return dbs.ReadLanguages();
         }
 
-        //ענת: הוספתי את הפונקציה שתוסיף שפה חדשה במידה ומישהו בחר "אחר" בשדה
         //Insert new Volunteer Program
         public Language InsertLanguage()
         {
@@ -36,7 +35,7 @@ namespace FOA_Server.Models
                     bool uniqueName = UniqueName(this.LanguageName, LanguagesList);
                     if (uniqueName == false)
                     {
-                        throw new Exception(" Volunteer Program under that name is allready exists ");
+                        throw new Exception(" Language under that name is allready exists ");
                     }
                 }
 
@@ -53,7 +52,6 @@ namespace FOA_Server.Models
             }
         }
 
-        // ענת: הוספתי כדי לוודא שהשפה עוד לא קיימת ברשימה
         // vaild there is not the same country already in the list
         public bool UniqueName(string name, List<Language> LanguagesList)
         {
@@ -67,7 +65,6 @@ namespace FOA_Server.Models
             return unique;
         }
 
-        // ענת: הוספתי כדי לקבל את שם השפה לפי שם 
         // returns LanguageID by Language name
         public int getLanguageByName(string name)
         {

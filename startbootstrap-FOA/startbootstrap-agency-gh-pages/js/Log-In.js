@@ -24,7 +24,7 @@ function loginUser() {
 
 function postLoginUserSCB(data) { // התחברות הצליחה
     isLoggedIn = true;
-    sessionStorage.setItem("user", JSON.stringify(data));   //לטם: מחקתי מהמשתנים למעלה את מה שהוספת על הסשיין כי זה לא רלוונטי לעשות גט-אייטם מהזיכרון כשאין עדין אף משתמש שהתחבר בשביל שהוא ישתמר בזכרון. בדף הלוג אין למעשה מאתחלים את שמירת היוזר שמתחבר בזיכרון
+    sessionStorage.setItem("user", JSON.stringify(data));   
     window.location.assign("HomePage.html");
 }
 function postLoginUserECB(err) { // התחברות כשלה

@@ -28,12 +28,12 @@ $(document).ready(function () {
 function AddNewPost() {
     let urlLink = $("#urlLink").val();
     let description = $("#description").val();
-    let keyWordsAndHashtages = $("#keywords_hashtags").val();
+    let keyWordsAndHashtages = separatekeyWordsAndHashtages();  // ענת: מפעיל פונקציה שתופסת את כל הטקסט, מפרידה לפי פסיק ומחזירה מערך
     let threat = $("#content_threat").val();
     // let screenshot = $("#UrlLink").val();            //לטם: כרגע אנחנו מנסות לעשות את זה בלי הוספת התמונה, באופן זמני בלבד
-    let amoutOfLikes = $("#exposure_likes").val();      //לטם: עדכנתי פה לכל הפרמטרים את האיי-די לפי מה שיש בדף של הוספת פוסט וגם בדף עצמו הפכתי שדברים שהם מספרים כמו כמות לייקים יהיה מסוג מספר ולא מסוג טקסט כמו שהיה רשום שם
-    let amoutOfShares = $("#exposure_shares").val();        //לטם: החלפי לאות ראשונה קטנה, במקום גדולה כמו שהיה רשום- זאת בשביל שיתאים לאובייקט שיוצרים למטה 
-    let amoutOfComments = $("#exposure_Comments").val();    //לטם: החלפי לאות ראשונה קטנה, במקום גדולה כמו שהיה רשום- זאת בשביל שיתאים לאובייקט שיוצרים למטה 
+    let amoutOfLikes = $("#exposure_likes").val();     
+    let amoutOfShares = $("#exposure_shares").val();    
+    let amoutOfComments = $("#exposure_Comments").val();  
     let userID = currentUser.UserID;
     let platformID = $("#platform").val();
     let categoryID = getChecked();
@@ -179,18 +179,12 @@ function getChecked() {
         }
     }
     return checkedValue;
+}
 
-    ////לטם: אחרי שנגדיר את הקטגוריות שיהיו מערך בדאטה בייס נשתמש בקוד הבא בשביל הפונקציה
-
-    //var checkboxes = document.getElementsByName("ihraOption");
-    //var checkedValues = [];
-
-    //for (var i = 0; i < checkboxes.length; i++) {
-    //    if (checkboxes[i].checked) {
-    //        checkedValues.push(checkboxes[i].value);
-    //    }
-    //}
-    //return checkedValues;
+function separatekeyWordsAndHashtages() {
+    let keyWordsAndHashtages = $("#keywords_hashtags").val();
+    const separated = keyWordsAndHashtages.split(",");
+    return separated;
 }
 
 ////Hide RemovalStatus div

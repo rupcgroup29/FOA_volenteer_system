@@ -27,6 +27,7 @@ $(document).ready(function () {
     readPlatforms();
     readLanguages();
     FilterByPost();
+
 });
 
 function FilterByPost() {
@@ -101,9 +102,10 @@ function RenderPostsList() {
         str += '<td class="urlLink_display">' + postsArr[i].urlLink + '</td>';
         str += '<td class="language_display">' + currenLanguageName + '</td>';
         str += '<td class="RemovalStatus_display">' + currenRemovalStatus + '</td>';
-        str += '<td class="viewButton_display""><button><a href="">צפייה</a></button></td>';
+        str += '<td class="viewButton_display"><button onclick="OpenPostCard(' + postsArr[i].postID +')">צפייה</button></td>';
         str += '</tr>';
     }
+    onclick = "AddToFavoriets(' + this.id + ')"
     str += '</table>';
     document.getElementById("PostsTable").innerHTML += str;
 }
@@ -132,4 +134,10 @@ function readLanguagesSCB(data) {
 }
 function readLanguagesECB(err) {
     console.log(err);
+}
+
+// save the relevant post to open in edit\view mode (Depends on permission)
+function OpenPostCard(postID) {
+    sessionStorage.setItem("post", JSON.stringify(postID));
+    window.location.assign("PostReport-Card.html");
 }

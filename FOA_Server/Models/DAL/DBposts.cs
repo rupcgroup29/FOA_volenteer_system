@@ -1,5 +1,6 @@
 ﻿using System.Data.SqlClient;
 using System.Data;
+using System.Diagnostics.Metrics;
 
 namespace FOA_Server.Models.DAL
 {
@@ -38,7 +39,7 @@ namespace FOA_Server.Models.DAL
                     p.PostID = Convert.ToInt32(dataReader["PostID"]);
                     p.UrlLink = dataReader["UrlLink"].ToString();
                     p.Description = dataReader["Description"].ToString();
-                    p.KeyWordsAndHashtages = dataReader["KeyWordsAndHashtages"].ToString();
+                    //p.KeyWordsAndHashtages = dataReader["KeyWordsAndHashtages"].ToString();
                     p.Threat = Convert.ToInt32(dataReader["Threat"]);
                     // p.Screenshot = dataReader["Screenshot"].ToString();
                     p.AmoutOfLikes = Convert.ToInt32(dataReader["AmoutOfLikes"]);
@@ -48,7 +49,7 @@ namespace FOA_Server.Models.DAL
                     p.RemovalStatus = Convert.ToInt32(dataReader["RemovalStatus"]);
                     p.UserID = Convert.ToInt32(dataReader["UserID"]);
                     p.PlatformID = Convert.ToInt32(dataReader["PlatformID"]);
-                    p.CategoryID = Convert.ToInt32(dataReader["CategoryID"]);
+                    //p.CategoryID = Convert.ToInt32(dataReader["CategoryID"]);
                     p.PostStatusManager = Convert.ToInt32(dataReader["PostStatusManager"]);
                     p.RemovalStatusManager = Convert.ToInt32(dataReader["RemovalStatusManager"]);
                     p.CountryID = Convert.ToInt32(dataReader["CountryID"]);
@@ -106,7 +107,7 @@ namespace FOA_Server.Models.DAL
                     p.PostID = Convert.ToInt32(dataReader["PostID"]);
                     p.UrlLink = dataReader["UrlLink"].ToString();
                     p.Description = dataReader["Description"].ToString();
-                    p.KeyWordsAndHashtages = dataReader["KeyWordsAndHashtages"].ToString();
+                    //p.KeyWordsAndHashtages = dataReader["KeyWordsAndHashtages"].ToString();
                     p.Threat = Convert.ToInt32(dataReader["Threat"]);
                     // p.Screenshot = dataReader["Screenshot"].ToString();
                     p.AmoutOfLikes = Convert.ToInt32(dataReader["AmoutOfLikes"]);
@@ -116,7 +117,7 @@ namespace FOA_Server.Models.DAL
                     p.RemovalStatus = Convert.ToInt32(dataReader["RemovalStatus"]);
                     p.UserID = Convert.ToInt32(dataReader["UserID"]);
                     p.PlatformID = Convert.ToInt32(dataReader["PlatformID"]);
-                    p.CategoryID = Convert.ToInt32(dataReader["CategoryID"]);
+                   // p.CategoryID = Convert.ToInt32(dataReader["CategoryID"]);
                     //p.PostStatusManager = Convert.ToInt32(dataReader["PostStatusManager"]);
                     //p.RemovalStatusManager = Convert.ToInt32(dataReader["RemovalStatusManager"]);
                     p.CountryID = Convert.ToInt32(dataReader["CountryID"]);
@@ -163,6 +164,46 @@ namespace FOA_Server.Models.DAL
 
             try
             {
+                int lastId = Convert.ToInt32(cmd.ExecuteScalar()); // execute the command //נותן את האופציה לקבל ערך בחזרה מפונקציית ההכנסה (id)
+                return lastId;
+            }
+            catch (Exception ex)
+            {
+                // write to log
+                Console.WriteLine("Error");
+                throw (ex);
+            }
+
+            finally
+            {
+                if (con != null)
+                {
+                    // close the db connection
+                    con.Close();
+                }
+            }
+
+        }
+
+        //This method insert a new Category and post id to many-to-many table 
+        public int InsertCategoryToPost(int postID,int categoryID)
+        {
+            SqlConnection con;
+            SqlCommand cmd;
+
+            try
+            {
+                con = connect("myProjDB"); // create the connection
+            }
+            catch (Exception ex)
+            {
+                // write to log
+                throw (ex);
+            }
+            cmd = CreateCommandWithStoredProcedureInsert("spInsertPostAndCategory", con, postID, categoryID);             // create the command
+
+            try
+            {
                 int numEffected = cmd.ExecuteNonQuery(); // execute the command
                 return numEffected;
             }
@@ -184,7 +225,138 @@ namespace FOA_Server.Models.DAL
 
         }
 
+        //This method insert a new KeyWordsAndHashtages and post id to many-to-many table 
+        public int InsertKeyWordsAndHashtagesToPost(int postID, int keyWordsAndHashtages)
+        {
+            SqlConnection con;
+            SqlCommand cmd;
 
+            try
+            {
+                con = connect("myProjDB"); // create the connection
+            }
+            catch (Exception ex)
+            {
+                // write to log
+                throw (ex);
+            }
+            cmd = CreateCommandWithStoredProcedureInsertK("spInsertPostKeyWordsAndHashtages", con, postID, keyWordsAndHashtages);             // create the command
+
+            try
+            {
+                int numEffected = cmd.ExecuteNonQuery(); // execute the command
+                return numEffected;
+            }
+            catch (Exception ex)
+            {
+                // write to log
+                Console.WriteLine("Error");
+                throw (ex);
+            }
+
+            finally
+            {
+                if (con != null)
+                {
+                    // close the db connection
+                    con.Close();
+                }
+            }
+
+        }
+
+        // Language
+        // This method reads all KeyWordsAndHashtages
+        public List<KeyWordsAndHashtages> ReadKeyWordsAndHashtages()
+        {
+            SqlConnection con;
+            SqlCommand cmd;
+
+            try
+            {
+                con = connect("myProjDB"); // create the connection
+            }
+            catch (Exception ex)
+            {
+                // write to log
+                Console.WriteLine("Error");
+                throw (ex);
+            }
+
+            cmd = CreateCommandWithStoredProcedureRead("spReadKeyWordsAndHashtages", con);      // create the command
+
+            List<KeyWordsAndHashtages> list = new List<KeyWordsAndHashtages>();
+
+            try
+            {
+                SqlDataReader dataReader = cmd.ExecuteReader(CommandBehavior.CloseConnection);
+
+                while (dataReader.Read())
+                {
+                    KeyWordsAndHashtages k = new KeyWordsAndHashtages();
+                    k.KH = dataReader["KeyWordsAndHashtages"].ToString();
+                    k.KH_ID = Convert.ToInt32(dataReader["ID"]);
+
+                    list.Add(k);
+                }
+                return list;
+            }
+            catch (Exception ex)
+            {
+                // write to log
+                Console.WriteLine("Error");
+                throw (ex);
+            }
+
+            finally
+            {
+                if (con != null)
+                {
+                    // close the db connection
+                    con.Close();
+                }
+            }
+        }
+
+       // This method insert a new KeyWordsAndHashtages
+        public int InsertKeyWordsAndHashtages(KeyWordsAndHashtages keyWordsAndHashtages)
+        {
+            SqlConnection con;
+            SqlCommand cmd;
+
+            try
+            {
+                con = connect("myProjDB"); // create the connection
+            }
+            catch (Exception ex)
+            {
+                // write to log
+                throw (ex);
+            }
+            cmd = CreateCommandWithStoredProcedureInsert("spInsertKeyWordsAndHashtages", con, keyWordsAndHashtages);             // create the command
+
+            try
+            {
+                int lastId = Convert.ToInt32(cmd.ExecuteScalar()); // execute the command //נותן את האופציה לקבל ערך בחזרה מפונקציית ההכנסה (id)
+                return lastId;
+            }
+            catch (Exception ex)
+            {
+                // write to log
+                Console.WriteLine("Error");
+                throw (ex);
+            }
+
+            finally
+            {
+                if (con != null)
+                {
+                    // close the db connection
+                    con.Close();
+                }
+            }
+
+        }
         // Language
         // This method reads all Language
         public List<Language> ReadLanguages()
@@ -555,24 +727,62 @@ namespace FOA_Server.Models.DAL
 
             cmd.Parameters.AddWithValue("@UserID", post.UserID);
             cmd.Parameters.AddWithValue("@PlatformID", post.PlatformID);
-            cmd.Parameters.AddWithValue("@CategoryID", post.CategoryID);
+            //cmd.Parameters.AddWithValue("@CategoryID", post.CategoryID);
             // cmd.Parameters.AddWithValue("@PostStatusManager", post.PostStatusManager);      
             // cmd.Parameters.AddWithValue("@RemovalStatusManager", post.RemovalStatusManager);  
             cmd.Parameters.AddWithValue("@CountryID", post.CountryID);
             cmd.Parameters.AddWithValue("@LanguageID", post.LanguageID);
             cmd.Parameters.AddWithValue("@UrlLink", post.UrlLink);
             cmd.Parameters.AddWithValue("@Description", post.Description);
-            cmd.Parameters.AddWithValue("@KeyWordsAndHashtages", post.KeyWordsAndHashtages);
+            //cmd.Parameters.AddWithValue("@KeyWordsAndHashtages", post.KeyWordsAndHashtages);
             cmd.Parameters.AddWithValue("@Threat", post.Threat);
             cmd.Parameters.AddWithValue("@AmoutOfLikes", post.AmoutOfLikes);
             cmd.Parameters.AddWithValue("@AmoutOfShares", post.AmoutOfShares);
             cmd.Parameters.AddWithValue("@AmoutOfComments", post.AmoutOfComments);
             cmd.Parameters.AddWithValue("@Screenshot", "");
+            cmd.Parameters.Add("@LastID", SqlDbType.Int).Direction = ParameterDirection.Output;
+
 
             return cmd;
         }
 
+        // Create the SqlCommand using a stored procedure for Insert a Catogry to post
+        private SqlCommand CreateCommandWithStoredProcedureInsert(String spName, SqlConnection con, int postID, int CategoryID)
+        {
+            SqlCommand cmd = new SqlCommand(); // create the command object
 
+            cmd.Connection = con;              // assign the connection to the command object
+
+            cmd.CommandText = spName;          // can be Select, Insert, Update, Delete 
+
+            cmd.CommandTimeout = 10;           // Time to wait for the execution' The default is 30 seconds
+
+            cmd.CommandType = System.Data.CommandType.StoredProcedure; // the type of the command, can also be stored procedure
+
+            cmd.Parameters.AddWithValue("@post_id", postID);
+            cmd.Parameters.AddWithValue("@category_id", CategoryID);
+
+            return cmd;
+        }
+        // Create the SqlCommand using a stored procedure for Insert a KeyWord
+
+        private SqlCommand CreateCommandWithStoredProcedureInsertK(String spName, SqlConnection con, int postID,int keyWordsAndHashtages)
+        {
+            SqlCommand cmd = new SqlCommand(); // create the command object
+
+            cmd.Connection = con;              // assign the connection to the command object
+
+            cmd.CommandText = spName;          // can be Select, Insert, Update, Delete 
+
+            cmd.CommandTimeout = 10;           // Time to wait for the execution' The default is 30 seconds
+
+            cmd.CommandType = System.Data.CommandType.StoredProcedure; // the type of the command, can also be stored procedure
+
+            cmd.Parameters.AddWithValue("@post_id", postID);
+            cmd.Parameters.AddWithValue("@KeyWordsAndHashtages_id", keyWordsAndHashtages);
+
+            return cmd;
+        }
         // Create the SqlCommand using a stored procedure for Insert a Platform
         private SqlCommand CreateCommandWithStoredProcedureInsert(String spName, SqlConnection con, Platform platform)
         {
@@ -593,6 +803,25 @@ namespace FOA_Server.Models.DAL
         }
 
 
+        // Create the SqlCommand using a stored procedure for Insert a keyWordsAndHashtages
+        private SqlCommand CreateCommandWithStoredProcedureInsert(String spName, SqlConnection con, KeyWordsAndHashtages keyWordsAndHashtages)
+        {
+            SqlCommand cmd = new SqlCommand(); // create the command object
+
+            cmd.Connection = con;              // assign the connection to the command object
+
+            cmd.CommandText = spName;          // can be Select, Insert, Update, Delete 
+
+            cmd.CommandTimeout = 10;           // Time to wait for the execution' The default is 30 seconds
+
+            cmd.CommandType = System.Data.CommandType.StoredProcedure; // the type of the command, can also be stored procedure
+
+            cmd.Parameters.AddWithValue("@KeyWordsAndHashtages", keyWordsAndHashtages.KH);
+            cmd.Parameters.Add("@LastID", SqlDbType.Int).Direction = ParameterDirection.Output;
+
+            return cmd;
+        }
+
         // Create the SqlCommand using a stored procedure for Insert a Country
         private SqlCommand CreateCommandWithStoredProcedureInsert(String spName, SqlConnection con, Country country)
         {
@@ -610,7 +839,6 @@ namespace FOA_Server.Models.DAL
 
             return cmd;
         }
-
 
         // Create the SqlCommand using a stored procedure for Insert a language
         private SqlCommand CreateCommandWithStoredProcedureInsert(String spName, SqlConnection con, Language language)

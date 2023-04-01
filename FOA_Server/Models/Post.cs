@@ -1,4 +1,5 @@
 ﻿using FOA_Server.Models.DAL;
+using System.Xml.Linq;
 
 namespace FOA_Server.Models
 {
@@ -9,7 +10,7 @@ namespace FOA_Server.Models
         public int PostID { get; set; }
         public string UrlLink { get; set; }
         public string Description { get; set; }
-        public string KeyWordsAndHashtages { get; set; }
+        public string[] KeyWordsAndHashtages { get; set; } //הילה:שיניתי להכנסת מערך
         public int Threat { get; set; }
         // public string Screenshot { get; set; }
         public int AmoutOfLikes { get; set; }
@@ -21,7 +22,7 @@ namespace FOA_Server.Models
         // FK fields
         public int UserID { get; set; }
         public int PlatformID { get; set; }
-        public int CategoryID { get; set; }
+        public int[] CategoryID { get; set; } //הילה:שיניתי להכנסת מערך
         public int PostStatusManager { get; set; }
         public int RemovalStatusManager { get; set; }
         public int CountryID { get; set; }
@@ -36,7 +37,7 @@ namespace FOA_Server.Models
         private static List<Post> postsList = new List<Post>();
 
         public Post() { }
-        public Post(int postID, string urlLink, string description, string keyWordsAndHashtages, int threat, int amoutOfLikes, int amoutOfShares, int amoutOfComments, int postStatus, int removalStatus, int userID, int platformID, int categoryID, int postStatusManager, int removalStatusManager, int country, int language, string countryName, string languageName, string platformName)
+        public Post(int postID, string urlLink, string description, string[] keyWordsAndHashtages, int threat, int amoutOfLikes, int amoutOfShares, int amoutOfComments, int postStatus, int removalStatus, int userID, int platformID, int[] categoryID, int postStatusManager, int removalStatusManager, int country, int language, string countryName, string languageName, string platformName)
         {
             PostID = postID;
             UrlLink = urlLink;
@@ -95,8 +96,41 @@ namespace FOA_Server.Models
                 //}
 
                 DBposts dbs = new DBposts();
-                int good = dbs.InsertPost(this);
-                if (good > 0) { return this; }
+                int postId = dbs.InsertPost(this);
+                if (postId > 0) {
+                   
+                    for (int i = 0; i < this.CategoryID.Length; i++)//Loop that run on all the Category array
+                    {
+                        int response = dbs.InsertCategoryToPost(postId, this.CategoryID[i]); //Insrt the categoryID and postID to many-to-many table in db
+                        if (response <= 0)
+                        {
+                            return null;
+                        }
+                    }
+
+                    List<KeyWordsAndHashtages> KeyWordsAndHashtagesList = dbs.ReadKeyWordsAndHashtages();
+                    if (KeyWordsAndHashtagesList != null)
+                    {
+                        for (int i = 0; i < this.KeyWordsAndHashtages.Length; i++)
+                        {
+                            KeyWordsAndHashtages key = KeyWordsAndHashtagesList.FirstOrDefault(KeyWord => KeyWord.KH == this.KeyWordsAndHashtages[i]);
+                            if (key != null)
+                            {
+                                dbs.InsertKeyWordsAndHashtagesToPost(postId, key.KH_ID);
+                            }
+                            else
+                            {
+                                KeyWordsAndHashtages keyw = new KeyWordsAndHashtages(this.KeyWordsAndHashtages[i],0);
+                                int id = dbs.InsertKeyWordsAndHashtages(keyw);
+                                dbs.InsertKeyWordsAndHashtagesToPost(postId, id);
+
+                            }
+                        }
+                    }
+
+
+                    return this; 
+                }
                 else { return null; }
             }
             catch (Exception exp)

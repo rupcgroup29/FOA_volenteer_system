@@ -25,6 +25,11 @@ $(document).ready(function () {
     // לעדכן את הכתובת החלופית !!
     //else api = "https://proj.ruppin.ac.il/cgroup29/test2/tar1/api/Users/";
 
+    //"other" sections will be readonly when page is up
+    $("#platform_diff").attr("readonly", true);
+    $("#country_diff").attr("readonly", true);
+    $("#language_diff").attr("readonly", true);
+
     $('#contactForm').submit(AddNewPost); 
 
     GetPlatformsList();
@@ -228,7 +233,10 @@ function enableOtherPlatform() {
         if (sel.value === '999') {
             $("#platform_diff").attr("readonly", false);
         }
-        else $("#platform_diff").attr("readonly", true);
+        else {
+            $("#platform_diff").attr("readonly", true);
+            document.getElementById('platform_diff').value = '';
+        }
     }
 }
 // enable Other country only if other selected
@@ -242,7 +250,10 @@ function enableOtherCountry() {
         if (sel.value === '999') {
             $("#country_diff").attr("readonly", false);
         }
-        else $("#country_diff").attr("readonly", true);
+        else {
+            $("#country_diff").attr("readonly", true);
+            document.getElementById('country_diff').value = '';
+        }
     }
 }
 // enable Other language only if other selected
@@ -256,6 +267,10 @@ function enableOtherLanguage() {
         if (sel.value === '999') {
             $("#language_diff").attr("readonly", false);
         }
-        else $("#language_diff").attr("readonly", true);
+        else {
+            $("#language_diff").attr("readonly", true);
+            document.getElementById('language_diff').value = '';
+        }
     }
 }
+

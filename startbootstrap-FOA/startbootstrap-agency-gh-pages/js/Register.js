@@ -123,7 +123,10 @@ function enableOther() {
         if (sel.value === '999') {
             $("#Different_school").attr("readonly", false);
         }
-        else $("#Different_school").attr("readonly", true);
+        else {
+            $("#Different_school").attr("readonly", true);
+            document.getElementById('Different_school').value = '';
+        }
     }
 }
 

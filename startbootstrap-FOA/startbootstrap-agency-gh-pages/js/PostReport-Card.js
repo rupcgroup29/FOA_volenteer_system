@@ -52,8 +52,8 @@ function RenderRelevantDetails() {
         if (currentPost == postsArr[i].PostID) {
             if (postsArr[i].removalStatus == 0)// status have'nt changed yet
             {
-                str_removalStatus += '<option class="opt" value="0">טרם אושר</option>';
-                str_removalStatus += '<option class="opt" value="1">מאושר</option>';
+                str_removalStatus += '<option class="opt" value="0">דווח</option>';
+                str_removalStatus += '<option class="opt" value="1">הוסר</option>';
             }
             else {
                 //RemovalStatus
@@ -61,8 +61,9 @@ function RenderRelevantDetails() {
             }
             if (postsArr[i].postStatus == 0)// status have'nt changed yet
             {
-                str_postStatus += '<option class="opt" value="0">דווח</option>';
-                str_postStatus += '<option class="opt" value="1">הוסר</option>';
+                str_postStatus += '<option class="opt" value="0">ממתין לסטטוס</option>';
+                str_postStatus += '<option class="opt" value="1">אושר</option>';
+                str_postStatus += '<option class="opt" value="2">נדחה</option>';
             }
             else {
                 //ManagerStatus
@@ -116,14 +117,14 @@ function RenderRelevantDetails() {
 // edit post - submit
 function editPost() {
     let postStatus = $("#ManagerStatus").val();
-    let postStatusManager = "1016";   // default if no one changed it yet
+    let postStatusManager = "1";   // default if no one changed it yet
     let removalStatus = $("#ManagerStatus").val();
-    let removalStatusManager = "1016"; // default if no one changed it yet
+    let removalStatusManager = "1"; // default if no one changed it yet
 
-    if (postStatus == 1) { // status changed
+    if (postStatus != 0) { // status changed
         postStatusManager = currentUser.userID;
     }
-    if (removalStatus == 1) { // status changed
+    if (removalStatus != 0) { // status changed
         removalStatusManager = currentUser.userID;
     }
 

@@ -1,5 +1,22 @@
 ﻿var api;
-var currentUser = JSON.parse(sessionStorage.getItem("user"));
+/*    נשמר במטרה לחסוך את ההתחברות בעת בדיקות   */
+var user = {
+    userID: 1024,
+    firstName: "ענת",
+    surname: "אביטל",
+    userName: "anat_a",
+    phoneNum: "0529645123",
+    roleDescription: "מנהל צוות ניטור",
+    permissionID: 3,
+    isActive: true,
+    password: "6DCA4533",
+    teamID: 1,
+    programID: 1026,
+    email: "anat_a@gmail.com",
+    programName: null
+}
+sessionStorage.setItem("user", JSON.stringify(user));
+var currentUser = sessionStorage.getItem("user");
 
 $(document).ready(function () {
     if (location.hostname === "localhost" || location.hostname === "127.0.0.1") {
@@ -170,12 +187,12 @@ function getIHRAsECB(err) {
 
 // get the value from the check box
 function getChecked() {
-    var checkboxes = document.getElementsByName("ihraOption");
-    var checkedValue;
+    const checkboxes = document.querySelectorAll('input[type="checkbox"]');
+    const checkedValue =[];
 
     for (var i = 0; i < checkboxes.length; i++) {
         if (checkboxes[i].checked) {
-            checkedValue = checkboxes[i].value;
+            checkedValue.push(checkboxes[i].value);
         }
     }
     return checkedValue;

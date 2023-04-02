@@ -57,15 +57,15 @@ namespace FOA_Server.Controllers
             {
                 new Language(post.LanguageName, post.LanguageID).InsertLanguage();
                 Language newID = new Language();
-                int LanguageID = newID.getLanguageByName(post.CountryName);
-                post.LanguageID = LanguageID;
+                int languageID = newID.getLanguageByName(post.CountryName);
+                post.LanguageID = languageID;
             }
             if (post.PlatformID == 999)
             {
                 new Platform(post.PlatformID,post.PlatformName).InsertPlatform();
                 Platform newID = new Platform();
-                int PlatformID = newID.getPlatformByName(post.PlatformName);
-                post.PlatformID = PlatformID;
+                int platformID = newID.getPlatformByName(post.PlatformName);
+                post.PlatformID = platformID;
             }
             Post affected = post.InsertPost();
             return affected;

@@ -34,7 +34,7 @@ function AddNewPost() {
     let amoutOfLikes = $("#exposure_likes").val();     
     let amoutOfShares = $("#exposure_shares").val();    
     let amoutOfComments = $("#exposure_Comments").val();  
-    let userID = currentUser.UserID;
+    let userID = currentUser.userID;
     let platformID = $("#platform").val();
     let categoryID = getChecked();
     let countryID = $("#country").val();
@@ -55,11 +55,11 @@ function AddNewPost() {
         AmoutOfComments: amoutOfComments,
         PostStatus: "1",
         RemovalStatus: "1", 
-        UserID: userID,
+        UserID: "1013",
         PlatformID: platformID,
         CategoryID: categoryID,
-        PostStatusManager: "1016",      // במטרה לשלוח עם יוזר איידי קיים, ישתנה בעריכת פוסט
-        RemovalStatusManager: "1016",   // במטרה לשלוח עם יוזר איידי קיים, ישתנה בעריכת פוסט
+        PostStatusManager: "1",      // במטרה לשלוח עם יוזר איידי קיים, ישתנה בעריכת פוסט
+        RemovalStatusManager: "1",   // במטרה לשלוח עם יוזר איידי קיים, ישתנה בעריכת פוסט
         CountryID: countryID,
         LanguageID: languageID,
         PlatformName: platformName,

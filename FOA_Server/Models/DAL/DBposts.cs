@@ -117,7 +117,7 @@ namespace FOA_Server.Models.DAL
                     p.RemovalStatus = Convert.ToInt32(dataReader["RemovalStatus"]);
                     p.UserID = Convert.ToInt32(dataReader["UserID"]);
                     p.PlatformID = Convert.ToInt32(dataReader["PlatformID"]);
-                   // p.CategoryID = Convert.ToInt32(dataReader["CategoryID"]);
+                    //p.CategoryID = Convert.ToInt32(dataReader["CategoryID"]);
                     //p.PostStatusManager = Convert.ToInt32(dataReader["PostStatusManager"]);
                     //p.RemovalStatusManager = Convert.ToInt32(dataReader["RemovalStatusManager"]);
                     p.CountryID = Convert.ToInt32(dataReader["CountryID"]);
@@ -186,7 +186,7 @@ namespace FOA_Server.Models.DAL
         }
 
         //This method insert a new Category and post id to many-to-many table 
-        public int InsertCategoryToPost(int postID,int categoryID)
+        public int InsertCategoryToPost(int postID, int categoryID)
         {
             SqlConnection con;
             SqlCommand cmd;
@@ -318,7 +318,7 @@ namespace FOA_Server.Models.DAL
             }
         }
 
-       // This method insert a new KeyWordsAndHashtages
+        // This method insert a new KeyWordsAndHashtages
         public int InsertKeyWordsAndHashtages(KeyWordsAndHashtages keyWordsAndHashtages)
         {
             SqlConnection con;
@@ -766,7 +766,7 @@ namespace FOA_Server.Models.DAL
         }
         // Create the SqlCommand using a stored procedure for Insert a KeyWord
 
-        private SqlCommand CreateCommandWithStoredProcedureInsertK(String spName, SqlConnection con, int postID,int keyWordsAndHashtages)
+        private SqlCommand CreateCommandWithStoredProcedureInsertK(String spName, SqlConnection con, int postID, int keyWordsAndHashtages)
         {
             SqlCommand cmd = new SqlCommand(); // create the command object
 

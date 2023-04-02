@@ -82,18 +82,18 @@ namespace FOA_Server.Models
         //Insert new post
         public Post InsertPost()
         {
-            // postsList = ReadAllPosts();
+            postsList = ReadPostsWithoutStatus();
             try
             {
-                //if (postsList.Count != 0)
-                //{
-                //    // check new user email uniqueness
-                //    bool uniqueUrl = UniqueUrl(this.UrlLink);
-                //    if (!uniqueUrl)
-                //    {
-                //        throw new Exception(" post under that URL link is allready exists in the system ");
-                //    }
-                //}
+                if (postsList.Count != 0)
+                {
+                    // unique url ?
+                    bool uniqueUrl = UniqueUrl(this.UrlLink, postsList);
+                    if (!uniqueUrl)
+                    {
+                        throw new Exception(" post under that URL link is allready exists in the system ");
+                    }
+                }
 
                 DBposts dbs = new DBposts();
                 int postId = dbs.InsertPost(this);
@@ -141,10 +141,10 @@ namespace FOA_Server.Models
         }
 
         // valid unique URL link for the new post insering
-        public bool UniqueUrl(string url)
+        public bool UniqueUrl(string url, List<Post> list)
         {
             bool unique = true;
-            foreach (Post p in postsList)
+            foreach (Post p in list)
             {
                 if (p.UrlLink == url)
                 {

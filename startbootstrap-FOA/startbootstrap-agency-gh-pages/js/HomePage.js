@@ -77,7 +77,7 @@ function RenderPostsList() {
         str += '<th style="width:22%;">פלטפורמה</th>';
         str += '<th style="width:22%;">קישור</th>';
         str += '<th style="width:22%;">שפה</th>';
-        str += '<th style="width:22%;">סטטוס בפלפורמה</th>';
+        str += '<th style="width:22%;">סטטוס בפלטפורמה</th>';
         str += '<th style="width:10%;"></th>';
         str += '</tr>';
         for (var i = 0; i < postsArr.length; i++) {

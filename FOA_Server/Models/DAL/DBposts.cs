@@ -6,9 +6,8 @@ namespace FOA_Server.Models.DAL
 {
     public class DBposts : DBservices
     {
-
         // POSTS
-        // This method reads all Posts
+        // This method reads all Posts without keywords & IHRA category
         public List<Post> ReadPosts()
         {
             SqlConnection con;
@@ -185,6 +184,8 @@ namespace FOA_Server.Models.DAL
 
         }
 
+
+        // IHRA Category
         //This method insert a new Category and post id to many-to-many table 
         public int InsertCategoryToPost(int postID, int categoryID)
         {
@@ -225,6 +226,7 @@ namespace FOA_Server.Models.DAL
 
         }
 
+        // KeyWordsAndHashtages
         //This method insert a new KeyWordsAndHashtages and post id to many-to-many table 
         public int InsertKeyWordsAndHashtagesToPost(int postID, int keyWordsAndHashtages)
         {
@@ -265,7 +267,6 @@ namespace FOA_Server.Models.DAL
 
         }
 
-        // Language
         // This method reads all KeyWordsAndHashtages
         public List<KeyWordsAndHashtages> ReadKeyWordsAndHashtages()
         {
@@ -357,6 +358,8 @@ namespace FOA_Server.Models.DAL
             }
 
         }
+        
+        
         // Language
         // This method reads all Language
         public List<Language> ReadLanguages()
@@ -697,6 +700,7 @@ namespace FOA_Server.Models.DAL
 
 
         // Create the SqlCommand using a stored procedure for Read
+        // Read all post table data to main screen without keywords & IHRA category
         private SqlCommand CreateCommandWithStoredProcedureRead(string spName, SqlConnection con)
         {
             SqlCommand cmd = new SqlCommand(); // create the command object
@@ -741,7 +745,6 @@ namespace FOA_Server.Models.DAL
             cmd.Parameters.AddWithValue("@AmoutOfComments", post.AmoutOfComments);
             cmd.Parameters.AddWithValue("@Screenshot", "");
             cmd.Parameters.Add("@LastID", SqlDbType.Int).Direction = ParameterDirection.Output;
-
 
             return cmd;
         }
@@ -796,7 +799,6 @@ namespace FOA_Server.Models.DAL
 
             cmd.CommandType = System.Data.CommandType.StoredProcedure; // the type of the command, can also be stored procedure
 
-            cmd.Parameters.AddWithValue("@PlatformID", platform.PlatformID);
             cmd.Parameters.AddWithValue("@PlatformName", platform.PlatformName);
 
             return cmd;

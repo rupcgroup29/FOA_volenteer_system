@@ -16,7 +16,7 @@ var user = {
     programName: null
 }
 sessionStorage.setItem("user", JSON.stringify(user));
-var currentUser = sessionStorage.getItem("user");
+var currentUser = JSON.parse(sessionStorage.getItem("user"));
 
 $(document).ready(function () {
     if (location.hostname === "localhost" || location.hostname === "127.0.0.1") {
@@ -72,7 +72,7 @@ function AddNewPost() {
         AmoutOfComments: amoutOfComments,
         PostStatus: "1",
         RemovalStatus: "1", 
-        UserID: "1013",
+        UserID: userID,
         PlatformID: platformID,
         CategoryID: categoryID,
         PostStatusManager: "1",      // במטרה לשלוח עם יוזר איידי קיים, ישתנה בעריכת פוסט

@@ -70,7 +70,7 @@ function FilterByTeamName() {
 
 // read all users
 function readUsers() {
-    ajaxCall("GET", api+"Users", "", getAllUsersSCB, getAllUsersECB);
+    ajaxCall("GET", api + "Users", "", getAllUsersSCB, getAllUsersECB);
 }
 function getAllUsersSCB(data) {
     usersArr = data;
@@ -97,10 +97,10 @@ function RenderUsersList() {
         str += '</tr>';
         for (var i = 0; i < usersArr.length; i++) {
             let currentTeamName;
-            for (var j = 0; j < teamsArr.length; j++) { 
+            for (var j = 0; j < teamsArr.length; j++) {
                 if (usersArr[i].teamID == teamsArr[j].teamID)
                     currentTeamName = teamsArr[j].teamName;
-                }
+            }
             str += '<tr>';
             str += '<td class="teamName_display">' + currentTeamName + '</td>';
             str += '<td class="fullName_display">' + usersArr[i].firstName + " " + usersArr[i].surname + '</td>';

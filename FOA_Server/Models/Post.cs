@@ -82,18 +82,18 @@ namespace FOA_Server.Models
         //Insert new post
         public Post InsertPost()
         {
-            postsList = ReadPostsWithoutStatus();
+            //postsList = ReadPostsWithoutStatus();
             try
             {
-                if (postsList.Count != 0)
-                {
-                    // unique url ?
-                    bool uniqueUrl = UniqueUrl(this.UrlLink, postsList);
-                    if (!uniqueUrl)
-                    {
-                        throw new Exception(" post under that URL link is allready exists in the system ");
-                    }
-                }
+                //if (postsList.Count != 0)
+                //{
+                //    // unique url ?
+                //    bool uniqueUrl = UniqueUrl(this.UrlLink, postsList);
+                //    if (!uniqueUrl)
+                //    {
+                //        throw new Exception(" post under that URL link is allready exists in the system ");
+                //    }
+                //}
 
                 DBposts dbs = new DBposts();
                 int postId = dbs.InsertPost(this);

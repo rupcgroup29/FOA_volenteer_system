@@ -2,7 +2,6 @@
 {
     public class UserLogin
     {
-        //List<User> UserList = new List<User>();
         public string Password { get; set; }
         public string Email { get; set; }
 

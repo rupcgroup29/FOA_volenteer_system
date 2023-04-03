@@ -1,80 +1,13 @@
 ﻿using System.Data.SqlClient;
 using System.Data;
 using System.Diagnostics.Metrics;
+using System.Threading;
 
 namespace FOA_Server.Models.DAL
 {
     public class DBposts : DBservices
     {
         // POSTS
-        // This method reads all Posts without keywords & IHRA category
-        public List<Post> ReadPosts()
-        {
-            SqlConnection con;
-            SqlCommand cmd;
-
-            try
-            {
-                con = connect("myProjDB"); // create the connection
-            }
-            catch (Exception ex)
-            {
-                // write to log
-                Console.WriteLine("Error");
-                throw (ex);
-            }
-
-            cmd = CreateCommandWithStoredProcedureRead("spReadPosts", con);      // create the command
-
-            List<Post> list = new List<Post>();
-
-            try
-            {
-                SqlDataReader dataReader = cmd.ExecuteReader(CommandBehavior.CloseConnection);
-
-                while (dataReader.Read())
-                {
-                    Post p = new Post();
-                    p.PostID = Convert.ToInt32(dataReader["PostID"]);
-                    p.UrlLink = dataReader["UrlLink"].ToString();
-                    p.Description = dataReader["Description"].ToString();
-                    //p.KeyWordsAndHashtages = dataReader["KeyWordsAndHashtages"].ToString();
-                    p.Threat = Convert.ToInt32(dataReader["Threat"]);
-                    // p.Screenshot = dataReader["Screenshot"].ToString();
-                    p.AmoutOfLikes = Convert.ToInt32(dataReader["AmoutOfLikes"]);
-                    p.AmoutOfShares = Convert.ToInt32(dataReader["AmoutOfShares"]);
-                    p.AmoutOfComments = Convert.ToInt32(dataReader["AmoutOfComments"]);
-                    p.PostStatus = Convert.ToInt32(dataReader["PostStatus"]);
-                    p.RemovalStatus = Convert.ToInt32(dataReader["RemovalStatus"]);
-                    p.UserID = Convert.ToInt32(dataReader["UserID"]);
-                    p.PlatformID = Convert.ToInt32(dataReader["PlatformID"]);
-                    //p.CategoryID = Convert.ToInt32(dataReader["CategoryID"]);
-                    p.PostStatusManager = Convert.ToInt32(dataReader["PostStatusManager"]);
-                    p.RemovalStatusManager = Convert.ToInt32(dataReader["RemovalStatusManager"]);
-                    p.CountryID = Convert.ToInt32(dataReader["CountryID"]);
-                    p.LanguageID = Convert.ToInt32(dataReader["LanguageID"]);
-
-                    list.Add(p);
-                }
-                return list;
-            }
-            catch (Exception ex)
-            {
-                // write to log
-                Console.WriteLine("Error");
-                throw (ex);
-            }
-
-            finally
-            {
-                if (con != null)
-                {
-                    // close the db connection
-                    con.Close();
-                }
-            }
-        }
-
         // This method reads Posts without menager's status
         public List<Post> ReadPostsWithoutStatus()
         {
@@ -185,6 +118,281 @@ namespace FOA_Server.Models.DAL
         }
 
 
+
+        // READ POST
+        // This method reads all Posts without keywords & IHRA category
+        public List<ReadPost> ReadPosts()
+        {
+            SqlConnection con;
+            SqlCommand cmd;
+
+            try
+            {
+                con = connect("myProjDB"); // create the connection
+            }
+            catch (Exception ex)
+            {
+                // write to log
+                Console.WriteLine("Error");
+                throw (ex);
+            }
+
+            cmd = CreateCommandWithStoredProcedureRead("spReadPosts", con);      // create the command
+
+            List<ReadPost> list = new List<ReadPost>();
+
+            try
+            {
+                SqlDataReader dataReader = cmd.ExecuteReader(CommandBehavior.CloseConnection);
+
+                while (dataReader.Read())
+                {
+                    ReadPost p = new ReadPost();
+                    p.PostID = Convert.ToInt32(dataReader["PostID"]);
+                    p.UrlLink = dataReader["UrlLink"].ToString();
+                    p.Description = dataReader["Description"].ToString();
+                    p.Threat = Convert.ToInt32(dataReader["Threat"]);
+                    p.Screenshot = dataReader["Screenshot"].ToString();
+                    p.AmoutOfLikes = Convert.ToInt32(dataReader["AmoutOfLikes"]);
+                    p.AmoutOfShares = Convert.ToInt32(dataReader["AmoutOfShares"]);
+                    p.AmoutOfComments = Convert.ToInt32(dataReader["AmoutOfComments"]);
+                    p.PostStatus = Convert.ToInt32(dataReader["PostStatus"]);
+                    p.RemovalStatus = Convert.ToInt32(dataReader["RemovalStatus"]);
+                    p.UserName = dataReader["UserName"].ToString();
+                    p.PlatformName = dataReader["PlatformName"].ToString();
+                    p.StatusManagerName = dataReader["StatusManagerName"].ToString();
+                    p.RemovalManagerName = dataReader["RemovalManagerName"].ToString();
+                    p.CountryName = dataReader["CountryName"].ToString();
+                    p.LanguageName = dataReader["LanguageName"].ToString();
+
+                    list.Add(p);
+                }
+                return list;
+            }
+            catch (Exception ex)
+            {
+                // write to log
+                Console.WriteLine("Error");
+                throw (ex);
+            }
+
+            finally
+            {
+                if (con != null)
+                {
+                    // close the db connection
+                    con.Close();
+                }
+            }
+        }
+
+        // This method read for a post by its ID without keywords & IHRA category 
+        public ReadPost ReadPostByID(int postID)
+        {
+            SqlConnection con;
+            SqlCommand cmd;
+
+            try
+            {
+                con = connect("myProjDB"); // create the connection
+            }
+            catch (Exception ex)
+            {
+                // write to log
+                Console.WriteLine("Error");
+                throw (ex);
+            }
+
+            cmd = CreateCommandWithStoredProcedureRead("spReadPostsByID", con, postID);      // create the command            
+
+            try
+            {
+                ReadPost p = new ReadPost();
+                SqlDataReader dataReader = cmd.ExecuteReader(CommandBehavior.CloseConnection);
+
+                while (dataReader.Read())
+                {
+                    p.PostID = Convert.ToInt32(dataReader["PostID"]);
+                    p.UrlLink = dataReader["UrlLink"].ToString();
+                    p.Description = dataReader["Description"].ToString();
+                    p.Threat = Convert.ToInt32(dataReader["Threat"]);
+                    p.Screenshot = dataReader["Screenshot"].ToString();
+                    p.AmoutOfLikes = Convert.ToInt32(dataReader["AmoutOfLikes"]);
+                    p.AmoutOfShares = Convert.ToInt32(dataReader["AmoutOfShares"]);
+                    p.AmoutOfComments = Convert.ToInt32(dataReader["AmoutOfComments"]);
+                    p.PostStatus = Convert.ToInt32(dataReader["PostStatus"]);
+                    p.RemovalStatus = Convert.ToInt32(dataReader["RemovalStatus"]);
+                    p.UserName = dataReader["UserName"].ToString();
+                    p.PlatformName = dataReader["PlatformName"].ToString();
+                    p.StatusManagerName = dataReader["StatusManagerName"].ToString();
+                    p.RemovalManagerName = dataReader["RemovalManagerName"].ToString();
+                    p.CountryName = dataReader["CountryName"].ToString();
+                    p.LanguageName = dataReader["LanguageName"].ToString();
+                }
+                return p;
+            }
+            catch (Exception ex)
+            {
+                // write to log
+                Console.WriteLine("Error");
+                throw (ex);
+            }
+
+            finally
+            {
+                if (con != null)
+                {
+                    // close the db connection
+                    con.Close();
+                }
+            }
+        }
+
+        // This method reads IHRA category names by postID
+        public string[] ReadIHRAsPerPostID(int postID)
+        {
+            SqlConnection con;
+            SqlCommand cmd;
+
+            try
+            {
+                con = connect("myProjDB"); // create the connection
+            }
+            catch (Exception ex)
+            {
+                // write to log
+                Console.WriteLine("Error");
+                throw (ex);
+            }
+
+            cmd = CreateCommandWithStoredProcedureRead("spGetCategoriesByPostID", con, postID);      // create the command
+
+            var size = 0;
+            string[] array = new string[6];
+
+            try
+            {
+                SqlDataReader dataReader = cmd.ExecuteReader(CommandBehavior.CloseConnection);
+
+                while (dataReader.Read())
+                {
+                    array[size++] = dataReader["CategoryName"].ToString();
+                }
+
+                // count the non-null values in the original array
+                int nonNullCount = 0;
+                for (int i = 0; i < array.Length; i++)
+                {
+                    if (array[i] == null)
+                    {
+                        break;
+                    }
+                    nonNullCount++;
+                }
+
+                // create a new array with the non-null count
+                string[] newArray = new string[nonNullCount];
+
+                // copy non-null values to the new array
+                for (int i = 0; i < nonNullCount; i++)
+                {
+                    newArray[i] = array[i];
+                }
+
+                return newArray;
+            }
+
+            catch (Exception ex)
+            {
+                // write to log
+                Console.WriteLine("Error");
+                throw (ex);
+            }
+
+            finally
+            {
+                if (con != null)
+                {
+                    // close the db connection
+                    con.Close();
+                }
+            }
+        }
+
+        // This method reads key words and hashtages by postID
+        public string[] ReadKeyWordsAndHashtagesPerPostID(int postID)
+        {
+            SqlConnection con;
+            SqlCommand cmd;
+
+            try
+            {
+                con = connect("myProjDB"); // create the connection
+            }
+            catch (Exception ex)
+            {
+                // write to log
+                Console.WriteLine("Error");
+                throw (ex);
+            }
+
+            cmd = CreateCommandWithStoredProcedureRead("spGetKeyWordsByPostID", con, postID);      // create the command
+
+            var size = 0;
+            string[] array = new string[20];
+
+            try
+            {
+                SqlDataReader dataReader = cmd.ExecuteReader(CommandBehavior.CloseConnection);
+
+                while (dataReader.Read())
+                {
+                    array[size++] = dataReader["KeyWordsAndHashtages"].ToString();
+
+                }
+
+                // count the non-null values in the original array
+                int nonNullCount = 0;
+                for (int i = 0; i < array.Length; i++)
+                {
+                    if (array[i] == null)
+                    {
+                        break;
+                    }
+                    nonNullCount++;
+                }
+
+                // create a new array with the non-null count
+                string[] newArray = new string[nonNullCount];
+
+                // copy non-null values to the new array
+                for (int i = 0; i < nonNullCount; i++)
+                {
+                    newArray[i] = array[i];
+                }
+
+                return newArray;
+            }
+
+            catch (Exception ex)
+            {
+                // write to log
+                Console.WriteLine("Error");
+                throw (ex);
+            }
+
+            finally
+            {
+                if (con != null)
+                {
+                    // close the db connection
+                    con.Close();
+                }
+            }
+        }
+
+
+
         // IHRA Category
         //This method insert a new Category and post id to many-to-many table 
         public int InsertCategoryToPost(int postID, int categoryID)
@@ -225,6 +433,7 @@ namespace FOA_Server.Models.DAL
             }
 
         }
+
 
         // KeyWordsAndHashtages
         //This method insert a new KeyWordsAndHashtages and post id to many-to-many table 
@@ -358,8 +567,8 @@ namespace FOA_Server.Models.DAL
             }
 
         }
-        
-        
+
+
         // Language
         // This method reads all Language
         public List<Language> ReadLanguages()
@@ -716,7 +925,29 @@ namespace FOA_Server.Models.DAL
             return cmd;
         }
 
-        //Create the SqlCommand using a stored procedure for Insert a Post
+
+        // Read post's details & keywords & IHRA category data by its ID
+        private SqlCommand CreateCommandWithStoredProcedureRead(string spName, SqlConnection con, int postID)
+        {
+            SqlCommand cmd = new SqlCommand(); // create the command object
+
+            cmd.Connection = con;              // assign the connection to the command object
+
+            cmd.CommandText = spName;          // can be Select, Insert, Update, Delete 
+
+            cmd.CommandTimeout = 10;           // Time to wait for the execution' The default is 30 seconds
+
+            cmd.CommandType = System.Data.CommandType.StoredProcedure; // the type of the command, can also be stored procedure
+
+            cmd.Parameters.AddWithValue("@post_id", postID);
+
+            return cmd;
+        }
+
+
+
+        // Create the SqlCommand using a stored procedure for Insert
+        // Create the SqlCommand using a stored procedure for Insert a Post
         private SqlCommand CreateCommandWithStoredProcedureInsert(String spName, SqlConnection con, Post post)
         {
             SqlCommand cmd = new SqlCommand(); // create the command object
@@ -731,14 +962,10 @@ namespace FOA_Server.Models.DAL
 
             cmd.Parameters.AddWithValue("@UserID", post.UserID);
             cmd.Parameters.AddWithValue("@PlatformID", post.PlatformID);
-            //cmd.Parameters.AddWithValue("@CategoryID", post.CategoryID);
-            // cmd.Parameters.AddWithValue("@PostStatusManager", post.PostStatusManager);      
-            // cmd.Parameters.AddWithValue("@RemovalStatusManager", post.RemovalStatusManager);  
             cmd.Parameters.AddWithValue("@CountryID", post.CountryID);
             cmd.Parameters.AddWithValue("@LanguageID", post.LanguageID);
             cmd.Parameters.AddWithValue("@UrlLink", post.UrlLink);
             cmd.Parameters.AddWithValue("@Description", post.Description);
-            //cmd.Parameters.AddWithValue("@KeyWordsAndHashtages", post.KeyWordsAndHashtages);
             cmd.Parameters.AddWithValue("@Threat", post.Threat);
             cmd.Parameters.AddWithValue("@AmoutOfLikes", post.AmoutOfLikes);
             cmd.Parameters.AddWithValue("@AmoutOfShares", post.AmoutOfShares);
@@ -767,8 +994,8 @@ namespace FOA_Server.Models.DAL
 
             return cmd;
         }
-        // Create the SqlCommand using a stored procedure for Insert a KeyWord
 
+        // Create the SqlCommand using a stored procedure for Insert a KeyWord
         private SqlCommand CreateCommandWithStoredProcedureInsertK(String spName, SqlConnection con, int postID, int keyWordsAndHashtages)
         {
             SqlCommand cmd = new SqlCommand(); // create the command object
@@ -786,6 +1013,7 @@ namespace FOA_Server.Models.DAL
 
             return cmd;
         }
+
         // Create the SqlCommand using a stored procedure for Insert a Platform
         private SqlCommand CreateCommandWithStoredProcedureInsert(String spName, SqlConnection con, Platform platform)
         {
@@ -803,7 +1031,6 @@ namespace FOA_Server.Models.DAL
 
             return cmd;
         }
-
 
         // Create the SqlCommand using a stored procedure for Insert a keyWordsAndHashtages
         private SqlCommand CreateCommandWithStoredProcedureInsert(String spName, SqlConnection con, KeyWordsAndHashtages keyWordsAndHashtages)

@@ -16,14 +16,15 @@ namespace FOA_Server.Models
             KH_ID= KeyWordsAndHashtagesID ;
         }
 
-        // read all Languages
+        // read all KeyWordsAndHashtages
         public List<KeyWordsAndHashtages> ReadKeyWordsAndHashtages()
         {
             DBposts dbs = new DBposts();
             return dbs.ReadKeyWordsAndHashtages();
         }
 
-        //Insert new Volunteer Program
+
+        //Insert new KeyWords or Hashtages
         public KeyWordsAndHashtages InsertKeyWordsAndHashtages()
         {
             KeyWordsAndHashtagesList = ReadKeyWordsAndHashtages();
@@ -33,10 +34,10 @@ namespace FOA_Server.Models
                 {
                     // vaild there is not the same already in the list
                     bool uniqueName = UniqueName(this.KH, KeyWordsAndHashtagesList);
-                    //if (uniqueName == false)
-                    //{
-                    //    throw new Exception(" KeyWordsAndHashtages  is allready exists ");
-                    //}
+                    if (uniqueName == false)
+                    {
+                        throw new Exception(" This key word or hashtage is allready exists ");
+                    }
                 }
 
                 DBposts dbs = new DBposts();
@@ -52,6 +53,7 @@ namespace FOA_Server.Models
             }
         }
 
+
         // vaild there is not the same KeyWordsAndHashtages already in the list
         public bool UniqueName(string name, List<KeyWordsAndHashtages> KeyWordsAndHashtagesList)
         {
@@ -64,6 +66,7 @@ namespace FOA_Server.Models
             }
             return unique;
         }
+
 
         // returns KeyWordsAndHashtagesID by KeyWordsAndHashtages 
         public int getKeyWordsAndHashtages(string name)

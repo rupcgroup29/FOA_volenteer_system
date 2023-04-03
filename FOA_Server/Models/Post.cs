@@ -10,7 +10,7 @@ namespace FOA_Server.Models
         public int PostID { get; set; }
         public string UrlLink { get; set; }
         public string Description { get; set; }
-        public string[] KeyWordsAndHashtages { get; set; } //הילה:שיניתי להכנסת מערך
+        public string[] KeyWordsAndHashtages { get; set; } 
         public int Threat { get; set; }
         // public string Screenshot { get; set; }
         public int AmoutOfLikes { get; set; }
@@ -22,13 +22,13 @@ namespace FOA_Server.Models
         // FK fields
         public int UserID { get; set; }
         public int PlatformID { get; set; }
-        public int[] CategoryID { get; set; } //הילה:שיניתי להכנסת מערך
+        public int[] CategoryID { get; set; } 
         public int PostStatusManager { get; set; }
         public int RemovalStatusManager { get; set; }
         public int CountryID { get; set; }
         public int LanguageID { get; set; }
 
-        //ענת: הוספת 3 שדות חדשים על מנת לקבל אותם במידה ומישהו מקליד "אחר" בשדה
+        // הוספת 3 שדות חדשים על מנת לקבל אותם במידה ומישהו מקליד "אחר" בשדה
         public string CountryName { get; set; }
         public string LanguageName { get; set; }
         public string PlatformName { get; set; }
@@ -57,19 +57,11 @@ namespace FOA_Server.Models
             RemovalStatusManager = removalStatusManager;
             CountryID = country;
             LanguageID = language;
-            //  ענת: הוספתי כדי לשלוח במידה ומקלידים אחר
             CountryName = countryName; 
             LanguageName = languageName;
             PlatformName = platformName;
         }
-
-
-        // read all Posts
-        public List<Post> ReadAllPosts()
-        {
-            DBposts dbs = new DBposts();
-            return dbs.ReadPosts();
-        }
+        
 
         // read Posts without menager's status
         public List<Post> ReadPostsWithoutStatus()
@@ -101,7 +93,7 @@ namespace FOA_Server.Models
                    
                     for (int i = 0; i < this.CategoryID.Length; i++)//Loop that run on all the Category array
                     {
-                        int response = dbs.InsertCategoryToPost(postId, this.CategoryID[i]); //Insrt the categoryID and postID to many-to-many table in db
+                        int response = dbs.InsertCategoryToPost(postId, this.CategoryID[i]); //Insert the categoryID and postID to many-to-many table in db
                         if (response <= 0)
                         {
                             return null;
@@ -155,22 +147,22 @@ namespace FOA_Server.Models
         }
 
 
-        // list of approval posts
-        public List<Post> ApprovalPosts()
-        {
-            postsList = ReadAllPosts();
-            List<Post> approvalPosts = new List<Post>();
+        //// list of approval posts
+        //public List<Post> ApprovalPosts()
+        //{
+        //    postsList = ReadAllPosts();
+        //    List<Post> approvalPosts = new List<Post>();
 
-            foreach (Post post in postsList)
-            {
-                if (post.PostStatus == 1)
-                {
-                    approvalPosts.Add(post);
-                }
-            }
+        //    foreach (Post post in postsList)
+        //    {
+        //        if (post.PostStatus == 1)
+        //        {
+        //            approvalPosts.Add(post);
+        //        }
+        //    }
 
-            return approvalPosts;
-        }
+        //    return approvalPosts;
+        //}
 
 
 

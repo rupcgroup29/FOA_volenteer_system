@@ -1,4 +1,5 @@
 ﻿using FOA_Server.Models.DAL;
+using System;
 using System.Xml.Linq;
 
 namespace FOA_Server.Models
@@ -10,7 +11,7 @@ namespace FOA_Server.Models
         public int PostID { get; set; }
         public string UrlLink { get; set; }
         public string Description { get; set; }
-        public string[] KeyWordsAndHashtages { get; set; } 
+        public string[] KeyWordsAndHashtages { get; set; }
         public int Threat { get; set; }
         // public string Screenshot { get; set; }
         public int AmountOfLikes { get; set; }
@@ -22,7 +23,7 @@ namespace FOA_Server.Models
         // FK fields
         public int UserID { get; set; }
         public int PlatformID { get; set; }
-        public int[] CategoryID { get; set; } 
+        public int[] CategoryID { get; set; }
         public int PostStatusManager { get; set; }
         public int RemovalStatusManager { get; set; }
         public int CountryID { get; set; }
@@ -57,11 +58,11 @@ namespace FOA_Server.Models
             RemovalStatusManager = removalStatusManager;
             CountryID = country;
             LanguageID = language;
-            CountryName = countryName; 
+            CountryName = countryName;
             LanguageName = languageName;
             PlatformName = platformName;
         }
-        
+
 
         // read Posts without menager's status
         public List<Post> ReadPostsWithoutStatus()
@@ -89,8 +90,9 @@ namespace FOA_Server.Models
 
                 DBposts dbs = new DBposts();
                 int postId = dbs.InsertPost(this);
-                if (postId > 0) {
-                   
+                if (postId > 0)
+                {
+
                     for (int i = 0; i < this.CategoryID.Length; i++)//Loop that run on all the Category array
                     {
                         int response = dbs.InsertCategoryToPost(postId, this.CategoryID[i]); //Insert the categoryID and postID to many-to-many table in db
@@ -112,7 +114,7 @@ namespace FOA_Server.Models
                             }
                             else
                             {
-                                KeyWordsAndHashtages keyw = new KeyWordsAndHashtages(this.KeyWordsAndHashtages[i],0);
+                                KeyWordsAndHashtages keyw = new KeyWordsAndHashtages(this.KeyWordsAndHashtages[i], 0);
                                 int id = dbs.InsertKeyWordsAndHashtages(keyw);
                                 dbs.InsertKeyWordsAndHashtagesToPost(postId, id);
 
@@ -121,7 +123,7 @@ namespace FOA_Server.Models
                     }
 
 
-                    return this; 
+                    return this;
                 }
                 else { return null; }
             }
@@ -144,6 +146,30 @@ namespace FOA_Server.Models
                 }
             }
             return unique;
+        }
+
+
+        //Update post details
+        public int UpdatePost(int postId, int postStatus, int removalStatus, int postStatusManager, int removalStatusManager)
+        {
+            postsList = ReadPostsWithoutStatus();
+            try
+            {
+                foreach (Post p in postsList)
+                {
+                    if (p.PostID == postId)
+                    {
+                        DBposts dbs = new DBposts();
+                        return dbs.UpdatePost(this);
+                    }
+                }
+                throw new Exception(" no such post ");
+
+            }
+            catch (Exception exp)
+            {
+                throw new Exception(" didn't succeed in updating " + exp.Message);
+            }
         }
 
 

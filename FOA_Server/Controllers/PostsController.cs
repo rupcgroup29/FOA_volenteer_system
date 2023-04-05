@@ -40,7 +40,7 @@ namespace FOA_Server.Controllers
             }
             if (post.PlatformID == 999)
             {
-                new Platform(post.PlatformID,post.PlatformName).InsertPlatform();
+                new Platform(post.PlatformID, post.PlatformName).InsertPlatform();
                 Platform newID = new Platform();
                 int platformID = newID.getPlatformByName(post.PlatformName);
                 post.PlatformID = platformID;
@@ -49,6 +49,21 @@ namespace FOA_Server.Controllers
             return affected;
         }
 
+
+        // PUT api/<PostsController>/5
+        [HttpPut("{postID}")]
+        public int Put(int postID, [FromBody] PostChangeStatus postStatusUpdate)
+        {
+            int postId = postStatusUpdate.PostID;
+            int postStatus = postStatusUpdate.PostStatus;
+            int removalStatus = postStatusUpdate.RemovalStatus;
+            int postStatusManager = postStatusUpdate.PostStatusManager;
+            int removalStatusManager = postStatusUpdate.RemovalStatusManager;
+
+            Post post = new Post();
+            return post.UpdatePost(postId, postStatus, removalStatus, postStatusManager, removalStatusManager);
+
+        }
 
 
     }

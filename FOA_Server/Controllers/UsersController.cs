@@ -11,113 +11,97 @@ namespace FOA_Server.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class UsersController : ControllerBase
+    public class UserServicesController : ControllerBase
     {
-        // GET: api/<UsersController>
+        // GET: api/<UserServicesController>
         [HttpGet]
-        public List<User> Get()
+        public List<UserService> Get()
         {
-            User user = new User();
-            return user.ReadAllUsers();
+            return UserService.ReadAllUsers();
         }
 
-        // GET: api/<UsersController>/6
+        // GET: api/<UserServicesController>/6
         [HttpGet("permissionIDlist/{permissionID}")]
-        public List<User> GetByPermission(int permissionID)
+        public List<UserService> GetByPermission(int permissionID)
         {
-            User user = new User();
+            UserService user = new UserService();
             return user.UsersByPermission(permissionID);
         }
 
-        // GET api/<UsersController>/5
+        // GET api/<UserServicesController>/5
         [HttpGet("{id}")]
         public string Get(int id)
         {
             return "value";
         }
 
-        // POST api/<UsersController>
+
+        // POST api/<UserServicesController>
         [HttpPost]
-        public User Post([FromBody] User user)
+        public void Post([FromBody] UserService user)
         {
-            if (user.ProgramID == 999)
+            if (user.ProgramID == 999)  //if new volanteer program was choosen
             {
                 new VolunteerProgram(user.ProgramID, user.ProgramName).InsertVolunteerProgram();
                 VolunteerProgram newID = new VolunteerProgram();
                 int programID = newID.getVolunteerProgramByName(user.ProgramName);
                 user.ProgramID = programID;
             }
-            User affected = user.InsertUser();
-            return affected;
+            UserService insertedUser = user.InsertUser();
+
+            try
+            {
+                // bulid & send the email 
+                string messageBody = $"Welcome {insertedUser.FirstName} {insertedUser.Surname} to our Volenteer System! :)";
+                string subject = "FOA Volenteer System - welcome";
+                EmailService emailService = new EmailService();
+                emailService.SendEmail(emailService.createMailMessage(insertedUser.Email, messageBody, subject));
+            }
+            catch (Exception ex) { }
         }
 
-        // POST api/<UsersController>/6
+        // POST api/<UserServicesController>/6
         [HttpPost("login")]
-        public User GetLogin([FromBody] UserLogin useLog)
+        public UserService? GetLogin([FromBody] UserServiceLogin useLog)
         {
             string email = useLog.Email;
             string password = useLog.Password;
-
-            User user = new User();
-            return user.Login(email, password);
+            return UserService.Login(email, password);
         }
 
-        // PUT api/<UsersController>/5
+
+        // PUT api/<UserServicesController>/5
         [HttpPut]
-        public User Put([FromBody] User user)
+        public UserService Put([FromBody] UserService user)
         {
-            User affected = user.UpdateUser();
+            UserService affected = user.UpdateUser();
             return affected;
         }
 
-        /*   // POST api/<UsersController>
-           [HttpPost("{resetEmail}")]
-           public int PasswordResetToken([FromBody] string email)
-           {
-               ParentForgotPass parentforgotPassword = new ParentForgotPass();
-               parentforgotPassword.Email = email;
+        // POST api/<UserServicesController>
+        [HttpPost("{resetEmail}")]
+        public void PasswordResetToken(string resetEmail)
+        {
+            ParentForgotPass parentforgotPassword = new ParentForgotPass(resetEmail);
 
-               // Get the email and send a link mailToResetPassword reset the password
-               // Generate token - Guid.NewGuid();
-               Guid token = Guid.NewGuid();
-               MailMessage resetPasswordMessage = new MailMessage();
-               string mailToResetPassword = parentforgotPassword.Email;
-               string ourMail = "ruppindads@gmail.com";
-               string ourMailPass = "xwjxrnuywiawoirv\r\n";
-               string messageBody = "Forgot your password? We recived a request to reset the password for your account, your reset code is " + token;
-               SmtpClient smtpClient = new SmtpClient("smtp.gmail.com");
+            // chech if we can use resert password, as long we didn't use it for the last 5 minutes
+            if (!parentforgotPassword.ShouldWeResetPassword())
+            {
+                throw new Exception(" can not proceed this resert password with email " + resetEmail);
+            }
 
+            Guid newPassword = Guid.NewGuid();      // create random password
 
-               // Buidlding the message 
-               resetPasswordMessage.To.Add(mailToResetPassword);
-               resetPasswordMessage.From = new MailAddress(ourMail);
-               resetPasswordMessage.Body = messageBody;
-               resetPasswordMessage.Subject = "UnityCom - reset password";
-               resetPasswordMessage.IsBodyHtml = true;
-               // Done
+            // bulid & send the email 
+            string messageBody = "Forgot your password? We recived a request to reset the password for your account, your reset code is " + newPassword;
+            string subject = "FOA Volenteer System - reset password";
+            EmailService emailService = new EmailService();           
+            emailService.SendEmail(emailService.createMailMessage(resetEmail, messageBody, subject));
 
-               smtpClient.Credentials = new System.Net.NetworkCredential(ourMail, ourMailPass);
-               smtpClient.EnableSsl = true; // Security
-               smtpClient.Port = 587; // SMTP client to SMTP Server port. (port=25 means smtp server to smtp server)
-               smtpClient.DeliveryMethod = SmtpDeliveryMethod.Network; // email is sent through the network
-               smtpClient.Credentials = new NetworkCredential(ourMail, ourMailPass);
-
-               try
-               {
-                   smtpClient.Send(resetPasswordMessage);
-                   Trace.WriteLine("code send successfully");
-
-               }
-               catch (Exception ex)
-               {
-                   Trace.WriteLine(ex.ToString());
-                   Trace.WriteLine(ex.Message);
-               }
-
-               DateTime deadlineDateTime = (DateTime.Now).AddMinutes(5);
-               string token1 = token.ToString();
-               return parentforgotPassword.PasswordResetToken(token1, deadlineDateTime, email);
-           } */
+            //update the new password in the data base
+            string newPasswordStr = newPassword.ToString();
+            parentforgotPassword.SaveNewPassword(resetEmail, newPasswordStr);
+        }
 
 
 

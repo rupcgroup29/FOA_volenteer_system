@@ -3,7 +3,7 @@ using System.Text.RegularExpressions;
 
 namespace FOA_Server.Models
 {
-    public class User
+    public class UserService
     {
         public int UserID { get; set; }
         public string FirstName { get; set; }
@@ -17,11 +17,12 @@ namespace FOA_Server.Models
         public int TeamID { get; set; }
         public int ProgramID { get; set; }
         public string Email { get; set; }
-        public string ProgramName { get; set; }
+        public string? ProgramName { get; set; }
+        public DateTime? LastReasetPassword { get; set; }
 
-        public User() { }
+        public UserService() { }
 
-        public User(int userID, string firstName, string surname, string userName, string phoneNum, string roleDescription, int permissionID, bool isActive, string password, int teamID, int programID, string email, string programName)
+        public UserService(int userID, string firstName, string surname, string userName, string phoneNum, string roleDescription, int permissionID, bool isActive, string password, int teamID, int programID, string email, string? programName, DateTime ?lastReasetPassword)
         {
             UserID = userID;
             FirstName = firstName;
@@ -36,13 +37,14 @@ namespace FOA_Server.Models
             ProgramID = programID;
             Email = email;
             ProgramName = programName;
+            LastReasetPassword = lastReasetPassword;
         }
 
-        private static List<User> UsersList = new List<User>();
+        private static List<UserService> UsersList = new List<UserService>();
 
 
         // read all users
-        public List<User> ReadAllUsers()
+        public static List<UserService> ReadAllUsers()
         {
             DBusers dbs = new DBusers();
             return dbs.ReadUsers();
@@ -50,7 +52,7 @@ namespace FOA_Server.Models
 
 
         //Insert new user
-        public User InsertUser()
+        public UserService InsertUser()
         {
             UsersList = ReadAllUsers();
             try
@@ -114,7 +116,7 @@ namespace FOA_Server.Models
         public bool UniqueEmail(string email)
         {
             bool unique = true;
-            foreach (User u in UsersList)
+            foreach (UserService u in UsersList)
             {
                 if (u.Email == email)
                 {
@@ -126,7 +128,7 @@ namespace FOA_Server.Models
         public bool UniqueUsername(string username)
         {
             bool unique = true;
-            foreach (User u in UsersList)
+            foreach (UserService u in UsersList)
             {
                 if (u.UserName == username)
                 {
@@ -138,7 +140,7 @@ namespace FOA_Server.Models
         public bool UniquePhone(string phone)
         {
             bool unique = true;
-            foreach (User u in UsersList)
+            foreach (UserService u in UsersList)
             {
                 if (u.PhoneNum == phone)
                 {
@@ -150,12 +152,12 @@ namespace FOA_Server.Models
 
 
         // update user's details
-        public User UpdateUser()
+        public UserService UpdateUser()
         {
             UsersList = ReadAllUsers();
             try
             {
-                foreach (User u in UsersList)
+                foreach (UserService u in UsersList)
                 {
                     if (u.UserID == this.UserID)
                     {
@@ -178,12 +180,11 @@ namespace FOA_Server.Models
 
 
         // user log in
-        public User Login(string email, string password)
+        public static UserService? Login(string email, string password)
         {
-            User user = new User();
-            List<User> UserList = user.ReadAllUsers();
+            UsersList = ReadAllUsers();
 
-            foreach (User u in UserList)
+            foreach (UserService u in UsersList)
             {
                 if (email == u.Email && password == u.Password)
                 {
@@ -196,12 +197,12 @@ namespace FOA_Server.Models
 
 
         // list on users by their role in the syster
-        public List<User> UsersByPermission(int perm)
+        public List<UserService> UsersByPermission(int perm)
         {
             UsersList = ReadAllUsers();
-            List<User> tempUsersList = new List<User>();
+            List<UserService> tempUsersList = new List<UserService>();
 
-            foreach (User u in UsersList)
+            foreach (UserService u in UsersList)
             {
                 if (u.PermissionID == perm)
                 {
@@ -213,16 +214,21 @@ namespace FOA_Server.Models
         }
 
 
-        //public class ParentForgotPass
-        //{
-        //    public string Email { get; set; }
-        //    public string Password { get; set; }
-        //    internal int PasswordResetToken(string token1, DateTime deadlineDateTime, string email)
-        //    {
-        //        throw new NotImplementedException();
-        //    }
+        // get user by email
+        public static UserService? GetUserByEmail(string email)
+        {
+            UsersList = ReadAllUsers();
+            foreach (UserService user in UsersList)
+            {
+                if (user.Email == email)
+                {
+                    return user;
+                }
+            }
+            return null;
+        }
 
-        //}
+
 
     }
 }

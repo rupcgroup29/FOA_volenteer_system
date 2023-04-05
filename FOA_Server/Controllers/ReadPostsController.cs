@@ -25,11 +25,6 @@ namespace FOA_Server.Controllers
             return p.ReadPostByIdWithHIRAandKeyworks(postId);
         }
 
-        // POST api/<ReadPostsController>
-        [HttpPost]
-        public void Post([FromBody] string value)
-        {
-        }
 
         // PUT api/<ReadPostsController>/5
         [HttpPut("{id}")]
@@ -37,10 +32,6 @@ namespace FOA_Server.Controllers
         {
         }
 
-        // DELETE api/<ReadPostsController>/5
-        [HttpDelete("{id}")]
-        public void Delete(int id)
-        {
-        }
+        
     }
 }

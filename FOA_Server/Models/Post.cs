@@ -13,9 +13,9 @@ namespace FOA_Server.Models
         public string[] KeyWordsAndHashtages { get; set; } 
         public int Threat { get; set; }
         // public string Screenshot { get; set; }
-        public int AmoutOfLikes { get; set; }
-        public int AmoutOfShares { get; set; }
-        public int AmoutOfComments { get; set; }
+        public int AmountOfLikes { get; set; }
+        public int AmountOfShares { get; set; }
+        public int AmountOfComments { get; set; }
         public int PostStatus { get; set; }
         public int RemovalStatus { get; set; }
 
@@ -45,9 +45,9 @@ namespace FOA_Server.Models
             KeyWordsAndHashtages = keyWordsAndHashtages;
             Threat = threat;
             // Screenshot = screenshot;
-            AmoutOfLikes = amoutOfLikes;
-            AmoutOfShares = amoutOfShares;
-            AmoutOfComments = amoutOfComments;
+            AmountOfLikes = amoutOfLikes;
+            AmountOfShares = amoutOfShares;
+            AmountOfComments = amoutOfComments;
             PostStatus = postStatus;
             RemovalStatus = removalStatus;
             UserID = userID;
@@ -74,18 +74,18 @@ namespace FOA_Server.Models
         //Insert new post
         public Post InsertPost()
         {
-            //postsList = ReadPostsWithoutStatus();
+            postsList = ReadPostsWithoutStatus();
             try
             {
-                //if (postsList.Count != 0)
-                //{
-                //    // unique url ?
-                //    bool uniqueUrl = UniqueUrl(this.UrlLink, postsList);
-                //    if (!uniqueUrl)
-                //    {
-                //        throw new Exception(" post under that URL link is allready exists in the system ");
-                //    }
-                //}
+                if (postsList.Count != 0)
+                {
+                    // check if there's not the same url link in the data
+                    bool uniqueUrl = UniqueUrl(this.UrlLink, postsList);
+                    if (!uniqueUrl)
+                    {
+                        throw new Exception(" post under that URL link is allready exists in the system ");
+                    }
+                }
 
                 DBposts dbs = new DBposts();
                 int postId = dbs.InsertPost(this);

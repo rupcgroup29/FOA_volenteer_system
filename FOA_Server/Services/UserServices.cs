@@ -4,25 +4,25 @@ using System.Text.RegularExpressions;
 
 namespace FOA_Server.Services
 {
-    public class UserServices
+    public class UserServiceServices
     {
-        User user = new User();
+        UserService user = new UserService();
         Permission permission = new Permission();
         HourReport hourReport = new HourReport();
         VolunteerProgram program = new VolunteerProgram();
 
 
-        private static List<User> UsersList = new List<User>();
+        private static List<UserService> UsersList = new List<UserService>();
         private static List<Permission> permissionsList = new List<Permission>();
         private static List<HourReport> hourReportlist = new List<HourReport>();
         private static List<VolunteerProgram> volunteerProgramsList = new List<VolunteerProgram>();
 
 
         /* // read all users
-         public List<User> ReadAllUsers()
+         public List<UserService> ReadAllUserServices()
          {
              DBusers dbs = new DBusers();
-             return dbs.ReadUsers();
+             return dbs.ReadUserServices();
          }
 
 

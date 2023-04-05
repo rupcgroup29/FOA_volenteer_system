@@ -13,9 +13,9 @@ namespace FOA_Server.Models
         public string Description { get; set; }
         public int Threat { get; set; }
         public string Screenshot { get; set; }
-        public int AmoutOfLikes { get; set; }
-        public int AmoutOfComments { get; set; }
-        public int AmoutOfShares { get; set; }
+        public int AmountOfLikes { get; set; }
+        public int AmountOfComments { get; set; }
+        public int AmountOfShares { get; set; }
         public int PostStatus { get; set; }
         public int RemovalStatus { get; set; }
         public string UserName { get; set; }
@@ -40,9 +40,9 @@ namespace FOA_Server.Models
             Description = description;
             Threat = threat;
             Screenshot = screenshot;
-            AmoutOfLikes = amoutOfLikes;
-            AmoutOfComments = amoutOfComments;
-            AmoutOfShares = amoutOfShares;
+            AmountOfLikes = amoutOfLikes;
+            AmountOfComments = amoutOfComments;
+            AmountOfShares = amoutOfShares;
             PostStatus = postStatus;
             RemovalStatus = removalStatus;
             UserName = userName;

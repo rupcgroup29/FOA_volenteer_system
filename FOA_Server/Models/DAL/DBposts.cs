@@ -42,9 +42,9 @@ namespace FOA_Server.Models.DAL
                     //p.KeyWordsAndHashtages = dataReader["KeyWordsAndHashtages"].ToString();
                     p.Threat = Convert.ToInt32(dataReader["Threat"]);
                     // p.Screenshot = dataReader["Screenshot"].ToString();
-                    p.AmoutOfLikes = Convert.ToInt32(dataReader["AmoutOfLikes"]);
-                    p.AmoutOfShares = Convert.ToInt32(dataReader["AmoutOfShares"]);
-                    p.AmoutOfComments = Convert.ToInt32(dataReader["AmoutOfComments"]);
+                    p.AmountOfLikes = Convert.ToInt32(dataReader["AmountOfLikes"]);
+                    p.AmountOfShares = Convert.ToInt32(dataReader["AmountOfShares"]);
+                    p.AmountOfComments = Convert.ToInt32(dataReader["AmountOfComments"]);
                     p.PostStatus = Convert.ToInt32(dataReader["PostStatus"]);
                     p.RemovalStatus = Convert.ToInt32(dataReader["RemovalStatus"]);
                     p.UserID = Convert.ToInt32(dataReader["UserID"]);
@@ -153,9 +153,9 @@ namespace FOA_Server.Models.DAL
                     p.Description = dataReader["Description"].ToString();
                     p.Threat = Convert.ToInt32(dataReader["Threat"]);
                     p.Screenshot = dataReader["Screenshot"].ToString();
-                    p.AmoutOfLikes = Convert.ToInt32(dataReader["AmoutOfLikes"]);
-                    p.AmoutOfShares = Convert.ToInt32(dataReader["AmoutOfShares"]);
-                    p.AmoutOfComments = Convert.ToInt32(dataReader["AmoutOfComments"]);
+                    p.AmountOfLikes = Convert.ToInt32(dataReader["AmountOfLikes"]);
+                    p.AmountOfShares = Convert.ToInt32(dataReader["AmountOfShares"]);
+                    p.AmountOfComments = Convert.ToInt32(dataReader["AmountOfComments"]);
                     p.PostStatus = Convert.ToInt32(dataReader["PostStatus"]);
                     p.RemovalStatus = Convert.ToInt32(dataReader["RemovalStatus"]);
                     p.UserName = dataReader["UserName"].ToString();
@@ -217,9 +217,9 @@ namespace FOA_Server.Models.DAL
                     p.Description = dataReader["Description"].ToString();
                     p.Threat = Convert.ToInt32(dataReader["Threat"]);
                     p.Screenshot = dataReader["Screenshot"].ToString();
-                    p.AmoutOfLikes = Convert.ToInt32(dataReader["AmoutOfLikes"]);
-                    p.AmoutOfShares = Convert.ToInt32(dataReader["AmoutOfShares"]);
-                    p.AmoutOfComments = Convert.ToInt32(dataReader["AmoutOfComments"]);
+                    p.AmountOfLikes = Convert.ToInt32(dataReader["AmountOfLikes"]);
+                    p.AmountOfShares = Convert.ToInt32(dataReader["AmountOfShares"]);
+                    p.AmountOfComments = Convert.ToInt32(dataReader["AmountOfComments"]);
                     p.PostStatus = Convert.ToInt32(dataReader["PostStatus"]);
                     p.RemovalStatus = Convert.ToInt32(dataReader["RemovalStatus"]);
                     p.UserName = dataReader["UserName"].ToString();
@@ -967,9 +967,9 @@ namespace FOA_Server.Models.DAL
             cmd.Parameters.AddWithValue("@UrlLink", post.UrlLink);
             cmd.Parameters.AddWithValue("@Description", post.Description);
             cmd.Parameters.AddWithValue("@Threat", post.Threat);
-            cmd.Parameters.AddWithValue("@AmoutOfLikes", post.AmoutOfLikes);
-            cmd.Parameters.AddWithValue("@AmoutOfShares", post.AmoutOfShares);
-            cmd.Parameters.AddWithValue("@AmoutOfComments", post.AmoutOfComments);
+            cmd.Parameters.AddWithValue("@AmountOfLikes", post.AmountOfLikes);
+            cmd.Parameters.AddWithValue("@AmountOfShares", post.AmountOfShares);
+            cmd.Parameters.AddWithValue("@AmountOfComments", post.AmountOfComments);
             cmd.Parameters.AddWithValue("@Screenshot", "");
             cmd.Parameters.Add("@LastID", SqlDbType.Int).Direction = ParameterDirection.Output;
 

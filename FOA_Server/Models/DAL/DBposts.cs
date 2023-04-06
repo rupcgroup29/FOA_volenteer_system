@@ -118,7 +118,7 @@ namespace FOA_Server.Models.DAL
         }
 
         // This method update a Post
-        public int UpdatePost(Post post)
+        public int UpdatePost(int postId, int postStatus, int removalStatus, int postStatusManager, int removalStatusManager)
         {
             SqlConnection con;
             SqlCommand cmd;
@@ -133,7 +133,7 @@ namespace FOA_Server.Models.DAL
                 throw (ex);
             }
 
-            cmd = CreateCommandWithStoredProcedureUpdate("spUpdateStatus", con, post);             // create the command
+            cmd = CreateCommandWithStoredProcedureUpdate("spUpdateStatus", con, postId, postStatus, removalStatus, postStatusManager, removalStatusManager);             // create the command
 
             try
             {
@@ -1130,7 +1130,7 @@ namespace FOA_Server.Models.DAL
 
 
         // Create the SqlCommand using a stored procedure for update a post
-        private SqlCommand CreateCommandWithStoredProcedureUpdate(String spName, SqlConnection con, Post post)
+        private SqlCommand CreateCommandWithStoredProcedureUpdate(String spName, SqlConnection con, int postId, int postStatus, int removalStatus, int postStatusManager, int removalStatusManager)
         {
             SqlCommand cmd = new SqlCommand(); // create the command object
 
@@ -1142,14 +1142,18 @@ namespace FOA_Server.Models.DAL
 
             cmd.CommandType = System.Data.CommandType.StoredProcedure; // the type of the command, can also be stored procedure
 
-            cmd.Parameters.AddWithValue("@PostID", post.PostID);
-            cmd.Parameters.AddWithValue("@PostStatus", post.PostStatus);
-            cmd.Parameters.AddWithValue("@RemovalStatus", post.RemovalStatus);
-            cmd.Parameters.AddWithValue("@PostStatusManager", post.PostStatusManager);
-            cmd.Parameters.AddWithValue("@RemovalStatusManager", post.RemovalStatusManager);
+            cmd.Parameters.AddWithValue("@PostID", postId);
+            cmd.Parameters.AddWithValue("@PostStatus", postStatus);
+            cmd.Parameters.AddWithValue("@RemovalStatus", removalStatus);
+            cmd.Parameters.AddWithValue("@PostStatusManager", postStatusManager);
+            cmd.Parameters.AddWithValue("@RemovalStatusManager", removalStatusManager);
 
             return cmd;
         }
+
+
+
+
 
     }
 }

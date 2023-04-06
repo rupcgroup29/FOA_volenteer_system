@@ -160,7 +160,7 @@ namespace FOA_Server.Models
                     if (p.PostID == postId)
                     {
                         DBposts dbs = new DBposts();
-                        return dbs.UpdatePost(this);
+                        return dbs.UpdatePost(postId, postStatus, removalStatus, postStatusManager, removalStatusManager);
                     }
                 }
                 throw new Exception(" no such post ");
@@ -168,7 +168,7 @@ namespace FOA_Server.Models
             }
             catch (Exception exp)
             {
-                throw new Exception(" didn't succeed in updating " + exp.Message);
+                throw new Exception(" didn't succeed in updating this post, " + exp.Message);
             }
         }
 

@@ -70,7 +70,7 @@ function FilterByTeamName() {
 
 // read all users
 function readUsers() {
-    ajaxCall("GET", api + "Users", "", getAllUsersSCB, getAllUsersECB);
+    ajaxCall("GET", api + "UserServices", "", getAllUsersSCB, getAllUsersECB);
 }
 function getAllUsersSCB(data) {
     usersArr = data;

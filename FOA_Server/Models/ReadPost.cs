@@ -30,7 +30,7 @@ namespace FOA_Server.Models
 
         public ReadPost() { }
 
-        public ReadPost(int postID, string platformName, string countryName, string languageName, string urlLink, string description, int threat, string screenshot, int amoutOfLikes, int amoutOfComments, int amoutOfShares, int postStatus, int removalStatus, string userName, string statusManagerName, string removalManagerName, string[] categoryName, string[] keyWordsAndHashtages)
+        public ReadPost(int postID, string platformName, string countryName, string languageName, string urlLink, string description, int threat, string screenshot, int amountOfLikes, int amountOfComments, int amountOfShares, int postStatus, int removalStatus, string userName, string statusManagerName, string removalManagerName, string[] categoryName, string[] keyWordsAndHashtages)
         {
             PostID = postID;
             PlatformName = platformName;
@@ -40,9 +40,9 @@ namespace FOA_Server.Models
             Description = description;
             Threat = threat;
             Screenshot = screenshot;
-            AmountOfLikes = amoutOfLikes;
-            AmountOfComments = amoutOfComments;
-            AmountOfShares = amoutOfShares;
+            AmountOfLikes = amountOfLikes;
+            AmountOfComments = amountOfComments;
+            AmountOfShares = amountOfShares;
             PostStatus = postStatus;
             RemovalStatus = removalStatus;
             UserName = userName;

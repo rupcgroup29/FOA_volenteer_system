@@ -32,15 +32,15 @@ $(document).ready(function () {
 
 function FilterByPost() {
     // Declare variables
-    var input, filter, table, tr, td, i, txtValue;
-    input = document.getElementById("myInput");
-    filter = input.value.toUpperCase();
-    table = document.getElementById("myTable");
-    tr = table.getElementsByTagName("tr");
+    var input = document.getElementById("myInput");
+    var filter = input.value.toUpperCase();
+    var table = document.getElementById("myTable");
+    var tr = table.getElementsByTagName("tr");
+    var txtValue;
 
     // Loop through all table rows, and hide those who don't match the search query
-    for (i = 0; i < tr.length; i++) {
-        td = tr[i].getElementsByTagName("td")[0];
+    for (var i = 0; i < tr.length; i++) {
+        var td = tr[i].getElementsByTagName("td")[0];
         if (td) {
             txtValue = td.textContent || td.innerText;
             if (txtValue.toUpperCase().indexOf(filter) > -1) {
@@ -54,12 +54,11 @@ function FilterByPost() {
 
 // read all posts
 function readPosts() {
-    ajaxCall("GET", api + "Posts", "", readPostsSCB, readPostsECB);
+    ajaxCall("GET", api + "ReadPosts", "", readPostsSCB, readPostsECB);
 }
 function readPostsSCB(data) {
     postsArr = data;
     RenderPostsList();
-
 }
 function readPostsECB(err) {
     alert("Input Error");
@@ -67,7 +66,7 @@ function readPostsECB(err) {
 
 // render the posts list
 function RenderPostsList() {
-    if (postsArr[0] == null) {
+    if (postsArr == null) {
         alert("There's no posts yet");
     } else {
         let str = "";
@@ -81,31 +80,38 @@ function RenderPostsList() {
         str += '<th style="width:10%;"></th>';
         str += '</tr>';
         for (var i = 0; i < postsArr.length; i++) {
-            let currentPlatformName;
-            for (var j = 0; j < PlatformsArr.length; j++) {
-                if (postsArr[i].platformID == PlatformsArr[j].platformID)
-                    currentPlatformName = PlatformsArr[j].platformName;
-            }
-            let currenLanguageName;
-            for (var j = 0; j < languageArr.length; j++) {
-                if (postsArr[i].language == languageArr[j].language)
-                    currenLanguageName = languageArr[j].languageName;
-            }
-            let currenRemovalStatus;
+            //var currentPlatformName;
+            //for (var j = 0; j < PlatformsArr.length; j++) {
+            //    if (postsArr[i].platformID == PlatformsArr[j].platformID)
+            //        currentPlatformName = PlatformsArr[j].platformName;
+            //}
+            var currenLanguageName;
+            //for (var j = 0; j < languageArr.length; j++) {
+            //    if (postsArr[i].language == languageArr[j].language)
+            //        currenLanguageName = languageArr[j].languageName;
+            //}
+            var currenRemovalStatus;
             if (postsArr[i].removalStatusManager == 0)
                 currenRemovalStatus = "דווח";
             else currenRemovalStatus = "הוסר";
+
+            if (postsArr[i].language == null) {
+                currenLanguageName = "";
+            } else {
+                currenLanguageName = postsArr[i].language;
+            }
+
+            str += '<tr>';
+            str += '<td class="postID_display">' + postsArr[i].postID + '</td>';
+            str += '<td class="Platform_display">' + postsArr[i].platform + '</td>';
+            str += '<td class="urlLink_display">' + postsArr[i].urlLink + '</td>';
+            str += '<td class="language_display">' + currenLanguageName + '</td>';
+            str += '<td class="RemovalStatus_display">' + currenRemovalStatus + '</td>';
+            str += '<td class="viewButton_display"><button onclick="OpenPostCard(' + postsArr[i].postID + ')">צפייה</button></td>';
+            str += '</tr>';
         }
-        str += '<tr>';
-        str += '<td class="postID_display">' + postsArr[i].postID + '</td>';
-        str += '<td class="Platform_display">' + currentPlatformName + '</td>';
-        str += '<td class="urlLink_display">' + postsArr[i].urlLink + '</td>';
-        str += '<td class="language_display">' + currenLanguageName + '</td>';
-        str += '<td class="RemovalStatus_display">' + currenRemovalStatus + '</td>';
-        str += '<td class="viewButton_display"><button onclick="OpenPostCard(' + postsArr[i].postID +')">צפייה</button></td>';
-        str += '</tr>';
     }
-    onclick = "AddToFavoriets(' + this.id + ')"
+    onclick = "AddToFavoriets(" + this.id + ")";        //לטם: השורה הזאת לא תקינה, מה התכוונת שזה יעשה?
     str += '</table>';
     document.getElementById("PostsTable").innerHTML += str;
 }

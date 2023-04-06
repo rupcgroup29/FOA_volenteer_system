@@ -93,8 +93,8 @@ function AddNewPost() {
     return false;
 }
 function postAddNewPostSCB(data) { // הוספת משתמש הצליחה
-    alert("דיווח הפוסט נוסף בהצלחה");
-    window.location.assign("HomePage.html");
+    //alert("דיווח הפוסט נוסף בהצלחה");
+    //window.location.assign("HomePage.html");
     location.assign("HomePage.html")
 }
 function postAddNewPostECB(err) {
@@ -203,6 +203,7 @@ function getChecked() {
     return checkedValue;
 }
 
+// separate by , from key words and hashtages filed 
 function separatekeyWordsAndHashtages() {
     let keyWordsAndHashtages = $("#keywords_hashtags").val();
     const separated = keyWordsAndHashtages.split(",");

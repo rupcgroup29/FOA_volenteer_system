@@ -1,6 +1,6 @@
 ﻿var api;
 var currentUser = JSON.parse(sessionStorage.getItem("user"));
-var currentPostID = JSON.parse(sessionStorage.getItem("post"));;
+var currentPostID = 39; //JSON.parse(sessionStorage.getItem("post"));;
 var currentPostObject;
 
 $(document).ready(function () {
@@ -20,7 +20,7 @@ $(document).ready(function () {
 // read Post By ID
 function readPostByID() {
     //  לבדוק האם צריך להוסיף  parseInt
-    ajaxCall("GET", api + "Posts/" + currentPostID, "", readPostByIDSCB, readPostByIDECB);
+    ajaxCall("GET", api + "ReadPosts/" + currentPostID, "", readPostByIDSCB, readPostByIDECB);
 }
 function readPostByIDSCB(data) {
     currentPostObject = data;
@@ -32,91 +32,130 @@ function readPostByIDECB(err) {
 
 
 function RenderRelevantDetails() {
-    let str_urlLink = "";
-    let str_description = "";
-    let str_keyWordsAndHashtages = "";
-    let str_threat = "";
-    let str_amoutOfLikes = "";
-    let str_amoutOfShares = "";
-    let str_amoutOfComments = "";
-    let str_postStatus = "";
-    let str_removalStatus = "";
-    let str_user = "";
-    let str_platform = "";
+    //let str_urlLink = "";
+    //let str_description;
+    //let str_keyWordsAndHashtages = "";
+    //let str_threat = "";
+    //let str_amoutOfLikes = "";
+    //let str_amoutOfShares = "";
+    //let str_amoutOfComments = "";
+    //let str_postStatus = "";
+    //let str_removalStatus = "";
+    //let str_user = "";
+    //let str_platform = "";
     let str_category = "";
-    let str_country = "";
-    let str_language = "";
+    //let str_country = "";
+    //let str_language = "";
+    let KnH = "";
     // ענת: אנחנו רוצות להציג מי המנהל שאישר או דיווח הסרה? או שזה רק לדף לוגים?
     //let str_postStatusManager = "";
     //let str_removalStatusManager = "";
 
-    if (currentPostObject.removalStatus == 0)// status have'nt changed yet
+    //if (currentPostObject.removalStatus == 0) // if status haven't changed yet
+    //{
+    //    str_removalStatus += '<option class="opt" value="0">דווח</option>';
+    //    str_removalStatus += '<option class="opt" value="1">הוסר</option>';
+    //}
+    // else {
+
+    //removalStatus
+    if (currentPostObject.removalStatus == 0) {
+        $("#removalStatus").val("דווח");
+        // str_removalStatus += '<option class="opt" value="' + currentPostObject.removalStatus + '">דווח</option>';
+    } else $("#removalStatus").val("הוסר");
+    //str_removalStatus += '<option class="opt" value="' + currentPostObject.removalStatus + '">הוסר</option>';
+    //}
+
+    //managerStatus
+    if (currentPostObject.postStatus == 0) // if status have'nt changed yet
     {
-        str_removalStatus += '<option class="opt" value="0">דווח</option>';
-        str_removalStatus += '<option class="opt" value="1">הוסר</option>';
-    }
-    else {
-        //RemovalStatus
-        str_removalStatus += '<option class="opt" value="' + currentPostObject.removalStatus + '">' + currentPostObject.removalStatus + '</option>';
-    }
-    if (currentPostObject.postStatus == 0)// status have'nt changed yet
-    {
-        str_postStatus += '<option class="opt" value="0">ממתין לסטטוס</option>';
-        str_postStatus += '<option class="opt" value="1">אושר</option>';
-        str_postStatus += '<option class="opt" value="2">נדחה</option>';
-    }
-    else {
-        //ManagerStatus
-        str_postStatus += '<option class="opt" value="' + currentPostObject.postStatus + '">' + currentPostObject.postStatus + '</option>';
-    }
+        $("#managerStatus").val("ממתין לסטטוס");
+        //str_postStatus += '<option class="opt" value="0">ממתין לסטטוס</option>';
+    } else if (currentPostObject.postStatus == 1) {
+        $("#managerStatus").val("אושר");
+        //str_postStatus += '<option class="opt" value="1">אושר</option>';
+    } else $("#managerStatus").val("נדחה"); //str_postStatus += '<option class="opt" value="2">נדחה</option>';
+    //}
+    //else {
+    //    //ManagerStatus
+    //    str_postStatus += '<option class="opt" value="' + currentPostObject.postStatus + '">' + currentPostObject.postStatus + '</option>';
+    //}
 
     //ReportedUserName
-    str_user += '<input dir="rtl" class="form-control" type="text" placeholder="' + currentPostObject.userName + '"/>';
-    //content_threat
-    str_threat += '    <option class="opt" >' + currentPostObject.threat + '</option>';
-    //platform
-    str_platform += '<option class="opt">' + currentPostObject.platformName + '</option>';
-    //Country
-    str_country += '<option class="opt">' + currentPostObject.countryName + '</option>';
-    //language
-    str_language += '<option class="opt">' + currentPostObject.languageName + '</option>';
-    //IHRA
-    for (var i = 0; i < currentPostObject.categoryID.length; i++) {
-        str_category += '<p>' + currentPostObject.categoryID[i] + '<p>';
-    }
-    //exposure_likes
-    str_amoutOfLikes += '<option class="opt">' + currentPostObject.amoutOfLikes + '</option>';
-    //exposure_Comments
-    str_amoutOfComments += '<option class="opt">' + currentPostObject.amoutOfComments + '</option>';
-    //exposure_shares
-    str_amoutOfShares += '<option class="opt">' + currentPostObject.amoutOfShares + '</option>';
-    //urlLink
-    str_urlLink += '<input dir="rtl" class="form-control" id="urlLink" type="text" placeholder="' + currentPostObject.urlLink + '"/>';
-    //description
-    str_description += '<input dir="rtl" class="form-control" id="urlLink" type="text" placeholder="' + currentPostObject.description + '"/>';
-    //Keywords_hashtags
-    let KnH = "";
-    for (var i = 0; i < currentPostObject.keyWordsAndHashtages.length -1; i++) {
-        KnH += currentPostObject.keyWordsAndHashtages[i] + " , ";
-    }
-    KnH += currentPostObject.keyWordsAndHashtages[currentPostObject.keyWordsAndHashtages.length - 1];
-    str_keyWordsAndHashtages += '<input dir="rtl" class="form-control" id="urlLink" type="text" placeholder="' + KnH + '"/>';
-}
-document.getElementById("RemovalStatus").innerHTML += str_removalStatus;
-document.getElementById("ManagerStatus").innerHTML += str_postStatus;
-document.getElementById("ReportedUserName").innerHTML += str_user;
-document.getElementById("content_threat").innerHTML += str_threat;
-document.getElementById("platform").innerHTML += str_platform;
-document.getElementById("Country").innerHTML += str_country;
-document.getElementById("language").innerHTML += str_language;
-document.getElementById("IHRA").innerHTML += str_category;
-document.getElementById("exposure_likes").innerHTML += str_amoutOfLikes;
-document.getElementById("exposure_Comments").innerHTML += str_amoutOfComments;
-document.getElementById("exposure_shares").innerHTML += str_amoutOfShares;
-document.getElementById("urlLink").innerHTML += str_urlLink;
-document.getElementById("Keywords_hashtags").innerHTML += str_keyWordsAndHashtages;
+    //str_user = '<input dir="rtl" class="form-control" type="text" placeholder="' + currentPostObject.userName + '"/>';
+    $("#reportedUserName").val(currentPostObject.userName);
 
+    //content_threat
+    if (currentPostObject.threat == 1) {
+        $("#content_threat").val("כן");
+    } else if (currentPostObject.postStatus == 2) {
+        $("#content_threat").val("לא");
+    } else $("#content_threat").val("לא בטוח");
+
+    //str_threat += '<option class="opt" >' + currentPostObject.threat + '</option>';
+
+    //platform
+    $("#platform").val(currentPostObject.platformName);
+    // str_platform += '<option class="opt">' + currentPostObject.platformName + '</option>';
+
+    //country
+    $("#country").val(currentPostObject.countryName);
+    //str_country += '<option class="opt">' + currentPostObject.countryName + '</option>';
+
+    //language
+    $("#country").val(currentPostObject.languageName);
+    // str_language += '<option class="opt">' + currentPostObject.languageName + '</option>';
+
+    //IHRA
+    for (var i = 0; i < currentPostObject.categoryName.length; i++) {
+        str_category += '<p>' + currentPostObject.categoryName[i] + '<p>';
+    }
+    $("#IHRA").val(str_category);
+
+    //exposure_likes
+    $("#exposure_likes").val(currentPostObject.amountOfLikes);
+    //str_amoutOfLikes += '<option class="opt">' + currentPostObject.amountOfLikes + '</option>';
+
+    //exposure_Comments
+    $("#exposure_Comments").val(currentPostObject.amountOfComments);
+    //str_amoutOfComments += '<option class="opt">' + currentPostObject.amountOfComments + '</option>';
+
+    //exposure_shares
+    $("#exposure_shares").val(currentPostObject.amountOfShares);
+    //str_amoutOfShares += '<option class="opt">' + currentPostObject.amountOfShares + '</option>';
+
+    //urlLink
+    $("#urlLink").val(currentPostObject.urlLink);
+    // str_urlLink += '<input dir="rtl" class="form-control" id="urlLink" type="text" placeholder="' + currentPostObject.urlLink + '"/>';
+
+    //description
+    //str_description += '<input dir="rtl" class="form-control" id="urlLink" type="text" placeholder="' + currentPostObject.description + '"/>';
+    $("#description").val(currentPostObject.description);
+
+    //keywords_hashtags
+    for (var i = 0; i < currentPostObject.keyWordsAndHashtages.length; i++) {
+        KnH += "<p>" + currentPostObject.keyWordsAndHashtages[i] + "</p>";
+    }
+    $("#keywords_hashtags").val(KnH);
+    //KnH += currentPostObject.keyWordsAndHashtages[currentPostObject.keyWordsAndHashtages.length - 1];
+    //str_keyWordsAndHashtages += '<input dir="rtl" class="form-control" id="urlLink" type="text" placeholder="' + KnH + '"/>';
+
+    //document.getElementById("RemovalStatus").innerHTML += str_removalStatus;
+    //document.getElementById("ManagerStatus").innerHTML += str_postStatus;
+    //document.getElementById("ReportedUserName").innerHTML += str_user;
+    //document.getElementById("content_threat").innerHTML += str_threat;
+    //document.getElementById("platform").innerHTML += str_platform;
+    //document.getElementById("Country").innerHTML += str_country;
+    //document.getElementById("language").innerHTML += str_language;
+    //document.getElementById("IHRA").innerHTML += str_category;
+    //document.getElementById("description").innerHTML += str_description;
+    //document.getElementById("exposure_likes").innerHTML += str_amoutOfLikes;
+    //document.getElementById("exposure_Comments").innerHTML += str_amoutOfComments;
+    //document.getElementById("exposure_shares").innerHTML += str_amoutOfShares;
+    //document.getElementById("urlLink").innerHTML += str_urlLink;
+    //document.getElementById("keywords_hashtags").innerHTML += str_keyWordsAndHashtages;
 }
+
 
 // edit post - submit
 function editPost() {

@@ -1,11 +1,11 @@
 ﻿namespace FOA_Server.Models
 {
-    public class UserServiceLogin
+    public class UserLogin
     {
         public string Password { get; set; }
         public string Email { get; set; }
 
-        public UserServiceLogin(string email, string password)
+        public UserLogin(string email, string password)
         {
             Password = password;
             Email = email;

@@ -432,6 +432,155 @@ namespace FOA_Server.Models.DAL
             }
         }
 
+        // This method reads the most exposure Key Words / Hashtag from posts
+        public string ReadExposureKeyWordsAndHashtags()
+        {
+            SqlConnection con;
+            SqlCommand cmd;
+
+            try
+            {
+                con = connect("myProjDB"); // create the connection
+            }
+            catch (Exception ex)
+            {
+                // write to log
+                Console.WriteLine("Error");
+                throw (ex);
+            }
+
+            cmd = CreateCommandWithStoredProcedureRead("spExposureIndexKeyWords", con);      // create the command
+
+            string result = "";
+
+            try
+            {
+                SqlDataReader dataReader = cmd.ExecuteReader(CommandBehavior.CloseConnection);
+
+                while (dataReader.Read())
+                {
+                    result = dataReader["KeyWordsAndHashtages"].ToString();
+                }
+
+                return result;
+            }
+
+            catch (Exception ex)
+            {
+                // write to log
+                Console.WriteLine("Error");
+                throw (ex);
+            }
+
+            finally
+            {
+                if (con != null)
+                {
+                    // close the db connection
+                    con.Close();
+                }
+            }
+        }
+
+        // This method reads the most exposure Platform from posts
+        public string ReadExposurePlatform()
+        {
+            SqlConnection con;
+            SqlCommand cmd;
+
+            try
+            {
+                con = connect("myProjDB"); // create the connection
+            }
+            catch (Exception ex)
+            {
+                // write to log
+                Console.WriteLine("Error");
+                throw (ex);
+            }
+
+            cmd = CreateCommandWithStoredProcedureRead("spExposureIndexPlatform", con);      // create the command
+
+            string result = "";
+
+            try
+            {
+                SqlDataReader dataReader = cmd.ExecuteReader(CommandBehavior.CloseConnection);
+
+                while (dataReader.Read())
+                {
+                    result = dataReader["PlatformName"].ToString();
+                }
+
+                return result;
+            }
+
+            catch (Exception ex)
+            {
+                // write to log
+                Console.WriteLine("Error");
+                throw (ex);
+            }
+
+            finally
+            {
+                if (con != null)
+                {
+                    // close the db connection
+                    con.Close();
+                }
+            }
+        }
+
+        // This method reads the most exposure Language from posts
+        public string ReadExposureLanguage()
+        {
+            SqlConnection con;
+            SqlCommand cmd;
+
+            try
+            {
+                con = connect("myProjDB"); // create the connection
+            }
+            catch (Exception ex)
+            {
+                // write to log
+                Console.WriteLine("Error");
+                throw (ex);
+            }
+
+            cmd = CreateCommandWithStoredProcedureRead("spExposureIndexLan", con);      // create the command
+
+            string result = "";
+
+            try
+            {
+                SqlDataReader dataReader = cmd.ExecuteReader(CommandBehavior.CloseConnection);
+
+                while (dataReader.Read())
+                {
+                    result = dataReader["LanguageName"].ToString();
+                }
+
+                return result;
+            }
+
+            catch (Exception ex)
+            {
+                // write to log
+                Console.WriteLine("Error");
+                throw (ex);
+            }
+
+            finally
+            {
+                if (con != null)
+                {
+                    // close the db connection
+                    con.Close();
+                }
+            }
+        }
 
 
         // IHRA Category
@@ -1129,6 +1278,8 @@ namespace FOA_Server.Models.DAL
         }
 
 
+
+        // Create the SqlCommand using a stored procedure for Update
         // Create the SqlCommand using a stored procedure for update a post
         private SqlCommand CreateCommandWithStoredProcedureUpdate(String spName, SqlConnection con, int postId, int postStatus, int removalStatus, int postStatusManager, int removalStatusManager)
         {

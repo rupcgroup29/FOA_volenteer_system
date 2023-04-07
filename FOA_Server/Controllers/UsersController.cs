@@ -62,7 +62,7 @@ namespace FOA_Server.Controllers
 
         // POST api/<UserServicesController>/6
         [HttpPost("login")]
-        public UserService? GetLogin([FromBody] UserServiceLogin useLog)
+        public UserService? GetLogin([FromBody] UserLogin useLog)
         {
             string email = useLog.Email;
             string password = useLog.Password;
@@ -82,7 +82,7 @@ namespace FOA_Server.Controllers
         [HttpPost("{resetEmail}")]
         public void PasswordResetToken(string resetEmail)
         {
-            ParentForgotPass parentforgotPassword = new ParentForgotPass(resetEmail);
+            ForgotPass parentforgotPassword = new ForgotPass(resetEmail);
 
             // chech if we can use resert password, as long we didn't use it for the last 5 minutes
             if (!parentforgotPassword.ShouldWeResetPassword())

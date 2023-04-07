@@ -121,6 +121,29 @@ namespace FOA_Server.Models
         }
 
 
+        // Exposure Parameters
+
+        // Exposure Key Words and Hashtages
+        public string ReadExposureKeyWordsAndHashtages()
+        {
+            DBposts dbs = new DBposts();
+            return dbs.ReadExposureKeyWordsAndHashtags();
+        }
+
+        // Exposure Platform
+        public string ReadExposurePlatform()
+        {
+            DBposts dbs = new DBposts();
+            return dbs.ReadExposurePlatform();
+        }
+
+        // Exposure Language
+        public string ReadExposureLanguage()
+        {
+            DBposts dbs = new DBposts();
+            return dbs.ReadExposureLanguage();
+        }
+
 
     }
 }

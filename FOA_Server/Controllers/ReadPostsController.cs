@@ -25,11 +25,30 @@ namespace FOA_Server.Controllers
             return p.ReadPostByIdWithHIRAandKeyworks(postId);
         }
 
-        // POST api/<ReadPostsController>
-        [HttpPost]
-        public void Post([FromBody] string value)
+        // GET api/<ReadPostsController>/5
+        [HttpGet("ExposureKeyWordsAndHashtages")]
+        public string GetExposureKeyWordsAndHashtages()
         {
+            ReadPost p = new ReadPost();
+            return p.ReadExposureKeyWordsAndHashtages();
         }
+
+        // GET api/<ReadPostsController>/5
+        [HttpGet("ExposurePlatform")]
+        public string GetExposurePlatform()
+        {
+            ReadPost p = new ReadPost();
+            return p.ReadExposurePlatform();
+        }
+
+        // GET api/<ReadPostsController>/5
+        [HttpGet("ExposureLanguage")]
+        public string GetExposureLanguage()
+        {
+            ReadPost p = new ReadPost();
+            return p.ReadExposureLanguage();
+        }
+
 
         // PUT api/<ReadPostsController>/5
         [HttpPut("{id}")]
@@ -37,10 +56,6 @@ namespace FOA_Server.Controllers
         {
         }
 
-        // DELETE api/<ReadPostsController>/5
-        [HttpDelete("{id}")]
-        public void Delete(int id)
-        {
-        }
+        
     }
 }

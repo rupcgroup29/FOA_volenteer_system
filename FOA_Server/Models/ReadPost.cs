@@ -13,9 +13,9 @@ namespace FOA_Server.Models
         public string Description { get; set; }
         public int Threat { get; set; }
         public string Screenshot { get; set; }
-        public int AmoutOfLikes { get; set; }
-        public int AmoutOfComments { get; set; }
-        public int AmoutOfShares { get; set; }
+        public int AmountOfLikes { get; set; }
+        public int AmountOfComments { get; set; }
+        public int AmountOfShares { get; set; }
         public int PostStatus { get; set; }
         public int RemovalStatus { get; set; }
         public string UserName { get; set; }
@@ -30,7 +30,7 @@ namespace FOA_Server.Models
 
         public ReadPost() { }
 
-        public ReadPost(int postID, string platformName, string countryName, string languageName, string urlLink, string description, int threat, string screenshot, int amoutOfLikes, int amoutOfComments, int amoutOfShares, int postStatus, int removalStatus, string userName, string statusManagerName, string removalManagerName, string[] categoryName, string[] keyWordsAndHashtages)
+        public ReadPost(int postID, string platformName, string countryName, string languageName, string urlLink, string description, int threat, string screenshot, int amountOfLikes, int amountOfComments, int amountOfShares, int postStatus, int removalStatus, string userName, string statusManagerName, string removalManagerName, string[] categoryName, string[] keyWordsAndHashtages)
         {
             PostID = postID;
             PlatformName = platformName;
@@ -40,9 +40,9 @@ namespace FOA_Server.Models
             Description = description;
             Threat = threat;
             Screenshot = screenshot;
-            AmoutOfLikes = amoutOfLikes;
-            AmoutOfComments = amoutOfComments;
-            AmoutOfShares = amoutOfShares;
+            AmountOfLikes = amountOfLikes;
+            AmountOfComments = amountOfComments;
+            AmountOfShares = amountOfShares;
             PostStatus = postStatus;
             RemovalStatus = removalStatus;
             UserName = userName;
@@ -120,6 +120,29 @@ namespace FOA_Server.Models
             return postInfo;
         }
 
+
+        // Exposure Parameters
+
+        // Exposure Key Words and Hashtages
+        public string ReadExposureKeyWordsAndHashtages()
+        {
+            DBposts dbs = new DBposts();
+            return dbs.ReadExposureKeyWordsAndHashtags();
+        }
+
+        // Exposure Platform
+        public string ReadExposurePlatform()
+        {
+            DBposts dbs = new DBposts();
+            return dbs.ReadExposurePlatform();
+        }
+
+        // Exposure Language
+        public string ReadExposureLanguage()
+        {
+            DBposts dbs = new DBposts();
+            return dbs.ReadExposureLanguage();
+        }
 
 
     }

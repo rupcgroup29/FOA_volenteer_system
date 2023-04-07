@@ -2,7 +2,7 @@
 
 $(document).ready(function () {
     if (location.hostname === "localhost" || location.hostname === "127.0.0.1") {
-        api = "https://localhost:7109/api/Users";
+        api = "https://localhost:7109/api/";
     }
     // לעדכן את הכתובת החלופית !!
     //else api = "https://proj.ruppin.ac.il/cgroup29/test2/tar1/api/Users/";
@@ -18,7 +18,7 @@ function loginUser() {
         Password: $("#Password-input").val()
     }
 
-    ajaxCall("POST", api + "/login", JSON.stringify(loginUser), postLoginUserSCB, postLoginUserECB);
+    ajaxCall("POST", api + "UserServices/login", JSON.stringify(loginUser), postLoginUserSCB, postLoginUserECB);
     return false;
 }
 

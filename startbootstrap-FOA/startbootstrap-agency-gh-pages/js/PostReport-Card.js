@@ -10,7 +10,12 @@ $(document).ready(function () {
     // לעדכן את הכתובת החלופית !!
     //else api = "https://proj.ruppin.ac.il/cgroup29/test2/tar1/api/Users/";
 
+    let str_PostCardHeader = "";
+    str_PostCardHeader += '<h2 class="section-heading text-uppercase">עריכת דיווח מספר ' + currentPostID + '</h2>';
+    document.getElementById("PostCardHeader").innerHTML += str_PostCardHeader;
+
     readPostByID();
+
     $('#contactForm').submit(editPost);
 
     enableInitialReportingFields();
@@ -20,7 +25,7 @@ $(document).ready(function () {
 // read Post By ID
 function readPostByID() {
     //  לבדוק האם צריך להוסיף  parseInt
-    ajaxCall("GET", api + "Posts/" + currentPostID, "", readPostByIDSCB, readPostByIDECB);
+    ajaxCall("GET", api + "ReadPosts/" + currentPostID, "", readPostByIDSCB, readPostByIDECB);
 }
 function readPostByIDSCB(data) {
     currentPostObject = data;
@@ -32,91 +37,91 @@ function readPostByIDECB(err) {
 
 
 function RenderRelevantDetails() {
-    let str_urlLink = "";
-    let str_description = "";
-    let str_keyWordsAndHashtages = "";
-    let str_threat = "";
-    let str_amoutOfLikes = "";
-    let str_amoutOfShares = "";
-    let str_amoutOfComments = "";
     let str_postStatus = "";
     let str_removalStatus = "";
-    let str_user = "";
-    let str_platform = "";
     let str_category = "";
-    let str_country = "";
-    let str_language = "";
+    let str_KnH = "";
     // ענת: אנחנו רוצות להציג מי המנהל שאישר או דיווח הסרה? או שזה רק לדף לוגים?
-    //let str_postStatusManager = "";
-    //let str_removalStatusManager = "";
 
-    if (currentPostObject.removalStatus == 0)// status have'nt changed yet
+    //removalStatus
+    if (currentPostObject.removalStatus == 0) // if status haven't changed yet
     {
         str_removalStatus += '<option class="opt" value="0">דווח</option>';
         str_removalStatus += '<option class="opt" value="1">הוסר</option>';
     }
     else {
-        //RemovalStatus
-        str_removalStatus += '<option class="opt" value="' + currentPostObject.removalStatus + '">' + currentPostObject.removalStatus + '</option>';
+        str_removalStatus += '<option class="opt" value="1">הוסר</option>';
+        $("#removalStatus").attr("disabled", true);
     }
-    if (currentPostObject.postStatus == 0)// status have'nt changed yet
+    document.getElementById("removalStatus").innerHTML += str_removalStatus;
+    //managerStatus
+    if (currentPostObject.postStatus == 0) // if status have'nt changed yet
     {
         str_postStatus += '<option class="opt" value="0">ממתין לסטטוס</option>';
         str_postStatus += '<option class="opt" value="1">אושר</option>';
         str_postStatus += '<option class="opt" value="2">נדחה</option>';
+
+    } else if (currentPostObject.postStatus == 1)
+    {
+        str_postStatus += '<option class="opt" value="1">אושר</option>';
+        $("#ManagerStatus").attr("disabled", true);
+    } else {
+        str_postStatus += '<option class="opt" value="2">נדחה</option>';
+        $("#ManagerStatus").attr("disabled", true);
     }
-    else {
-        //ManagerStatus
-        str_postStatus += '<option class="opt" value="' + currentPostObject.postStatus + '">' + currentPostObject.postStatus + '</option>';
-    }
+    document.getElementById("ManagerStatus").innerHTML += str_postStatus;
 
     //ReportedUserName
-    str_user += '<input dir="rtl" class="form-control" type="text" placeholder="' + currentPostObject.userName + '"/>';
+    $("#reportedUserName").val(currentPostObject.userName);
+
     //content_threat
-    str_threat += '    <option class="opt" >' + currentPostObject.threat + '</option>';
+    if (currentPostObject.threat == 1) {
+        $("#content_threat").val("כן");
+    } else if (currentPostObject.postStatus == 2) {
+        $("#content_threat").val("לא");
+    } else $("#content_threat").val("לא בטוח");
+
     //platform
-    str_platform += '<option class="opt">' + currentPostObject.platformName + '</option>';
-    //Country
-    str_country += '<option class="opt">' + currentPostObject.countryName + '</option>';
+    $("#platform").val(currentPostObject.platformName);
+
+    //country
+    $("#country").val(currentPostObject.countryName);
+
     //language
-    str_language += '<option class="opt">' + currentPostObject.languageName + '</option>';
+    $("#language").val(currentPostObject.languageName);
+
     //IHRA
-    for (var i = 0; i < currentPostObject.categoryID.length; i++) {
-        str_category += '<p>' + currentPostObject.categoryID[i] + '<p>';
+    // ענת: לא לשכוח לדאוג לתא גדול יותר במידה ויש הרבה קטגוריות
+    for (var i = 0; i < currentPostObject.categoryName.length - 1; i++) {
+        str_category += currentPostObject.categoryName[i] + ', ';
     }
+    str_category += currentPostObject.categoryName[currentPostObject.categoryName.length - 1];
+    $("#ihraCategory").val(str_category);
+
     //exposure_likes
-    str_amoutOfLikes += '<option class="opt">' + currentPostObject.amoutOfLikes + '</option>';
+    $("#exposure_likes").val(currentPostObject.amountOfLikes);
+
     //exposure_Comments
-    str_amoutOfComments += '<option class="opt">' + currentPostObject.amoutOfComments + '</option>';
+    $("#exposure_Comments").val(currentPostObject.amountOfComments);
+
     //exposure_shares
-    str_amoutOfShares += '<option class="opt">' + currentPostObject.amoutOfShares + '</option>';
+    $("#exposure_shares").val(currentPostObject.amountOfShares);
+
     //urlLink
-    str_urlLink += '<input dir="rtl" class="form-control" id="urlLink" type="text" placeholder="' + currentPostObject.urlLink + '"/>';
+    $("#urlLink").val(currentPostObject.urlLink);
+
     //description
-    str_description += '<input dir="rtl" class="form-control" id="urlLink" type="text" placeholder="' + currentPostObject.description + '"/>';
-    //Keywords_hashtags
-    let KnH = "";
-    for (var i = 0; i < currentPostObject.keyWordsAndHashtages.length -1; i++) {
-        KnH += currentPostObject.keyWordsAndHashtages[i] + " , ";
+    $("#description").val(currentPostObject.description);
+
+    //keywords_hashtags
+    for (var i = 0; i < currentPostObject.keyWordsAndHashtages.length - 1; i++) {
+        str_KnH += currentPostObject.keyWordsAndHashtages[i] + ", ";
     }
-    KnH += currentPostObject.keyWordsAndHashtages[currentPostObject.keyWordsAndHashtages.length - 1];
-    str_keyWordsAndHashtages += '<input dir="rtl" class="form-control" id="urlLink" type="text" placeholder="' + KnH + '"/>';
-}
-document.getElementById("RemovalStatus").innerHTML += str_removalStatus;
-document.getElementById("ManagerStatus").innerHTML += str_postStatus;
-document.getElementById("ReportedUserName").innerHTML += str_user;
-document.getElementById("content_threat").innerHTML += str_threat;
-document.getElementById("platform").innerHTML += str_platform;
-document.getElementById("Country").innerHTML += str_country;
-document.getElementById("language").innerHTML += str_language;
-document.getElementById("IHRA").innerHTML += str_category;
-document.getElementById("exposure_likes").innerHTML += str_amoutOfLikes;
-document.getElementById("exposure_Comments").innerHTML += str_amoutOfComments;
-document.getElementById("exposure_shares").innerHTML += str_amoutOfShares;
-document.getElementById("urlLink").innerHTML += str_urlLink;
-document.getElementById("Keywords_hashtags").innerHTML += str_keyWordsAndHashtages;
+    str_KnH += currentPostObject.keyWordsAndHashtages[currentPostObject.keyWordsAndHashtages.length - 1];
+    $("#kw_Hashtags").val(str_KnH);
 
 }
+
 
 // edit post - submit
 function editPost() {
@@ -133,13 +138,14 @@ function editPost() {
     }
 
     const editedPost = {
+        PostID: currentPostID,
         PostStatus: postStatus,
         PostStatusManager: postStatusManager,
         RemovalStatus: removalStatus,
         RemovalStatusManager: removalStatusManager
     }
 
-    ajaxCall("PUT", api + "Posts", JSON.stringify(editedPost), editPostSCB, editPostECB);
+    ajaxCall("PUT", api + "Posts/" + currentPostID, JSON.stringify(editedPost), editPostSCB, editPostECB);
     return false;
 }
 function editPostSCB(data) {
@@ -166,3 +172,4 @@ function enableInitialReportingFields() {
     $("#urlLink").attr("readonly", false);
     $("#Keywords_hashtags").attr("readonly", false);
 }
+

@@ -1,4 +1,5 @@
 ﻿using FOA_Server.Models.DAL;
+using System;
 using System.Xml.Linq;
 
 namespace FOA_Server.Models
@@ -10,19 +11,19 @@ namespace FOA_Server.Models
         public int PostID { get; set; }
         public string UrlLink { get; set; }
         public string Description { get; set; }
-        public string[] KeyWordsAndHashtages { get; set; } 
+        public string[] KeyWordsAndHashtages { get; set; }
         public int Threat { get; set; }
         // public string Screenshot { get; set; }
-        public int AmoutOfLikes { get; set; }
-        public int AmoutOfShares { get; set; }
-        public int AmoutOfComments { get; set; }
+        public int AmountOfLikes { get; set; }
+        public int AmountOfShares { get; set; }
+        public int AmountOfComments { get; set; }
         public int PostStatus { get; set; }
         public int RemovalStatus { get; set; }
 
         // FK fields
         public int UserID { get; set; }
         public int PlatformID { get; set; }
-        public int[] CategoryID { get; set; } 
+        public int[] CategoryID { get; set; }
         public int PostStatusManager { get; set; }
         public int RemovalStatusManager { get; set; }
         public int CountryID { get; set; }
@@ -45,9 +46,9 @@ namespace FOA_Server.Models
             KeyWordsAndHashtages = keyWordsAndHashtages;
             Threat = threat;
             // Screenshot = screenshot;
-            AmoutOfLikes = amoutOfLikes;
-            AmoutOfShares = amoutOfShares;
-            AmoutOfComments = amoutOfComments;
+            AmountOfLikes = amoutOfLikes;
+            AmountOfShares = amoutOfShares;
+            AmountOfComments = amoutOfComments;
             PostStatus = postStatus;
             RemovalStatus = removalStatus;
             UserID = userID;
@@ -57,11 +58,11 @@ namespace FOA_Server.Models
             RemovalStatusManager = removalStatusManager;
             CountryID = country;
             LanguageID = language;
-            CountryName = countryName; 
+            CountryName = countryName;
             LanguageName = languageName;
             PlatformName = platformName;
         }
-        
+
 
         // read Posts without menager's status
         public List<Post> ReadPostsWithoutStatus()
@@ -74,23 +75,24 @@ namespace FOA_Server.Models
         //Insert new post
         public Post InsertPost()
         {
-            //postsList = ReadPostsWithoutStatus();
+            postsList = ReadPostsWithoutStatus();
             try
             {
-                //if (postsList.Count != 0)
-                //{
-                //    // unique url ?
-                //    bool uniqueUrl = UniqueUrl(this.UrlLink, postsList);
-                //    if (!uniqueUrl)
-                //    {
-                //        throw new Exception(" post under that URL link is allready exists in the system ");
-                //    }
-                //}
+                if (postsList.Count != 0)
+                {
+                    // check if there's not the same url link in the data
+                    bool uniqueUrl = UniqueUrl(this.UrlLink, postsList);
+                    if (!uniqueUrl)
+                    {
+                        throw new Exception(" post under that URL link is allready exists in the system ");
+                    }
+                }
 
                 DBposts dbs = new DBposts();
                 int postId = dbs.InsertPost(this);
-                if (postId > 0) {
-                   
+                if (postId > 0)
+                {
+
                     for (int i = 0; i < this.CategoryID.Length; i++)//Loop that run on all the Category array
                     {
                         int response = dbs.InsertCategoryToPost(postId, this.CategoryID[i]); //Insert the categoryID and postID to many-to-many table in db
@@ -112,7 +114,7 @@ namespace FOA_Server.Models
                             }
                             else
                             {
-                                KeyWordsAndHashtages keyw = new KeyWordsAndHashtages(this.KeyWordsAndHashtages[i],0);
+                                KeyWordsAndHashtages keyw = new KeyWordsAndHashtages(this.KeyWordsAndHashtages[i], 0);
                                 int id = dbs.InsertKeyWordsAndHashtages(keyw);
                                 dbs.InsertKeyWordsAndHashtagesToPost(postId, id);
 
@@ -121,7 +123,7 @@ namespace FOA_Server.Models
                     }
 
 
-                    return this; 
+                    return this;
                 }
                 else { return null; }
             }
@@ -144,6 +146,30 @@ namespace FOA_Server.Models
                 }
             }
             return unique;
+        }
+
+
+        //Update post details
+        public int UpdatePost(int postId, int postStatus, int removalStatus, int postStatusManager, int removalStatusManager)
+        {
+            postsList = ReadPostsWithoutStatus();
+            try
+            {
+                foreach (Post p in postsList)
+                {
+                    if (p.PostID == postId)
+                    {
+                        DBposts dbs = new DBposts();
+                        return dbs.UpdatePost(postId, postStatus, removalStatus, postStatusManager, removalStatusManager);
+                    }
+                }
+                throw new Exception(" no such post ");
+
+            }
+            catch (Exception exp)
+            {
+                throw new Exception(" didn't succeed in updating this post, " + exp.Message);
+            }
         }
 
 

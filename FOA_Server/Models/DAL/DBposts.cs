@@ -42,9 +42,9 @@ namespace FOA_Server.Models.DAL
                     //p.KeyWordsAndHashtages = dataReader["KeyWordsAndHashtages"].ToString();
                     p.Threat = Convert.ToInt32(dataReader["Threat"]);
                     // p.Screenshot = dataReader["Screenshot"].ToString();
-                    p.AmoutOfLikes = Convert.ToInt32(dataReader["AmoutOfLikes"]);
-                    p.AmoutOfShares = Convert.ToInt32(dataReader["AmoutOfShares"]);
-                    p.AmoutOfComments = Convert.ToInt32(dataReader["AmoutOfComments"]);
+                    p.AmountOfLikes = Convert.ToInt32(dataReader["AmountOfLikes"]);
+                    p.AmountOfShares = Convert.ToInt32(dataReader["AmountOfShares"]);
+                    p.AmountOfComments = Convert.ToInt32(dataReader["AmountOfComments"]);
                     p.PostStatus = Convert.ToInt32(dataReader["PostStatus"]);
                     p.RemovalStatus = Convert.ToInt32(dataReader["RemovalStatus"]);
                     p.UserID = Convert.ToInt32(dataReader["UserID"]);
@@ -117,6 +117,47 @@ namespace FOA_Server.Models.DAL
 
         }
 
+        // This method update a Post
+        public int UpdatePost(int postId, int postStatus, int removalStatus, int postStatusManager, int removalStatusManager)
+        {
+            SqlConnection con;
+            SqlCommand cmd;
+
+            try
+            {
+                con = connect("myProjDB"); // create the connection
+            }
+            catch (Exception ex)
+            {
+                // write to log
+                throw (ex);
+            }
+
+            cmd = CreateCommandWithStoredProcedureUpdate("spUpdateStatus", con, postId, postStatus, removalStatus, postStatusManager, removalStatusManager);             // create the command
+
+            try
+            {
+                int numEffected = cmd.ExecuteNonQuery();  // execute the command
+                return numEffected;
+            }
+            catch (Exception ex)
+            {
+                // write to log
+                Console.WriteLine("Error");
+                throw (ex);
+            }
+
+            finally
+            {
+                if (con != null)
+                {
+                    // close the db connection
+                    con.Close();
+                }
+            }
+
+        }
+
 
 
         // READ POST
@@ -153,9 +194,9 @@ namespace FOA_Server.Models.DAL
                     p.Description = dataReader["Description"].ToString();
                     p.Threat = Convert.ToInt32(dataReader["Threat"]);
                     p.Screenshot = dataReader["Screenshot"].ToString();
-                    p.AmoutOfLikes = Convert.ToInt32(dataReader["AmoutOfLikes"]);
-                    p.AmoutOfShares = Convert.ToInt32(dataReader["AmoutOfShares"]);
-                    p.AmoutOfComments = Convert.ToInt32(dataReader["AmoutOfComments"]);
+                    p.AmountOfLikes = Convert.ToInt32(dataReader["AmountOfLikes"]);
+                    p.AmountOfShares = Convert.ToInt32(dataReader["AmountOfShares"]);
+                    p.AmountOfComments = Convert.ToInt32(dataReader["AmountOfComments"]);
                     p.PostStatus = Convert.ToInt32(dataReader["PostStatus"]);
                     p.RemovalStatus = Convert.ToInt32(dataReader["RemovalStatus"]);
                     p.UserName = dataReader["UserName"].ToString();
@@ -217,9 +258,9 @@ namespace FOA_Server.Models.DAL
                     p.Description = dataReader["Description"].ToString();
                     p.Threat = Convert.ToInt32(dataReader["Threat"]);
                     p.Screenshot = dataReader["Screenshot"].ToString();
-                    p.AmoutOfLikes = Convert.ToInt32(dataReader["AmoutOfLikes"]);
-                    p.AmoutOfShares = Convert.ToInt32(dataReader["AmoutOfShares"]);
-                    p.AmoutOfComments = Convert.ToInt32(dataReader["AmoutOfComments"]);
+                    p.AmountOfLikes = Convert.ToInt32(dataReader["AmountOfLikes"]);
+                    p.AmountOfShares = Convert.ToInt32(dataReader["AmountOfShares"]);
+                    p.AmountOfComments = Convert.ToInt32(dataReader["AmountOfComments"]);
                     p.PostStatus = Convert.ToInt32(dataReader["PostStatus"]);
                     p.RemovalStatus = Convert.ToInt32(dataReader["RemovalStatus"]);
                     p.UserName = dataReader["UserName"].ToString();
@@ -391,6 +432,155 @@ namespace FOA_Server.Models.DAL
             }
         }
 
+        // This method reads the most exposure Key Words / Hashtag from posts
+        public string ReadExposureKeyWordsAndHashtags()
+        {
+            SqlConnection con;
+            SqlCommand cmd;
+
+            try
+            {
+                con = connect("myProjDB"); // create the connection
+            }
+            catch (Exception ex)
+            {
+                // write to log
+                Console.WriteLine("Error");
+                throw (ex);
+            }
+
+            cmd = CreateCommandWithStoredProcedureRead("spExposureIndexKeyWords", con);      // create the command
+
+            string result = "";
+
+            try
+            {
+                SqlDataReader dataReader = cmd.ExecuteReader(CommandBehavior.CloseConnection);
+
+                while (dataReader.Read())
+                {
+                    result = dataReader["KeyWordsAndHashtages"].ToString();
+                }
+
+                return result;
+            }
+
+            catch (Exception ex)
+            {
+                // write to log
+                Console.WriteLine("Error");
+                throw (ex);
+            }
+
+            finally
+            {
+                if (con != null)
+                {
+                    // close the db connection
+                    con.Close();
+                }
+            }
+        }
+
+        // This method reads the most exposure Platform from posts
+        public string ReadExposurePlatform()
+        {
+            SqlConnection con;
+            SqlCommand cmd;
+
+            try
+            {
+                con = connect("myProjDB"); // create the connection
+            }
+            catch (Exception ex)
+            {
+                // write to log
+                Console.WriteLine("Error");
+                throw (ex);
+            }
+
+            cmd = CreateCommandWithStoredProcedureRead("spExposureIndexPlatform", con);      // create the command
+
+            string result = "";
+
+            try
+            {
+                SqlDataReader dataReader = cmd.ExecuteReader(CommandBehavior.CloseConnection);
+
+                while (dataReader.Read())
+                {
+                    result = dataReader["PlatformName"].ToString();
+                }
+
+                return result;
+            }
+
+            catch (Exception ex)
+            {
+                // write to log
+                Console.WriteLine("Error");
+                throw (ex);
+            }
+
+            finally
+            {
+                if (con != null)
+                {
+                    // close the db connection
+                    con.Close();
+                }
+            }
+        }
+
+        // This method reads the most exposure Language from posts
+        public string ReadExposureLanguage()
+        {
+            SqlConnection con;
+            SqlCommand cmd;
+
+            try
+            {
+                con = connect("myProjDB"); // create the connection
+            }
+            catch (Exception ex)
+            {
+                // write to log
+                Console.WriteLine("Error");
+                throw (ex);
+            }
+
+            cmd = CreateCommandWithStoredProcedureRead("spExposureIndexLan", con);      // create the command
+
+            string result = "";
+
+            try
+            {
+                SqlDataReader dataReader = cmd.ExecuteReader(CommandBehavior.CloseConnection);
+
+                while (dataReader.Read())
+                {
+                    result = dataReader["LanguageName"].ToString();
+                }
+
+                return result;
+            }
+
+            catch (Exception ex)
+            {
+                // write to log
+                Console.WriteLine("Error");
+                throw (ex);
+            }
+
+            finally
+            {
+                if (con != null)
+                {
+                    // close the db connection
+                    con.Close();
+                }
+            }
+        }
 
 
         // IHRA Category
@@ -967,9 +1157,9 @@ namespace FOA_Server.Models.DAL
             cmd.Parameters.AddWithValue("@UrlLink", post.UrlLink);
             cmd.Parameters.AddWithValue("@Description", post.Description);
             cmd.Parameters.AddWithValue("@Threat", post.Threat);
-            cmd.Parameters.AddWithValue("@AmoutOfLikes", post.AmoutOfLikes);
-            cmd.Parameters.AddWithValue("@AmoutOfShares", post.AmoutOfShares);
-            cmd.Parameters.AddWithValue("@AmoutOfComments", post.AmoutOfComments);
+            cmd.Parameters.AddWithValue("@AmountOfLikes", post.AmountOfLikes);
+            cmd.Parameters.AddWithValue("@AmountOfShares", post.AmountOfShares);
+            cmd.Parameters.AddWithValue("@AmountOfComments", post.AmountOfComments);
             cmd.Parameters.AddWithValue("@Screenshot", "");
             cmd.Parameters.Add("@LastID", SqlDbType.Int).Direction = ParameterDirection.Output;
 
@@ -1086,6 +1276,35 @@ namespace FOA_Server.Models.DAL
 
             return cmd;
         }
+
+
+
+        // Create the SqlCommand using a stored procedure for Update
+        // Create the SqlCommand using a stored procedure for update a post
+        private SqlCommand CreateCommandWithStoredProcedureUpdate(String spName, SqlConnection con, int postId, int postStatus, int removalStatus, int postStatusManager, int removalStatusManager)
+        {
+            SqlCommand cmd = new SqlCommand(); // create the command object
+
+            cmd.Connection = con;              // assign the connection to the command object
+
+            cmd.CommandText = spName;          // can be Select, Insert, Update, Delete 
+
+            cmd.CommandTimeout = 10;           // Time to wait for the execution' The default is 30 seconds
+
+            cmd.CommandType = System.Data.CommandType.StoredProcedure; // the type of the command, can also be stored procedure
+
+            cmd.Parameters.AddWithValue("@PostID", postId);
+            cmd.Parameters.AddWithValue("@PostStatus", postStatus);
+            cmd.Parameters.AddWithValue("@RemovalStatus", removalStatus);
+            cmd.Parameters.AddWithValue("@PostStatusManager", postStatusManager);
+            cmd.Parameters.AddWithValue("@RemovalStatusManager", removalStatusManager);
+
+            return cmd;
+        }
+
+
+
+
 
     }
 }

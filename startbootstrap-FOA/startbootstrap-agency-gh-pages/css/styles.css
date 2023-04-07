@@ -12764,3 +12764,15 @@ select::-ms-expand {
 }
 
 /* סוף - עיצובים של טבלת צוותים*/
+
+
+#RecommendationSection h4{
+    color:white;
+}
+
+#RecommendationSection{
+    border:2px double white;
+    margin:10px;
+    padding:10px;
+    text-align:center;
+}

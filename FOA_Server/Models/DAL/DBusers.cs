@@ -6,8 +6,8 @@ namespace FOA_Server.Models.DAL
     public class DBusers : DBservices
     {
         // USERS
-        // This method reads all the Users
-        public List<User> ReadUsers()
+        // This method reads all the UserServices
+        public List<UserService> ReadUsers()
         {
             SqlConnection con;
             SqlCommand cmd;
@@ -25,7 +25,7 @@ namespace FOA_Server.Models.DAL
 
             cmd = CreateCommandWithStoredProcedureRead("spReadUsers", con);      // create the command
 
-            List<User> list = new List<User>();
+            List<UserService> list = new List<UserService>();
 
             try
             {
@@ -33,7 +33,7 @@ namespace FOA_Server.Models.DAL
 
                 while (dataReader.Read())
                 {
-                    User usr = new User();
+                    UserService usr = new UserService();
                     usr.UserID = Convert.ToInt32(dataReader["UserID"]);
                     usr.FirstName = dataReader["FirstName"].ToString();
                     usr.Surname = dataReader["Surname"].ToString();
@@ -69,7 +69,7 @@ namespace FOA_Server.Models.DAL
         }
 
         // This method inserts a user to the user table 
-        public int InsertUser(User user)
+        public int InsertUser(UserService user)
         {
             SqlConnection con;
             SqlCommand cmd;
@@ -110,7 +110,7 @@ namespace FOA_Server.Models.DAL
         }
 
         // This method update a user to the user table 
-        public int UpdateUser(User user)
+        public int UpdateUser(UserService user)
         {
             SqlConnection con;
             SqlCommand cmd;
@@ -127,6 +127,46 @@ namespace FOA_Server.Models.DAL
             }
 
             cmd = CreateCommandWithStoredProcedureUpdate("spUpdateUser", con, user);     // create the command
+
+            try
+            {
+                int numEffected = cmd.ExecuteNonQuery();  // execute the command
+                return numEffected;
+            }
+            catch (Exception ex)
+            {
+                // write to log
+                throw (ex);
+            }
+
+            finally
+            {
+                if (con != null)
+                {
+                    // close the db connection
+                    con.Close();
+                }
+            }
+        }
+
+        // This method update a user to the user table 
+        public int UpdateUserPassword(string email, string password)
+        {
+            SqlConnection con;
+            SqlCommand cmd;
+
+            try
+            {
+                con = connect("myProjDB"); // create the connection
+            }
+            catch (Exception ex)
+            {
+                // write to log
+                Console.WriteLine("Error");
+                throw (ex);
+            }
+
+            cmd = CreateCommandWithStoredProcedureUpdate("spUpdateUserPassword", con, email, password);     // create the command
 
             try
             {
@@ -167,7 +207,7 @@ namespace FOA_Server.Models.DAL
         }
 
         // Create the SqlCommand using a stored procedure for Insert & Update User
-        private SqlCommand CreateCommandWithStoredProcedureInsert(String spName, SqlConnection con, User user)
+        private SqlCommand CreateCommandWithStoredProcedureInsert(String spName, SqlConnection con, UserService user)
         {
             SqlCommand cmd = new SqlCommand(); // create the command object
 
@@ -192,7 +232,7 @@ namespace FOA_Server.Models.DAL
             return cmd;
         }
 
-        private SqlCommand CreateCommandWithStoredProcedureUpdate(String spName, SqlConnection con, User user)
+        private SqlCommand CreateCommandWithStoredProcedureUpdate(String spName, SqlConnection con, UserService user)
         {
             SqlCommand cmd = new SqlCommand(); // create the command object
 
@@ -217,6 +257,27 @@ namespace FOA_Server.Models.DAL
 
             return cmd;
         }
+
+
+        private SqlCommand CreateCommandWithStoredProcedureUpdate(String spName, SqlConnection con, string email, string password)
+        {
+            SqlCommand cmd = new SqlCommand(); // create the command object
+
+            cmd.Connection = con;              // assign the connection to the command object
+
+            cmd.CommandText = spName;          // can be Select, Insert, Update, Delete 
+
+            cmd.CommandTimeout = 10;           // Time to wait for the execution' The default is 30 seconds
+
+            cmd.CommandType = System.Data.CommandType.StoredProcedure; // the type of the command, can also be stored procedure
+
+            cmd.Parameters.AddWithValue("@Email", email);
+            cmd.Parameters.AddWithValue("@Password", password);
+            cmd.Parameters.AddWithValue("@LastReasetPassword", DateTime.Now.AddMinutes(5));
+
+            return cmd;
+        }
+
 
 
         // Volunteer Programs

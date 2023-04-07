@@ -38,10 +38,6 @@ namespace FOA_Server.Controllers
         {
         }
 
-        // DELETE api/<VolunteerProgramsController>/5
-        [HttpDelete("{id}")]
-        public void Delete(int id)
-        {
-        }
+        
     }
 }

@@ -10,14 +10,6 @@ namespace FOA_Server.Controllers
     [ApiController]
     public class PostsController : ControllerBase
     {
-        //// GET: api/<PostsController>
-        //[HttpGet]
-        //public List<Post> Get()
-        //{
-        //    Post p = new Post();
-        //    return p.ReadAllPosts();
-        //}
-
         // GET: api/<PostsController>/6
         [HttpGet("noStatusPosts")]
         public List<Post> GetNoneStatusPosts()
@@ -26,20 +18,6 @@ namespace FOA_Server.Controllers
             return post.ReadPostsWithoutStatus();
         }
 
-        //// GET: api/<PostsController>/6
-        //[HttpGet("approvalPosts")]
-        //public List<Post> GetAllApprovedPosts()
-        //{
-        //    Post post = new Post();
-        //    return post.ApprovalPosts();
-        //}
-
-        // GET api/<PostsController>/5
-        [HttpGet("{id}")]
-        public string Get(int id)
-        {
-            return "value";
-        }
 
         // POST api/<PostsController>
         [HttpPost]
@@ -62,7 +40,7 @@ namespace FOA_Server.Controllers
             }
             if (post.PlatformID == 999)
             {
-                new Platform(post.PlatformID,post.PlatformName).InsertPlatform();
+                new Platform(post.PlatformID, post.PlatformName).InsertPlatform();
                 Platform newID = new Platform();
                 int platformID = newID.getPlatformByName(post.PlatformName);
                 post.PlatformID = platformID;
@@ -71,11 +49,22 @@ namespace FOA_Server.Controllers
             return affected;
         }
 
+
         // PUT api/<PostsController>/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
+        [HttpPut("{postId}")]
+        public int Put(int postId, [FromBody] PostChangeStatus postStatusUpdate)
         {
+            postId = postStatusUpdate.PostID;
+            int postStatus = postStatusUpdate.PostStatus;
+            int removalStatus = postStatusUpdate.RemovalStatus;
+            int postStatusManager = postStatusUpdate.PostStatusManager;
+            int removalStatusManager = postStatusUpdate.RemovalStatusManager;
+
+            Post post = new Post();
+            return post.UpdatePost(postId, postStatus, removalStatus, postStatusManager, removalStatusManager);
+
         }
+
 
     }
 }

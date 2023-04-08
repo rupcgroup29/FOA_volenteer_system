@@ -19,6 +19,7 @@ namespace FOA_Server.Models
         public int AmountOfComments { get; set; }
         public int PostStatus { get; set; }
         public int RemovalStatus { get; set; }
+        public DateTime InsertDate { get; set; }
 
         // FK fields
         public int UserID { get; set; }
@@ -38,7 +39,7 @@ namespace FOA_Server.Models
         private static List<Post> postsList = new List<Post>();
 
         public Post() { }
-        public Post(int postID, string urlLink, string description, string[] keyWordsAndHashtages, int threat, int amoutOfLikes, int amoutOfShares, int amoutOfComments, int postStatus, int removalStatus, int userID, int platformID, int[] categoryID, int postStatusManager, int removalStatusManager, int country, int language, string countryName, string languageName, string platformName)
+        public Post(int postID, string urlLink, string description, string[] keyWordsAndHashtages, int threat, int amountOfLikes, int amountOfShares, int amountOfComments, int postStatus, int removalStatus, int userID, int platformID, int[] categoryID, int postStatusManager, int removalStatusManager, int country, int language, string countryName, string languageName, string platformName, DateTime insertDate)
         {
             PostID = postID;
             UrlLink = urlLink;
@@ -46,9 +47,9 @@ namespace FOA_Server.Models
             KeyWordsAndHashtages = keyWordsAndHashtages;
             Threat = threat;
             // Screenshot = screenshot;
-            AmountOfLikes = amoutOfLikes;
-            AmountOfShares = amoutOfShares;
-            AmountOfComments = amoutOfComments;
+            AmountOfLikes = amountOfLikes;
+            AmountOfShares = amountOfShares;
+            AmountOfComments = amountOfComments;
             PostStatus = postStatus;
             RemovalStatus = removalStatus;
             UserID = userID;
@@ -61,11 +62,12 @@ namespace FOA_Server.Models
             CountryName = countryName;
             LanguageName = languageName;
             PlatformName = platformName;
+            InsertDate = insertDate;
         }
 
 
         // read Posts without menager's status
-        public List<Post> ReadPostsWithoutStatus()
+        public static List<Post> ReadPostsWithoutStatus()
         {
             DBposts dbs = new DBposts();
             return dbs.ReadPostsWithoutStatus();
@@ -90,10 +92,10 @@ namespace FOA_Server.Models
 
                 DBposts dbs = new DBposts();
                 int postId = dbs.InsertPost(this);
+
                 if (postId > 0)
                 {
-
-                    for (int i = 0; i < this.CategoryID.Length; i++)//Loop that run on all the Category array
+                    for (int i = 0; i < this.CategoryID.Length; i++) //Loop that runs on all the Category array
                     {
                         int response = dbs.InsertCategoryToPost(postId, this.CategoryID[i]); //Insert the categoryID and postID to many-to-many table in db
                         if (response <= 0)
@@ -117,11 +119,9 @@ namespace FOA_Server.Models
                                 KeyWordsAndHashtages keyw = new KeyWordsAndHashtages(this.KeyWordsAndHashtages[i], 0);
                                 int id = dbs.InsertKeyWordsAndHashtages(keyw);
                                 dbs.InsertKeyWordsAndHashtagesToPost(postId, id);
-
                             }
                         }
                     }
-
 
                     return this;
                 }
@@ -171,6 +171,16 @@ namespace FOA_Server.Models
                 throw new Exception(" didn't succeed in updating this post, " + exp.Message);
             }
         }
+
+
+        //How many posts are without status
+        public static int NumberOfPostdWithoutStatus()
+        {
+            postsList = ReadPostsWithoutStatus();
+            int number = postsList.Count;
+            return number;
+        }
+
 
 
         //// list of approval posts

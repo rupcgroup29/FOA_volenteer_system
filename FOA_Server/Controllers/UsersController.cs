@@ -1,5 +1,4 @@
 ﻿using FOA_Server.Models;
-using FOA_Server.Services;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 using System.Net;
@@ -60,6 +59,7 @@ namespace FOA_Server.Controllers
             catch (Exception ex) { }
         }
 
+
         // POST api/<UserServicesController>/6
         [HttpPost("login")]
         public UserService? GetLogin([FromBody] UserLogin useLog)
@@ -77,6 +77,7 @@ namespace FOA_Server.Controllers
             UserService affected = user.UpdateUser();
             return affected;
         }
+
 
         // POST api/<UserServicesController>
         [HttpPost("{resetEmail}")]
@@ -103,6 +104,8 @@ namespace FOA_Server.Controllers
             parentforgotPassword.SaveNewPassword(resetEmail, newPasswordStr);
         }
 
+
+        
 
 
 

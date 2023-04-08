@@ -2,6 +2,7 @@
 using System.Data;
 using System.Diagnostics.Metrics;
 using System.Threading;
+using Microsoft.Extensions.Hosting;
 
 namespace FOA_Server.Models.DAL
 {
@@ -54,6 +55,7 @@ namespace FOA_Server.Models.DAL
                     //p.RemovalStatusManager = Convert.ToInt32(dataReader["RemovalStatusManager"]);
                     p.CountryID = Convert.ToInt32(dataReader["CountryID"]);
                     p.LanguageID = Convert.ToInt32(dataReader["LanguageID"]);
+                    p.InsertDate = Convert.ToDateTime(dataReader["CreatedAt"]);
 
                     list.Add(p);
                 }
@@ -205,6 +207,7 @@ namespace FOA_Server.Models.DAL
                     p.RemovalManagerName = dataReader["RemovalManagerName"].ToString();
                     p.CountryName = dataReader["CountryName"].ToString();
                     p.LanguageName = dataReader["LanguageName"].ToString();
+                    p.InsertDate = Convert.ToDateTime(dataReader["CreatedAt"]);
 
                     list.Add(p);
                 }
@@ -269,6 +272,8 @@ namespace FOA_Server.Models.DAL
                     p.RemovalManagerName = dataReader["RemovalManagerName"].ToString();
                     p.CountryName = dataReader["CountryName"].ToString();
                     p.LanguageName = dataReader["LanguageName"].ToString();
+                    p.InsertDate = Convert.ToDateTime(dataReader["CreatedAt"]);
+
                 }
                 return p;
             }

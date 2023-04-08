@@ -23,14 +23,17 @@ namespace FOA_Server.Models
         public string RemovalManagerName { get; set; }
         public string[] CategoryName { get; set; }
         public string[] KeyWordsAndHashtages { get; set; }
+        public DateTime InsertDate { get; set; }
+
 
         private static List<ReadPost> PostList = new List<ReadPost>();
+     
         private static string[] PostIHRA;
         private static string[] PostKeywordsAndHashtags;
 
         public ReadPost() { }
 
-        public ReadPost(int postID, string platformName, string countryName, string languageName, string urlLink, string description, int threat, string screenshot, int amountOfLikes, int amountOfComments, int amountOfShares, int postStatus, int removalStatus, string userName, string statusManagerName, string removalManagerName, string[] categoryName, string[] keyWordsAndHashtages)
+        public ReadPost(int postID, string platformName, string countryName, string languageName, string urlLink, string description, int threat, string screenshot, int amountOfLikes, int amountOfComments, int amountOfShares, int postStatus, int removalStatus, string userName, string statusManagerName, string removalManagerName, string[] categoryName, string[] keyWordsAndHashtages, DateTime insertDate)
         {
             PostID = postID;
             PlatformName = platformName;
@@ -50,6 +53,7 @@ namespace FOA_Server.Models
             RemovalManagerName = removalManagerName;
             CategoryName = categoryName;
             KeyWordsAndHashtages = keyWordsAndHashtages;
+            InsertDate = insertDate;
         }
 
         // read all Posts without IHRA & key words and hashtages

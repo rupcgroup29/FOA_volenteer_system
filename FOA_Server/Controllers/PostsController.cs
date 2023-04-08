@@ -1,5 +1,4 @@
 ﻿using FOA_Server.Models;
-using FOA_Server.Services;
 using Microsoft.AspNetCore.Mvc;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
@@ -14,8 +13,14 @@ namespace FOA_Server.Controllers
         [HttpGet("noStatusPosts")]
         public List<Post> GetNoneStatusPosts()
         {
-            Post post = new Post();
-            return post.ReadPostsWithoutStatus();
+            return Models.Post.ReadPostsWithoutStatus();
+        }
+
+        // GET: api/<PostsController>/6
+        [HttpGet("numberOfNoneStatusPosts")]
+        public int GetNumberOfNoneStatusPosts()
+        {
+            return Models.Post.NumberOfPostdWithoutStatus();
         }
 
 

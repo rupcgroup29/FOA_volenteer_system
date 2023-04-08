@@ -136,6 +136,9 @@ function editPost() {
     if (removalStatus != 0) { // status changed
         removalStatusManager = currentUser.userID;
     }
+    if (removalStatus != 0 && postStatus == 0) { //alert if removed from platform and havn't been approved yet
+        alert("שים לב שלא אישרת פוסט שכבר הוסר מהפלטפורמה!");
+    }
 
     const editedPost = {
         PostID: currentPostID,

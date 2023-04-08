@@ -41,8 +41,13 @@ $(document).ready(function () {
         $(".VolunteerNav").hide();
     }
     readPosts();
-
     FilterByPost();
+
+    // alerts for manager
+    if (CurrentUser.permissionID == 2) // a manager is logged in
+    {
+        AlertPostsForApproval();
+    }
 });
 
 function FilterByPost() {
@@ -127,4 +132,16 @@ function RenderPostsList() {
 function OpenPostCard(postID) {
     sessionStorage.setItem("post", JSON.stringify(postID));
     location.replace("PostReportCard%20.html");
+}
+
+// התראות למנהל על כמות פוסטים שטרם אושרו
+function AlertPostsForApproval() {
+   //להתאים את הקריאה למה שלטם שולחת לי, זה עוד לא מותאם!!!
+    ajaxCall("GET", api + "ReadPosts", "", AlertPostsForApprovalSCB, AlertPostsForApprovalECB);
+}
+function AlertPostsForApprovalSCB(data) {
+    alert(data + "פוסטים ממתינים לאישור מנהל");
+}
+function AlertPostsForApprovalECB(err) {
+    alert("Input Error");
 }

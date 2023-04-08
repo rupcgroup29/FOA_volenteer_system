@@ -7,7 +7,9 @@ $(document).ready(function () {
     // לעדכן את הכתובת החלופית !!
     //else api = "https://proj.ruppin.ac.il/cgroup29/test2/tar1/api/Users/";
 
-    $("#LogInForm").submit(loginUser);
+    $("#LogInForm").submit(loginUser);// Log In button clicked
+
+    $("#ForgotPassButton").submit(RenderEmailBoxIfForgotPassword);// forgot password button clicked
 
 });
 
@@ -29,5 +31,27 @@ function postLoginUserSCB(data) { // התחברות הצליחה
 }
 function postLoginUserECB(err) { // התחברות כשלה
     isLoggedIn = false;
+    alert(err);
+}
+
+
+// פונקציית רנדור במידה ושכחתי סיסמא
+function RenderEmailBoxIfForgotPassword() {
+    str_email = "";
+    str_email += `<input dir="rtl" class="form - control" id="ForgotEmail" type="email" placeholder="אימייל * " data-sb-validations="required" />`;
+    str_email += `<div class="text-center"><button class="btn btn-primary btn-xl text-uppercase" id="sendNewPassword" onclick="ForgotPassword()">שלח סיסמא חדשה</button></div>`;
+    document.getElementById("forgotPassEmail").innerHTML += str_email;
+}
+
+// שליחת סיסמא חדשה
+function ForgotPassword() {
+    let forgotEmail = $("#ForgotEmail").val();
+    ajaxCall("PUT", api + "UserServices/" + forgotEmail, JSON.stringify(forgotEmail), ForgotPasswordSCB, ForgotPasswordECB);
+    return false;
+}
+function ForgotPasswordSCB(data) { // התחברות הצליחה
+    alert("הסיסמא נשלחה בהצלחה למייל שהזנת");
+}
+function ForgotPasswordECB(err) { // התחברות כשלה
     alert(err);
 }

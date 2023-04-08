@@ -180,7 +180,7 @@ namespace FOA_Server.Models
 
 
         // user log in
-        public static UserService? Login(string email, string password)
+        public static UserService Login(string email, string password)
         {
             UsersList = ReadAllUsers();
 

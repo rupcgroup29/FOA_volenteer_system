@@ -41,7 +41,6 @@ function RenderRelevantDetails() {
     let str_removalStatus = "";
     let str_category = "";
     let str_KnH = "";
-    // ענת: אנחנו רוצות להציג מי המנהל שאישר או דיווח הסרה? או שזה רק לדף לוגים?
 
     //removalStatus
     if (currentPostObject.removalStatus == 0) // if status haven't changed yet
@@ -73,6 +72,10 @@ function RenderRelevantDetails() {
 
     //ReportedUserName
     $("#reportedUserName").val(currentPostObject.userName);
+
+    //reportedDate
+    let DateOfPost = (currentPostObject.insertDate).split('T')[0];  // cut the time from the DateTime format
+    $("#reportedDate").val(DateOfPost);
 
     //content_threat
     if (currentPostObject.threat == 1) {
@@ -127,7 +130,7 @@ function RenderRelevantDetails() {
 function editPost() {
     let postStatus = $("#ManagerStatus").val();
     let postStatusManager = "1";   // default if no one changed it yet
-    let removalStatus = $("#ManagerStatus").val();
+    let removalStatus = $("#removalStatus").val();
     let removalStatusManager = "1"; // default if no one changed it yet
 
     if (postStatus != 0) { // status changed

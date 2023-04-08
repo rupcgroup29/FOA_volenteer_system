@@ -93,7 +93,7 @@ function AddNewPost() {
     return false;
 }
 function postAddNewPostSCB(data) { // הוספת משתמש הצליחה
-    //alert("דיווח הפוסט נוסף בהצלחה");
+    alert("דיווח הפוסט נוסף בהצלחה");
     //window.location.assign("HomePage.html");
     location.assign("HomePage.html")
 }
@@ -209,19 +209,6 @@ function separatekeyWordsAndHashtages() {
     const separated = keyWordsAndHashtages.split(",");
     return separated;
 }
-
-////Hide RemovalStatus div
-//function HideRemovalStatusDiv() {
-//    var element = document.getElementById("RemovalStatus");
-//    element.style.display = "none";
-//}
-
-
-////Hide ManagerStatus div
-//function HideManagerStatusDiv() {
-//    var element = document.getElementById("ManagerStatus");
-//    element.style.display = "none";
-//}
 
 // enable Other platform only if other selected
 function enableOtherPlatform() {

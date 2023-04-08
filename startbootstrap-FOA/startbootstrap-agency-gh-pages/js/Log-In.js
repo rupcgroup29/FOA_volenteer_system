@@ -9,8 +9,6 @@ $(document).ready(function () {
 
     $("#LogInForm").submit(loginUser);// Log In button clicked
 
-    $("#ForgotPassButton").submit(RenderEmailBoxIfForgotPassword);// forgot password button clicked
-
 });
 
 
@@ -19,14 +17,15 @@ function loginUser() {
         Email: $("#email-input").val(),
         Password: $("#Password-input").val()
     }
-
     ajaxCall("POST", api + "UserServices/login", JSON.stringify(loginUser), postLoginUserSCB, postLoginUserECB);
     return false;
 }
 
 function postLoginUserSCB(data) { // התחברות הצליחה
     isLoggedIn = true;
-    sessionStorage.setItem("user", JSON.stringify(data));   
+    sessionStorage.setItem("user", JSON.stringify(data));
+    sessionStorage.setItem("isLoggedIn", JSON.stringify(isLoggedIn));
+    sessionStorage.setItem("JustLoggedIn", JSON.stringify(true));
     window.location.assign("HomePage.html");
 }
 function postLoginUserECB(err) { // התחברות כשלה
@@ -34,24 +33,25 @@ function postLoginUserECB(err) { // התחברות כשלה
     alert(err);
 }
 
-
 // פונקציית רנדור במידה ושכחתי סיסמא
 function RenderEmailBoxIfForgotPassword() {
     str_email = "";
     str_email += `<input dir="rtl" class="form - control" id="ForgotEmail" type="email" placeholder="אימייל * " data-sb-validations="required" />`;
-    str_email += `<div class="text-center"><button class="btn btn-primary btn-xl text-uppercase" id="sendNewPassword" onclick="ForgotPassword()">שלח סיסמא חדשה</button></div>`;
+    str_email += `<button id="sendNewPassword" onclick="ForgotPassword()">שלח סיסמא חדשה</button>`;
     document.getElementById("forgotPassEmail").innerHTML += str_email;
 }
 
 // שליחת סיסמא חדשה
 function ForgotPassword() {
-    let forgotEmail = $("#ForgotEmail").val();
-    ajaxCall("PUT", api + "UserServices/" + forgotEmail, JSON.stringify(forgotEmail), ForgotPasswordSCB, ForgotPasswordECB);
+    const forgotEmail = $("#ForgotEmail").val();
+    ajaxCall("POST", api + "UserServices/" + forgotEmail, JSON.stringify(forgotEmail), ForgotPasswordSCB, ForgotPasswordECB);
     return false;
 }
-function ForgotPasswordSCB(data) { // התחברות הצליחה
+function ForgotPasswordSCB(data) { 
     alert("הסיסמא נשלחה בהצלחה למייל שהזנת");
+    window.location.assign("Log-In.html");
+
 }
-function ForgotPasswordECB(err) { // התחברות כשלה
+function ForgotPasswordECB(err) { 
     alert(err);
 }

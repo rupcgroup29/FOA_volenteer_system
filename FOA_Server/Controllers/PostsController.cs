@@ -57,9 +57,9 @@ namespace FOA_Server.Controllers
 
         // PUT api/<PostsController>/5
         [HttpPut("{postId}")]
-        public int Put(int postId, [FromBody] PostChangeStatus postStatusUpdate)
+        public int Put([FromBody] PostChangeStatus postStatusUpdate)
         {
-            postId = postStatusUpdate.PostID;
+            int postId = postStatusUpdate.PostID;
             int postStatus = postStatusUpdate.PostStatus;
             int removalStatus = postStatusUpdate.RemovalStatus;
             int postStatusManager = postStatusUpdate.PostStatusManager;

@@ -16,8 +16,7 @@ namespace FOA_Server.Controllers
         [HttpGet]
         public List<Platform> Get()
         {
-            Platform p = new Platform();
-            return p.ReadAllPlatforms();
+            return Platform.ReadAllPlatforms();
         }
 
         // GET api/<PlatformsController>/5

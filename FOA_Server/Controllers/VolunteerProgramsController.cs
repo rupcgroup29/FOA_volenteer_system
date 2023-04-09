@@ -13,8 +13,7 @@ namespace FOA_Server.Controllers
         [HttpGet]
         public List<VolunteerProgram> Get()
         {
-            VolunteerProgram vp = new VolunteerProgram();
-            return vp.ReadAllVolunteerPrograms();
+            return VolunteerProgram.ReadAllVolunteerPrograms();
         }
 
         // GET api/<VolunteerProgramsController>/5

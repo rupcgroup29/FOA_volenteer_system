@@ -14,8 +14,7 @@ namespace FOA_Server.Controllers
         [HttpGet]
         public List<Country> Get()
         {
-            Country c = new Country();
-            return c.ReadAllCountries();
+            return Country.ReadAllCountries();
         }
 
         // GET api/<CountriesController>/5

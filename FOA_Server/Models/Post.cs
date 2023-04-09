@@ -67,17 +67,17 @@ namespace FOA_Server.Models
 
 
         // read Posts without menager's status
-        public static List<Post> ReadPostsWithoutStatus()
+        public static List<Post> ReadPosts()
         {
             DBposts dbs = new DBposts();
-            return dbs.ReadPostsWithoutStatus();
+            return dbs.GetPosts();
         }
 
 
         //Insert new post
         public Post InsertPost()
         {
-            postsList = ReadPostsWithoutStatus();
+            postsList = ReadPosts();
             try
             {
                 if (postsList.Count != 0)
@@ -148,37 +148,21 @@ namespace FOA_Server.Models
             return unique;
         }
 
-
-        //Update post details
-        public int UpdatePost(int postId, int postStatus, int removalStatus, int postStatusManager, int removalStatusManager)
-        {
-            postsList = ReadPostsWithoutStatus();
-            try
-            {
-                foreach (Post p in postsList)
-                {
-                    if (p.PostID == postId)
-                    {
-                        DBposts dbs = new DBposts();
-                        return dbs.UpdatePost(postId, postStatus, removalStatus, postStatusManager, removalStatusManager);
-                    }
-                }
-                throw new Exception(" no such post ");
-
-            }
-            catch (Exception exp)
-            {
-                throw new Exception(" didn't succeed in updating this post, " + exp.Message);
-            }
-        }
-
-
         //How many posts are without status
         public static int NumberOfPostdWithoutStatus()
         {
-            postsList = ReadPostsWithoutStatus();
-            int number = postsList.Count;
-            return number;
+            postsList = ReadPosts();
+            int count = 0;
+
+            foreach (Post post in postsList)
+            {
+                if (post.PostStatus == 0)
+                {
+                    count++;
+                }
+            }
+
+            return count;
         }
 
 

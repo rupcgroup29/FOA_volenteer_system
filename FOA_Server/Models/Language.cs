@@ -17,7 +17,7 @@ namespace FOA_Server.Models
         }
 
         // read all Languages
-        public List<Language> ReadAllLanguages()
+        public static List<Language> ReadAllLanguages()
         {
             DBposts dbs = new DBposts();
             return dbs.ReadLanguages();

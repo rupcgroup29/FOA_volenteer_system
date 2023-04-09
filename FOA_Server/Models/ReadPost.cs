@@ -27,9 +27,15 @@ namespace FOA_Server.Models
 
 
         private static List<ReadPost> PostList = new List<ReadPost>();
-     
+
         private static string[] PostIHRA;
         private static string[] PostKeywordsAndHashtags;
+
+        // const parameters for the exposure 3 parameters
+        private string langExp;
+        private string platformExp;
+        private string kwAndHashtagExp;
+
 
         public ReadPost() { }
 
@@ -84,7 +90,7 @@ namespace FOA_Server.Models
             PostList = ReadAllPosts();
 
             foreach (ReadPost item in PostList)
-            {                
+            {
                 // add the IHRA categories by postID
                 PostIHRA = ReadAllIHRAsPerPostID(item.PostID);  //read for the IHRA categories from this post
                 item.CategoryName = PostIHRA;           //insert the array into its filed here in the class
@@ -106,7 +112,7 @@ namespace FOA_Server.Models
             DBposts dbs = new DBposts();
             return dbs.ReadPostByID(postID);
         }
-       
+
         // read Post by ID with its IHRA & key words and hashtages
         public ReadPost ReadPostByIdWithHIRAandKeyworks(int postID)
         {
@@ -125,27 +131,74 @@ namespace FOA_Server.Models
         }
 
 
+        //Update Post Status details in the system & Removal Status details in social media
+        public int UpdatePostStatus(UpdatePostStatus postStatusUpdate)
+        {
+            PostList = ReadAllPosts();
+
+            try
+            {
+                foreach (ReadPost p in PostList)
+                {
+                    if (p.PostID == postStatusUpdate.PostID)
+                    {
+                        DBposts dbs = new DBposts();
+                        return dbs.UpdatePostStatus(postStatusUpdate);
+                    }
+                }
+                throw new Exception(" no such post ");
+
+            }
+            catch (Exception exp)
+            {
+                throw new Exception(" didn't succeed in updating this post, " + exp.Message);
+            }
+        }
+
+
+
         // Exposure Parameters
 
         // Exposure Key Words and Hashtages
         public string ReadExposureKeyWordsAndHashtages()
         {
             DBposts dbs = new DBposts();
-            return dbs.ReadExposureKeyWordsAndHashtags();
+            var result = dbs.ReadExposureKeyWordsAndHashtags();
+
+            if (result != "")     // if zero posts has been uploaded to the system in the last week 
+            {
+                kwAndHashtagExp = result;
+                return kwAndHashtagExp;
+            }
+            else { return kwAndHashtagExp; }
         }
 
         // Exposure Platform
         public string ReadExposurePlatform()
         {
             DBposts dbs = new DBposts();
-            return dbs.ReadExposurePlatform();
+            var result = dbs.ReadExposurePlatform();
+
+            if (result != null)      // if zero posts has been uploaded to the system in the last week 
+            {
+                platformExp = result;
+                return platformExp;
+            }
+            else { return platformExp; }
         }
 
         // Exposure Language
         public string ReadExposureLanguage()
         {
             DBposts dbs = new DBposts();
-            return dbs.ReadExposureLanguage();
+            var result = dbs.ReadExposureLanguage();
+
+            if (result != null)      // if zero posts has been uploaded to the system in the last week 
+            {
+                langExp = result;
+                return langExp;
+            }
+            else { return langExp; }
         }
 
 

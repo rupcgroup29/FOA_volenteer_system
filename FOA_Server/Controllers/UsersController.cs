@@ -62,7 +62,7 @@ namespace FOA_Server.Controllers
 
         // POST api/<UserServicesController>/6
         [HttpPost("login")]
-        public UserService? GetLogin([FromBody] UserLogin useLog)
+        public UserService GetLogin([FromBody] UserLogin useLog)
         {
             string email = useLog.Email;
             string password = useLog.Password;

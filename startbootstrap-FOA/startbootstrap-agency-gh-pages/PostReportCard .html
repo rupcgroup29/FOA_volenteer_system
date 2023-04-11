@@ -60,7 +60,7 @@
                 <form id="contactForm" data-sb-form-api-token="API_TOKEN">
                     <div dir="rtl" class="align-items-stretch mb-5">
                         <div class="row">
-                            <div class="col-4 form-group">
+                            <div class="col-3 form-group">
                                 <div class="form-headers">
                                     <p> סטטוס ברשת החברתית</p>
                                 </div>
@@ -68,7 +68,7 @@
                                     <!--render PostStatus-->
                                 </select>
                             </div>
-                            <div class="col-4 form-group">
+                            <div class="col-3 form-group">
                                 <div class="form-headers">
                                     <p> אישור מנהל</p>
                                 </div>
@@ -76,11 +76,17 @@
                                     <!-- render ManagerStatus -->
                                 </select>
                             </div>
-                            <div class="col-4 form-group">
+                            <div class="col-3 form-group">
                                 <div class="form-headers">
                                     <p> מדווח הפוסט</p>
                                 </div>
                                 <input dir="rtl" class="form-control" id="reportedUserName" type="text" disabled />
+                            </div>
+                            <div class="col-3 form-group">
+                                <div class="form-headers">
+                                    <p> תאריך הוספת הדיווח</p>
+                                </div>
+                                <input class="form-control" id="reportedDate" type="text" disabled />
                             </div>
                         </div>
                         <div class="row align-items-stretch mb-5">

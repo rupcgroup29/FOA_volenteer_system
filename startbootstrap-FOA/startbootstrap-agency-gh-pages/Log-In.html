@@ -39,7 +39,7 @@
             <a class="navbar-brand" href="HomePage.html"><img src="assets/img/LOGO-removebg-preview.png" alt="..." /></a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
                 <i class="fas fa-bars ms-1"></i>
-            </button>    
+            </button>
         </div>
     </nav>
     <!-- Log in Details-->
@@ -55,44 +55,28 @@
                         <div class="form-headers">
                             <p> אימייל </p>
                         </div>
-                        <input dir="rtl" class="form-control" id="email-input" type="email" placeholder="אימייל *" data-sb-validations="required" />
-                        <div class="invalid-feedback" data-sb-feedback="UserName-input:required">כתובת מייל</div>
+                        <input dir="rtl" class="form-control" id="email-input" type="email" placeholder="אימייל *" required/>
                     </div>
                     <div class="form-group">
                         <!--סיסמא input-->
                         <div class="form-headers">
                             <p> סיסמה</p>
                         </div>
-                        <input dir="rtl" class="form-control" id="Password-input" type="password" placeholder="סיסמה *" data-sb-validations="required" />
-                        <div class="invalid-feedback" data-sb-feedback="Password-input:required">חובה להזין סיסמה על מנת להכנס</div>
+                        <input dir="rtl" class="form-control" id="Password-input" type="password" placeholder="סיסמה *" required/>
                     </div>
                     <div dir="rtl">
-                        <button id="ForgotPassButton">שכחת סיסמה? לחץ כאן </button>
+                        <button id="ForgotPassButton" onclick="RenderEmailBoxIfForgotPassword()">שכחת סיסמה? לחץ כאן </button>
                     </div>
                 </div>
 
-                <!-- Submit success message-->
-                <!---->
-                <!-- This is what your users will see when the form-->
-                <!-- has successfully submitted-->
-                <div class="d-none" id="submitSuccessMessage">
-                    <div class="text-center text-white mb-3">
-                        <div class="fw-bolder">מתנדב.ת נשמר.ה בהצלחה!!</div>
-                        To activate this form, sign up at
-                        <br />
-                        <a href="https://startbootstrap.com/solution/contact-forms">https://startbootstrap.com/solution/contact-forms</a>
-                    </div>
-                </div>
-                <!-- Submit error message-->
-                <!---->
-                <!-- This is what your users will see when there is-->
-                <!-- an error submitting the form-->
-                <!--<div class="d-none" id="submitErrorMessage"><div class="text-center text-danger mb-3">בעיה בשמירת הנתונים!</div></div>-->
                 <!-- Submit Button-->
                 <div class="text-center"><button class="btn btn-primary btn-xl text-uppercase" id="submitButton" type="submit">התחבר</button></div>
             </form>
         </div>
     </section>
+
+    <div id="forgotPassEmail"> <!--render email input if users forgot password --></div>
+
     <!-- Footer-->
     <footer class="footer py-4">
         <div class="container">

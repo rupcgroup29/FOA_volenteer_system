@@ -13,7 +13,7 @@ namespace FOA_Server.Controllers
         [HttpGet("noStatusPosts")]
         public List<Post> GetNoneStatusPosts()
         {
-            return Models.Post.ReadPosts();
+            return Models.Post.ReadPostsWitoutStatusByMenagerName();
         }
 
         // GET: api/<PostsController>/6
@@ -22,7 +22,6 @@ namespace FOA_Server.Controllers
         {
             return Models.Post.NumberOfPostdWithoutStatus();
         }
-
 
         // POST api/<PostsController>
         [HttpPost]

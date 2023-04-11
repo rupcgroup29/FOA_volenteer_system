@@ -66,18 +66,18 @@ namespace FOA_Server.Models
         }
 
 
-        // read Posts without menager's status
-        public static List<Post> ReadPosts()
+        // read Posts without status by menager name
+        public static List<Post> ReadPostsWitoutStatusByMenagerName()
         {
             DBposts dbs = new DBposts();
-            return dbs.GetPosts();
+            return dbs.ReadPostsWitoutStatusByMenagerName();
         }
 
 
         //Insert new post
         public Post InsertPost()
         {
-            postsList = ReadPosts();
+            postsList = ReadPostsWitoutStatusByMenagerName();
             try
             {
                 if (postsList.Count != 0)
@@ -148,10 +148,10 @@ namespace FOA_Server.Models
             return unique;
         }
 
-        //How many posts are without status
+        //How many posts are without maneger status
         public static int NumberOfPostdWithoutStatus()
         {
-            postsList = ReadPosts();
+            postsList = ReadPostsWitoutStatusByMenagerName();
             int count = 0;
 
             foreach (Post post in postsList)

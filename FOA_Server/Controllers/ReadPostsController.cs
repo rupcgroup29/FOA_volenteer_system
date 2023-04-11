@@ -24,31 +24,7 @@ namespace FOA_Server.Controllers
             ReadPost p = new ReadPost();
             return p.ReadPostByIdWithHIRAandKeyworks(postId);
         }
-
-        // GET api/<ReadPostsController>/5
-        [HttpGet("ExposureKeyWordsAndHashtages")]
-        public string GetExposureKeyWordsAndHashtages()
-        {
-            ReadPost post = new ReadPost();
-            return post.ReadExposureKeyWordsAndHashtages();
-        }
-
-        // GET api/<ReadPostsController>/5
-        [HttpGet("ExposurePlatform")]
-        public string GetExposurePlatform()
-        {
-            ReadPost post = new ReadPost();
-            return post.ReadExposurePlatform();
-        }
-
-        // GET api/<ReadPostsController>/5
-        [HttpGet("ExposureLanguage")]
-        public string GetExposureLanguage()
-        {
-            ReadPost post = new ReadPost();
-            return post.ReadExposureLanguage();
-        }
-
+       
 
         // PUT api/<ReadPostsController>/5
         [HttpPut]

@@ -9,8 +9,8 @@ namespace FOA_Server.Models.DAL
     public class DBposts : DBservices
     {
         // POSTS
-        // This method reads Posts without menager's status
-        public List<Post> GetPosts()
+        // This method reads Posts without status by menager name
+        public List<Post> ReadPostsWitoutStatusByMenagerName()
         {
             SqlConnection con;
             SqlCommand cmd;
@@ -26,7 +26,7 @@ namespace FOA_Server.Models.DAL
                 throw (ex);
             }
 
-            cmd = CreateCommandWithStoredProcedureRead("spReadPostsWitoutStatus", con);      // create the command
+            cmd = CreateCommandWithStoredProcedureRead("spReadPostsWitoutStatusByMenagerName", con);      // create the command
 
             List<Post> list = new List<Post>();
 
@@ -40,7 +40,6 @@ namespace FOA_Server.Models.DAL
                     p.PostID = Convert.ToInt32(dataReader["PostID"]);
                     p.UrlLink = dataReader["UrlLink"].ToString();
                     p.Description = dataReader["Description"].ToString();
-                    //p.KeyWordsAndHashtages = dataReader["KeyWordsAndHashtages"].ToString();
                     p.Threat = Convert.ToInt32(dataReader["Threat"]);
                     // p.Screenshot = dataReader["Screenshot"].ToString();
                     p.AmountOfLikes = Convert.ToInt32(dataReader["AmountOfLikes"]);
@@ -50,9 +49,6 @@ namespace FOA_Server.Models.DAL
                     p.RemovalStatus = Convert.ToInt32(dataReader["RemovalStatus"]);
                     p.UserID = Convert.ToInt32(dataReader["UserID"]);
                     p.PlatformID = Convert.ToInt32(dataReader["PlatformID"]);
-                    //p.CategoryID = Convert.ToInt32(dataReader["CategoryID"]);
-                    //p.PostStatusManager = Convert.ToInt32(dataReader["PostStatusManager"]);
-                    //p.RemovalStatusManager = Convert.ToInt32(dataReader["RemovalStatusManager"]);
                     p.CountryID = Convert.ToInt32(dataReader["CountryID"]);
                     p.LanguageID = Convert.ToInt32(dataReader["LanguageID"]);
                     p.InsertDate = Convert.ToDateTime(dataReader["CreatedAt"]);

@@ -26,8 +26,8 @@ $(document).ready(function () {
     if (location.hostname === "localhost" || location.hostname === "127.0.0.1") {
         api = "https://localhost:7109/api/";
     }
-    // לעדכן את הכתובת החלופית !!
-    //else api = "https://proj.ruppin.ac.il/cgroup29/test2/tar1/api/Users/";
+    else api = "https://proj.ruppin.ac.il/cgroup29/prod/api/";
+
 
 
     //Nav ber - Permission
@@ -106,12 +106,17 @@ function RenderUsersList() {
             str += '<td class="fullName_display">' + usersArr[i].firstName + " " + usersArr[i].surname + '</td>';
             str += '<td class="userName_display">' + usersArr[i].userName + '</td>';
             str += '<td class="email_display">' + usersArr[i].email + '</td>';
-            str += '<td class="viewButton_display""><button><a href="">כרטיס מתנדב</a></button></td>';
+            str += '<td class="viewButton_display""><button onclick="OpenUserCard(` + usersArr[i].userID + `)">כרטיס מתנדב</a></button></td>';
             str += '</tr>';
         }
         str += '</table>';
         document.getElementById("UsersTable").innerHTML += str;
     }
+}
+// save the relevant user to open in edit\view mode (Depends on permission)
+function OpenUserCard(userID) {
+    sessionStorage.setItem("userCard", JSON.stringify(userID));
+    location.replace("UserCard.html");
 }
 
 // get the Teams list

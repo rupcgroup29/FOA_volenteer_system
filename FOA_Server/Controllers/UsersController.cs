@@ -27,13 +27,6 @@ namespace FOA_Server.Controllers
             return user.UsersByPermission(permissionID);
         }
 
-        // GET api/<UserServicesController>/5
-        [HttpGet("{id}")]
-        public string Get(int id)
-        {
-            return "value";
-        }
-
 
         // POST api/<UserServicesController>
         [HttpPost]
@@ -81,7 +74,7 @@ namespace FOA_Server.Controllers
 
         // POST api/<UserServicesController>
         [HttpPost("{resetEmail}")]
-        public void PasswordResetToken(string resetEmail)
+        public bool PasswordResetToken(string resetEmail)
         {
             ForgotPass parentforgotPassword = new ForgotPass(resetEmail);
 
@@ -101,7 +94,14 @@ namespace FOA_Server.Controllers
 
             //update the new password in the data base
             string newPasswordStr = newPassword.ToString();
-            parentforgotPassword.SaveNewPassword(resetEmail, newPasswordStr);
+            int succeed = parentforgotPassword.SaveNewPassword(resetEmail, newPasswordStr);
+
+            if (succeed != 0)
+            {
+                return true;
+            }
+            else return false;
+
         }
 
 

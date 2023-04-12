@@ -17,7 +17,7 @@ namespace FOA_Server.Models
 
 
         // read all Permissions
-        public List<Permission> ReadAllPermissions()
+        public static List<Permission> ReadAllPermissions()
         {
             DBusers dbs = new DBusers();
             return dbs.ReadPermissions();

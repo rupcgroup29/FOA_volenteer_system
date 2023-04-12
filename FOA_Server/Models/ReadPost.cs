@@ -27,10 +27,11 @@ namespace FOA_Server.Models
 
 
         private static List<ReadPost> PostList = new List<ReadPost>();
-     
+
         private static string[] PostIHRA;
         private static string[] PostKeywordsAndHashtags;
 
+        
         public ReadPost() { }
 
         public ReadPost(int postID, string platformName, string countryName, string languageName, string urlLink, string description, int threat, string screenshot, int amountOfLikes, int amountOfComments, int amountOfShares, int postStatus, int removalStatus, string userName, string statusManagerName, string removalManagerName, string[] categoryName, string[] keyWordsAndHashtages, DateTime insertDate)
@@ -84,7 +85,7 @@ namespace FOA_Server.Models
             PostList = ReadAllPosts();
 
             foreach (ReadPost item in PostList)
-            {                
+            {
                 // add the IHRA categories by postID
                 PostIHRA = ReadAllIHRAsPerPostID(item.PostID);  //read for the IHRA categories from this post
                 item.CategoryName = PostIHRA;           //insert the array into its filed here in the class
@@ -106,7 +107,7 @@ namespace FOA_Server.Models
             DBposts dbs = new DBposts();
             return dbs.ReadPostByID(postID);
         }
-       
+
         // read Post by ID with its IHRA & key words and hashtages
         public ReadPost ReadPostByIdWithHIRAandKeyworks(int postID)
         {
@@ -125,29 +126,33 @@ namespace FOA_Server.Models
         }
 
 
-        // Exposure Parameters
-
-        // Exposure Key Words and Hashtages
-        public string ReadExposureKeyWordsAndHashtages()
+        //Update Post Status details in the system & Removal Status details in social media
+        public int UpdatePostStatus(UpdatePostStatus postStatusUpdate)
         {
-            DBposts dbs = new DBposts();
-            return dbs.ReadExposureKeyWordsAndHashtags();
+            PostList = ReadAllPosts();
+
+            try
+            {
+                foreach (ReadPost p in PostList)
+                {
+                    if (p.PostID == postStatusUpdate.PostID)
+                    {
+                        DBposts dbs = new DBposts();
+                        return dbs.UpdatePostStatus(postStatusUpdate);
+                    }
+                }
+                throw new Exception(" no such post ");
+
+            }
+            catch (Exception exp)
+            {
+                throw new Exception(" didn't succeed in updating this post, " + exp.Message);
+            }
         }
 
-        // Exposure Platform
-        public string ReadExposurePlatform()
-        {
-            DBposts dbs = new DBposts();
-            return dbs.ReadExposurePlatform();
-        }
 
-        // Exposure Language
-        public string ReadExposureLanguage()
-        {
-            DBposts dbs = new DBposts();
-            return dbs.ReadExposureLanguage();
-        }
 
+   
 
     }
 }

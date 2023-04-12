@@ -13,7 +13,7 @@ namespace FOA_Server.Controllers
         [HttpGet("noStatusPosts")]
         public List<Post> GetNoneStatusPosts()
         {
-            return Models.Post.ReadPostsWithoutStatus();
+            return Models.Post.ReadPostsWitoutStatusByMenagerName();
         }
 
         // GET: api/<PostsController>/6
@@ -22,7 +22,6 @@ namespace FOA_Server.Controllers
         {
             return Models.Post.NumberOfPostdWithoutStatus();
         }
-
 
         // POST api/<PostsController>
         [HttpPost]
@@ -55,20 +54,6 @@ namespace FOA_Server.Controllers
         }
 
 
-        // PUT api/<PostsController>/5
-        [HttpPut("{postId}")]
-        public int Put([FromBody] PostChangeStatus postStatusUpdate)
-        {
-            int postId = postStatusUpdate.PostID;
-            int postStatus = postStatusUpdate.PostStatus;
-            int removalStatus = postStatusUpdate.RemovalStatus;
-            int postStatusManager = postStatusUpdate.PostStatusManager;
-            int removalStatusManager = postStatusUpdate.RemovalStatusManager;
-
-            Post post = new Post();
-            return post.UpdatePost(postId, postStatus, removalStatus, postStatusManager, removalStatusManager);
-
-        }
 
 
     }

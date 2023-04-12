@@ -16,7 +16,7 @@ namespace FOA_Server.Models
 
 
         // read all Platforms
-        public List<Platform> ReadAllPlatforms()
+        public static List<Platform> ReadAllPlatforms()
         {
             DBposts dbs = new DBposts();
             return dbs.ReadPlatforms();

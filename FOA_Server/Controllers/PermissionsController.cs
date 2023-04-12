@@ -13,8 +13,7 @@ namespace FOA_Server.Controllers
         [HttpGet]
         public List<Permission> Get()
         {
-            Permission per = new Permission();
-            return per.ReadAllPermissions();
+            return Permission.ReadAllPermissions();
         }
 
         // GET api/<PermissionsController>/5

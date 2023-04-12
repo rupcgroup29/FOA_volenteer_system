@@ -13,8 +13,8 @@ namespace FOA_Server.Controllers
         [HttpGet]
         public List<ReadPost> Get()
         {
-            ReadPost p = new ReadPost();
-            return p.ReadPostWithHIRAandKeyworks();
+            ReadPost post = new ReadPost();
+            return post.ReadPostWithHIRAandKeyworks();
         }
 
         // GET api/<ReadPostsController>/5
@@ -24,38 +24,16 @@ namespace FOA_Server.Controllers
             ReadPost p = new ReadPost();
             return p.ReadPostByIdWithHIRAandKeyworks(postId);
         }
-
-        // GET api/<ReadPostsController>/5
-        [HttpGet("ExposureKeyWordsAndHashtages")]
-        public string GetExposureKeyWordsAndHashtages()
-        {
-            ReadPost p = new ReadPost();
-            return p.ReadExposureKeyWordsAndHashtages();
-        }
-
-        // GET api/<ReadPostsController>/5
-        [HttpGet("ExposurePlatform")]
-        public string GetExposurePlatform()
-        {
-            ReadPost p = new ReadPost();
-            return p.ReadExposurePlatform();
-        }
-
-        // GET api/<ReadPostsController>/5
-        [HttpGet("ExposureLanguage")]
-        public string GetExposureLanguage()
-        {
-            ReadPost p = new ReadPost();
-            return p.ReadExposureLanguage();
-        }
-
+       
 
         // PUT api/<ReadPostsController>/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
+        [HttpPut]
+        public void Put([FromBody] UpdatePostStatus postStatusUpdate)
         {
+            ReadPost post = new ReadPost();
+            post.UpdatePostStatus(postStatusUpdate);
         }
 
-        
+
     }
 }

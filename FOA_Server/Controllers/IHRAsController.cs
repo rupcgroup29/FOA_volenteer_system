@@ -13,8 +13,7 @@ namespace FOA_Server.Controllers
         [HttpGet]
         public List<IHRA> Get()
         {
-            IHRA i = new IHRA();
-            return i.ReadAllIHRAs();
+            return IHRA.ReadAllIHRAs();
         }
 
         // GET api/<IHRAsController>/5

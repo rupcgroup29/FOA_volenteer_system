@@ -9,8 +9,8 @@ namespace FOA_Server.Models.DAL
     public class DBposts : DBservices
     {
         // POSTS
-        // This method reads Posts without menager's status
-        public List<Post> ReadPostsWithoutStatus()
+        // This method reads Posts without status by menager name
+        public List<Post> ReadPostsWitoutStatusByMenagerName()
         {
             SqlConnection con;
             SqlCommand cmd;
@@ -26,7 +26,7 @@ namespace FOA_Server.Models.DAL
                 throw (ex);
             }
 
-            cmd = CreateCommandWithStoredProcedureRead("spReadPostsWitoutStatus", con);      // create the command
+            cmd = CreateCommandWithStoredProcedureRead("spReadPostsWitoutStatusByMenagerName", con);      // create the command
 
             List<Post> list = new List<Post>();
 
@@ -40,7 +40,6 @@ namespace FOA_Server.Models.DAL
                     p.PostID = Convert.ToInt32(dataReader["PostID"]);
                     p.UrlLink = dataReader["UrlLink"].ToString();
                     p.Description = dataReader["Description"].ToString();
-                    //p.KeyWordsAndHashtages = dataReader["KeyWordsAndHashtages"].ToString();
                     p.Threat = Convert.ToInt32(dataReader["Threat"]);
                     // p.Screenshot = dataReader["Screenshot"].ToString();
                     p.AmountOfLikes = Convert.ToInt32(dataReader["AmountOfLikes"]);
@@ -50,9 +49,6 @@ namespace FOA_Server.Models.DAL
                     p.RemovalStatus = Convert.ToInt32(dataReader["RemovalStatus"]);
                     p.UserID = Convert.ToInt32(dataReader["UserID"]);
                     p.PlatformID = Convert.ToInt32(dataReader["PlatformID"]);
-                    //p.CategoryID = Convert.ToInt32(dataReader["CategoryID"]);
-                    //p.PostStatusManager = Convert.ToInt32(dataReader["PostStatusManager"]);
-                    //p.RemovalStatusManager = Convert.ToInt32(dataReader["RemovalStatusManager"]);
                     p.CountryID = Convert.ToInt32(dataReader["CountryID"]);
                     p.LanguageID = Convert.ToInt32(dataReader["LanguageID"]);
                     p.InsertDate = Convert.ToDateTime(dataReader["CreatedAt"]);
@@ -119,8 +115,8 @@ namespace FOA_Server.Models.DAL
 
         }
 
-        // This method update a Post
-        public int UpdatePost(int postId, int postStatus, int removalStatus, int postStatusManager, int removalStatusManager)
+        // This method update Post Status in the system & removal status
+        public int UpdatePostStatus(UpdatePostStatus postStatusUpdate)
         {
             SqlConnection con;
             SqlCommand cmd;
@@ -135,8 +131,7 @@ namespace FOA_Server.Models.DAL
                 throw (ex);
             }
 
-            cmd = CreateCommandWithStoredProcedureUpdate("spUpdateStatus", con, postId, postStatus, removalStatus, postStatusManager, removalStatusManager);             // create the command
-
+            cmd = CreateCommandWithStoredProcedureUpdatePostStatus("spUpdatePost", con, postStatusUpdate);
             try
             {
                 int numEffected = cmd.ExecuteNonQuery();  // execute the command
@@ -159,6 +154,7 @@ namespace FOA_Server.Models.DAL
             }
 
         }
+
 
 
 
@@ -1285,8 +1281,9 @@ namespace FOA_Server.Models.DAL
 
 
         // Create the SqlCommand using a stored procedure for Update
+
         // Create the SqlCommand using a stored procedure for update a post
-        private SqlCommand CreateCommandWithStoredProcedureUpdate(String spName, SqlConnection con, int postId, int postStatus, int removalStatus, int postStatusManager, int removalStatusManager)
+        private SqlCommand CreateCommandWithStoredProcedureUpdatePostStatus(String spName, SqlConnection con, UpdatePostStatus postStatusUpdate)
         {
             SqlCommand cmd = new SqlCommand(); // create the command object
 
@@ -1298,11 +1295,11 @@ namespace FOA_Server.Models.DAL
 
             cmd.CommandType = System.Data.CommandType.StoredProcedure; // the type of the command, can also be stored procedure
 
-            cmd.Parameters.AddWithValue("@PostID", postId);
-            cmd.Parameters.AddWithValue("@PostStatus", postStatus);
-            cmd.Parameters.AddWithValue("@RemovalStatus", removalStatus);
-            cmd.Parameters.AddWithValue("@PostStatusManager", postStatusManager);
-            cmd.Parameters.AddWithValue("@RemovalStatusManager", removalStatusManager);
+            cmd.Parameters.AddWithValue("@PostID", postStatusUpdate.PostID);
+            cmd.Parameters.AddWithValue("@PostStatus", postStatusUpdate.PostStatus);
+            cmd.Parameters.AddWithValue("@PostStatusManager", postStatusUpdate.PostStatusManager);
+            cmd.Parameters.AddWithValue("@RemovalStatus", postStatusUpdate.RemovalStatus);
+            cmd.Parameters.AddWithValue("@RemovalStatusManager", postStatusUpdate.RemovalStatusManager);
 
             return cmd;
         }

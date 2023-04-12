@@ -13,8 +13,7 @@ namespace FOA_Server.Controllers
         [HttpGet]
         public List<Language> Get()
         {
-            Language lang = new Language();
-            return lang.ReadAllLanguages();
+            return Language.ReadAllLanguages();
         }
 
         // GET api/<LanguagesController>/5

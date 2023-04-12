@@ -13,8 +13,7 @@ namespace FOA_Server.Controllers
         [HttpGet]
         public List<HourReport> Get()
         {
-            HourReport h = new HourReport();
-            return h.ReadAllHourReports();
+            return HourReport.ReadAllHourReports();
         }
 
         // GET api/<HourReportsController>/5

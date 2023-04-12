@@ -23,11 +23,10 @@ namespace FOA_Server.Models
         }
 
         // save the new random password that was sent to the user by mail in the DB
-        public void SaveNewPassword(string email, string newPassword)
+        public int SaveNewPassword(string email, string newPassword)
         {
             DBusers db = new DBusers();
-            db.UpdateUserPassword(email, newPassword);
-
+            return db.UpdateUserPassword(email, newPassword);
         }
 
     }

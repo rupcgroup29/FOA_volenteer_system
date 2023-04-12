@@ -51,7 +51,7 @@ namespace FOA_Server.Models
         }
 
 
-        //Insert new user
+        // insert new user
         public UserService InsertUser()
         {
             UsersList = ReadAllUsers();
@@ -148,6 +148,14 @@ namespace FOA_Server.Models
                 }
             }
             return unique;
+        }
+
+        
+        // get user by id
+        public UserService ReadUserById(int id)
+        {
+            DBusers db = new DBusers();
+            return db.ReadUserByID(id);
         }
 
 

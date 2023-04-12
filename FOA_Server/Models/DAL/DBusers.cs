@@ -6,7 +6,7 @@ namespace FOA_Server.Models.DAL
     public class DBusers : DBservices
     {
         // USERS
-        // This method reads all the UserServices
+        // This method reads all the Users
         public List<UserService> ReadUsers()
         {
             SqlConnection con;
@@ -50,6 +50,65 @@ namespace FOA_Server.Models.DAL
                     list.Add(usr);
                 }
                 return list;
+            }
+            catch (Exception ex)
+            {
+                // write to log
+                Console.WriteLine("Error");
+                throw (ex);
+            }
+
+            finally
+            {
+                if (con != null)
+                {
+                    // close the db connection
+                    con.Close();
+                }
+            }
+        }
+
+        // This method reads user by id
+        public UserService ReadUserByID(int userId)
+        {
+            SqlConnection con;
+            SqlCommand cmd;
+
+            try
+            {
+                con = connect("myProjDB"); // create the connection
+            }
+            catch (Exception ex)
+            {
+                // write to log
+                Console.WriteLine("Error");
+                throw (ex);
+            }
+
+            cmd = CreateCommandWithStoredProcedureReadByID("spReadUserByID", con, userId);      // create the command
+
+            UserService user = new UserService();
+
+            try
+            {
+                SqlDataReader dataReader = cmd.ExecuteReader(CommandBehavior.CloseConnection);
+
+                while (dataReader.Read())
+                {
+                    user.UserID = Convert.ToInt32(dataReader["UserID"]);
+                    user.FirstName = dataReader["FirstName"].ToString();
+                    user.Surname = dataReader["Surname"].ToString();
+                    user.UserName = dataReader["UserName"].ToString();
+                    user.Email = dataReader["Email"].ToString();
+                    user.Password = dataReader["Password"].ToString();
+                    user.IsActive = Convert.ToBoolean(dataReader["TeamID"]);
+                    user.PhoneNum = dataReader["PhoneNum"].ToString();
+                    user.RoleDescription = dataReader["RoleDescription"].ToString();
+                    user.PermissionID = Convert.ToInt32(dataReader["PermissionID"]);
+                    user.ProgramID = Convert.ToInt32(dataReader["ProgramID"]);
+                    user.TeamID = Convert.ToInt32(dataReader["TeamID"]);
+                }
+                return user;
             }
             catch (Exception ex)
             {
@@ -205,6 +264,23 @@ namespace FOA_Server.Models.DAL
 
             return cmd;
         }
+
+        // Create the SqlCommand using a stored procedure for Read user by ID
+        private SqlCommand CreateCommandWithStoredProcedureReadByID(string spName, SqlConnection con, int userId)
+        {
+            SqlCommand cmd = new SqlCommand(); // create the command object
+
+            cmd.Connection = con;              // assign the connection to the command object
+
+            cmd.CommandText = spName;          // can be Select, Insert, Update, Delete 
+
+            cmd.CommandTimeout = 10;           // Time to wait for the execution' The default is 30 seconds
+
+            cmd.CommandType = System.Data.CommandType.StoredProcedure; // the type of the command, can also be stored procedure
+
+            return cmd;
+        }
+
 
         // Create the SqlCommand using a stored procedure for Insert & Update User
         private SqlCommand CreateCommandWithStoredProcedureInsert(String spName, SqlConnection con, UserService user)

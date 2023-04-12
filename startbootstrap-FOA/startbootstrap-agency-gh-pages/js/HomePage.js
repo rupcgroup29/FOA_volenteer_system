@@ -31,7 +31,7 @@ $(document).ready(function () {
         api = "https://localhost:7109/api/";
     }
     // לעדכן את הכתובת החלופית !!
-    //else api = "https://proj.ruppin.ac.il/cgroup29/test2/tar1/api/Users/";
+    else api = "https://proj.ruppin.ac.il/cgroup29/prod/api/";
 
     //Nav ber - Permission
     if (CurrentUser.permissionID == 4) // a volunteer is logged in

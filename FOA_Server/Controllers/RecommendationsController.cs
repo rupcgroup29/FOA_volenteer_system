@@ -10,26 +10,12 @@ namespace FOA_Server.Controllers
     public class RecommendationsController : ControllerBase
     {
         // GET api/<ReadPostsController>/5
-        [HttpGet("ExposureKeyWordsAndHashtages")]
-        public string GetExposureKeyWordsAndHashtages()
+        [HttpGet("ExposureParameters")]
+        public Recommendation GetTopExposureParameters()
         {
-           return Recommendation.ReadExposureKeyWordsAndHashtages();
+            return new Recommendation(Recommendation.ReadExposureKeyWordsAndHashtages(), Recommendation.ReadExposurePlatform(), Recommendation.ReadExposureLanguage());
         }
 
-        // GET api/<ReadPostsController>/5
-        [HttpGet("ExposurePlatform")]
-        public string GetExposurePlatform()
-        {
-            return Recommendation.ReadExposurePlatform();
-        }
-
-        // GET api/<ReadPostsController>/5
-        [HttpGet("ExposureLanguage")]
-        public string GetExposureLanguage()
-        {
-            return Recommendation.ReadExposureLanguage();
-
-        }
 
     }
 }

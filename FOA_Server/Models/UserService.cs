@@ -13,16 +13,17 @@ namespace FOA_Server.Models
         public string RoleDescription { get; set; }
         public int PermissionID { get; set; }
         public bool IsActive { get; set; }
-        public string Password { get; set; }
+        public string? Password { get; set; }
         public int TeamID { get; set; }
         public int ProgramID { get; set; }
         public string Email { get; set; }
         public string? ProgramName { get; set; }
+        public string? TeamName { get; set; }
         public DateTime? LastReasetPassword { get; set; }
 
         public UserService() { }
 
-        public UserService(int userID, string firstName, string surname, string userName, string phoneNum, string roleDescription, int permissionID, bool isActive, string password, int teamID, int programID, string email, string? programName, DateTime ?lastReasetPassword)
+        public UserService(int userID, string firstName, string surname, string userName, string phoneNum, string roleDescription, int permissionID, bool isActive, string? password, int teamID, int programID, string email, string? programName, string? teamName, DateTime ?lastReasetPassword)
         {
             UserID = userID;
             FirstName = firstName;
@@ -37,6 +38,7 @@ namespace FOA_Server.Models
             ProgramID = programID;
             Email = email;
             ProgramName = programName;
+            TeamName = teamName;
             LastReasetPassword = lastReasetPassword;
         }
 
@@ -159,8 +161,8 @@ namespace FOA_Server.Models
         }
 
 
-        // update user's details
-        public UserService UpdateUser()
+        // update user's details with password
+        public UserService UpdateUserWithPassword()
         {
             UsersList = ReadAllUsers();
             try
@@ -170,10 +172,37 @@ namespace FOA_Server.Models
                     if (u.UserID == this.UserID)
                     {
                         DBusers dbs = new DBusers();
-                        int good = dbs.UpdateUser(this);
+                        int good = dbs.UpdateUserWithPassword(this);
 
                         if (good > 0) { return this; }
                         else { return null; }
+                    }
+                }
+                throw new Exception(" no such user ");
+
+            }
+            catch (Exception exp)
+            {
+                throw new Exception(" didn't succeed in updating user's details " + exp.Message);
+            }
+        }
+
+
+        // update another user's details, without password
+        public bool UpdateUser()
+        {
+            UsersList = ReadAllUsers();
+            try
+            {
+                foreach (UserService u in UsersList)
+                {
+                    if (u.UserID == this.UserID)
+                    {
+                        DBusers dbs = new DBusers();
+                        int good = dbs.UpdateUserWithoutPassword(this);
+
+                        if (good > 0) { return true; }
+                        else { return false; }
                     }
                 }
                 throw new Exception(" no such user ");

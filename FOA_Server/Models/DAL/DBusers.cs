@@ -169,7 +169,7 @@ namespace FOA_Server.Models.DAL
         }
 
         // This method update a user to the user table 
-        public int UpdateUser(UserService user)
+        public int UpdateUserWithPassword(UserService user)
         {
             SqlConnection con;
             SqlCommand cmd;
@@ -185,7 +185,47 @@ namespace FOA_Server.Models.DAL
                 throw (ex);
             }
 
-            cmd = CreateCommandWithStoredProcedureUpdate("spUpdateUser", con, user);     // create the command
+            cmd = CreateCommandWithStoredProcedureUpdateWithPassword("spUpdateUserWithPassword", con, user);     // create the command
+
+            try
+            {
+                int numEffected = cmd.ExecuteNonQuery();  // execute the command
+                return numEffected;
+            }
+            catch (Exception ex)
+            {
+                // write to log
+                throw (ex);
+            }
+
+            finally
+            {
+                if (con != null)
+                {
+                    // close the db connection
+                    con.Close();
+                }
+            }
+        }
+
+        // This method update a user without password to the user table 
+        public int UpdateUserWithoutPassword(UserService user)
+        {
+            SqlConnection con;
+            SqlCommand cmd;
+
+            try
+            {
+                con = connect("myProjDB"); // create the connection
+            }
+            catch (Exception ex)
+            {
+                // write to log
+                Console.WriteLine("Error");
+                throw (ex);
+            }
+
+            cmd = CreateCommandWithStoredProcedureUpdateWithoutPassword("spUpdateUserWithoutPassword", con, user);     // create the command
 
             try
             {
@@ -308,7 +348,7 @@ namespace FOA_Server.Models.DAL
             return cmd;
         }
 
-        private SqlCommand CreateCommandWithStoredProcedureUpdate(String spName, SqlConnection con, UserService user)
+        private SqlCommand CreateCommandWithStoredProcedureUpdateWithPassword(String spName, SqlConnection con, UserService user)
         {
             SqlCommand cmd = new SqlCommand(); // create the command object
 
@@ -333,7 +373,31 @@ namespace FOA_Server.Models.DAL
 
             return cmd;
         }
+    
+        private SqlCommand CreateCommandWithStoredProcedureUpdateWithoutPassword(String spName, SqlConnection con, UserService user)
+        {
+            SqlCommand cmd = new SqlCommand(); // create the command object
 
+            cmd.Connection = con;              // assign the connection to the command object
+
+            cmd.CommandText = spName;          // can be Select, Insert, Update, Delete 
+
+            cmd.CommandTimeout = 10;           // Time to wait for the execution' The default is 30 seconds
+
+            cmd.CommandType = System.Data.CommandType.StoredProcedure; // the type of the command, can also be stored procedure
+
+            cmd.Parameters.AddWithValue("@FirstName", user.FirstName);
+            cmd.Parameters.AddWithValue("@Surname", user.Surname);
+            cmd.Parameters.AddWithValue("@UserName", user.UserName);
+            cmd.Parameters.AddWithValue("@Email", user.Email);
+            cmd.Parameters.AddWithValue("@PhoneNum", user.PhoneNum);
+            cmd.Parameters.AddWithValue("@RoleDescription", user.RoleDescription);
+            cmd.Parameters.AddWithValue("@PermissionID", user.PermissionID);
+            cmd.Parameters.AddWithValue("@ProgramID", user.ProgramID);
+            cmd.Parameters.AddWithValue("@TeamID", user.TeamID);
+
+            return cmd;
+        }
 
         private SqlCommand CreateCommandWithStoredProcedureUpdate(String spName, SqlConnection con, string email, string password)
         {

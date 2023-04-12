@@ -85,13 +85,32 @@ namespace FOA_Server.Controllers
         }
 
         // PUT api/<UserServicesController>/5
-        [HttpPut]
-        public UserService Put([FromBody] UserService user)
+        [HttpPut("myUser")]
+        public UserService PutMyUser([FromBody] UserService user)
         {
-            UserService affected = user.UpdateUser();
+            UserService affected = user.UpdateUserWithPassword();   // update my user
             return affected;
         }
 
+        // PUT api/<UserServicesController>/5
+        [HttpPut]
+        public IActionResult Put([FromBody] UserService user)
+        {                
+            try
+            {
+                bool affected = user.UpdateUser();       // update another user's details
+                if (!affected)
+                {
+                    throw new Exception(" couldn't succeed in update this user ");
+                }
+
+                return Ok(affected);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(new { errorMessage = ex.Message });
+            }
+        }
 
         // POST api/<UserServicesController>
         [HttpPost("{resetEmail}")]

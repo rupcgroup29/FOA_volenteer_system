@@ -13,7 +13,7 @@ namespace FOA_Server.Controllers
         [HttpGet]
         public Recommendation GetTopExposureParameters()
         {
-            return new Recommendation(Recommendation.ReadExposureKeyWordsAndHashtages(), Recommendation.ReadExposurePlatform(), Recommendation.ReadExposureLanguage());
+            return new Recommendation(Recommendation.ReadExposureLanguage(), Recommendation.ReadExposurePlatform(), Recommendation.ReadExposureKeyWordsAndHashtages());
         }
 
 

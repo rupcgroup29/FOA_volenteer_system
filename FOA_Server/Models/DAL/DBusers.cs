@@ -6,7 +6,7 @@ namespace FOA_Server.Models.DAL
     public class DBusers : DBservices
     {
         // USERS
-        // This method reads all the UserServices
+        // This method reads all the Users
         public List<UserService> ReadUsers()
         {
             SqlConnection con;
@@ -68,6 +68,65 @@ namespace FOA_Server.Models.DAL
             }
         }
 
+        // This method reads user by id
+        public UserService ReadUserByID(int userId)
+        {
+            SqlConnection con;
+            SqlCommand cmd;
+
+            try
+            {
+                con = connect("myProjDB"); // create the connection
+            }
+            catch (Exception ex)
+            {
+                // write to log
+                Console.WriteLine("Error");
+                throw (ex);
+            }
+
+            cmd = CreateCommandWithStoredProcedureReadByID("spReadUserByID", con, userId);      // create the command
+
+            UserService user = new UserService();
+
+            try
+            {
+                SqlDataReader dataReader = cmd.ExecuteReader(CommandBehavior.CloseConnection);
+
+                while (dataReader.Read())
+                {
+                    user.UserID = Convert.ToInt32(dataReader["UserID"]);
+                    user.FirstName = dataReader["FirstName"].ToString();
+                    user.Surname = dataReader["Surname"].ToString();
+                    user.UserName = dataReader["UserName"].ToString();
+                    user.Email = dataReader["Email"].ToString();
+                    user.Password = dataReader["Password"].ToString();
+                    user.IsActive = Convert.ToBoolean(dataReader["TeamID"]);
+                    user.PhoneNum = dataReader["PhoneNum"].ToString();
+                    user.RoleDescription = dataReader["RoleDescription"].ToString();
+                    user.PermissionID = Convert.ToInt32(dataReader["PermissionID"]);
+                    user.ProgramID = Convert.ToInt32(dataReader["ProgramID"]);
+                    user.TeamID = Convert.ToInt32(dataReader["TeamID"]);
+                }
+                return user;
+            }
+            catch (Exception ex)
+            {
+                // write to log
+                Console.WriteLine("Error");
+                throw (ex);
+            }
+
+            finally
+            {
+                if (con != null)
+                {
+                    // close the db connection
+                    con.Close();
+                }
+            }
+        }
+
         // This method inserts a user to the user table 
         public int InsertUser(UserService user)
         {
@@ -110,7 +169,7 @@ namespace FOA_Server.Models.DAL
         }
 
         // This method update a user to the user table 
-        public int UpdateUser(UserService user)
+        public int UpdateUserWithPassword(UserService user)
         {
             SqlConnection con;
             SqlCommand cmd;
@@ -126,7 +185,47 @@ namespace FOA_Server.Models.DAL
                 throw (ex);
             }
 
-            cmd = CreateCommandWithStoredProcedureUpdate("spUpdateUser", con, user);     // create the command
+            cmd = CreateCommandWithStoredProcedureUpdateWithPassword("spUpdateUserWithPassword", con, user);     // create the command
+
+            try
+            {
+                int numEffected = cmd.ExecuteNonQuery();  // execute the command
+                return numEffected;
+            }
+            catch (Exception ex)
+            {
+                // write to log
+                throw (ex);
+            }
+
+            finally
+            {
+                if (con != null)
+                {
+                    // close the db connection
+                    con.Close();
+                }
+            }
+        }
+
+        // This method update a user without password to the user table 
+        public int UpdateUserWithoutPassword(UserService user)
+        {
+            SqlConnection con;
+            SqlCommand cmd;
+
+            try
+            {
+                con = connect("myProjDB"); // create the connection
+            }
+            catch (Exception ex)
+            {
+                // write to log
+                Console.WriteLine("Error");
+                throw (ex);
+            }
+
+            cmd = CreateCommandWithStoredProcedureUpdateWithoutPassword("spUpdateUserWithoutPassword", con, user);     // create the command
 
             try
             {
@@ -206,6 +305,23 @@ namespace FOA_Server.Models.DAL
             return cmd;
         }
 
+        // Create the SqlCommand using a stored procedure for Read user by ID
+        private SqlCommand CreateCommandWithStoredProcedureReadByID(string spName, SqlConnection con, int userId)
+        {
+            SqlCommand cmd = new SqlCommand(); // create the command object
+
+            cmd.Connection = con;              // assign the connection to the command object
+
+            cmd.CommandText = spName;          // can be Select, Insert, Update, Delete 
+
+            cmd.CommandTimeout = 10;           // Time to wait for the execution' The default is 30 seconds
+
+            cmd.CommandType = System.Data.CommandType.StoredProcedure; // the type of the command, can also be stored procedure
+
+            return cmd;
+        }
+
+
         // Create the SqlCommand using a stored procedure for Insert & Update User
         private SqlCommand CreateCommandWithStoredProcedureInsert(String spName, SqlConnection con, UserService user)
         {
@@ -232,7 +348,7 @@ namespace FOA_Server.Models.DAL
             return cmd;
         }
 
-        private SqlCommand CreateCommandWithStoredProcedureUpdate(String spName, SqlConnection con, UserService user)
+        private SqlCommand CreateCommandWithStoredProcedureUpdateWithPassword(String spName, SqlConnection con, UserService user)
         {
             SqlCommand cmd = new SqlCommand(); // create the command object
 
@@ -257,7 +373,31 @@ namespace FOA_Server.Models.DAL
 
             return cmd;
         }
+    
+        private SqlCommand CreateCommandWithStoredProcedureUpdateWithoutPassword(String spName, SqlConnection con, UserService user)
+        {
+            SqlCommand cmd = new SqlCommand(); // create the command object
 
+            cmd.Connection = con;              // assign the connection to the command object
+
+            cmd.CommandText = spName;          // can be Select, Insert, Update, Delete 
+
+            cmd.CommandTimeout = 10;           // Time to wait for the execution' The default is 30 seconds
+
+            cmd.CommandType = System.Data.CommandType.StoredProcedure; // the type of the command, can also be stored procedure
+
+            cmd.Parameters.AddWithValue("@FirstName", user.FirstName);
+            cmd.Parameters.AddWithValue("@Surname", user.Surname);
+            cmd.Parameters.AddWithValue("@UserName", user.UserName);
+            cmd.Parameters.AddWithValue("@Email", user.Email);
+            cmd.Parameters.AddWithValue("@PhoneNum", user.PhoneNum);
+            cmd.Parameters.AddWithValue("@RoleDescription", user.RoleDescription);
+            cmd.Parameters.AddWithValue("@PermissionID", user.PermissionID);
+            cmd.Parameters.AddWithValue("@ProgramID", user.ProgramID);
+            cmd.Parameters.AddWithValue("@TeamID", user.TeamID);
+
+            return cmd;
+        }
 
         private SqlCommand CreateCommandWithStoredProcedureUpdate(String spName, SqlConnection con, string email, string password)
         {

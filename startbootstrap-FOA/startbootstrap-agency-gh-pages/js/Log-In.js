@@ -30,7 +30,7 @@ function postLoginUserSCB(data) { // התחברות הצליחה
 }
 function postLoginUserECB(err) { // התחברות כשלה
     isLoggedIn = false;
-    alert(err);
+    alert(err.responseJSON.errorMessage);
 }
 
 // פונקציית רנדור במידה ושכחתי סיסמא

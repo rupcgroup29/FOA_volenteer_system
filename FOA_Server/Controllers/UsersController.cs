@@ -27,6 +27,13 @@ namespace FOA_Server.Controllers
             return user.UsersByPermission(permissionID);
         }
 
+        // GET api/<UserServicesController>/5
+        [HttpGet("{userId}")]
+        public UserService Get(int userId)
+        {
+            UserService userID = new UserService();
+            return userID.ReadUserById(userId);
+        }
 
         // POST api/<UserServicesController>
         [HttpPost]
@@ -55,22 +62,55 @@ namespace FOA_Server.Controllers
 
         // POST api/<UserServicesController>/6
         [HttpPost("login")]
-        public UserService GetLogin([FromBody] UserLogin useLog)
+        public IActionResult GetLogin([FromBody] UserLogin userLog)
         {
-            string email = useLog.Email;
-            string password = useLog.Password;
-            return UserService.Login(email, password);
+            string email = userLog.Email;
+            string password = userLog.Password;
+
+            try
+            {
+                UserService userService = UserService.Login(email, password);
+
+                if (userService == null)
+                {
+                    throw new Exception(" wrong email or password ");
+                }
+
+                return Ok(userService);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(new { errorMessage = ex.Message });
+            }
         }
 
-
         // PUT api/<UserServicesController>/5
-        [HttpPut]
-        public UserService Put([FromBody] UserService user)
+        [HttpPut("myUser")]
+        public UserService PutMyUser([FromBody] UserService user)
         {
-            UserService affected = user.UpdateUser();
+            UserService affected = user.UpdateUserWithPassword();   // update my user
             return affected;
         }
 
+        // PUT api/<UserServicesController>/5
+        [HttpPut]
+        public IActionResult Put([FromBody] UserService user)
+        {                
+            try
+            {
+                bool affected = user.UpdateUser();       // update another user's details
+                if (!affected)
+                {
+                    throw new Exception(" couldn't succeed in update this user ");
+                }
+
+                return Ok(affected);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(new { errorMessage = ex.Message });
+            }
+        }
 
         // POST api/<UserServicesController>
         [HttpPost("{resetEmail}")]
@@ -89,7 +129,7 @@ namespace FOA_Server.Controllers
             // bulid & send the email 
             string messageBody = "Forgot your password? We recived a request to reset the password for your account, your reset code is " + newPassword;
             string subject = "FOA Volenteer System - reset password";
-            EmailService emailService = new EmailService();           
+            EmailService emailService = new EmailService();
             emailService.SendEmail(emailService.createMailMessage(resetEmail, messageBody, subject));
 
             //update the new password in the data base
@@ -105,7 +145,7 @@ namespace FOA_Server.Controllers
         }
 
 
-        
+
 
 
 

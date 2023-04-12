@@ -3,7 +3,9 @@ var isLoggedIn;
 var postsArr = [];
 var PlatformsArr = [];
 var languageArr = [];
-/*    נשמר במטרה לחסוך את ההתחברות בעת בדיקות   */
+var exposure;
+
+//    נשמר במטרה לחסוך את ההתחברות בעת בדיקות   
 //var user = {
 //    userID: 1024,
 //    firstName: "ענת",
@@ -20,6 +22,7 @@ var languageArr = [];
 //    programName: null
 //}
 //sessionStorage.setItem("user", JSON.stringify(user));
+
 var CurrentUser = JSON.parse(sessionStorage.getItem("user"));
 var JustLoggedIn = JSON.parse(sessionStorage.getItem("JustLoggedIn"));
 
@@ -51,7 +54,10 @@ $(document).ready(function () {
         sessionStorage.setItem("JustLoggedIn", JSON.stringify(false));
     }
     readPosts();
+    getRecommendation(); 
+
     FilterByPost();
+
 });
 
 function FilterByPost() {
@@ -152,3 +158,28 @@ function AlertPostsForApprovalSCB(data) {
 function AlertPostsForApprovalECB(err) {
     alert("Input Error");
 }
+
+// לשנות לקליטה של אובייקט אחד
+// GET Exposure 
+function getRecommendation() {
+    ajaxCall("GET", api + "Recommendations", "", getRecommendationSCB, getRecommendationECB);
+}
+function getRecommendationSCB(data) {
+    exposure = data;
+    renderRecommendation();
+}
+function getRecommendationECB(err) {
+    alert("Input Error");
+}
+
+// לשנות לפי השמות של השדות האמיתיים (זה רק הכנה) ח
+function renderRecommendation() {
+    let str_Reco = "";
+    str_Reco += "<h4>היום מומלץ לך לנטר פוסטים</h4>";
+    str_Reco += "<h4>בפלטפורמת " + exposure.platform + "</h4>";
+    str_Reco += "<h4> בשפה " + exposure.language + "</h4>";
+    str_Reco += "<h4> ובשימוש בהאשטאג " + exposure.keyWordsAndHashtages + "</h4>";
+
+    document.getElementById("RecommendationSection").innerHTML += str_Reco;
+}
+

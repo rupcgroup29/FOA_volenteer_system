@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
     <meta name="description" content="" />
     <meta name="author" content="" />
-    <title>FOA Volunteers System- Register user</title>
+    <title>FOA Volunteers System- User card</title>
     <!-- Favicon-->
     <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
     <!-- Font Awesome icons (free version)-->
@@ -24,7 +24,7 @@
 
 
     <!-- קישור לעמודי JS -->
-    <script src="js/Register.js"></script>
+    <script src="js/UserCard.js"></script>
     <script src="js/ajaxCall.js"></script>
 
 
@@ -63,8 +63,7 @@
                                 <p> מתנדב פעיל</p>
                             </div>
                             <select dir="rtl" class="form-control" id="IsActive">
-                                <option class="opt" value="0">כן </option>
-                                <option class="opt" value="1">לא </option>
+                                <!--render isActive selection-->
                             </select>
                         </div>
                         <div dir="rtl" class="row" id="Selection+Other">
@@ -90,10 +89,7 @@
                                 <p> הרשאת מערכת</p>
                             </div>
                             <select dir="rtl" class="form-control" id="permission" required>
-                                <option class="opt" value="0">סוג הרשאה *</option>
-                                <option class="opt" value="4">מתנדב.ת</option>
-                                <option class="opt" value="3">מנהל.ת צוות</option>
-                                <option class="opt" value="2">מנהל.ת</option>
+                                <!-- render -->
                             </select>
                         </div>
                         <div class="form-group">
@@ -110,7 +106,10 @@
                             <div class="form-headers">
                                 <p> תיאור תפקיד בעמותה</p>
                             </div>
-                            <input dir="rtl" class="form-control" id="roleDescription" placeholder="תיאור תפקיד " maxlength="250" />
+                            <input dir="rtl" class="form-control" id="roleDescription" maxlength="250" />
+                        </div>
+                        <div class="form-group" id="PasswordDiv">
+                            <!-- Password-->
                         </div>
                     </div>
                     <div class="col-md-6">
@@ -119,55 +118,40 @@
                             <div class="form-headers">
                                 <p> שם פרטי</p>
                             </div>
-                            <input dir="rtl" class="form-control" id="firstName" type="text" placeholder="שם פרטי *" required />
+                            <input dir="rtl" class="form-control" id="firstName" type="text" required />
                         </div>
                         <div class="form-group">
                             <!--Last Name input-->
                             <div class="form-headers">
                                 <p> שם משפחה</p>
                             </div>
-                            <input dir="rtl" class="form-control" id="surname" type="text" placeholder="שם משפחה *" required />
+                            <input dir="rtl" class="form-control" id="surname" type="text" required />
                         </div>
                         <div class="form-group">
                             <!-- User_name-->
                             <div class="form-headers">
                                 <p> שם משתמש במערכת</p>
                             </div>
-                            <input dir="rtl" class="form-control" id="user_name" type="text" placeholder="שם משתמש *" required />
+                            <input dir="rtl" class="form-control" id="user_name" type="text" required />
                         </div>
                         <div class="form-group">
                             <!-- Email address input-->
                             <div class="form-headers">
                                 <p> כתובת אימייל</p>
                             </div>
-                            <input dir="rtl" class="form-control" id="email" type="email" placeholder="אימייל *" required />
+                            <input dir="rtl" class="form-control" id="email" type="email" required />
                         </div>
                         <div class="form-group mb-md-0">
                             <!-- Phone number input-->
                             <div class="form-headers">
                                 <p> טלפון</p>
                             </div>
-                            <input dir="rtl" class="form-control" id="phone" type="tel" placeholder="טלפון *" required />
+                            <input dir="rtl" class="form-control" id="phone" type="tel" required />
                         </div>
                     </div>
                 </div>
-                <!-- Submit success message-->
-                <!---->
-                <!-- This is what your users will see when the form-->
-                <!-- has successfully submitted-->
-                <!--<div class="d-none" id="submitSuccessMessage">
-                    <div class="text-center text-white mb-3">
-                        <div class="fw-bolder">מתנדב.ת נשמר.ה בהצלחה!!</div>
-                    </div>
-                </div>
-                 Submit error message
-
-                 This is what your users will see when there is
-                 an error submitting the form
-                <div class="d-none" id="submitErrorMessage"><div class="text-center text-danger mb-3">בעיה בשמירת הנתונים!</div></div>-->
                 <!--Submit Button-->
                 <div class="text-center">
-                    <!--<input type="submit" id="submitButton" value="הוספת משתמש" class="btn btn-primary btn-xl text-uppercase" />-->
                     <button class="btn btn-primary btn-xl text-uppercase" id="submitButton" type="submit">שמור</button>
                 </div>
             </form>

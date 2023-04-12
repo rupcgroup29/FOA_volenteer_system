@@ -30,8 +30,8 @@ $(document).ready(function () {
     if (location.hostname === "localhost" || location.hostname === "127.0.0.1") {
         api = "https://localhost:7109/api/";
     }
-    // לעדכן את הכתובת החלופית !!
     else api = "https://proj.ruppin.ac.il/cgroup29/prod/api/";
+
 
     //Nav ber - Permission
     if (CurrentUser.permissionID == 4) // a volunteer is logged in

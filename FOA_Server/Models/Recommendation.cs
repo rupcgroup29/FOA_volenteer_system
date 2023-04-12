@@ -29,7 +29,7 @@ namespace FOA_Server.Models
             DBposts dbs = new DBposts();
             var result = dbs.ReadExposureKeyWordsAndHashtags();
 
-            if (result != "")     // if zero posts has been uploaded to the system in the last week 
+            if (result != null)     // if zero posts has been uploaded to the system in the last week 
             {
                 kwAndHashtagExp = result;
                 return kwAndHashtagExp;

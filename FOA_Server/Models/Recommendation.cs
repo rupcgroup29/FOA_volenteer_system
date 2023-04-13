@@ -29,7 +29,7 @@ namespace FOA_Server.Models
             DBposts dbs = new DBposts();
             var result = dbs.ReadExposureKeyWordsAndHashtags();
 
-            if (result != null)     // if zero posts has been uploaded to the system in the last week 
+            if (result != "")     // if zero posts has been uploaded to the system in the last week 
             {
                 kwAndHashtagExp = result;
                 return kwAndHashtagExp;
@@ -43,7 +43,7 @@ namespace FOA_Server.Models
             DBposts dbs = new DBposts();
             var result = dbs.ReadExposurePlatform();
 
-            if (result != null)      // if zero posts has been uploaded to the system in the last week 
+            if (result != "")      // if zero posts has been uploaded to the system in the last week 
             {
                 platformExp = result;
                 return platformExp;
@@ -57,7 +57,7 @@ namespace FOA_Server.Models
             DBposts dbs = new DBposts();
             var result = dbs.ReadExposureLanguage();
 
-            if (result != null)      // if zero posts has been uploaded to the system in the last week 
+            if (result != "")      // if zero posts has been uploaded to the system in the last week 
             {
                 langExp = result;
                 return langExp;

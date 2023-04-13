@@ -4,7 +4,6 @@ $(document).ready(function () {
     if (location.hostname === "localhost" || location.hostname === "127.0.0.1") {
         api = "https://localhost:7109/api/";
     }
-    // לעדכן את הכתובת החלופית !!
     else api = "https://proj.ruppin.ac.il/cgroup29/prod/api/";
 
     $("#LogInForm").submit(loginUser);// Log In button clicked
@@ -30,7 +29,7 @@ function postLoginUserSCB(data) { // התחברות הצליחה
 }
 function postLoginUserECB(err) { // התחברות כשלה
     isLoggedIn = false;
-    alert(err.responseJSON.errorMessage);
+    alert(err);
 }
 
 // פונקציית רנדור במידה ושכחתי סיסמא

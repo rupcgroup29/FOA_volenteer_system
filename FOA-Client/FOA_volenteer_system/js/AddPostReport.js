@@ -53,13 +53,13 @@ function AddNewPost() {
     let keyWordsAndHashtages = separatekeyWordsAndHashtages();  // ענת: מפעיל פונקציה שתופסת את כל הטקסט, מפרידה לפי פסיק ומחזירה מערך
     let threat = $("#content_threat").val();
     // let screenshot = $("#UrlLink").val();            //לטם: כרגע אנחנו מנסות לעשות את זה בלי הוספת התמונה, באופן זמני בלבד
-    let amoutOfLikes = $("#exposure_likes").val();     
-    let amoutOfShares = $("#exposure_shares").val();    
-    let amoutOfComments = $("#exposure_Comments").val();  
+    let amountOfLikes = $("#exposure_likes").val();     
+    let amountOfShares = $("#exposure_shares").val();    
+    let amountOfComments = $("#exposure_Comments").val();  
     let userID = currentUser.userID;
     let platformID = $("#platform").val();
     let categoryID = getChecked();
-    let countryID = $("#country").val();
+    let countryID = isKnownOrNotCountry(); // $("#country").val();
     let languageID = $("#language").val();
     let platformName = $("#platform_diff").val();
     let countryName = $("#country_diff").val();
@@ -72,9 +72,9 @@ function AddNewPost() {
         KeyWordsAndHashtages: keyWordsAndHashtages,
         Threat: threat,
         //Screenshot: screenshot,       //עד שננסה לשמור תמונות, כרגע זה בהערה גם בצד שרת
-        AmoutOfLikes: amoutOfLikes,
-        AmoutOfShares: amoutOfShares,
-        AmoutOfComments: amoutOfComments,
+        AmountOfLikes: amountOfLikes,
+        AmountOfShares: amountOfShares,
+        AmountOfComments: amountOfComments,
         PostStatus: "1",
         RemovalStatus: "1", 
         UserID: userID,
@@ -101,6 +101,14 @@ function postAddNewPostECB(err) {
     alert("שגיאה בהוספת הדיווח, אנא נסו שוב");
 }
 
+//
+function isKnownOrNotCountry() {
+    let countryID = $("#country").val();
+    if (countryID == 0) {
+        return 285;
+    }
+    else return countryID;
+}
 
 // get the Platforms list
 function GetPlatformsList() {
@@ -135,7 +143,7 @@ function getCountriesSCB(data) {
         alert("אין מדינות עדיין");
     } else {
         let str = "";
-        str += '<option class="opt" value="0">בחר מדינה *</option>';
+        str += '<option class="opt" value="0">בחר מדינה</option>';
         for (var i = 0; i < data.length; i++) {
             str += '<option class="opt" value="' + data[i].countryID + '">' + data[i].countryName + '</option>';
         }

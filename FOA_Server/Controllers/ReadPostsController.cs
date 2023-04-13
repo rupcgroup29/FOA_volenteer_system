@@ -24,14 +24,28 @@ namespace FOA_Server.Controllers
             ReadPost p = new ReadPost();
             return p.ReadPostByIdWithHIRAandKeyworks(postId);
         }
-       
+
 
         // PUT api/<ReadPostsController>/5
         [HttpPut]
-        public void Put([FromBody] UpdatePostStatus postStatusUpdate)
+        public int Put([FromBody] UpdatePostStatus postStatusUpdate)
         {
             ReadPost post = new ReadPost();
-            post.UpdatePostStatus(postStatusUpdate);
+
+            try
+            {
+                int affected = post.UpdatePostStatus(postStatusUpdate);       // update post details
+                if (affected > 0)
+                {
+                    return affected;
+                }
+                else throw new Exception(" couldn't succeed in update this user ");
+
+            }
+            catch (Exception ex)
+            {
+                throw new Exception();
+            }
         }
 
 

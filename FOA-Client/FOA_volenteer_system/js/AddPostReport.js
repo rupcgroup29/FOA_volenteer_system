@@ -59,7 +59,7 @@ function AddNewPost() {
     let userID = currentUser.userID;
     let platformID = $("#platform").val();
     let categoryID = getChecked();
-    let countryID = isKnownOrNotCountry(); // $("#country").val();
+    let countryID = isKnownOrNotCountry();      // למקרה ומשתמש לא בחר מדינה מפני שאינו יודע איזו
     let languageID = $("#language").val();
     let platformName = $("#platform_diff").val();
     let countryName = $("#country_diff").val();

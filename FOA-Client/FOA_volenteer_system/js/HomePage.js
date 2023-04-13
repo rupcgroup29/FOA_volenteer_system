@@ -23,8 +23,8 @@ var exposure;
 //}
 //sessionStorage.setItem("user", JSON.stringify(user));
 
-var CurrentUser = JSON.parse(sessionStorage.getItem("user"));
-var JustLoggedIn = JSON.parse(sessionStorage.getItem("JustLoggedIn"));
+var currentUser = JSON.parse(sessionStorage.getItem("user"));
+var justLoggedIn = JSON.parse(sessionStorage.getItem("justLoggedIn"));
 
 $(document).ready(function () {
     if (location.hostname === "localhost" || location.hostname === "127.0.0.1") {
@@ -34,7 +34,7 @@ $(document).ready(function () {
 
 
     //Nav ber - Permission
-    if (CurrentUser.permissionID == 4) // a volunteer is logged in
+    if (currentUser.permissionID == 4) // a volunteer is logged in
     {
         $(".ManagerNav").hide();
         $(".VolunteerNav").show();
@@ -46,12 +46,12 @@ $(document).ready(function () {
     }
 
     // alerts for manager if just logged in
-    if (JustLoggedIn == true) {
-        if (CurrentUser.permissionID == 2) // a manager is logged in
+    if (justLoggedIn == true) {
+        if (currentUser.permissionID == 2) // a manager is logged in
         {
             AlertPostsForApproval();
         }
-        sessionStorage.setItem("JustLoggedIn", JSON.stringify(false));
+        sessionStorage.setItem("justLoggedIn", JSON.stringify(false));
     }
     readPosts();
     getRecommendation(); 

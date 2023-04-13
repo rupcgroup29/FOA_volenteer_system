@@ -25,7 +25,7 @@ function postLoginUserSCB(data) { // התחברות הצליחה
     isLoggedIn = true;
     sessionStorage.setItem("user", JSON.stringify(data));
     sessionStorage.setItem("isLoggedIn", JSON.stringify(isLoggedIn));
-    sessionStorage.setItem("JustLoggedIn", JSON.stringify(true));
+    sessionStorage.setItem("justLoggedIn", JSON.stringify(true));
     window.location.assign("HomePage.html");
 }
 function postLoginUserECB(err) { // התחברות כשלה

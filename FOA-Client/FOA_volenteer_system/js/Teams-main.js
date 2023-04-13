@@ -19,7 +19,7 @@ var user = {
     programName: null
 }
 sessionStorage.setItem("user", JSON.stringify(user));
-var CurrentUser = sessionStorage.getItem("user");
+var currentUser = sessionStorage.getItem("user");
 
 
 $(document).ready(function () {
@@ -31,7 +31,7 @@ $(document).ready(function () {
 
 
     //Nav ber - Permission
-    if (CurrentUser.permission == 4) // a volunteer is logged in
+    if (currentUser.permission == 4) // a volunteer is logged in
     {
         $(".ManagerNav").hide();
         $(".VolunteerNav").show();

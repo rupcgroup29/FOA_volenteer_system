@@ -27,7 +27,6 @@ namespace FOA_Server.Controllers
         [HttpPost]
         public Post Post([FromBody] Post post)
         {
-            // ענת: הוספת פונקציות הבודקות אם המשתמש הקליד אחר באחד השדות והפעלת פונקציה מתאימה
             if (post.CountryID == 999)
             {
                 new Country(post.CountryName, post.CountryID).InsertCountry();

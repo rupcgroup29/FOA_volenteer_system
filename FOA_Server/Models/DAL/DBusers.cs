@@ -68,7 +68,66 @@ namespace FOA_Server.Models.DAL
             }
         }
 
-        // This method reads user by id
+        // This method reads user's details by id with password
+        public UserService ReadUserByIDWithPassword(int userId)
+        {
+            SqlConnection con;
+            SqlCommand cmd;
+
+            try
+            {
+                con = connect("myProjDB"); // create the connection
+            }
+            catch (Exception ex)
+            {
+                // write to log
+                Console.WriteLine("Error");
+                throw (ex);
+            }
+
+            cmd = CreateCommandWithStoredProcedureReadByID("spReadUserByIdWithPassword", con, userId);      // create the command
+
+            UserService user = new UserService();
+
+            try
+            {
+                SqlDataReader dataReader = cmd.ExecuteReader(CommandBehavior.CloseConnection);
+
+                while (dataReader.Read())
+                {
+                    user.UserID = Convert.ToInt32(dataReader["UserID"]);
+                    user.FirstName = dataReader["FirstName"].ToString();
+                    user.Surname = dataReader["Surname"].ToString();
+                    user.UserName = dataReader["UserName"].ToString();
+                    user.Email = dataReader["Email"].ToString();
+                    user.Password = dataReader["Password"].ToString();
+                    user.IsActive = Convert.ToBoolean(dataReader["TeamID"]);
+                    user.PhoneNum = dataReader["PhoneNum"].ToString();
+                    user.RoleDescription = dataReader["RoleDescription"].ToString();
+                    user.PermissionID = Convert.ToInt32(dataReader["PermissionID"]);
+                    user.ProgramID = Convert.ToInt32(dataReader["ProgramID"]);
+                    user.TeamID = Convert.ToInt32(dataReader["TeamID"]);
+                }
+                return user;
+            }
+            catch (Exception ex)
+            {
+                // write to log
+                Console.WriteLine("Error");
+                throw (ex);
+            }
+
+            finally
+            {
+                if (con != null)
+                {
+                    // close the db connection
+                    con.Close();
+                }
+            }
+        }
+
+        // This method reads user's details by id without password
         public UserService ReadUserByID(int userId)
         {
             SqlConnection con;
@@ -85,7 +144,7 @@ namespace FOA_Server.Models.DAL
                 throw (ex);
             }
 
-            cmd = CreateCommandWithStoredProcedureReadByID("spReadUserByID", con, userId);      // create the command
+            cmd = CreateCommandWithStoredProcedureReadByID("spReadUserByIdWithoutPassword", con, userId);      // create the command
 
             UserService user = new UserService();
 
@@ -100,7 +159,6 @@ namespace FOA_Server.Models.DAL
                     user.Surname = dataReader["Surname"].ToString();
                     user.UserName = dataReader["UserName"].ToString();
                     user.Email = dataReader["Email"].ToString();
-                    user.Password = dataReader["Password"].ToString();
                     user.IsActive = Convert.ToBoolean(dataReader["TeamID"]);
                     user.PhoneNum = dataReader["PhoneNum"].ToString();
                     user.RoleDescription = dataReader["RoleDescription"].ToString();

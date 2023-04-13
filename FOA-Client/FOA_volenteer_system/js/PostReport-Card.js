@@ -145,13 +145,13 @@ function editPost() {
 
     const editedPost = {
         PostID: currentPostID,
-        PostStatus: postStatus,
+        PostStatus: parseInt(postStatus),
         PostStatusManager: postStatusManager,
-        RemovalStatus: removalStatus,
+        RemovalStatus: parseInt(removalStatus),
         RemovalStatusManager: removalStatusManager
     }
 
-    ajaxCall("PUT", api + "Posts/" + currentPostID, JSON.stringify(editedPost), editPostSCB, editPostECB);
+    ajaxCall("PUT", api + "ReadPosts", JSON.stringify(editedPost), editPostSCB, editPostECB);
     return false;
 }
 function editPostSCB(data) {

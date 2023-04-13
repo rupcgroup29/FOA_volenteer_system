@@ -54,7 +54,7 @@ namespace FOA_Server.Models
 
 
         // insert new user
-        public UserService InsertUser()
+        public bool InsertUser()
         {
             UsersList = ReadAllUsers();
             try
@@ -91,8 +91,8 @@ namespace FOA_Server.Models
 
                 DBusers dbs = new DBusers();
                 int good = dbs.InsertUser(this);
-                if (good > 0) { return this; }
-                else { return null; }
+                if (good > 0) { return true; }
+                else { return false; }
             }
             catch (Exception exp)
             {

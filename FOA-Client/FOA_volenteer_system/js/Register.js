@@ -46,7 +46,7 @@ function RegisterUser() {
         ProgramName: programName,
     }
 
-    ajaxCall("POST", api + "Users", JSON.stringify(newUser), postRegisterSCB, postRegisterECB);
+    ajaxCall("POST", api + "UserServices", JSON.stringify(newUser), postRegisterSCB, postRegisterECB);
     return false;
 }
 function postRegisterSCB(data) { // הוספת משתמש הצליחה
@@ -56,7 +56,7 @@ function postRegisterSCB(data) { // הוספת משתמש הצליחה
 }
 
 function postRegisterECB(err) {
-    alert("שגיאה בהוספת המשתמש, אנא נסו שוב");
+    alert(err);
 }
 
 

@@ -37,7 +37,7 @@ namespace FOA_Server.Controllers
 
         // POST api/<UserServicesController>
         [HttpPost]
-        public void Post([FromBody] UserService user)
+        public bool Post([FromBody] UserService user)
         {
             if (user.ProgramID == 999)  //if new volanteer program was choosen
             {
@@ -46,17 +46,22 @@ namespace FOA_Server.Controllers
                 int programID = newID.getVolunteerProgramByName(user.ProgramName);
                 user.ProgramID = programID;
             }
-            UserService insertedUser = user.InsertUser();
+            bool insertedUser = user.InsertUser();
 
-            try
-            {
-                // bulid & send the email 
-                string messageBody = $"Welcome {insertedUser.FirstName} {insertedUser.Surname} to our Volenteer System! :)";
-                string subject = "FOA Volenteer System - welcome";
-                EmailService emailService = new EmailService();
-                emailService.SendEmail(emailService.createMailMessage(insertedUser.Email, messageBody, subject));
-            }
-            catch (Exception ex) { }
+            //if (insertedUser)
+            //{
+            //    try
+            //    {
+            //        // bulid & send the email 
+            //        string messageBody = $"Welcome {user.FirstName} {user.Surname} to our Volenteer System! :)";
+            //        string subject = "FOA Volenteer System - welcome";
+            //        EmailService emailService = new EmailService();
+            //        emailService.SendEmail(emailService.createMailMessage(user.Email, messageBody, subject));
+            //    }
+            //    catch (Exception ex) { }
+            //}
+            return insertedUser;
+
         }
 
 
@@ -95,7 +100,7 @@ namespace FOA_Server.Controllers
         // PUT api/<UserServicesController>/5
         [HttpPut]
         public IActionResult Put([FromBody] UserService user)
-        {                
+        {
             try
             {
                 bool affected = user.UpdateUser();       // update another user's details

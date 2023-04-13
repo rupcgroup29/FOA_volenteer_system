@@ -33,6 +33,7 @@ $(document).ready(function () {
     else api = "https://proj.ruppin.ac.il/cgroup29/prod/api/";
 
 
+    //NAVBAR
     //Nav ber - Permission
     if (currentUser.permissionID == 4) // a volunteer is logged in
     {
@@ -45,6 +46,12 @@ $(document).ready(function () {
         $(".VolunteerNav").hide();
     }
 
+    $("#u39").mouseenter(UserEnterSubManu);
+    $("#u39").mouseleave(UserExitSubManu);
+    $("#u40").mouseleave(UserExitSubManu);
+
+    $("#logout").click(logout);
+
     // alerts for manager if just logged in
     if (justLoggedIn == true) {
         if (currentUser.permissionID == 2) // a manager is logged in
@@ -54,11 +61,31 @@ $(document).ready(function () {
         sessionStorage.setItem("justLoggedIn", JSON.stringify(false));
     }
     readPosts();
-    getRecommendation(); 
+    getRecommendation();
 
     FilterByPost();
 
 });
+
+//NAVBAR USER
+
+function UserEnterSubManu() {
+    $("#u40").css("visibility", "inherit")
+    $("#u40").show();
+}
+function UserExitSubManu() {
+    $("#u40").css("visibility", "hidden")
+    $("#u40").hide();
+}
+
+//logout function
+function logout() {
+    isLogIn = false;
+    sessionStorage.clear();
+    window.location.assign("Log-In.html");
+}
+
+//END - NAVBAR USER
 
 function FilterByPost() {
     // Declare variables

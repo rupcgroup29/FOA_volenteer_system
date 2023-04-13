@@ -10,6 +10,17 @@
  * Copyright 2011-2021 Twitter, Inc.
  * Licensed under MIT (https://github.com/twbs/bootstrap/blob/main/LICENSE)
  */
+
+
+* {
+    font-family: 'Arimo' !important;
+}
+
+h2 {
+    font-weight: bold !important;
+}
+
+
 :root {
     --bs-blue: #0d6efd;
     --bs-indigo: #6610f2;
@@ -7155,7 +7166,7 @@ textarea.form-control-lg {
     top: 0;
     right: 0;
     left: 0;
-    z-index: 1030;
+    /*z-index: 1030;*/
 }
 
 .fixed-bottom {
@@ -11940,23 +11951,23 @@ p {
     line-height: 1.75;
 }
 
-.page-section {
+/*.page-section {
     padding: 6rem 0;
+}*/
+
+.page-section h2.section-heading, .page-section .section-heading.h2 {
+    font-size: 2.5rem;
+    margin-top: 0;
+    margin-bottom: 1rem;
 }
 
-    .page-section h2.section-heading, .page-section .section-heading.h2 {
-        font-size: 2.5rem;
-        margin-top: 0;
-        margin-bottom: 1rem;
-    }
-
-    .page-section h3.section-subheading, .page-section .section-subheading.h3 {
-        font-size: 1rem;
-        font-weight: 400;
-        font-style: italic;
-        font-family: "Roboto Slab", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
-        margin-bottom: 4rem;
-    }
+.page-section h3.section-subheading, .page-section .section-subheading.h3 {
+    font-size: 1rem;
+    font-weight: 400;
+    font-style: italic;
+    font-family: "Roboto Slab", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+    margin-bottom: 4rem;
+}
 
 @media (min-width: 768px) {
     section {
@@ -12051,11 +12062,13 @@ p {
 
                 #mainNav.navbar-shrink .navbar-brand svg,
                 #mainNav.navbar-shrink .navbar-brand img {
-                    height: 1.5rem;
+                    height: 4.5rem;
                 }
 
         #mainNav .navbar-nav .nav-item {
-            margin-right: 1rem;
+            /*margin-right: 1rem;*/
+            margin-top: 6px;
+            padding-right: 1rem;
         }
 
             #mainNav .navbar-nav .nav-item:last-child {
@@ -12439,8 +12452,8 @@ section#contact {
 
     section#contact .section-heading {
         color: #358079;
-        -webkit-text-stroke: 0.25px white;
-        text-shadow: 0px 0px 4px white;
+        /*-webkit-text-stroke: 0.25px white;*/
+        text-shadow: 0px 0px 3px #cc9f29;
     }
 
     section#contact form#contactForm .form-group, section#contact form#LogInForm .form-group {
@@ -12755,8 +12768,8 @@ select::-ms-expand {
     width: 22.5%;
 }
 
-.viewButton_display{
-    width:10%;
+.viewButton_display {
+    width: 10%;
 }
 
 .viewButton_display {
@@ -12766,13 +12779,13 @@ select::-ms-expand {
 /* סוף - עיצובים של טבלת צוותים*/
 
 
-#RecommendationSection h4{
-    color:white;
+#RecommendationSection h4 {
+    color: white;
 }
 
-#RecommendationSection{
-    border:2px double white;
-    margin:10px;
-    padding:10px;
-    text-align:center;
+#RecommendationSection {
+    border: 2px double white;
+    margin-bottom: 10px;
+    padding: 10px;
+    text-align: center;
 }

@@ -85,7 +85,7 @@ namespace FOA_Server.Models.DAL
                 throw (ex);
             }
 
-            cmd = CreateCommandWithStoredProcedureReadByID("spReadUserByIdWithPassword", con, userId);      // create the command
+            cmd = CreateCommandWithStoredProcedureReadByIDWithPassword("spReadUserByIdWithPassword", con, userId);      // create the command
 
             UserService user = new UserService();
 
@@ -100,13 +100,16 @@ namespace FOA_Server.Models.DAL
                     user.Surname = dataReader["Surname"].ToString();
                     user.UserName = dataReader["UserName"].ToString();
                     user.Email = dataReader["Email"].ToString();
-                    user.Password = dataReader["Password"].ToString();
                     user.IsActive = Convert.ToBoolean(dataReader["TeamID"]);
                     user.PhoneNum = dataReader["PhoneNum"].ToString();
                     user.RoleDescription = dataReader["RoleDescription"].ToString();
                     user.PermissionID = Convert.ToInt32(dataReader["PermissionID"]);
+                    user.PermissionName = dataReader["PermissionName"].ToString();
                     user.ProgramID = Convert.ToInt32(dataReader["ProgramID"]);
+                    user.ProgramName = dataReader["ProgramName"].ToString();
                     user.TeamID = Convert.ToInt32(dataReader["TeamID"]);
+                    user.TeamName = dataReader["TeamName"].ToString();
+                    user.Password = dataReader["Password"].ToString();
                 }
                 return user;
             }
@@ -128,7 +131,7 @@ namespace FOA_Server.Models.DAL
         }
 
         // This method reads user's details by id without password
-        public UserService ReadUserByID(int userId)
+        public UserService ReadUserByIDWithoutPassword(int userId)
         {
             SqlConnection con;
             SqlCommand cmd;
@@ -144,7 +147,7 @@ namespace FOA_Server.Models.DAL
                 throw (ex);
             }
 
-            cmd = CreateCommandWithStoredProcedureReadByID("spReadUserByIdWithoutPassword", con, userId);      // create the command
+            cmd = CreateCommandWithStoredProcedureReadByIDWitoutPassword("spReadUserByIdWithoutPassword", con, userId);      // create the command
 
             UserService user = new UserService();
 
@@ -163,8 +166,11 @@ namespace FOA_Server.Models.DAL
                     user.PhoneNum = dataReader["PhoneNum"].ToString();
                     user.RoleDescription = dataReader["RoleDescription"].ToString();
                     user.PermissionID = Convert.ToInt32(dataReader["PermissionID"]);
+                    user.PermissionName = dataReader["PermissionName"].ToString();
                     user.ProgramID = Convert.ToInt32(dataReader["ProgramID"]);
+                    user.ProgramName = dataReader["ProgramName"].ToString();
                     user.TeamID = Convert.ToInt32(dataReader["TeamID"]);
+                    user.TeamName = dataReader["TeamName"].ToString();
                 }
                 return user;
             }
@@ -363,8 +369,8 @@ namespace FOA_Server.Models.DAL
             return cmd;
         }
 
-        // Create the SqlCommand using a stored procedure for Read user by ID
-        private SqlCommand CreateCommandWithStoredProcedureReadByID(string spName, SqlConnection con, int userId)
+        // Create the SqlCommand using a stored procedure for Read user by ID without password
+        private SqlCommand CreateCommandWithStoredProcedureReadByIDWitoutPassword(string spName, SqlConnection con, int userId)
         {
             SqlCommand cmd = new SqlCommand(); // create the command object
 
@@ -375,6 +381,26 @@ namespace FOA_Server.Models.DAL
             cmd.CommandTimeout = 10;           // Time to wait for the execution' The default is 30 seconds
 
             cmd.CommandType = System.Data.CommandType.StoredProcedure; // the type of the command, can also be stored procedure
+
+            cmd.Parameters.AddWithValue("@UserID", userId);
+
+            return cmd;
+        }
+
+        // Create the SqlCommand using a stored procedure for Read user by ID with password
+        private SqlCommand CreateCommandWithStoredProcedureReadByIDWithPassword(string spName, SqlConnection con, int userId)
+        {
+            SqlCommand cmd = new SqlCommand(); // create the command object
+
+            cmd.Connection = con;              // assign the connection to the command object
+
+            cmd.CommandText = spName;          // can be Select, Insert, Update, Delete 
+
+            cmd.CommandTimeout = 10;           // Time to wait for the execution' The default is 30 seconds
+
+            cmd.CommandType = System.Data.CommandType.StoredProcedure; // the type of the command, can also be stored procedure
+
+            cmd.Parameters.AddWithValue("@UserID", userId);
 
             return cmd;
         }
@@ -418,6 +444,7 @@ namespace FOA_Server.Models.DAL
 
             cmd.CommandType = System.Data.CommandType.StoredProcedure; // the type of the command, can also be stored procedure
 
+            cmd.Parameters.AddWithValue("@UserID", user.UserID);
             cmd.Parameters.AddWithValue("@FirstName", user.FirstName);
             cmd.Parameters.AddWithValue("@Surname", user.Surname);
             cmd.Parameters.AddWithValue("@UserName", user.UserName);
@@ -444,6 +471,7 @@ namespace FOA_Server.Models.DAL
 
             cmd.CommandType = System.Data.CommandType.StoredProcedure; // the type of the command, can also be stored procedure
 
+            cmd.Parameters.AddWithValue("@UserID", user.UserID);
             cmd.Parameters.AddWithValue("@FirstName", user.FirstName);
             cmd.Parameters.AddWithValue("@Surname", user.Surname);
             cmd.Parameters.AddWithValue("@UserName", user.UserName);

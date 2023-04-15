@@ -12,6 +12,7 @@ namespace FOA_Server.Models
         public string PhoneNum { get; set; }
         public string RoleDescription { get; set; }
         public int PermissionID { get; set; }
+        public string? PermissionName { get; set; }
         public bool IsActive { get; set; }
         public string? Password { get; set; }
         public int TeamID { get; set; }
@@ -23,7 +24,7 @@ namespace FOA_Server.Models
 
         public UserService() { }
 
-        public UserService(int userID, string firstName, string surname, string userName, string phoneNum, string roleDescription, int permissionID, bool isActive, string? password, int teamID, int programID, string email, string? programName, string? teamName, DateTime ?lastReasetPassword)
+        public UserService(int userID, string firstName, string surname, string userName, string phoneNum, string roleDescription, int permissionID, bool isActive, string? password, int teamID, int programID, string email, string? programName, string? teamName, DateTime ? lastReasetPassword, string? permissionName)
         {
             UserID = userID;
             FirstName = firstName;
@@ -40,6 +41,7 @@ namespace FOA_Server.Models
             ProgramName = programName;
             TeamName = teamName;
             LastReasetPassword = lastReasetPassword;
+            PermissionName = permissionName;
         }
 
         private static List<UserService> UsersList = new List<UserService>();
@@ -50,6 +52,20 @@ namespace FOA_Server.Models
         {
             DBusers dbs = new DBusers();
             return dbs.ReadUsers();
+        }
+
+        // get user by id with password
+        public static UserService ReadUserByIdWithPassword(int id)
+        {
+            DBusers db = new DBusers();
+            return db.ReadUserByIDWithPassword(id);
+        }
+
+        // get user by id without password
+        public static UserService ReadUserByIdWithoutPassword(int id)
+        {
+            DBusers db = new DBusers();
+            return db.ReadUserByIDWithoutPassword(id);
         }
 
 
@@ -152,17 +168,9 @@ namespace FOA_Server.Models
             return unique;
         }
 
-        
-        // get user by id
-        public UserService ReadUserById(int id)
-        {
-            DBusers db = new DBusers();
-            return db.ReadUserByID(id);
-        }
-
 
         // update user's details with password
-        public UserService UpdateUserWithPassword()
+        public bool UpdateUserWithPassword()
         {
             UsersList = ReadAllUsers();
             try
@@ -174,8 +182,8 @@ namespace FOA_Server.Models
                         DBusers dbs = new DBusers();
                         int good = dbs.UpdateUserWithPassword(this);
 
-                        if (good > 0) { return this; }
-                        else { return null; }
+                        if (good > 0) { return true; }
+                        else { return false; }
                     }
                 }
                 throw new Exception(" no such user ");

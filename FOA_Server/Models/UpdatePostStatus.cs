@@ -1,20 +1,19 @@
 ﻿namespace FOA_Server.Models
 {
-    public class PostChangeStatus
+    public class UpdatePostStatus
     {
         public int PostID { get; set; }
         public int PostStatus { get; set; }
-        public int RemovalStatus { get; set; }
         public int PostStatusManager { get; set; }
+        public int RemovalStatus { get; set; }
         public int RemovalStatusManager { get; set; }
 
-        public PostChangeStatus() { }
-        public PostChangeStatus(int postID, int postStatus, int removalStatus, int postStatusManager, int removalStatusManager)
+        public UpdatePostStatus(int postID,int postStatus, int postStatusManager, int removalStatus, int removalStatusManager)
         {
             PostID = postID;
             PostStatus = postStatus;
-            RemovalStatus = removalStatus;
             PostStatusManager = postStatusManager;
+            RemovalStatus = removalStatus;
             RemovalStatusManager = removalStatusManager;
         }
 

@@ -7,7 +7,7 @@ namespace FOA_Server.Models
         public string CountryName { get; set; }
         public int CountryID { get; set; }
 
-        private static List<Country> CountriesList = new List<Country>();  
+        private static List<Country> countriesList = new List<Country>();  
 
 
         public Country() { }   
@@ -18,22 +18,22 @@ namespace FOA_Server.Models
         }
 
         // read all countries
-        public List<Country> ReadAllCountries()
+        public static List<Country> ReadAllCountries()
         {
             DBposts dbs = new DBposts();
             return dbs.ReadCountries();
         }
 
         //Insert new Volunteer Program
-        public Country InsertCountry()
+        public int InsertCountry()
         {
-            CountriesList = ReadAllCountries();
+            countriesList = ReadAllCountries();
             try
             {
-                if (CountriesList.Count != 0)
+                if (countriesList.Count != 0)
                 {
                     // vaild there is not the same already in the list
-                    bool uniqueName = UniqueName(this.CountryName, CountriesList);
+                    bool uniqueName = UniqueName(this.CountryName, countriesList);
                     if (uniqueName == false)
                     {
                         throw new Exception(" Country under that name is allready exists ");
@@ -42,8 +42,8 @@ namespace FOA_Server.Models
 
                 DBposts dbs = new DBposts();
                 int good = dbs.InsertCountry(this);
-                if (good > 0) { return this; }
-                else { return null; }
+                if (good > 0) { return good; }  //returns the id inserted
+                else { return 0; }
 
             }
             catch (Exception exp)
@@ -67,13 +67,12 @@ namespace FOA_Server.Models
         }
 
 
-        // ענת: הוספתי כדי לקבל את שם המדינה לפי שם 
         // returns CountryID by Country name
         public int getCountryByName(string name)
         {
-            CountriesList = ReadAllCountries();
+            countriesList = ReadAllCountries();
 
-            foreach (Country item in CountriesList)
+            foreach (Country item in countriesList)
             {
                 if (item.CountryName == name)
                 {

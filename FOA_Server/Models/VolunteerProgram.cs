@@ -17,7 +17,7 @@ namespace FOA_Server.Models
 
 
         // read all Volunteer Programs
-        public List<VolunteerProgram> ReadAllVolunteerPrograms()
+        public static List<VolunteerProgram> ReadAllVolunteerPrograms()
         {
             DBusers dbs = new DBusers();
             return dbs.ReadVolunteerPrograms();

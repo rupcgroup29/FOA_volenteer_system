@@ -1,29 +1,47 @@
 ﻿var api;
 /*    נשמר במטרה לחסוך את ההתחברות בעת בדיקות   */
-var user = {
-    userID: 1024,
-    firstName: "ענת",
-    surname: "אביטל",
-    userName: "anat_a",
-    phoneNum: "0529645123",
-    roleDescription: "מנהל צוות ניטור",
-    permissionID: 3,
-    isActive: true,
-    password: "6DCA4533",
-    teamID: 1,
-    programID: 1026,
-    email: "anat_a@gmail.com",
-    programName: null
-}
-sessionStorage.setItem("user", JSON.stringify(user));
+//var user = {
+//    userID: 1024,
+//    firstName: "ענת",
+//    surname: "אביטל",
+//    userName: "anat_a",
+//    phoneNum: "0529645123",
+//    roleDescription: "מנהל צוות ניטור",
+//    permissionID: 3,
+//    isActive: true,
+//    password: "6DCA4533",
+//    teamID: 1,
+//    programID: 1026,
+//    email: "anat_a@gmail.com",
+//    programName: null
+//}
+//sessionStorage.setItem("user", JSON.stringify(user));
+
 var currentUser = JSON.parse(sessionStorage.getItem("user"));
 
 $(document).ready(function () {
     if (location.hostname === "localhost" || location.hostname === "127.0.0.1") {
         api = "https://localhost:7109/api/";
     }
-    // לעדכן את הכתובת החלופית !!
-    //else api = "https://proj.ruppin.ac.il/cgroup29/test2/tar1/api/Users/";
+    else api = "https://proj.ruppin.ac.il/cgroup29/prod/api/";
+
+    //Nav bar - Permission
+    if (currentUser.permissionID == 4) // a volunteer is logged in
+    {
+        $(".ManagerNav").hide();
+        $(".VolunteerNav").show();
+    }
+    else //Manager is logged in
+    {
+        $(".ManagerNav").show();
+        $(".VolunteerNav").hide();
+    }
+
+    $("#u39").mouseenter(UserEnterSubManu);
+    $("#u39").mouseleave(UserExitSubManu);
+    $("#u40").mouseleave(UserExitSubManu);
+
+    $("#logout").click(logout);
 
     //"other" sections will be readonly when page is up
     $("#platform_diff").attr("readonly", true);
@@ -37,15 +55,31 @@ $(document).ready(function () {
     GetLanguagesList();
     GetIHRAList();           
 
-    //HideRemovalStatusDiv();       //לטם: זמנית הורדתי את זה כי זה עשה תקלה בהרצה
-    //HideManagerStatusDiv();       //לטם: זמנית הורדתי את זה כי זה עשה תקלה בהרצה
     enableOtherPlatform();           
     enableOtherCountry();            
     enableOtherLanguage()            
 
 });
 
+//NAVBAR USER
 
+function UserEnterSubManu() {
+    $("#u40").css("visibility", "inherit")
+    $("#u40").show();
+}
+function UserExitSubManu() {
+    $("#u40").css("visibility", "hidden")
+    $("#u40").hide();
+}
+
+//logout function
+function logout() {
+    isLogIn = false;
+    sessionStorage.clear();
+    window.location.assign("Log-In.html");
+}
+
+//END - NAVBAR USER
 // add new post - submit
 function AddNewPost() {
     let urlLink = $("#urlLink").val();
@@ -53,13 +87,13 @@ function AddNewPost() {
     let keyWordsAndHashtages = separatekeyWordsAndHashtages();  // ענת: מפעיל פונקציה שתופסת את כל הטקסט, מפרידה לפי פסיק ומחזירה מערך
     let threat = $("#content_threat").val();
     // let screenshot = $("#UrlLink").val();            //לטם: כרגע אנחנו מנסות לעשות את זה בלי הוספת התמונה, באופן זמני בלבד
-    let amoutOfLikes = $("#exposure_likes").val();     
-    let amoutOfShares = $("#exposure_shares").val();    
-    let amoutOfComments = $("#exposure_Comments").val();  
+    let amountOfLikes = $("#exposure_likes").val();     
+    let amountOfShares = $("#exposure_shares").val();    
+    let amountOfComments = $("#exposure_Comments").val();  
     let userID = currentUser.userID;
     let platformID = $("#platform").val();
     let categoryID = getChecked();
-    let countryID = $("#country").val();
+    let countryID = isKnownOrNotCountry();      // למקרה ומשתמש לא בחר מדינה מפני שאינו יודע איזו
     let languageID = $("#language").val();
     let platformName = $("#platform_diff").val();
     let countryName = $("#country_diff").val();
@@ -72,9 +106,9 @@ function AddNewPost() {
         KeyWordsAndHashtages: keyWordsAndHashtages,
         Threat: threat,
         //Screenshot: screenshot,       //עד שננסה לשמור תמונות, כרגע זה בהערה גם בצד שרת
-        AmoutOfLikes: amoutOfLikes,
-        AmoutOfShares: amoutOfShares,
-        AmoutOfComments: amoutOfComments,
+        AmountOfLikes: amountOfLikes,
+        AmountOfShares: amountOfShares,
+        AmountOfComments: amountOfComments,
         PostStatus: "1",
         RemovalStatus: "1", 
         UserID: userID,
@@ -93,7 +127,7 @@ function AddNewPost() {
     return false;
 }
 function postAddNewPostSCB(data) { // הוספת משתמש הצליחה
-    //alert("דיווח הפוסט נוסף בהצלחה");
+    alert("דיווח הפוסט נוסף בהצלחה");
     //window.location.assign("HomePage.html");
     location.assign("HomePage.html")
 }
@@ -101,6 +135,14 @@ function postAddNewPostECB(err) {
     alert("שגיאה בהוספת הדיווח, אנא נסו שוב");
 }
 
+//
+function isKnownOrNotCountry() {
+    let countryID = $("#country").val();
+    if (countryID == 0) {
+        return 285;
+    }
+    else return countryID;
+}
 
 // get the Platforms list
 function GetPlatformsList() {
@@ -135,7 +177,7 @@ function getCountriesSCB(data) {
         alert("אין מדינות עדיין");
     } else {
         let str = "";
-        str += '<option class="opt" value="0">בחר מדינה *</option>';
+        str += '<option class="opt" value="0">בחר מדינה</option>';
         for (var i = 0; i < data.length; i++) {
             str += '<option class="opt" value="' + data[i].countryID + '">' + data[i].countryName + '</option>';
         }
@@ -209,19 +251,6 @@ function separatekeyWordsAndHashtages() {
     const separated = keyWordsAndHashtages.split(",");
     return separated;
 }
-
-////Hide RemovalStatus div
-//function HideRemovalStatusDiv() {
-//    var element = document.getElementById("RemovalStatus");
-//    element.style.display = "none";
-//}
-
-
-////Hide ManagerStatus div
-//function HideManagerStatusDiv() {
-//    var element = document.getElementById("ManagerStatus");
-//    element.style.display = "none";
-//}
 
 // enable Other platform only if other selected
 function enableOtherPlatform() {

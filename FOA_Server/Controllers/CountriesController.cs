@@ -1,6 +1,5 @@
 ﻿using FOA_Server.Models;
 using FOA_Server.Models.DAL;
-using FOA_Server.Services;
 using Microsoft.AspNetCore.Mvc;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
@@ -15,8 +14,7 @@ namespace FOA_Server.Controllers
         [HttpGet]
         public List<Country> Get()
         {
-            Country c = new Country();
-            return c.ReadAllCountries();
+            return Country.ReadAllCountries();
         }
 
         // GET api/<CountriesController>/5

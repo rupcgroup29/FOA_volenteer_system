@@ -1,37 +1,35 @@
 ﻿var api;
 var isLoggedIn;
 var usersArr = [];
-var teamsArr = [];
 /*    נשמר במטרה לחסוך את ההתחברות בעת בדיקות   */
-var user = {
-    userID: 1024,
-    firstName: "ענת",
-    surname: "אביטל",
-    userName: "anat_a",
-    phoneNum: "0529645123",
-    roleDescription: "מנהל צוות ניטור",
-    permissionID: 3,
-    isActive: true,
-    password: "6DCA4533",
-    teamID: 1,
-    programID: 1026,
-    email: "anat_a@gmail.com",
-    programName: null
-}
-sessionStorage.setItem("user", JSON.stringify(user));
-var CurrentUser = sessionStorage.getItem("user");
+//var user = {
+//    userID: 1024,
+//    firstName: "ענת",
+//    surname: "אביטל",
+//    userName: "anat_a",
+//    phoneNum: "0529645123",
+//    roleDescription: "מנהל צוות ניטור",
+//    permissionID: 3,
+//    isActive: true,
+//    password: "6DCA4533",
+//    teamID: 1,
+//    programID: 1026,
+//    email: "anat_a@gmail.com",
+//    programName: null
+//}
+//sessionStorage.setItem("user", JSON.stringify(user));
+
+var currentUser = sessionStorage.getItem("user");
 
 
 $(document).ready(function () {
     if (location.hostname === "localhost" || location.hostname === "127.0.0.1") {
         api = "https://localhost:7109/api/";
     }
-    // לעדכן את הכתובת החלופית !!
-    //else api = "https://proj.ruppin.ac.il/cgroup29/test2/tar1/api/Users/";
+    else api = "https://proj.ruppin.ac.il/cgroup29/prod/api/";
 
-
-    //Nav ber - Permission
-    if (CurrentUser.permission == 4) // a volunteer is logged in
+    //Nav bar - Permission
+    if (currentUser.permissionID == 4) // a volunteer is logged in
     {
         $(".ManagerNav").hide();
         $(".VolunteerNav").show();
@@ -41,11 +39,33 @@ $(document).ready(function () {
         $(".ManagerNav").show();
         $(".VolunteerNav").hide();
     }
+    $("#u39").mouseenter(UserEnterSubManu);
+    $("#u39").mouseleave(UserExitSubManu);
+    $("#u40").mouseleave(UserExitSubManu);
+
+    $("#logout").click(logout);
     readUsers();
-    readTeams();
     FilterByTeamName();
 });
+//NAVBAR USER
 
+function UserEnterSubManu() {
+    $("#u40").css("visibility", "inherit")
+    $("#u40").show();
+}
+function UserExitSubManu() {
+    $("#u40").css("visibility", "hidden")
+    $("#u40").hide();
+}
+
+//logout function
+function logout() {
+    isLogIn = false;
+    sessionStorage.clear();
+    window.location.assign("Log-In.html");
+}
+
+//END - NAVBAR USER
 function FilterByTeamName() {
     // Declare variables
     var input, filter, table, tr, td, i, txtValue;
@@ -70,7 +90,7 @@ function FilterByTeamName() {
 
 // read all users
 function readUsers() {
-    ajaxCall("GET", api + "UserServices", "", getAllUsersSCB, getAllUsersECB);
+    ajaxCall("GET", api + "UserServices/AllUsers", "", getAllUsersSCB, getAllUsersECB);
 }
 function getAllUsersSCB(data) {
     usersArr = data;
@@ -89,40 +109,27 @@ function RenderUsersList() {
         let str = "";
         str += '<table dir="rtl" id="myTable">';
         str += '<tr class="header">';
-        str += '<th style="width:22.5%;">צוות</th>';
-        str += '<th style="width:22.5%;">שם מלא</th>';
-        str += '<th style="width:22.5%;">שם משתמש</th>';
-        str += '<th style="width:22.5%;">אימייל</th>';
-        str += '<th style="width:10%;"></th>';
+        str += '<th>צוות</th>';
+        str += '<th>שם מלא</th>';
+        str += '<th>שם משתמש</th>';
+        str += '<th>אימייל</th>';
+        str += '<th></th>';
         str += '</tr>';
         for (var i = 0; i < usersArr.length; i++) {
-            let currentTeamName;
-            for (var j = 0; j < teamsArr.length; j++) {
-                if (usersArr[i].teamID == teamsArr[j].teamID)
-                    currentTeamName = teamsArr[j].teamName;
-            }
             str += '<tr>';
-            str += '<td class="teamName_display">' + currentTeamName + '</td>';
+            str += '<td class="teamName_display">' + usersArr[i].teamName + '</td>';
             str += '<td class="fullName_display">' + usersArr[i].firstName + " " + usersArr[i].surname + '</td>';
             str += '<td class="userName_display">' + usersArr[i].userName + '</td>';
             str += '<td class="email_display">' + usersArr[i].email + '</td>';
-            str += '<td class="viewButton_display""><button><a href="">כרטיס מתנדב</a></button></td>';
+            str += '<td class="viewButton_display""><button onclick="OpenUserCard(' + usersArr[i].userID + ')">כרטיס מתנדב</a></button></td>';
             str += '</tr>';
         }
         str += '</table>';
         document.getElementById("UsersTable").innerHTML += str;
     }
 }
-
-// get the Teams list
-function readTeams() {
-    ajaxCall("GET", api + "Teams", "", readTeamsSCB, readTeamsECB);
-    return false;
-}
-
-function readTeamsSCB(data) {
-    teamsArr = data;
-}
-function readTeamsECB(err) {
-    console.log(err);
+// save the relevant user to open in edit\view mode (Depends on permission)
+function OpenUserCard(userID) {
+    sessionStorage.setItem("userCard", JSON.stringify(userID));
+    location.replace("UserCard.html");
 }

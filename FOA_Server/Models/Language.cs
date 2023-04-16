@@ -17,14 +17,14 @@ namespace FOA_Server.Models
         }
 
         // read all Languages
-        public List<Language> ReadAllLanguages()
+        public static List<Language> ReadAllLanguages()
         {
             DBposts dbs = new DBposts();
             return dbs.ReadLanguages();
         }
 
         //Insert new Volunteer Program
-        public Language InsertLanguage()
+        public int InsertLanguage()
         {
             LanguagesList = ReadAllLanguages();
             try
@@ -41,8 +41,8 @@ namespace FOA_Server.Models
 
                 DBposts dbs = new DBposts();
                 int good = dbs.InsertLanguage(this);
-                if (good > 0) { return this; }
-                else { return null; }
+                if (good > 0) { return good; }  //returns the id inserted
+                else { return 0; }
 
             }
             catch (Exception exp)

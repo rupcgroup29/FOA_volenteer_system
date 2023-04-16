@@ -21,7 +21,7 @@ namespace FOA_Server.Models
         }
 
         // read all teams
-        public List<Team> ReadAllTeams()
+        public static List<Team> ReadAllTeams()
         {
             DBteams dbs = new DBteams();
             return dbs.ReadTeams();

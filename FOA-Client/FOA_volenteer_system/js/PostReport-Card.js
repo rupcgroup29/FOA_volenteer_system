@@ -7,8 +7,25 @@ $(document).ready(function () {
     if (location.hostname === "localhost" || location.hostname === "127.0.0.1") {
         api = "https://localhost:7109/api/";
     }
-    // לעדכן את הכתובת החלופית !!
-    //else api = "https://proj.ruppin.ac.il/cgroup29/test2/tar1/api/Users/";
+    else api = "https://proj.ruppin.ac.il/cgroup29/prod/api/";
+
+    //Nav bar - Permission
+    if (currentUser.permissionID == 4) // a volunteer is logged in
+    {
+        $(".ManagerNav").hide();
+        $(".VolunteerNav").show();
+    }
+    else //Manager is logged in
+    {
+        $(".ManagerNav").show();
+        $(".VolunteerNav").hide();
+    }
+
+    $("#u39").mouseenter(UserEnterSubManu);
+    $("#u39").mouseleave(UserExitSubManu);
+    $("#u40").mouseleave(UserExitSubManu);
+
+    $("#logout").click(logout);
 
     let str_PostCardHeader = "";
     str_PostCardHeader += '<h2 class="section-heading text-uppercase">עריכת דיווח מספר ' + currentPostID + '</h2>';
@@ -21,10 +38,28 @@ $(document).ready(function () {
     enableInitialReportingFields();
 
 });
+//NAVBAR USER
+
+function UserEnterSubManu() {
+    $("#u40").css("visibility", "inherit")
+    $("#u40").show();
+}
+function UserExitSubManu() {
+    $("#u40").css("visibility", "hidden")
+    $("#u40").hide();
+}
+
+//logout function
+function logout() {
+    isLogIn = false;
+    sessionStorage.clear();
+    window.location.assign("Log-In.html");
+}
+
+//END - NAVBAR USER
 
 // read Post By ID
 function readPostByID() {
-    //  לבדוק האם צריך להוסיף  parseInt
     ajaxCall("GET", api + "ReadPosts/" + currentPostID, "", readPostByIDSCB, readPostByIDECB);
 }
 function readPostByIDSCB(data) {
@@ -41,7 +76,6 @@ function RenderRelevantDetails() {
     let str_removalStatus = "";
     let str_category = "";
     let str_KnH = "";
-    // ענת: אנחנו רוצות להציג מי המנהל שאישר או דיווח הסרה? או שזה רק לדף לוגים?
 
     //removalStatus
     if (currentPostObject.removalStatus == 0) // if status haven't changed yet
@@ -73,6 +107,10 @@ function RenderRelevantDetails() {
 
     //ReportedUserName
     $("#reportedUserName").val(currentPostObject.userName);
+
+    //reportedDate
+    let DateOfPost = (currentPostObject.insertDate).split('T')[0];  // cut the time from the DateTime format
+    $("#reportedDate").val(DateOfPost);
 
     //content_threat
     if (currentPostObject.threat == 1) {
@@ -127,7 +165,7 @@ function RenderRelevantDetails() {
 function editPost() {
     let postStatus = $("#ManagerStatus").val();
     let postStatusManager = "1";   // default if no one changed it yet
-    let removalStatus = $("#ManagerStatus").val();
+    let removalStatus = $("#removalStatus").val();
     let removalStatusManager = "1"; // default if no one changed it yet
 
     if (postStatus != 0) { // status changed
@@ -136,16 +174,20 @@ function editPost() {
     if (removalStatus != 0) { // status changed
         removalStatusManager = currentUser.userID;
     }
+    if (removalStatus != 0 && postStatus == 0) { //alert if removed from platform and havn't been approved yet
+        alert("שים לב שלא עדכנת סטטוס האם הפוסט אנטישמי או לא!");
+        return false;
+    }
 
     const editedPost = {
         PostID: currentPostID,
-        PostStatus: postStatus,
+        PostStatus: parseInt(postStatus),
         PostStatusManager: postStatusManager,
-        RemovalStatus: removalStatus,
+        RemovalStatus: parseInt(removalStatus),
         RemovalStatusManager: removalStatusManager
     }
 
-    ajaxCall("PUT", api + "Posts/" + currentPostID, JSON.stringify(editedPost), editPostSCB, editPostECB);
+    ajaxCall("PUT", api + "ReadPosts", JSON.stringify(editedPost), editPostSCB, editPostECB);
     return false;
 }
 function editPostSCB(data) {

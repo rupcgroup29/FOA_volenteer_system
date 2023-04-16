@@ -1,5 +1,4 @@
 ﻿using FOA_Server.Models;
-using FOA_Server.Services;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 using System.Net.Mail;
@@ -17,8 +16,7 @@ namespace FOA_Server.Controllers
         [HttpGet]
         public List<Platform> Get()
         {
-            Platform p = new Platform();
-            return p.ReadAllPlatforms();
+            return Platform.ReadAllPlatforms();
         }
 
         // GET api/<PlatformsController>/5
@@ -30,9 +28,9 @@ namespace FOA_Server.Controllers
 
         // POST api/<PlatformsController>
         [HttpPost]
-        public Platform Post([FromBody] Platform plat)
+        public int Post([FromBody] Platform plat)
         {
-            Platform affected = plat.InsertPlatform();
+            int affected = plat.InsertPlatform();
             return affected;
         }
 

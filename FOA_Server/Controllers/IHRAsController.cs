@@ -1,5 +1,4 @@
 ﻿using FOA_Server.Models;
-using FOA_Server.Services;
 using Microsoft.AspNetCore.Mvc;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
@@ -14,8 +13,7 @@ namespace FOA_Server.Controllers
         [HttpGet]
         public List<IHRA> Get()
         {
-            IHRA i = new IHRA();
-            return i.ReadAllIHRAs();
+            return IHRA.ReadAllIHRAs();
         }
 
         // GET api/<IHRAsController>/5

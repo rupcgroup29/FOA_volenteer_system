@@ -15,7 +15,7 @@ namespace FOA_Server.Models
         }
 
         // read all IHRAs
-        public List<IHRA> ReadAllIHRAs()
+        public static List<IHRA> ReadAllIHRAs()
         {
             DBposts dbs = new DBposts();
             return dbs.ReadIHRAs();

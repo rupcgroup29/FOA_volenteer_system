@@ -12,17 +12,19 @@ namespace FOA_Server.Models
         public string PhoneNum { get; set; }
         public string RoleDescription { get; set; }
         public int PermissionID { get; set; }
+        public string? PermissionName { get; set; }
         public bool IsActive { get; set; }
-        public string Password { get; set; }
+        public string? Password { get; set; }
         public int TeamID { get; set; }
         public int ProgramID { get; set; }
         public string Email { get; set; }
         public string? ProgramName { get; set; }
+        public string? TeamName { get; set; }
         public DateTime? LastReasetPassword { get; set; }
 
         public UserService() { }
 
-        public UserService(int userID, string firstName, string surname, string userName, string phoneNum, string roleDescription, int permissionID, bool isActive, string password, int teamID, int programID, string email, string? programName, DateTime ?lastReasetPassword)
+        public UserService(int userID, string firstName, string surname, string userName, string phoneNum, string roleDescription, int permissionID, bool isActive, string? password, int teamID, int programID, string email, string? programName, string? teamName, DateTime ? lastReasetPassword, string? permissionName)
         {
             UserID = userID;
             FirstName = firstName;
@@ -37,7 +39,9 @@ namespace FOA_Server.Models
             ProgramID = programID;
             Email = email;
             ProgramName = programName;
+            TeamName = teamName;
             LastReasetPassword = lastReasetPassword;
+            PermissionName = permissionName;
         }
 
         private static List<UserService> UsersList = new List<UserService>();
@@ -50,9 +54,31 @@ namespace FOA_Server.Models
             return dbs.ReadUsers();
         }
 
+        // read all users for the users screen
+        public static List<UserService> ReadAllUsersWithNames()
+        {
+            DBusers dbs = new DBusers();
+            return dbs.ReadAllUsersWithNames();
+        }
 
-        //Insert new user
-        public UserService InsertUser()
+
+        // get user by id with password
+        public static UserService ReadUserByIdWithPassword(int id)
+        {
+            DBusers db = new DBusers();
+            return db.ReadUserByIDWithPassword(id);
+        }
+
+        // get user by id without password
+        public static UserService ReadUserByIdWithoutPassword(int id)
+        {
+            DBusers db = new DBusers();
+            return db.ReadUserByIDWithoutPassword(id);
+        }
+
+
+        // insert new user
+        public int InsertUser()
         {
             UsersList = ReadAllUsers();
             try
@@ -89,8 +115,8 @@ namespace FOA_Server.Models
 
                 DBusers dbs = new DBusers();
                 int good = dbs.InsertUser(this);
-                if (good > 0) { return this; }
-                else { return null; }
+                if (good > 0) { return good; }
+                else { return 0; }
             }
             catch (Exception exp)
             {
@@ -151,8 +177,8 @@ namespace FOA_Server.Models
         }
 
 
-        // update user's details
-        public UserService UpdateUser()
+        // update user's details with password
+        public bool UpdateUserWithPassword()
         {
             UsersList = ReadAllUsers();
             try
@@ -162,10 +188,37 @@ namespace FOA_Server.Models
                     if (u.UserID == this.UserID)
                     {
                         DBusers dbs = new DBusers();
-                        int good = dbs.UpdateUser(this);
+                        int good = dbs.UpdateUserWithPassword(this);
 
-                        if (good > 0) { return this; }
-                        else { return null; }
+                        if (good > 0) { return true; }
+                        else { return false; }
+                    }
+                }
+                throw new Exception(" no such user ");
+
+            }
+            catch (Exception exp)
+            {
+                throw new Exception(" didn't succeed in updating user's details " + exp.Message);
+            }
+        }
+
+
+        // update another user's details, without password
+        public bool UpdateUser()
+        {
+            UsersList = ReadAllUsers();
+            try
+            {
+                foreach (UserService u in UsersList)
+                {
+                    if (u.UserID == this.UserID)
+                    {
+                        DBusers dbs = new DBusers();
+                        int good = dbs.UpdateUserWithoutPassword(this);
+
+                        if (good > 0) { return true; }
+                        else { return false; }
                     }
                 }
                 throw new Exception(" no such user ");
@@ -180,7 +233,7 @@ namespace FOA_Server.Models
 
 
         // user log in
-        public static UserService? Login(string email, string password)
+        public static UserService Login(string email, string password)
         {
             UsersList = ReadAllUsers();
 

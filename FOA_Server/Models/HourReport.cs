@@ -24,7 +24,7 @@ namespace FOA_Server.Models
 
 
         // read all Hour Reports
-        public List<HourReport> ReadAllHourReports()
+        public static List<HourReport> ReadAllHourReports()
         {
             DBusers dbs = new DBusers();
             return dbs.ReadHourReports();

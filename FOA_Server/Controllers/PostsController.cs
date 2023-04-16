@@ -25,31 +25,32 @@ namespace FOA_Server.Controllers
 
         // POST api/<PostsController>
         [HttpPost]
-        public Post Post([FromBody] Post post)
+        public IActionResult Post([FromBody] Post post)
         {
-            if (post.CountryID == 999)
+            try
             {
-                new Country(post.CountryName, post.CountryID).InsertCountry();
-                Country newID = new Country();
-                int countryID = newID.getCountryByName(post.CountryName);
-                post.CountryID = countryID;
+                if (post.CountryID == 999)
+                {
+                    int newCountryID = new Country(post.CountryName, post.CountryID).InsertCountry();
+                    post.CountryID = newCountryID;
+                }
+                if (post.LanguageID == 999)
+                {
+                    int newLangID = new Language(post.LanguageName, post.LanguageID).InsertLanguage();
+                    post.LanguageID = newLangID;
+                }
+                if (post.PlatformID == 999)
+                {
+                    int newPlatromID = new Platform(post.PlatformID, post.PlatformName).InsertPlatform();
+                    post.PlatformID = newPlatromID;
+                }
+                Post affected = post.InsertPost();
+                return Ok(affected);
             }
-            if (post.LanguageID == 999)
+            catch (Exception ex)
             {
-                new Language(post.LanguageName, post.LanguageID).InsertLanguage();
-                Language newID = new Language();
-                int languageID = newID.getLanguageByName(post.CountryName);
-                post.LanguageID = languageID;
+                return BadRequest(new { errorMessage = ex.Message });
             }
-            if (post.PlatformID == 999)
-            {
-                new Platform(post.PlatformID, post.PlatformName).InsertPlatform();
-                Platform newID = new Platform();
-                int platformID = newID.getPlatformByName(post.PlatformName);
-                post.PlatformID = platformID;
-            }
-            Post affected = post.InsertPost();
-            return affected;
         }
 
 

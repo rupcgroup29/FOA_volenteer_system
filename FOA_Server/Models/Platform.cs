@@ -23,7 +23,7 @@ namespace FOA_Server.Models
         }
 
         // insert a platform
-        public Platform InsertPlatform()
+        public int InsertPlatform()
         {
             platformList = ReadAllPlatforms();
             try
@@ -40,8 +40,8 @@ namespace FOA_Server.Models
 
                 DBposts dbs = new DBposts();
                 int good = dbs.InsertPlatform(this);
-                if (good > 0) { return this; }
-                else { return null; }
+                if (good > 0) { return good; }  //returns the id inserted
+                else { return 0; }
             }
             catch (Exception exp)
             {
@@ -63,21 +63,6 @@ namespace FOA_Server.Models
             return unique;
         }
 
-        // ענת: הוספתי כדי לקבל את שם הרשת החברתית לפי שם 
-        // returns PlatformID by Platform name
-        public int getPlatformByName(string name)
-        {
-            platformList = ReadAllPlatforms();
-
-            foreach (Platform item in platformList)
-            {
-                if (item.PlatformName == name)
-                {
-                    return item.PlatformID;
-                }
-            }
-            return -1;
-        }
 
 
     }

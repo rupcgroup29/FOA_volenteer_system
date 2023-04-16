@@ -832,8 +832,8 @@ namespace FOA_Server.Models.DAL
 
             try
             {
-                int numEffected = cmd.ExecuteNonQuery(); // execute the command
-                return numEffected;
+                int lastId = Convert.ToInt32(cmd.ExecuteScalar());
+                return lastId;
             }
             catch (Exception ex)
             {
@@ -926,8 +926,8 @@ namespace FOA_Server.Models.DAL
 
             try
             {
-                int numEffected = cmd.ExecuteNonQuery(); // execute the command
-                return numEffected;
+                int lastId = Convert.ToInt32(cmd.ExecuteScalar());
+                return lastId;
             }
             catch (Exception ex)
             {
@@ -1076,8 +1076,8 @@ namespace FOA_Server.Models.DAL
 
             try
             {
-                int numEffected = cmd.ExecuteNonQuery(); // execute the command
-                return numEffected;
+                int lastId = Convert.ToInt32(cmd.ExecuteScalar());
+                return lastId;
             }
             catch (Exception ex)
             {
@@ -1219,6 +1219,7 @@ namespace FOA_Server.Models.DAL
             cmd.CommandType = System.Data.CommandType.StoredProcedure; // the type of the command, can also be stored procedure
 
             cmd.Parameters.AddWithValue("@PlatformName", platform.PlatformName);
+            cmd.Parameters.Add("@LastID", SqlDbType.Int).Direction = ParameterDirection.Output;
 
             return cmd;
         }
@@ -1256,6 +1257,7 @@ namespace FOA_Server.Models.DAL
             cmd.CommandType = System.Data.CommandType.StoredProcedure; // the type of the command, can also be stored procedure
 
             cmd.Parameters.AddWithValue("@CountryName", country.CountryName);
+            cmd.Parameters.Add("@LastID", SqlDbType.Int).Direction = ParameterDirection.Output;
 
             return cmd;
         }
@@ -1274,6 +1276,7 @@ namespace FOA_Server.Models.DAL
             cmd.CommandType = System.Data.CommandType.StoredProcedure; // the type of the command, can also be stored procedure
 
             cmd.Parameters.AddWithValue("@LanguageName", language.LanguageName);
+            cmd.Parameters.Add("@LastID", SqlDbType.Int).Direction = ParameterDirection.Output;
 
             return cmd;
         }

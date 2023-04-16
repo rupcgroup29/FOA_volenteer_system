@@ -60,7 +60,6 @@ function logout() {
 
 // read Post By ID
 function readPostByID() {
-    //  לבדוק האם צריך להוסיף  parseInt
     ajaxCall("GET", api + "ReadPosts/" + currentPostID, "", readPostByIDSCB, readPostByIDECB);
 }
 function readPostByIDSCB(data) {

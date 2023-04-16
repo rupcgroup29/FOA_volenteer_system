@@ -9,6 +9,8 @@ $(document).ready(function () {
     else api = "https://proj.ruppin.ac.il/cgroup29/prod/api/";
 
     $("#LogInForm").submit(loginUser);// Log In button clicked
+    $("#forgotPassEmail").hide();
+    $("#ForgotPasswordForm").submit(ForgotPassword);
 
 });
 
@@ -36,11 +38,17 @@ function postLoginUserECB(err) { // התחברות כשלה
 
 // פונקציית רנדור במידה ושכחתי סיסמא
 function RenderEmailBoxIfForgotPassword() {
-    str_email = "";
-    str_email += `<input dir="rtl" class="form - control" id="ForgotEmail" type="email" placeholder="אימייל * " data-sb-validations="required" />`;
-    str_email += `<button id="sendNewPassword" onclick="ForgotPassword()">שלח סיסמא חדשה</button>`;
-    document.getElementById("forgotPassEmail").innerHTML += str_email;
+    $("#loginDivForm").hide();
+    $("#forgotPassEmail").show();
+
+//    ("#")
+//    ("#forgotPassEmail").show()
+//    str_email = "";
+//    str_email += `<input dir="rtl" class="form - control" id="ForgotEmail" type="email" placeholder="אימייל * " data-sb-validations="required" />`;
+//    str_email += `<button id="sendNewPassword" onclick="ForgotPassword()">שלח סיסמא חדשה</button>`;
+//    document.getElementById("forgotPassEmail").innerHTML += str_email;
 }
+
 
 // שליחת סיסמא חדשה
 function ForgotPassword() {
@@ -54,5 +62,5 @@ function ForgotPasswordSCB(data) {
 
 }
 function ForgotPasswordECB(err) { 
-    alert(err);
+    alert(err.responseJSON.errorMessage);
 }

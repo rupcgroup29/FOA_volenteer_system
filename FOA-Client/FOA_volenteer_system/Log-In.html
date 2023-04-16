@@ -46,28 +46,29 @@
     </nav>
     <!-- Log in Details-->
     <section class="page-section" id="contact">
-        <div class="container">
+        <div class="container" id="loginDivForm">
             <div class="text-center">
                 <h2 class="section-heading text-uppercase">כניסה למערכת</h2>
             </div>            <!-- to get an API token!-->
+
             <form id="LogInForm" data-sb-form-api-token="API_TOKEN">
                 <div class="row align-items-stretch mb-5">
                     <div class="form-group col-mb-6">
-                        <!-- שם משתמש input-->
+                        <!-- email input-->
                         <div class="form-headers">
                             <p> אימייל </p>
                         </div>
-                        <input dir="rtl" class="form-control" id="email-input" type="email" placeholder="אימייל *" required/>
+                        <input dir="rtl" class="form-control" id="email-input" type="email" placeholder="אימייל *" required />
                     </div>
                     <div class="form-group">
-                        <!--סיסמא input-->
+                        <!--סיסמה input-->
                         <div class="form-headers">
                             <p> סיסמה</p>
                         </div>
-                        <input dir="rtl" class="form-control" id="Password-input" type="password" placeholder="סיסמה *" required/>
+                        <input dir="rtl" class="form-control" id="Password-input" type="password" placeholder="סיסמה *" required />
                     </div>
                     <div dir="rtl">
-                        <button id="ForgotPassButton" onclick="RenderEmailBoxIfForgotPassword()">שכחת סיסמה? לחץ כאן </button>
+                        <input id="ForgotPassButton" type="button" onclick="RenderEmailBoxIfForgotPassword()" value="שכחת סיסמה? לחץ כאן" />
                     </div>
                 </div>
 
@@ -75,9 +76,31 @@
                 <div class="text-center"><button class="btn btn-primary btn-xl text-uppercase" id="submitButton" type="submit">התחבר</button></div>
             </form>
         </div>
+
+        <div id="forgotPassEmail" class="container">
+            <!--render email input if users forgot password -->
+            <div class="text-center">
+                <h2 class="section-heading text-uppercase">שכחתי סיסמא</h2>
+            </div>
+
+            <form id="ForgotPasswordForm" data-sb-form-api-token="API_TOKEN">
+                <div class="row align-items-stretch mb-5">
+                    <div class="form-group col-mb-6">
+                        <!-- email input-->
+                        <div class="form-headers">
+                            <p> אימייל </p>
+                        </div>
+                        <input dir="rtl" class="form-control" id="ForgotEmail" type="email" placeholder="אימייל * " data-sb-validations="required" required />                    </div>
+                </div>
+
+                <!-- Submit Button-->
+                <div class="text-center"><button class="btn btn-primary btn-xl text-uppercase" id="submitForgotPasswordButton" type="submit">שלח</button></div>
+            </form>
+        </div>
+
+
     </section>
 
-    <div id="forgotPassEmail"> <!--render email input if users forgot password --></div>
 
     <!-- Footer-->
     <footer class="footer py-4">

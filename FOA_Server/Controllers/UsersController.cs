@@ -26,7 +26,6 @@ namespace FOA_Server.Controllers
             return UserService.ReadAllUsersWithNames();
         }
 
-
         // GET: api/<UserServicesController>/6
         [HttpGet("permissionIDlist/{permissionID}")]
         public List<UserService> GetByPermission(int permissionID)
@@ -62,18 +61,18 @@ namespace FOA_Server.Controllers
             }
             bool insertedUser = user.InsertUser();
 
-            //if (insertedUser)
-            //{
-            //    try
-            //    {
-            //        // bulid & send the email 
-            //        string messageBody = $"Welcome {user.FirstName} {user.Surname} to our Volenteer System! :)";
-            //        string subject = "FOA Volenteer System - welcome";
-            //        EmailService emailService = new EmailService();
-            //        emailService.SendEmail(emailService.createMailMessage(user.Email, messageBody, subject));
-            //    }
-            //    catch (Exception ex) { }
-            //}
+            if (insertedUser)
+            {
+                try
+                {
+                    // bulid & send the email 
+                    string messageBody = $"Welcome {user.FirstName} {user.Surname} to our Volenteer System! :) </br> Your password is: {user.Password}";
+                    string subject = "FOA Volenteer System - Welcome";
+                    EmailService emailService = new EmailService();
+                    emailService.SendEmail(emailService.createMailMessage(user.Email, messageBody, subject));
+                }
+                catch (Exception ex) { }
+            }
             return insertedUser;
 
         }

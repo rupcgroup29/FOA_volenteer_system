@@ -6,25 +6,25 @@ var languageArr = [];
 var exposure;
 
 //    נשמר במטרה לחסוך את ההתחברות בעת בדיקות   
-var user = {
-    userID: 1024,
-    firstName: "ענת",
-    surname: "אביטל",
-    userName: "anat_a",
-    phoneNum: "0529645123",
-    roleDescription: "מנהל צוות ניטור",
-    permissionID: 2,
-    permissionName: "Manager",
-    isActive: true,
-    password: null,
-    teamID: 1,
-    programID: 1026,
-    email: "anat_a@gmail.com",
-    programName: "אוניברטיסת בן גוריון",
-    teamName: "ניטור 01",
-    lastReasetPassword: null
-}
-sessionStorage.setItem("user", JSON.stringify(user));
+//var user = {
+//    userID: 1024,
+//    firstName: "ענת",
+//    surname: "אביטל",
+//    userName: "anat_a",
+//    phoneNum: "0529645123",
+//    roleDescription: "מנהל צוות ניטור",
+//    permissionID: 2,
+//    permissionName: "Manager",
+//    isActive: true,
+//    password: null,
+//    teamID: 1,
+//    programID: 1026,
+//    email: "anat_a@gmail.com",
+//    programName: "אוניברטיסת בן גוריון",
+//    teamName: "ניטור 01",
+//    lastReasetPassword: null
+//}
+//sessionStorage.setItem("user", JSON.stringify(user));
 
 var currentUser = JSON.parse(sessionStorage.getItem("user"));
 var justLoggedIn = JSON.parse(sessionStorage.getItem("justLoggedIn"));
@@ -151,7 +151,7 @@ function RenderPostsList() {
             str += '<tr>';
             str += '<td class="postID_display">' + postsArr[i].postID + '</td>';
             str += '<td class="Platform_display">' + postsArr[i].platformName + '</td>';
-            str += '<td ><a href="' + postsArr[i].urlLink + '" class="urlLink_display" >קישור לפוסט</a></td>';
+            str += '<td ><a href="' + postsArr[i].urlLink + '" target="_blank" class="urlLink_display" >קישור לפוסט</a></td>';
             str += '<td class="language_display">' + postsArr[i].languageName + '</td>';
             str += '<td class="amountOfShares_display">' + postsArr[i].amountOfShares + '</td>';
             str += '<td class="amountOfComments_display">' + postsArr[i].amountOfComments + '</td>';

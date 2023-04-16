@@ -175,7 +175,7 @@ function editPost() {
         removalStatusManager = currentUser.userID;
     }
     if (removalStatus != 0 && postStatus == 0) { //alert if removed from platform and havn't been approved yet
-        alert("שים לב שלא עדכנת סטטוס לפוסט שכבר הוסר מהרשת החברתית!");
+        alert("שים לב שלא עדכנת סטטוס האם הפוסט אנטישמי או לא!");
         return false;
     }
 

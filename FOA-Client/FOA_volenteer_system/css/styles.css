@@ -12793,3 +12793,14 @@ select::-ms-expand {
 .urlLink_display, .urlLink_display:hover {
     color: lightgoldenrodyellow;
 }
+
+#imageLogin img {
+    height: 6rem;
+    margin:10px;
+}
+
+#imageLogin{
+    text-align:center;
+    margin:auto;
+
+}

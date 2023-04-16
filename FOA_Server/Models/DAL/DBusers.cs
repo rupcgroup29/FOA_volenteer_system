@@ -269,8 +269,8 @@ namespace FOA_Server.Models.DAL
 
             try
             {
-                int numEffected = cmd.ExecuteNonQuery(); // execute the command
-                return numEffected;
+                int lastId = Convert.ToInt32(cmd.ExecuteScalar());
+                return lastId;
             }
             catch (Exception ex)
             {
@@ -486,6 +486,7 @@ namespace FOA_Server.Models.DAL
             cmd.Parameters.AddWithValue("@PermissionID", user.PermissionID);
             cmd.Parameters.AddWithValue("@TeamID", user.TeamID);
             cmd.Parameters.AddWithValue("@ProgramID", user.ProgramID);
+            cmd.Parameters.Add("@LastID", SqlDbType.Int).Direction = ParameterDirection.Output;
 
             return cmd;
         }

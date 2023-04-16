@@ -59,21 +59,25 @@ namespace FOA_Server.Controllers
                 int programID = newID.getVolunteerProgramByName(user.ProgramName);
                 user.ProgramID = programID;
             }
-            bool insertedUser = user.InsertUser();
+            int insertedUser = user.InsertUser();
 
-            if (insertedUser)
+            if (insertedUser > 0)
             {
                 try
                 {
+                    UserService newUser = UserService.ReadUserByIdWithPassword(insertedUser);
                     // bulid & send the email 
-                    string messageBody = $"Welcome {user.FirstName} {user.Surname} to our Volenteer System! :) </br> Your password is: {user.Password}";
+                    string messageBody = $"ברוכים הבאים {user.FirstName} {user.Surname} למערכת ההתנדבות של FOA!";
+                    messageBody += $"הסיסמא שלך היא: {newUser.Password}";
                     string subject = "FOA Volenteer System - Welcome";
                     EmailService emailService = new EmailService();
                     emailService.SendEmail(emailService.createMailMessage(user.Email, messageBody, subject));
+                    return true;
                 }
-                catch (Exception ex) { }
+                catch (Exception ex)
+                { return false; }
             }
-            return insertedUser;
+            else return false;
 
         }
 

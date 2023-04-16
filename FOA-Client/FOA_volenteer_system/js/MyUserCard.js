@@ -1,11 +1,5 @@
 ﻿var api;
 var currentUser = JSON.parse(sessionStorage.getItem("user"));
-var relevantUserID = JSON.parse(sessionStorage.getItem("userCard"));
-if (relevantUserID == undefined) {
-    sessionStorage.setItem("userCard", JSON.stringify(currentUser.userID));
-    relevantUserID = JSON.parse(sessionStorage.getItem("userCard"));
-}
-var relevantUserObject;
 var programsArr = [];
 var teamsArr = [];
 
@@ -14,8 +8,6 @@ $(document).ready(function () {
         api = "https://localhost:7109/api/";
     }
     else api = "https://proj.ruppin.ac.il/cgroup29/prod/api/";
-
-
 
     //Nav bar - Permission
     if (currentUser.permissionID == 4) // a volunteer is logged in
@@ -42,14 +34,10 @@ $(document).ready(function () {
     getTeamsList();
 
     enableOther();
-
-    if (currentUser.userID != relevantUserID)  // if the user is editing someone else's user details- get without password
-    {
-        getAnotherUserDetails();
-    }
-    else getMyUserDetails();
+    renderMyUserDetails();
 
 });
+
 //NAVBAR USER
 
 function UserEnterSubManu() {
@@ -70,38 +58,15 @@ function logout() {
 
 //END - NAVBAR USER
 
-// GET Another User Details
-function getAnotherUserDetails() {
-    ajaxCall("GET", api + "UserServices/user_details/"+relevantUserID, "", getAnotherUserDetailsSCB, getAnotherUserDetailsECB);
-}
-function getAnotherUserDetailsSCB(data) {
-    relevantUserObject = data;
-    renderUserDetails();
-}
-function getAnotherUserDetailsECB(err) {
-    alert("Input Error");
-}
 
-// GET My User Details
-function getMyUserDetails() {
-    ajaxCall("GET", api + "UserServices/" + relevantUserID, "", getMyUserDetailsSCB, getMyUserDetailsECB);
-}
-function getMyUserDetailsSCB(data) {
-    relevantUserObject = data;
-    renderUserDetails();
-}
-function getMyUserDetailsECB(err) {
-    alert("Input Error");
-}
-
-function renderUserDetails() {
+function renderMyUserDetails() {
     //Card Header
     let str_header = "";
-    str_header += `<h2 class="section-heading text-uppercase"> מתנדב מספר ` + relevantUserID +`</h2>`;
+    str_header += `<h2 class="section-heading text-uppercase"> מתנדב מספר ` + currentUser.userID + `</h2>`;
     document.getElementById("CardHeader").innerHTML += str_header;
     //is active
     let str_isActive = "";
-    if (relevantUserObject.isActive == true) {
+    if (currentUser.isActive == true) {
         str_isActive += `<option class="opt" value="0">כן </option>`;
         str_isActive += `<option class="opt" value="1">לא </option>`;
     }
@@ -112,7 +77,7 @@ function renderUserDetails() {
     document.getElementById("IsActive").innerHTML += str_isActive;
     //volunteerProgram
     let str_Prog = "";
-    str_Prog += '<option class="opt" value="' + relevantUserObject.programID + '">' + relevantUserObject.programName + '</option>';
+    str_Prog += '<option class="opt" value="' + currentUser.programID + '">' + currentUser.programName + '</option>';
     for (var i = 0; i < programsArr.length; i++) {
         str_Prog += '<option class="opt" value="' + programsArr[i].programID + '">' + programsArr[i].programName + '</option>';
     }
@@ -120,12 +85,12 @@ function renderUserDetails() {
     document.getElementById("volunteerProgram").innerHTML += str_Prog;
     //permission
     let str_perm = "";
-    if (relevantUserObject.permission == 4) {
+    if (currentUser.permission == 4) {
         str_perm += `<option class="opt" value="4">מתנדב.ת</option>`;
         str_perm += `<option class="opt" value="3">מנהל.ת צוות</option>`;
         str_perm += `<option class="opt" value="2">מנהל.ת</option>`;
     }
-    if (relevantUserObject.permission == 3) {
+    if (currentUser.permission == 3) {
         str_perm += `<option class="opt" value="3">מנהל.ת צוות</option>`;
         str_perm += `<option class="opt" value="4">מתנדב.ת</option>`;
         str_perm += `<option class="opt" value="2">מנהל.ת</option>`;
@@ -137,34 +102,21 @@ function renderUserDetails() {
     }
     document.getElementById("permission").innerHTML += str_perm;
     //team
-    let str_team = "";
-    str_team += '<option class="opt" value="' + relevantUserObject.teamID + '">' + relevantUserObject.teamName + '</option>'; 
-    for (var i = 0; i < teamsArr.length; i++) {
-        str_team += '<option class="opt" value="' + teamsArr[i].teamID + '">' + teamsArr[i].teamName + '</option>';
-    }
-    document.getElementById("team").innerHTML += str_team;
+    $("#team").val(currentUser.teamName);
     //roleDescription
-    $("#roleDescription").val(relevantUserObject.roleDescription);
+    $("#roleDescription").val(currentUser.roleDescription);
     //firstName
-    $("#firstName").val(relevantUserObject.firstName);
+    $("#firstName").val(currentUser.firstName);
     //surname
-    $("#surname").val(relevantUserObject.surname);
+    $("#surname").val(currentUser.surname);
     //user_name
-    $("#user_name").val(relevantUserObject.userName);
+    $("#user_name").val(currentUser.userName);
     //email
-    $("#email").val(relevantUserObject.email);
+    $("#email").val(currentUser.email);
     //phone
-    $("#phone").val(relevantUserObject.phoneNum);
-    if (currentUser.userID == relevantUserID)  // if the user is editing his own user details- show password
-    {
-        let str_pass = "";
-        str_pass += `<div class="form-headers">`;
-        str_pass += `<p> סיסמא</p>`;
-        str_pass += `</div>`;
-        str_pass += `<input dir="rtl" class="form-control" id="Password" type="Password"/>`;
-        document.getElementById("PasswordDiv").innerHTML += str_pass;
-        $("#Password").val(relevantUserObject.password);
-    }
+    $("#phone").val(currentUser.phoneNum);
+    //Password
+    $("#Password").val(currentUser.password);
 }
 
 function updateUser() {
@@ -178,12 +130,9 @@ function updateUser() {
     let team = $("#team").val();
     let roleDescription = $("#roleDescription").val();
     let programName = $("#Different_school").val();
-    if (currentUser.userID == relevantUserID)  // if the user is editing his own user details- show password
-    {
-        let password = $("Password").val();
-    }
+    let password = $("Password").val();
 
-    const newUser = {
+    const updateUser = {
         FirstName: firstName,
         Surname: surname,
         UserName: user_name,
@@ -193,15 +142,15 @@ function updateUser() {
         TeamID: team,
         ProgramID: volunteerProgram,
         Email: email,
-        Password: password, 
+        Password: password,
         ProgramName: programName
     }
 
-    ajaxCall("PUT", api + "Users/" + relevantUserID, JSON.stringify(newUser), updateUserSCB, updateUserECB);
+    ajaxCall("PUT", api + "Users/" + relevantUserID, JSON.stringify(updateUser), updateUserSCB, updateUserECB);
     sessionStorage.setItem("userCard", JSON.stringify());
     return false;
 }
-function updateUserSCB(data) { 
+function updateUserSCB(data) {
     alert("משתמש עודכן בהצלחה");
     window.location.assign("Teams-main.html");
     location.assign("Teams-main.html")
@@ -212,6 +161,24 @@ function updateUserECB(err) {
 }
 
 
+// enable Other volunteer program only if other selected
+function enableOther() {
+    var sel = document.getElementById('volunteerProgram');
+
+    sel.addEventListener("change", ShowDivIfOtherSelected);
+
+    function ShowDivIfOtherSelected() {
+
+        if (sel.value === '999') {
+            $("#Different_school").attr("readonly", false);
+        }
+        else {
+            $("#Different_school").attr("readonly", true);
+            document.getElementById('Different_school').value = '';
+        }
+    }
+}
+
 // get the Volunteer Programs list
 function getVolunteerProgramsList() {
     ajaxCall("GET", api + "VolunteerPrograms", "", getVolunteerProgramsSCB, getVolunteerProgramsECB);
@@ -221,9 +188,7 @@ function getVolunteerProgramsList() {
 function getVolunteerProgramsSCB(data) {
     if (data == null)
         alert("There's no Volunteer Programs yet");
-    else {
-        programsArr = data;
-    }
+    else programsArr = data;
 }
 function getVolunteerProgramsECB(err) {
     console.log(err);
@@ -243,22 +208,4 @@ function getTeamSCB(data) {
 
 function getTeamECB(err) {
     console.log(err);
-}
-
-// enable Other volunteer program only if other selected
-function enableOther() {
-    var sel = document.getElementById('volunteerProgram');
-
-    sel.addEventListener("change", ShowDivIfOtherSelected);
-
-    function ShowDivIfOtherSelected() {
-
-        if (sel.value === '999') {
-            $("#Different_school").attr("readonly", false);
-        }
-        else {
-            $("#Different_school").attr("readonly", true);
-            document.getElementById('Different_school').value = '';
-        }
-    }
 }

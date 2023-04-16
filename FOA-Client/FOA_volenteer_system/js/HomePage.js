@@ -6,22 +6,25 @@ var languageArr = [];
 var exposure;
 
 //    נשמר במטרה לחסוך את ההתחברות בעת בדיקות   
-//var user = {
-//    userID: 1024,
-//    firstName: "ענת",
-//    surname: "אביטל",
-//    userName: "anat_a",
-//    phoneNum: "0529645123",
-//    roleDescription: "מנהל צוות ניטור",
-//    permissionID: 2,
-//    isActive: true,
-//    password: "6DCA4533",
-//    teamID: 1,
-//    programID: 1026,
-//    email: "anat_a@gmail.com",
-//    programName: null
-//}
-//sessionStorage.setItem("user", JSON.stringify(user));
+var user = {
+    userID: 1024,
+    firstName: "ענת",
+    surname: "אביטל",
+    userName: "anat_a",
+    phoneNum: "0529645123",
+    roleDescription: "מנהל צוות ניטור",
+    permissionID: 2,
+    permissionName: "Manager",
+    isActive: true,
+    password: null,
+    teamID: 1,
+    programID: 1026,
+    email: "anat_a@gmail.com",
+    programName: "אוניברטיסת בן גוריון",
+    teamName: "ניטור 01",
+    lastReasetPassword: null
+}
+sessionStorage.setItem("user", JSON.stringify(user));
 
 var currentUser = JSON.parse(sessionStorage.getItem("user"));
 var justLoggedIn = JSON.parse(sessionStorage.getItem("justLoggedIn"));
@@ -33,8 +36,7 @@ $(document).ready(function () {
     else api = "https://proj.ruppin.ac.il/cgroup29/prod/api/";
 
 
-    //NAVBAR
-    //Nav ber - Permission
+    //Nav bar - Permission
     if (currentUser.permissionID == 4) // a volunteer is logged in
     {
         $(".ManagerNav").hide();
@@ -45,11 +47,9 @@ $(document).ready(function () {
         $(".ManagerNav").show();
         $(".VolunteerNav").hide();
     }
-
     $("#u39").mouseenter(UserEnterSubManu);
     $("#u39").mouseleave(UserExitSubManu);
     $("#u40").mouseleave(UserExitSubManu);
-
     $("#logout").click(logout);
 
     // alerts for manager if just logged in
@@ -142,7 +142,7 @@ function RenderPostsList() {
         str += '<th style="width:10%;">תאריך</th>';
         str += '<th style="width:5%;"></th>';
         str += '</tr>';
-        for (var i = 0; i < postsArr.length; i++) {
+        for (var i = postsArr.length-1 ; i > 0 ; i--) {
             var currenRemovalStatus;
             if (postsArr[i].removalStatus == 0)
                 currenRemovalStatus = "דווח";
@@ -151,7 +151,7 @@ function RenderPostsList() {
             str += '<tr>';
             str += '<td class="postID_display">' + postsArr[i].postID + '</td>';
             str += '<td class="Platform_display">' + postsArr[i].platformName + '</td>';
-            str += '<td class="urlLink_display">' + postsArr[i].urlLink + '</td>';
+            str += '<td ><a href="' + postsArr[i].urlLink + '" class="urlLink_display" >קישור לפוסט</a></td>';
             str += '<td class="language_display">' + postsArr[i].languageName + '</td>';
             str += '<td class="amountOfShares_display">' + postsArr[i].amountOfShares + '</td>';
             str += '<td class="amountOfComments_display">' + postsArr[i].amountOfComments + '</td>';
@@ -176,7 +176,6 @@ function OpenPostCard(postID) {
 
 // התראות למנהל על כמות פוסטים שטרם אושרו
 function AlertPostsForApproval() {
-    //להתאים את הקריאה למה שלטם שולחת לי, זה עוד לא מותאם!!!
     ajaxCall("GET", api + "Posts/numberOfNoneStatusPosts", "", AlertPostsForApprovalSCB, AlertPostsForApprovalECB);
 }
 function AlertPostsForApprovalSCB(data) {
@@ -186,7 +185,6 @@ function AlertPostsForApprovalECB(err) {
     alert("Input Error");
 }
 
-// לשנות לקליטה של אובייקט אחד
 // GET Exposure 
 function getRecommendation() {
     ajaxCall("GET", api + "Recommendations", "", getRecommendationSCB, getRecommendationECB);
@@ -199,7 +197,6 @@ function getRecommendationECB(err) {
     alert("Input Error");
 }
 
-// לשנות לפי השמות של השדות האמיתיים (זה רק הכנה) ח
 function renderRecommendation() {
     let str_Reco = "";
     str_Reco += "<h4>היום מומלץ לך לנטר פוסטים</h4>";

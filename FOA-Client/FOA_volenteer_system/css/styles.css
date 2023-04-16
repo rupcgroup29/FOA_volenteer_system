@@ -7162,7 +7162,7 @@ textarea.form-control-lg {
 }
 
 .fixed-top {
-    position: fixed;
+
     top: 0;
     right: 0;
     left: 0;
@@ -11969,11 +11969,11 @@ p {
     margin-bottom: 4rem;
 }
 
-@media (min-width: 768px) {
+/*@media (min-width: 768px) {
     section {
         padding: 9rem 0;
     }
-}
+}*/
 
 .btn-xl {
     padding: 1.25rem 2.5rem;
@@ -12036,7 +12036,6 @@ p {
         padding-top: 1.5rem;
         padding-bottom: 1.5rem;
         border: none;
-        background-color: transparent;
         transition: padding-top 0.3s ease-in-out, padding-bottom 0.3s ease-in-out;
     }
 
@@ -12788,4 +12787,9 @@ select::-ms-expand {
     margin-bottom: 10px;
     padding: 10px;
     text-align: center;
+}
+
+/*קישורים בדף בית*/
+.urlLink_display, .urlLink_display:hover {
+    color: lightgoldenrodyellow;
 }

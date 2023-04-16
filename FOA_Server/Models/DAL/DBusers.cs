@@ -67,6 +67,64 @@ namespace FOA_Server.Models.DAL
                 }
             }
         }
+       
+        // This method reads all the Users
+        public List<UserService> ReadAllUsersWithNames()
+        {
+            SqlConnection con;
+            SqlCommand cmd;
+
+            try
+            {
+                con = connect("myProjDB"); // create the connection
+            }
+            catch (Exception ex)
+            {
+                // write to log
+                Console.WriteLine("Error");
+                throw (ex);
+            }
+
+            cmd = CreateCommandWithStoredProcedureRead("spReadUsersScreen", con);      // create the command
+
+            List<UserService> list = new List<UserService>();
+
+            try
+            {
+                SqlDataReader dataReader = cmd.ExecuteReader(CommandBehavior.CloseConnection);
+
+                while (dataReader.Read())
+                {
+                    UserService usr = new UserService();
+                    usr.UserID = Convert.ToInt32(dataReader["UserID"]);
+                    usr.FirstName = dataReader["FirstName"].ToString();
+                    usr.Surname = dataReader["Surname"].ToString();
+                    usr.UserName = dataReader["UserName"].ToString();
+                    usr.Email = dataReader["Email"].ToString();
+                    usr.PermissionName = dataReader["PermissionName"].ToString();
+                    usr.TeamName = dataReader["TeamName"].ToString();
+
+                    list.Add(usr);
+                }
+                return list;
+            }
+            catch (Exception ex)
+            {
+                // write to log
+                Console.WriteLine("Error");
+                throw (ex);
+            }
+
+            finally
+            {
+                if (con != null)
+                {
+                    // close the db connection
+                    con.Close();
+                }
+            }
+        }
+
 
         // This method reads user's details by id with password
         public UserService ReadUserByIDWithPassword(int userId)

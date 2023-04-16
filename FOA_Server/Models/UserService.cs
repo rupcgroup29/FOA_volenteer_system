@@ -54,6 +54,14 @@ namespace FOA_Server.Models
             return dbs.ReadUsers();
         }
 
+        // read all users for the users screen
+        public static List<UserService> ReadAllUsersWithNames()
+        {
+            DBusers dbs = new DBusers();
+            return dbs.ReadAllUsersWithNames();
+        }
+
+
         // get user by id with password
         public static UserService ReadUserByIdWithPassword(int id)
         {

@@ -20,6 +20,14 @@ namespace FOA_Server.Controllers
         }
 
         // GET: api/<UserServicesController>/6
+        [HttpGet("AllUsers")]
+        public List<UserService> GetAllUsers()
+        {
+            return UserService.ReadAllUsersWithNames();
+        }
+
+
+        // GET: api/<UserServicesController>/6
         [HttpGet("permissionIDlist/{permissionID}")]
         public List<UserService> GetByPermission(int permissionID)
         {
@@ -126,7 +134,7 @@ namespace FOA_Server.Controllers
             Guid newPassword = Guid.NewGuid();      // create random password
 
             // bulid & send the email 
-            string messageBody = "Forgot your password? We recived a request to reset the password for your account, your reset code is " + newPassword;
+            string messageBody = "Forgot your password? We recived a request to reset the password for your account, your NEW PASSWORD is: " + newPassword;
             string subject = "FOA Volenteer System - reset password";
             EmailService emailService = new EmailService();
             emailService.SendEmail(emailService.createMailMessage(resetEmail, messageBody, subject));

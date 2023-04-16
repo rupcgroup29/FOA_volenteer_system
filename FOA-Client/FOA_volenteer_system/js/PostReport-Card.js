@@ -140,7 +140,8 @@ function editPost() {
         removalStatusManager = currentUser.userID;
     }
     if (removalStatus != 0 && postStatus == 0) { //alert if removed from platform and havn't been approved yet
-        alert("שים לב שלא אישרת פוסט שכבר הוסר מהפלטפורמה!");
+        alert("שים לב שלא עדכנת סטטוס לפוסט שכבר הוסר מהרשת החברתית!");
+        return false;
     }
 
     const editedPost = {

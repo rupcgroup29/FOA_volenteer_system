@@ -25,7 +25,7 @@ namespace FOA_Server.Models
         }
 
         //Insert new Volunteer Program
-        public Country InsertCountry()
+        public int InsertCountry()
         {
             countriesList = ReadAllCountries();
             try
@@ -42,8 +42,8 @@ namespace FOA_Server.Models
 
                 DBposts dbs = new DBposts();
                 int good = dbs.InsertCountry(this);
-                if (good > 0) { return this; }
-                else { return null; }
+                if (good > 0) { return good; }  //returns the id inserted
+                else { return 0; }
 
             }
             catch (Exception exp)
@@ -67,7 +67,6 @@ namespace FOA_Server.Models
         }
 
 
-        // ענת: הוספתי כדי לקבל את שם המדינה לפי שם 
         // returns CountryID by Country name
         public int getCountryByName(string name)
         {

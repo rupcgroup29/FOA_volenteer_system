@@ -28,9 +28,9 @@ namespace FOA_Server.Controllers
 
         // POST api/<PlatformsController>
         [HttpPost]
-        public Platform Post([FromBody] Platform plat)
+        public int Post([FromBody] Platform plat)
         {
-            Platform affected = plat.InsertPlatform();
+            int affected = plat.InsertPlatform();
             return affected;
         }
 

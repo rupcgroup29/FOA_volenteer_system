@@ -39,14 +39,15 @@ namespace FOA_Server.Controllers
                 {
                     return affected;
                 }
-                else throw new Exception(" couldn't succeed in update this user ");
+                else throw new Exception(" couldn't succeed in updating this post ");
 
             }
             catch (Exception ex)
             {
-                throw new Exception(" didn't succeed in inserting " + ex.Message);
+                throw new Exception(" didn't succeed in updating this post " + ex.Message);
             }
         }
+
 
 
     }

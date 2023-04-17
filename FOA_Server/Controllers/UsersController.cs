@@ -20,7 +20,7 @@ namespace FOA_Server.Controllers
         }
 
         // GET: api/<UserServicesController>/6
-        [HttpGet("AllUsers")]   // get all the users with names 
+        [HttpGet("AllUsers")]   // get all the users with names for users screen
         public List<UserService> GetAllUsers()
         {
             return UserService.ReadAllUsersWithNames();
@@ -52,30 +52,35 @@ namespace FOA_Server.Controllers
                 int programID = newID.getVolunteerProgramByName(user.ProgramName);
                 user.ProgramID = programID;
             }
-            int insertedUser = user.InsertUser();   //gets the new user's ID in the database
-
-            if (insertedUser > 0)
+            try
             {
-                try
+                int insertedUser = user.InsertUser();   //gets the new user's ID in the database
+
+                if (insertedUser > 0)
                 {
-                    UserService newUser = UserService.ReadUserByIdWithPassword(insertedUser);
-                    // bulid & send the email 
-                    string messageBody = $" ברוכים הבאים {newUser.FirstName} {newUser.Surname} למערכת ההתנדבות של FOA! ";
-                    messageBody += $" הסיסמא שלך היא: {newUser.Password} ";
-                    string subject = "Welcome to the FOA Volenteer System";
-                    EmailService emailService = new EmailService();
-                    emailService.SendEmail(emailService.createMailMessage(newUser.Email, messageBody, subject));
-                    return true;
+                    try
+                    {
+                        UserService newUser = UserService.ReadUserByIdWithPassword(insertedUser);
+                        // bulid & send the email 
+                        string messageBody = $" ברוכים הבאים {newUser.FirstName} {newUser.Surname} למערכת ההתנדבות של FOA! ";
+                        messageBody += $" הסיסמא שלך היא: {newUser.Password} ";
+                        string subject = "Welcome to the FOA Volenteer System";
+                        EmailService emailService = new EmailService();
+                        emailService.SendEmail(emailService.createMailMessage(newUser.Email, messageBody, subject));
+                        return true;
+                    }
+                    catch (Exception ex)
+                    { throw new Exception(" didn't succeed in sending the mail " + ex.Message); }
                 }
-                catch (Exception ex)
-                { throw new Exception(" didn't succeed in inserting " + ex.Message); }
+                else return false;
             }
-            else return false;
+            catch (Exception ex)
+            { throw new Exception(" didn't succeed in inserting " + ex.Message); }
         }
 
         // POST api/<UserServicesController>/6
         [HttpPost("login")]     //check if the user's email & password are currect
-        public IActionResult GetLogin([FromBody] UserLogin userLog)
+        public IActionResult Login([FromBody] UserLogin userLog)
         {
             string email = userLog.Email;
             string password = userLog.Password;
@@ -106,7 +111,7 @@ namespace FOA_Server.Controllers
             // chech if we can use resert password, as long we didn't use it for the last 5 minutes
             if (!parentforgotPassword.ShouldWeResetPassword())
             {
-                throw new Exception(" can not proceed this resert password with email " + resetEmail);
+                throw new Exception(" can not proceed this resert password with email " + resetEmail + ". Please try again in 5 minutes");
             }
 
             try
@@ -129,7 +134,7 @@ namespace FOA_Server.Controllers
                 }
                 else return false;
             }
-            catch (Exception ex) { throw new Exception(" didn't succeed in inserting " + ex.Message); }
+            catch (Exception ex) { throw new Exception(" didn't succeed in reset password " + ex.Message); }
         }
 
 

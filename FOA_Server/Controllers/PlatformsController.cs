@@ -13,21 +13,15 @@ namespace FOA_Server.Controllers
     public class PlatformsController : ControllerBase
     {
         // GET: api/<PlatformsController>
-        [HttpGet]
+        [HttpGet]   //get all platforms by list
         public List<Platform> Get()
         {
             return Platform.ReadAllPlatforms();
         }
 
-        // GET api/<PlatformsController>/5
-        [HttpGet("{id}")]
-        public string Get(int id)
-        {
-            return "value";
-        }
 
         // POST api/<PlatformsController>
-        [HttpPost]
+        [HttpPost]      //add new platform to the database
         public int Post([FromBody] Platform plat)
         {
             int affected = plat.InsertPlatform();

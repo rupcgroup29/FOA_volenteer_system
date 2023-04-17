@@ -16,14 +16,6 @@ namespace FOA_Server.Controllers
             return Team.ReadAllTeams();
         }
 
-        // GET: api/<TeamsController>/6
-        [HttpGet("TeamMembersByTeamName")]
-        public List<Team> GetTeamMembersByTeamName(string teamName)
-        {
-            Team t = new Team();
-            return t.ReadTeamByName(teamName);
-        }
-
         // GET api/<TeamsController>/5
         [HttpGet("{id}")]
         public string Get(int id)

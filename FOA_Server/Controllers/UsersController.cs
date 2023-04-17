@@ -13,43 +13,36 @@ namespace FOA_Server.Controllers
     public class UserServicesController : ControllerBase
     {
         // GET: api/<UserServicesController>
-        [HttpGet]
+        [HttpGet]  // get all the users with password & only IDs
         public List<UserService> Get()
         {
             return UserService.ReadAllUsers();
         }
 
         // GET: api/<UserServicesController>/6
-        [HttpGet("AllUsers")]
+        [HttpGet("AllUsers")]   // get all the users with names 
         public List<UserService> GetAllUsers()
         {
             return UserService.ReadAllUsersWithNames();
         }
 
-        // GET: api/<UserServicesController>/6
-        [HttpGet("permissionIDlist/{permissionID}")]
-        public List<UserService> GetByPermission(int permissionID)
-        {
-            UserService user = new UserService();
-            return user.UsersByPermission(permissionID);
-        }
-
         // GET api/<UserServicesController>/5
-        [HttpGet("user_details/{userId}")]
+        [HttpGet("user_details/{userId}")]   // get all the users with names & without password
         public UserService GetUserById(int userId)
         {
             return UserService.ReadUserByIdWithoutPassword(userId);
         }
 
         // GET api/<UserServicesController>/5
-        [HttpGet("{myUserId}")]
+        [HttpGet("{myUserId}")]   // get all the users with names & with password
         public UserService GetMyUser(int myUserId)
         {
             return UserService.ReadUserByIdWithPassword(myUserId);
         }
 
+
         // POST api/<UserServicesController>
-        [HttpPost]
+        [HttpPost]      //insert new user, with different volnteer program, with sent welcome mail with the password
         public bool Post([FromBody] UserService user)
         {
             if (user.ProgramID == 999)  //if new volanteer program was choosen
@@ -59,7 +52,7 @@ namespace FOA_Server.Controllers
                 int programID = newID.getVolunteerProgramByName(user.ProgramName);
                 user.ProgramID = programID;
             }
-            int insertedUser = user.InsertUser();
+            int insertedUser = user.InsertUser();   //gets the new user's ID in the database
 
             if (insertedUser > 0)
             {
@@ -67,23 +60,21 @@ namespace FOA_Server.Controllers
                 {
                     UserService newUser = UserService.ReadUserByIdWithPassword(insertedUser);
                     // bulid & send the email 
-                    string messageBody = $"ברוכים הבאים {user.FirstName} {user.Surname} למערכת ההתנדבות של FOA!";
-                    messageBody += $"הסיסמא שלך היא: {newUser.Password}";
-                    string subject = "FOA Volenteer System - Welcome";
+                    string messageBody = $" ברוכים הבאים {newUser.FirstName} {newUser.Surname} למערכת ההתנדבות של FOA! ";
+                    messageBody += $" הסיסמא שלך היא: {newUser.Password} ";
+                    string subject = "Welcome to the FOA Volenteer System";
                     EmailService emailService = new EmailService();
-                    emailService.SendEmail(emailService.createMailMessage(user.Email, messageBody, subject));
+                    emailService.SendEmail(emailService.createMailMessage(newUser.Email, messageBody, subject));
                     return true;
                 }
                 catch (Exception ex)
-                { return false; }
+                { throw new Exception(" didn't succeed in inserting " + ex.Message); }
             }
             else return false;
-
         }
 
-
         // POST api/<UserServicesController>/6
-        [HttpPost("login")]
+        [HttpPost("login")]     //check if the user's email & password are currect
         public IActionResult GetLogin([FromBody] UserLogin userLog)
         {
             string email = userLog.Email;
@@ -106,24 +97,8 @@ namespace FOA_Server.Controllers
             }
         }
 
-        // PUT api/<UserServicesController>/5
-        [HttpPut("myUser")]
-        public bool PutMyUser([FromBody] UserService user)
-        {
-            bool affected = user.UpdateUserWithPassword();   // update my user
-            return affected;
-        }
-
-        // PUT api/<UserServicesController>/5
-        [HttpPut]
-        public bool Put([FromBody] UserService user)
-        {
-            bool affected = user.UpdateUser();       // update another user's details
-            return affected;
-        }
-
         // POST api/<UserServicesController>
-        [HttpPost("{resetEmail}")]
+        [HttpPost("{resetEmail}")]   //send new password by mail (if user forgot password)
         public bool PasswordResetToken(string resetEmail)
         {
             ForgotPass parentforgotPassword = new ForgotPass(resetEmail);
@@ -134,28 +109,45 @@ namespace FOA_Server.Controllers
                 throw new Exception(" can not proceed this resert password with email " + resetEmail);
             }
 
-            Guid newPassword = Guid.NewGuid();      // create random password
-
-            // bulid & send the email 
-            string messageBody = "Forgot your password? We recived a request to reset the password for your account, your NEW PASSWORD is: " + newPassword;
-            string subject = "FOA Volenteer System - reset password";
-            EmailService emailService = new EmailService();
-            emailService.SendEmail(emailService.createMailMessage(resetEmail, messageBody, subject));
-
-            //update the new password in the data base
-            string newPasswordStr = newPassword.ToString();
-            int succeed = parentforgotPassword.SaveNewPassword(resetEmail, newPasswordStr);
-
-            if (succeed != 0)
+            try
             {
-                return true;
-            }
-            else return false;
+                Guid newPassword = Guid.NewGuid();      // create random password
 
+                // bulid & send the email 
+                string messageBody = $"בעקבות לחיצה שלך על כפתור 'שכחתי סיסמא', להלן הסיסמא החדשה שלך למערכת המתנדבים של FOA: {newPassword}";
+                string subject = "Reset Password to the FOA Volenteer System";
+                EmailService emailService = new EmailService();
+                emailService.SendEmail(emailService.createMailMessage(resetEmail, messageBody, subject));
+
+                //update the new password in the data base
+                string newPasswordStr = newPassword.ToString();
+                int succeed = parentforgotPassword.SaveNewPassword(resetEmail, newPasswordStr);
+
+                if (succeed != 0)
+                {
+                    return true;
+                }
+                else return false;
+            }
+            catch (Exception ex) { throw new Exception(" didn't succeed in inserting " + ex.Message); }
         }
 
 
+        // PUT api/<UserServicesController>/5
+        [HttpPut("myUser")]     //update my user's details (the user who is logged in)
+        public bool PutMyUser([FromBody] UserService user)
+        {
+            bool affected = user.UpdateUserWithPassword();
+            return affected;
+        }
 
+        // PUT api/<UserServicesController>/5
+        [HttpPut]    // update another user's details (NOT the user who is logged in)
+        public bool Put([FromBody] UserService user)
+        {
+            bool affected = user.UpdateUser();       // update another user's details
+            return affected;
+        }
 
 
 

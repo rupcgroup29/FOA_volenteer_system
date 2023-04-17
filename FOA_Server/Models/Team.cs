@@ -27,22 +27,9 @@ namespace FOA_Server.Models
             return dbs.ReadTeams();
         }
 
-        // read team members by team name
-        public List<Team> ReadTeamByName(string teamName)
-        {
-            teamsList = ReadAllTeams();
-            List<Team> teamByName = new List<Team>();
 
-            foreach (Team team in teamsList)
-            {
-                if (team.TeamName == teamName)
-                {
-                    teamByName.Add(team);
-                }
-            }
 
-            return teamByName;
-        }
+
 
     }
 }

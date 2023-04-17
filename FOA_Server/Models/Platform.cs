@@ -39,8 +39,8 @@ namespace FOA_Server.Models
                 }
 
                 DBposts dbs = new DBposts();
-                int good = dbs.InsertPlatform(this);
-                if (good > 0) { return good; }  //returns the id inserted
+                int good = dbs.InsertPlatform(this);    //gets the id for the new platform inserted
+                if (good > 0) { return good; }  
                 else { return 0; }
             }
             catch (Exception exp)

@@ -6,8 +6,6 @@ namespace FOA_Server.Models
 {
     public class Post
     {
-
-        // its fields
         public int PostID { get; set; }
         public string UrlLink { get; set; }
         public string Description { get; set; }
@@ -111,19 +109,17 @@ namespace FOA_Server.Models
                         {
                             KeyWordsAndHashtages key = KeyWordsAndHashtagesList.FirstOrDefault(KeyWord => KeyWord.KH == this.KeyWordsAndHashtages[i]);
                             if (key != null)
-                            {
+                            {   //insert existing KW/Hashtag to table with its relevent postID
                                 dbs.InsertKeyWordsAndHashtagesToPost(postId, key.KH_ID);
                             }
                             else
                             {
                                 KeyWordsAndHashtages keyw = new KeyWordsAndHashtages(this.KeyWordsAndHashtages[i], 0);
-                                int id = dbs.InsertKeyWordsAndHashtages(keyw);
-                                dbs.InsertKeyWordsAndHashtagesToPost(postId, id);
+                                int id = dbs.InsertKeyWordsAndHashtages(keyw);  //insert KW/Hashtag to its table in DB
+                                dbs.InsertKeyWordsAndHashtagesToPost(postId, id);   //insert KW/Hashtag to table with its relevent postID
                             }
                         }
                     }
-
-
                     return this;
                 }
                 else { return null; }
@@ -166,24 +162,6 @@ namespace FOA_Server.Models
             return count;
         }
 
-
-
-        //// list of approval posts
-        //public List<Post> ApprovalPosts()
-        //{
-        //    postsList = ReadAllPosts();
-        //    List<Post> approvalPosts = new List<Post>();
-
-        //    foreach (Post post in postsList)
-        //    {
-        //        if (post.PostStatus == 1)
-        //        {
-        //            approvalPosts.Add(post);
-        //        }
-        //    }
-
-        //    return approvalPosts;
-        //}
 
 
 

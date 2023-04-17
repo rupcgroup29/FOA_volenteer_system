@@ -24,7 +24,7 @@ namespace FOA_Server.Models
             return dbs.ReadCountries();
         }
 
-        //Insert new Volunteer Program
+        //Insert new Country 
         public int InsertCountry()
         {
             countriesList = ReadAllCountries();
@@ -41,8 +41,8 @@ namespace FOA_Server.Models
                 }
 
                 DBposts dbs = new DBposts();
-                int good = dbs.InsertCountry(this);
-                if (good > 0) { return good; }  //returns the id inserted
+                int good = dbs.InsertCountry(this);  //gets the new country's id inserted to the DB
+                if (good > 0) { return good; } 
                 else { return 0; }
 
             }
@@ -67,19 +67,6 @@ namespace FOA_Server.Models
         }
 
 
-        // returns CountryID by Country name
-        public int getCountryByName(string name)
-        {
-            countriesList = ReadAllCountries();
 
-            foreach (Country item in countriesList)
-            {
-                if (item.CountryName == name)
-                {
-                    return item.CountryID;
-                }
-            }
-            return -1;
-        }
     }
 }

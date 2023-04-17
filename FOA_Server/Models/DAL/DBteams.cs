@@ -63,7 +63,7 @@ namespace FOA_Server.Models.DAL
 
 
 
-        // Create the SqlCommand using a stored procedure for Read
+        // Create the SqlCommand using a stored procedure for READ
         private SqlCommand CreateCommandWithStoredProcedureRead(string spName, SqlConnection con)
         {
             SqlCommand cmd = new SqlCommand(); // create the command object

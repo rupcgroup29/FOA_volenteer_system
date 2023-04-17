@@ -13,7 +13,7 @@ namespace FOA_Server.Models
         public KeyWordsAndHashtages(string KeyWordsAndHashtages, int KeyWordsAndHashtagesID)
         {
             KH = KeyWordsAndHashtages;
-            KH_ID= KeyWordsAndHashtagesID ;
+            KH_ID = KeyWordsAndHashtagesID;
         }
 
         // read all KeyWordsAndHashtages
@@ -68,19 +68,7 @@ namespace FOA_Server.Models
         }
 
 
-        // returns KeyWordsAndHashtagesID by KeyWordsAndHashtages 
-        public int getKeyWordsAndHashtages(string name)
-        {
-            KeyWordsAndHashtagesList = ReadKeyWordsAndHashtages();
 
-            foreach (KeyWordsAndHashtages item in KeyWordsAndHashtagesList)
-            {
-                if (item.KH == name)
-                {
-                    return item.KH_ID;
-                }
-            }
-            return -1;
-        }
+
     }
 }

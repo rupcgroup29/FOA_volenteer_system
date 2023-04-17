@@ -23,7 +23,7 @@ namespace FOA_Server.Models
             return dbs.ReadLanguages();
         }
 
-        //Insert new Volunteer Program
+        //Insert new Language
         public int InsertLanguage()
         {
             LanguagesList = ReadAllLanguages();
@@ -40,8 +40,8 @@ namespace FOA_Server.Models
                 }
 
                 DBposts dbs = new DBposts();
-                int good = dbs.InsertLanguage(this);
-                if (good > 0) { return good; }  //returns the id inserted
+                int good = dbs.InsertLanguage(this);    //gets the id of the new language inserted from the DB
+                if (good > 0) { return good; }  
                 else { return 0; }
 
             }
@@ -65,19 +65,7 @@ namespace FOA_Server.Models
             return unique;
         }
 
-        // returns LanguageID by Language name
-        public int getLanguageByName(string name)
-        {
-            LanguagesList = ReadAllLanguages();
 
-            foreach (Language item in LanguagesList)
-            {
-                if (item.LanguageName == name)
-                {
-                    return item.LanguageID;
-                }
-            }
-            return -1;
-        }
+
     }
 }

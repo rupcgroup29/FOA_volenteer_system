@@ -11,24 +11,12 @@ namespace FOA_Server.Controllers
     public class CountriesController : ControllerBase
     {
         // GET: api/<CountriesController>
-        [HttpGet]
+        [HttpGet]   //get all countries by list
         public List<Country> Get()
         {
             return Country.ReadAllCountries();
         }
 
-        // GET api/<CountriesController>/5
-        [HttpGet("{id}")]
-        public string Get(int id)
-        {
-            return "value";
-        }
-
-        // POST api/<CountriesController>
-        [HttpPost]
-        public void Post([FromBody] string value)
-        {
-        }
 
 
     }

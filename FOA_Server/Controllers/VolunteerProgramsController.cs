@@ -10,31 +10,20 @@ namespace FOA_Server.Controllers
     public class VolunteerProgramsController : ControllerBase
     {
         // GET: api/<VolunteerProgramsController>
-        [HttpGet]
+        [HttpGet]   //get volunteer programs list
         public List<VolunteerProgram> Get()
         {
             return VolunteerProgram.ReadAllVolunteerPrograms();
         }
 
-        // GET api/<VolunteerProgramsController>/5
-        [HttpGet("{id}")]
-        public string Get(int id)
-        {
-            return "value";
-        }
 
         // POST api/<VolunteerProgramsController>
-        [HttpPost]
+        [HttpPost]    //add new volunteer program to the database
         public VolunteerProgram Post([FromBody] VolunteerProgram vp)
         {
             return vp.InsertVolunteerProgram();
         }
 
-        // PUT api/<VolunteerProgramsController>/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
-        {
-        }
 
         
     }

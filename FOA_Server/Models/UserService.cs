@@ -22,6 +22,8 @@ namespace FOA_Server.Models
         public string? TeamName { get; set; }
         public DateTime? LastReasetPassword { get; set; }
 
+        private static List<UserService> UsersList = new List<UserService>();
+
         public UserService() { }
 
         public UserService(int userID, string firstName, string surname, string userName, string phoneNum, string roleDescription, int permissionID, bool isActive, string? password, int teamID, int programID, string email, string? programName, string? teamName, DateTime ? lastReasetPassword, string? permissionName)
@@ -43,8 +45,6 @@ namespace FOA_Server.Models
             LastReasetPassword = lastReasetPassword;
             PermissionName = permissionName;
         }
-
-        private static List<UserService> UsersList = new List<UserService>();
 
 
         // read all users
@@ -86,21 +86,21 @@ namespace FOA_Server.Models
                 if (UsersList.Count != 0)
                 {
                     // check new user email uniqueness
-                    bool uniqueEmail = UniqueEmail(this.Email);
+                    bool uniqueEmail = UniqueEmail(this.Email, UsersList);
                     if (!uniqueEmail)
                     {
                         throw new Exception(" user under that email address is allready exists ");
                     }
 
                     // check new user's user name uniqueness
-                    bool uniqueUsername = UniqueUsername(this.UserName);
+                    bool uniqueUsername = UniqueUsername(this.UserName, UsersList);
                     if (!uniqueEmail)
                     {
-                        throw new Exception(" user under that user name is allready exists ");
+                        throw new Exception(" user under that user-name is allready exists ");
                     }
 
                     // check new user's phone number uniqueness
-                    bool uniquePhone = UniquePhone(this.PhoneNum);
+                    bool uniquePhone = UniquePhone(this.PhoneNum, UsersList);
                     if (!uniqueEmail)
                     {
                         throw new Exception(" there's an exist user with the same phone number ");
@@ -114,7 +114,7 @@ namespace FOA_Server.Models
                 }
 
                 DBusers dbs = new DBusers();
-                int good = dbs.InsertUser(this);
+                int good = dbs.InsertUser(this);     //get the id for the new user inserted
                 if (good > 0) { return good; }
                 else { return 0; }
             }
@@ -139,7 +139,7 @@ namespace FOA_Server.Models
         }
 
         // next 3 function are for checking unique valeus for new user registration
-        public bool UniqueEmail(string email)
+        public bool UniqueEmail(string email, List<UserService> UsersList)
         {
             bool unique = true;
             foreach (UserService u in UsersList)
@@ -151,7 +151,7 @@ namespace FOA_Server.Models
             }
             return unique;
         }
-        public bool UniqueUsername(string username)
+        public bool UniqueUsername(string username, List<UserService> UsersList)
         {
             bool unique = true;
             foreach (UserService u in UsersList)
@@ -163,7 +163,7 @@ namespace FOA_Server.Models
             }
             return unique;
         }
-        public bool UniquePhone(string phone)
+        public bool UniquePhone(string phone, List<UserService> UsersList)
         {
             bool unique = true;
             foreach (UserService u in UsersList)
@@ -246,24 +246,6 @@ namespace FOA_Server.Models
                 }
             }
             return null;
-        }
-
-
-        // list on users by their role in the syster
-        public List<UserService> UsersByPermission(int perm)
-        {
-            UsersList = ReadAllUsers();
-            List<UserService> tempUsersList = new List<UserService>();
-
-            foreach (UserService u in UsersList)
-            {
-                if (u.PermissionID == perm)
-                {
-                    tempUsersList.Add(u);
-                }
-            }
-
-            return tempUsersList;
         }
 
 

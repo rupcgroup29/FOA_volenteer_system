@@ -18,9 +18,9 @@ namespace FOA_Server.Models
         {
             smtpClient = new SmtpClient("smtp.gmail.com");
 
-            smtpClient.EnableSsl = true; // Security
-            smtpClient.Port = 587; // SMTP client to SMTP Server port. (port=25 means smtp server to smtp server)
-            smtpClient.DeliveryMethod = SmtpDeliveryMethod.Network; // email is sent through the network
+            smtpClient.EnableSsl = true; //security
+            smtpClient.Port = 587; //SMTP client to SMTP Server port (port=25 means smtp server to smtp server)
+            smtpClient.DeliveryMethod = SmtpDeliveryMethod.Network; //email is sent through the network
             smtpClient.Credentials = new NetworkCredential(ourMail, ourMailPass);
         }
 

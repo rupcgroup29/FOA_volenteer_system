@@ -10,7 +10,7 @@ namespace FOA_Server.Controllers
     public class ReadPostsController : ControllerBase
     {
         // GET: api/<ReadPostsController>
-        [HttpGet]
+        [HttpGet]    //get list of all posts with the IHRA category names & key words hashtags names
         public List<ReadPost> Get()
         {
             ReadPost post = new ReadPost();
@@ -18,7 +18,7 @@ namespace FOA_Server.Controllers
         }
 
         // GET api/<ReadPostsController>/5
-        [HttpGet("{postId}")]
+        [HttpGet("{postId}")]   //get specific post's detials with the IHRA category names & key words hashtags names
         public ReadPost Get(int postId)
         {
             ReadPost p = new ReadPost();
@@ -27,14 +27,14 @@ namespace FOA_Server.Controllers
 
 
         // PUT api/<ReadPostsController>/5
-        [HttpPut]
+        [HttpPut]     //update post statuses
         public int Put([FromBody] UpdatePostStatus postStatusUpdate)
         {
-            ReadPost post = new ReadPost();
-
             try
             {
-                int affected = post.UpdatePostStatus(postStatusUpdate);       // update post details
+                ReadPost post = new ReadPost();
+
+                int affected = post.UpdatePostStatus(postStatusUpdate);     // update post details
                 if (affected > 0)
                 {
                     return affected;
@@ -44,7 +44,7 @@ namespace FOA_Server.Controllers
             }
             catch (Exception ex)
             {
-                throw new Exception();
+                throw new Exception(" didn't succeed in inserting " + ex.Message);
             }
         }
 

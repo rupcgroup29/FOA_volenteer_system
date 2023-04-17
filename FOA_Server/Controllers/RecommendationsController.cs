@@ -10,7 +10,7 @@ namespace FOA_Server.Controllers
     public class RecommendationsController : ControllerBase
     {
         // GET api/<ReadPostsController>/5
-        [HttpGet]
+        [HttpGet]     //get all 3 parameters for the recommendation algoritem
         public Recommendation GetTopExposureParameters()
         {
             return new Recommendation(Recommendation.ReadExposureLanguage(), Recommendation.ReadExposurePlatform(), Recommendation.ReadExposureKeyWordsAndHashtages());

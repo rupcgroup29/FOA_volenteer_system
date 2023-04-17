@@ -584,47 +584,6 @@ namespace FOA_Server.Models.DAL
         }
 
 
-        // IHRA Category
-        //This method insert a new Category and post id to many-to-many table 
-        public int InsertCategoryToPost(int postID, int categoryID)
-        {
-            SqlConnection con;
-            SqlCommand cmd;
-
-            try
-            {
-                con = connect("myProjDB"); // create the connection
-            }
-            catch (Exception ex)
-            {
-                // write to log
-                throw (ex);
-            }
-            cmd = CreateCommandWithStoredProcedureInsert("spInsertPostAndCategory", con, postID, categoryID);             // create the command
-
-            try
-            {
-                int numEffected = cmd.ExecuteNonQuery(); // execute the command
-                return numEffected;
-            }
-            catch (Exception ex)
-            {
-                // write to log
-                Console.WriteLine("Error");
-                throw (ex);
-            }
-
-            finally
-            {
-                if (con != null)
-                {
-                    // close the db connection
-                    con.Close();
-                }
-            }
-
-        }
-
 
         // KeyWordsAndHashtages
         //This method insert a new KeyWordsAndHashtages and post id to many-to-many table 
@@ -760,6 +719,7 @@ namespace FOA_Server.Models.DAL
         }
 
 
+
         // Language
         // This method reads all Language
         public List<Language> ReadLanguages()
@@ -852,6 +812,7 @@ namespace FOA_Server.Models.DAL
             }
 
         }
+
 
 
         // Country
@@ -948,6 +909,7 @@ namespace FOA_Server.Models.DAL
         }
 
 
+
         // IHRA
         // This method reads all IHRA
         public List<IHRA> ReadIHRAs()
@@ -1000,6 +962,47 @@ namespace FOA_Server.Models.DAL
                 }
             }
         }
+
+        //This method insert a new Category and post id to many-to-many table 
+        public int InsertCategoryToPost(int postID, int categoryID)
+        {
+            SqlConnection con;
+            SqlCommand cmd;
+
+            try
+            {
+                con = connect("myProjDB"); // create the connection
+            }
+            catch (Exception ex)
+            {
+                // write to log
+                throw (ex);
+            }
+            cmd = CreateCommandWithStoredProcedureInsert("spInsertPostAndCategory", con, postID, categoryID);             // create the command
+
+            try
+            {
+                int numEffected = cmd.ExecuteNonQuery(); // execute the command
+                return numEffected;
+            }
+            catch (Exception ex)
+            {
+                // write to log
+                Console.WriteLine("Error");
+                throw (ex);
+            }
+
+            finally
+            {
+                if (con != null)
+                {
+                    // close the db connection
+                    con.Close();
+                }
+            }
+
+        }
+
 
 
         // Platform
@@ -1055,7 +1058,6 @@ namespace FOA_Server.Models.DAL
             }
         }
 
-
         // This method insert a Platform
         public int InsertPlatform(Platform platform)
         {
@@ -1099,7 +1101,9 @@ namespace FOA_Server.Models.DAL
 
 
 
-        // Create the SqlCommand using a stored procedure for Read
+
+        // Create the SqlCommand using a stored procedure for READ
+
         // Read all post table data to main screen without keywords & IHRA category
         private SqlCommand CreateCommandWithStoredProcedureRead(string spName, SqlConnection con)
         {
@@ -1137,7 +1141,8 @@ namespace FOA_Server.Models.DAL
 
 
 
-        // Create the SqlCommand using a stored procedure for Insert
+        // Create the SqlCommand using a stored procedure for INSERT
+
         // Create the SqlCommand using a stored procedure for Insert a Post
         private SqlCommand CreateCommandWithStoredProcedureInsert(String spName, SqlConnection con, Post post)
         {
@@ -1186,7 +1191,7 @@ namespace FOA_Server.Models.DAL
             return cmd;
         }
 
-        // Create the SqlCommand using a stored procedure for Insert a KeyWord
+        // Create the SqlCommand using a stored procedure for Insert a KeyWord/Hashtag to post
         private SqlCommand CreateCommandWithStoredProcedureInsertK(String spName, SqlConnection con, int postID, int keyWordsAndHashtages)
         {
             SqlCommand cmd = new SqlCommand(); // create the command object
@@ -1283,7 +1288,7 @@ namespace FOA_Server.Models.DAL
 
 
 
-        // Create the SqlCommand using a stored procedure for Update
+        // Create the SqlCommand using a stored procedure for UPDATE
 
         // Create the SqlCommand using a stored procedure for update a post
         private SqlCommand CreateCommandWithStoredProcedureUpdatePostStatus(String spName, SqlConnection con, UpdatePostStatus postStatusUpdate)

@@ -10,35 +10,11 @@ namespace FOA_Server.Controllers
     public class IHRAsController : ControllerBase
     {
         // GET: api/<IHRAsController>
-        [HttpGet]
+        [HttpGet]   //get all IHRA categories by list
         public List<IHRA> Get()
         {
             return IHRA.ReadAllIHRAs();
         }
 
-        // GET api/<IHRAsController>/5
-        [HttpGet("{id}")]
-        public string Get(int id)
-        {
-            return "value";
-        }
-
-        // POST api/<IHRAsController>
-        [HttpPost]
-        public void Post([FromBody] string value)
-        {
-        }
-
-        // PUT api/<IHRAsController>/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
-        {
-        }
-
-        // DELETE api/<IHRAsController>/5
-        [HttpDelete("{id}")]
-        public void Delete(int id)
-        {
-        }
     }
 }

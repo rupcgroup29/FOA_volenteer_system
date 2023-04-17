@@ -1,24 +1,6 @@
 ﻿var api;
 var isLoggedIn;
 var usersArr = [];
-/*    נשמר במטרה לחסוך את ההתחברות בעת בדיקות   */
-//var user = {
-//    userID: 1024,
-//    firstName: "ענת",
-//    surname: "אביטל",
-//    userName: "anat_a",
-//    phoneNum: "0529645123",
-//    roleDescription: "מנהל צוות ניטור",
-//    permissionID: 3,
-//    isActive: true,
-//    password: "6DCA4533",
-//    teamID: 1,
-//    programID: 1026,
-//    email: "anat_a@gmail.com",
-//    programName: null
-//}
-//sessionStorage.setItem("user", JSON.stringify(user));
-
 var currentUser = sessionStorage.getItem("user");
 
 

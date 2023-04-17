@@ -10,35 +10,12 @@ namespace FOA_Server.Controllers
     public class PermissionsController : ControllerBase
     {
         // GET: api/<PermissionsController>
-        [HttpGet]
+        [HttpGet]   //get all permitions in the FOA system, by list
         public List<Permission> Get()
         {
             return Permission.ReadAllPermissions();
         }
 
-        // GET api/<PermissionsController>/5
-        [HttpGet("{id}")]
-        public string Get(int id)
-        {
-            return "value";
-        }
 
-        // POST api/<PermissionsController>
-        [HttpPost]
-        public void Post([FromBody] string value)
-        {
-        }
-
-        // PUT api/<PermissionsController>/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
-        {
-        }
-
-        // DELETE api/<PermissionsController>/5
-        [HttpDelete("{id}")]
-        public void Delete(int id)
-        {
-        }
     }
 }

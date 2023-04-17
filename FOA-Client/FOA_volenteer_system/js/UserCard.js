@@ -1,10 +1,12 @@
 ﻿var api;
 var currentUser = JSON.parse(sessionStorage.getItem("user"));
+
 var relevantUserID = JSON.parse(sessionStorage.getItem("userCard"));
 if (relevantUserID == undefined) {
     sessionStorage.setItem("userCard", JSON.stringify(currentUser.userID));
     relevantUserID = JSON.parse(sessionStorage.getItem("userCard"));
 }
+
 var relevantUserObject;
 var programsArr = [];
 var teamsArr = [];
@@ -72,7 +74,7 @@ function logout() {
 
 // GET Another User Details
 function getAnotherUserDetails() {
-    ajaxCall("GET", api + "UserServices/user_details/"+relevantUserID, "", getAnotherUserDetailsSCB, getAnotherUserDetailsECB);
+    ajaxCall("GET", api + "UserServices/user_details/" + relevantUserID, "", getAnotherUserDetailsSCB, getAnotherUserDetailsECB);
 }
 function getAnotherUserDetailsSCB(data) {
     relevantUserObject = data;
@@ -97,7 +99,7 @@ function getMyUserDetailsECB(err) {
 function renderUserDetails() {
     //Card Header
     let str_header = "";
-    str_header += `<h2 class="section-heading text-uppercase"> מתנדב מספר ` + relevantUserID +`</h2>`;
+    str_header += `<h2 class="section-heading text-uppercase"> מתנדב מספר ` + relevantUserID + `</h2>`;
     document.getElementById("CardHeader").innerHTML += str_header;
     //is active
     let str_isActive = "";
@@ -138,7 +140,7 @@ function renderUserDetails() {
     document.getElementById("permission").innerHTML += str_perm;
     //team
     let str_team = "";
-    str_team += '<option class="opt" value="' + relevantUserObject.teamID + '">' + relevantUserObject.teamName + '</option>'; 
+    str_team += '<option class="opt" value="' + relevantUserObject.teamID + '">' + relevantUserObject.teamName + '</option>';
     for (var i = 0; i < teamsArr.length; i++) {
         str_team += '<option class="opt" value="' + teamsArr[i].teamID + '">' + teamsArr[i].teamName + '</option>';
     }
@@ -193,7 +195,7 @@ function updateUser() {
         TeamID: team,
         ProgramID: volunteerProgram,
         Email: email,
-        Password: password, 
+        Password: password,
         ProgramName: programName
     }
 
@@ -201,7 +203,7 @@ function updateUser() {
     sessionStorage.setItem("userCard", JSON.stringify());
     return false;
 }
-function updateUserSCB(data) { 
+function updateUserSCB(data) {
     alert("משתמש עודכן בהצלחה");
     window.location.assign("Teams-main.html");
     location.assign("Teams-main.html")

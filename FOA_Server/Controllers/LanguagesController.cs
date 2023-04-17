@@ -10,7 +10,7 @@ namespace FOA_Server.Controllers
     public class LanguagesController : ControllerBase
     {
         // GET: api/<LanguagesController>
-        [HttpGet]
+        [HttpGet]    //get all Languages by list
         public List<Language> Get()
         {
             return Language.ReadAllLanguages();

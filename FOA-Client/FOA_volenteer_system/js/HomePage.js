@@ -4,28 +4,6 @@ var postsArr = [];
 var PlatformsArr = [];
 var languageArr = [];
 var exposure;
-
-//    נשמר במטרה לחסוך את ההתחברות בעת בדיקות   
-//var user = {
-//    userID: 1024,
-//    firstName: "ענת",
-//    surname: "אביטל",
-//    userName: "anat_a",
-//    phoneNum: "0529645123",
-//    roleDescription: "מנהל צוות ניטור",
-//    permissionID: 2,
-//    permissionName: "Manager",
-//    isActive: true,
-//    password: null,
-//    teamID: 1,
-//    programID: 1026,
-//    email: "anat_a@gmail.com",
-//    programName: "אוניברטיסת בן גוריון",
-//    teamName: "ניטור 01",
-//    lastReasetPassword: null
-//}
-//sessionStorage.setItem("user", JSON.stringify(user));
-
 var currentUser = JSON.parse(sessionStorage.getItem("user"));
 var justLoggedIn = JSON.parse(sessionStorage.getItem("justLoggedIn"));
 

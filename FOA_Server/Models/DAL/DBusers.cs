@@ -6,7 +6,7 @@ namespace FOA_Server.Models.DAL
     public class DBusers : DBservices
     {
         // USERS
-        // This method reads all the Users
+        // This method reads all the Users with IDs
         public List<UserService> ReadUsers()
         {
             SqlConnection con;
@@ -68,7 +68,7 @@ namespace FOA_Server.Models.DAL
             }
         }
        
-        // This method reads all the Users
+        // This method reads all the Users with names(program name etc)
         public List<UserService> ReadAllUsersWithNames()
         {
             SqlConnection con;
@@ -249,6 +249,8 @@ namespace FOA_Server.Models.DAL
             }
         }
 
+
+
         // This method inserts a user to the user table 
         public int InsertUser(UserService user)
         {
@@ -290,6 +292,8 @@ namespace FOA_Server.Models.DAL
 
         }
 
+    
+        
         // This method update a user to the user table 
         public int UpdateUserWithPassword(UserService user)
         {
@@ -370,7 +374,7 @@ namespace FOA_Server.Models.DAL
             }
         }
 
-        // This method update a user to the user table 
+        // This method update new password to user, into the user table 
         public int UpdateUserPassword(string email, string password)
         {
             SqlConnection con;
@@ -411,7 +415,9 @@ namespace FOA_Server.Models.DAL
         }
 
 
-        // Create the SqlCommand using a stored procedure for Read
+
+
+        // Create the SqlCommand using a stored procedure for READ
         private SqlCommand CreateCommandWithStoredProcedureRead(string spName, SqlConnection con)
         {
             SqlCommand cmd = new SqlCommand(); // create the command object
@@ -464,7 +470,8 @@ namespace FOA_Server.Models.DAL
         }
 
 
-        // Create the SqlCommand using a stored procedure for Insert & Update User
+
+        // Create the SqlCommand using a stored procedure for INSERT User
         private SqlCommand CreateCommandWithStoredProcedureInsert(String spName, SqlConnection con, UserService user)
         {
             SqlCommand cmd = new SqlCommand(); // create the command object
@@ -491,6 +498,9 @@ namespace FOA_Server.Models.DAL
             return cmd;
         }
 
+
+
+        // Create the SqlCommand using a stored procedure for UPDATE User
         private SqlCommand CreateCommandWithStoredProcedureUpdateWithPassword(String spName, SqlConnection con, UserService user)
         {
             SqlCommand cmd = new SqlCommand(); // create the command object
@@ -565,7 +575,9 @@ namespace FOA_Server.Models.DAL
 
 
 
+
         // Volunteer Programs
+
         // This method reads all Volunteer Programs
         public List<VolunteerProgram> ReadVolunteerPrograms()
         {
@@ -659,7 +671,9 @@ namespace FOA_Server.Models.DAL
 
         }
 
-        // Create the SqlCommand using a stored procedure for Insert & Update User
+
+
+        // Create the SqlCommand using a stored procedure for INSERT Volunteer Program
         private SqlCommand CreateCommandWithStoredProcedureInsert(String spName, SqlConnection con, VolunteerProgram vp)
         {
             SqlCommand cmd = new SqlCommand(); // create the command object
@@ -676,6 +690,7 @@ namespace FOA_Server.Models.DAL
 
             return cmd;
         }
+
 
 
 
@@ -731,6 +746,7 @@ namespace FOA_Server.Models.DAL
                 }
             }
         }
+
 
 
         // HourReport

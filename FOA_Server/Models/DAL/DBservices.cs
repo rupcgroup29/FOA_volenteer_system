@@ -13,11 +13,7 @@ public class DBservices
     public DataTable dt;
 
     public DBservices()
-    {
-        //
-        // TODO: Add constructor logic here
-        //
-    }
+    { }
 
     // This method creates a connection to the database according to the connectionString name in the web.config 
     public SqlConnection connect(String conString)

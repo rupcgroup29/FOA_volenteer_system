@@ -94,7 +94,7 @@ namespace FOA_Server.Models.DAL
 
             try
             {
-                int lastId = Convert.ToInt32(cmd.ExecuteScalar()); // execute the command //נותן את האופציה לקבל ערך בחזרה מפונקציית ההכנסה (id)
+                int lastId = Convert.ToInt32(cmd.ExecuteScalar()); //Executescalar requires the command to have a transaction (id)
                 return lastId;
             }
             catch (Exception ex)
@@ -792,7 +792,7 @@ namespace FOA_Server.Models.DAL
 
             try
             {
-                int lastId = Convert.ToInt32(cmd.ExecuteScalar());
+                int lastId = Convert.ToInt32(cmd.ExecuteScalar());//Executescalar requires the command to have a transaction
                 return lastId;
             }
             catch (Exception ex)
@@ -887,7 +887,7 @@ namespace FOA_Server.Models.DAL
 
             try
             {
-                int lastId = Convert.ToInt32(cmd.ExecuteScalar());
+                int lastId = Convert.ToInt32(cmd.ExecuteScalar()); // Executescalar requires the command to have a transaction
                 return lastId;
             }
             catch (Exception ex)
@@ -1078,7 +1078,7 @@ namespace FOA_Server.Models.DAL
 
             try
             {
-                int lastId = Convert.ToInt32(cmd.ExecuteScalar());
+                int lastId = Convert.ToInt32(cmd.ExecuteScalar());//Executescalar requires the command to have a transaction
                 return lastId;
             }
             catch (Exception ex)

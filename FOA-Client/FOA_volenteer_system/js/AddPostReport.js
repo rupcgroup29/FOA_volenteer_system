@@ -1,5 +1,4 @@
 ﻿var api;
-var imageFolder;
 var currentUser = JSON.parse(sessionStorage.getItem("user"));
 
 $(document).ready(function () {
@@ -7,12 +6,6 @@ $(document).ready(function () {
         api = "https://localhost:7109/api/";
     }
     else api = "https://proj.ruppin.ac.il/cgroup29/prod/api/";
-
-    //for image folder 
-    if (location.hostname === "localhost" || location.hostname === "127.0.0.1") {
-        imageFolder = "https://localhost:7109/Images/";
-    }
-    else imageFolder = "https://proj.ruppin.ac.il/cgroup29/prod/Images/";
 
     //Nav bar - Permission
     if (currentUser.permissionID == 4) // a volunteer is logged in
@@ -37,16 +30,16 @@ $(document).ready(function () {
     $("#country_diff").attr("readonly", true);
     $("#language_diff").attr("readonly", true);
 
-    $('#contactForm').submit(SaveImage);
+    $('#contactForm').submit(AddNewPost); 
 
     GetPlatformsList();
     GetCountriesList();
     GetLanguagesList();
-    GetIHRAList();
+    GetIHRAList();           
 
-    enableOtherPlatform();
-    enableOtherCountry();
-    enableOtherLanguage()
+    enableOtherPlatform();           
+    enableOtherCountry();            
+    enableOtherLanguage()            
 
 });
 
@@ -69,63 +62,47 @@ function logout() {
 }
 
 //END - NAVBAR USER
-
-// submit new post
-function SaveImage() {
-    var data = new FormData();
-    var files = $("#screenshotFiles").get(0).files;
-
-    // Add the uploaded file to the form data collection  
-    if (files.length > 0) {
-        data.append("files", files[0]);
-    } else { alert(" You must upload a file "); return false; }
-
-    // Ajax upload  
-    $.ajax({
-        type: "POST",
-        url: api + "Posts/screenshot",
-        contentType: false,
-        processData: false,
-        data: data,
-        success: AddNewPost,
-        error: error
-    });
-    return false;
-}
-
-function error(data) {
-    console.log(data);
-}
-
-// add new post 
-function AddNewPost(data) {
-    let src = imageFolder + data;
+// add new post - submit
+function AddNewPost() {
+    let urlLink = $("#urlLink").val();
+    let description = $("#description").val();
     let keyWordsAndHashtages = separatekeyWordsAndHashtages();  // ענת: מפעיל פונקציה שתופסת את כל הטקסט, מפרידה לפי פסיק ומחזירה מערך
+    let threat = $("#content_threat").val();
+    // let screenshot = $("#UrlLink").val();            //לטם: כרגע אנחנו מנסות לעשות את זה בלי הוספת התמונה, באופן זמני בלבד
+    let amountOfLikes = $("#exposure_likes").val();     
+    let amountOfShares = $("#exposure_shares").val();    
+    let amountOfComments = $("#exposure_Comments").val();  
+    let userID = currentUser.userID;
+    let platformID = $("#platform").val();
     let categoryID = getChecked();
     let countryID = isKnownOrNotCountry();      // למקרה ומשתמש לא בחר מדינה מפני שאינו יודע איזו
+    let languageID = $("#language").val();
+    let platformName = $("#platform_diff").val();
+    let countryName = $("#country_diff").val();
+    let languageName = $("#language_diff").val();
 
     const newPost = {
-        PostID: "1",
-        UrlLink: $("#urlLink").val(),
-        Description: $("#description").val(),
+        PostID: "1", 
+        UrlLink: urlLink,
+        Description: description,
         KeyWordsAndHashtages: keyWordsAndHashtages,
-        Threat: $("#content_threat").val(),
-        Screenshot: src,    
-        AmountOfLikes: $("#exposure_likes").val(),
-        AmountOfShares: $("#exposure_shares").val(),
-        AmountOfComments: $("#exposure_Comments").val(),
+        Threat: threat,
+        //Screenshot: screenshot,       //עד שננסה לשמור תמונות, כרגע זה בהערה גם בצד שרת
+        AmountOfLikes: amountOfLikes,
+        AmountOfShares: amountOfShares,
+        AmountOfComments: amountOfComments,
         PostStatus: "1",
-        RemovalStatus: "1",
-        UserID: currentUser.userID,
-        PlatformID: $("#platform").val(),
+        RemovalStatus: "1", 
+        UserID: userID,
+        PlatformID: platformID,
         CategoryID: categoryID,
         PostStatusManager: "1",      // במטרה לשלוח עם יוזר איידי קיים, ישתנה בעריכת פוסט
         RemovalStatusManager: "1",   // במטרה לשלוח עם יוזר איידי קיים, ישתנה בעריכת פוסט
         CountryID: countryID,
-        LanguageID: $("#language").val(),
-        PlatformName: $("#platform_diff").val(),
-        CountryName: $("#country_diff").val(),
-        LanguageName: $("#language_diff").val()
+        LanguageID: languageID,
+        PlatformName: platformName,
+        CountryName: countryName,
+        LanguageName: languageName
     }
 
     ajaxCall("POST", api + "Posts", JSON.stringify(newPost), postAddNewPostSCB, postAddNewPostECB);
@@ -133,6 +110,7 @@ function AddNewPost(data) {
 }
 function postAddNewPostSCB(data) { // הוספת משתמש הצליחה
     alert("דיווח הפוסט נוסף בהצלחה");
+    //window.location.assign("HomePage.html");
     location.assign("HomePage.html")
 }
 function postAddNewPostECB(err) {
@@ -158,7 +136,7 @@ function getPlatformsListSCB(data) {
         alert("אין פלטפורמות עדיין");
     } else {
         let str = "";
-        str += '<option class="opt" value="0">בחר רשת חברתית *</option>';
+        str += '<option class="opt" value="0">רשת חברתית *</option>';
         for (var i = 0; i < data.length; i++) {
             str += '<option class="opt" value="' + data[i].platformID + '">' + data[i].platformName + '</option>';
         }
@@ -239,7 +217,7 @@ function getIHRAsECB(err) {
 // get the value from the check box
 function getChecked() {
     const checkboxes = document.querySelectorAll('input[type="checkbox"]');
-    const checkedValue = [];
+    const checkedValue =[];
 
     for (var i = 0; i < checkboxes.length; i++) {
         if (checkboxes[i].checked) {

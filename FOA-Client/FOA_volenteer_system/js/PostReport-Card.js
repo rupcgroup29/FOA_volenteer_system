@@ -146,7 +146,10 @@ function RenderRelevantDetails() {
     $("#exposure_shares").val(currentPostObject.amountOfShares);
 
     //urlLink
-    $("#urlLink").val(currentPostObject.urlLink);
+    //$("#urlLink").val(currentPostObject.urlLink);
+    str_urlLink = "";
+    str_urlLink += '<a href="' + currentPostObject.urlLink + '" target="_blank" class="urlLink_display" >קישור לפוסט</a>' 
+    document.getElementById("urlLink").innerHTML += str_urlLink;
 
     //description
     $("#description").val(currentPostObject.description);

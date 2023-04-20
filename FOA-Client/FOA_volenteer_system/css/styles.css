@@ -12466,7 +12466,7 @@ section#contact {
         }
 
             section#contact form#contactForm .form-group input.form-control, select.form-control,
-            section#contact form#LogInForm .form-group input.form-control{
+            section#contact form#LogInForm .form-group input.form-control {
                 height: auto;
                 margin-top: -1rem;
                 text-align-last: right;
@@ -12803,27 +12803,4 @@ select::-ms-expand {
     text-align:center;
     margin:auto;
 
-}
-
-#urlLink {
-    height: auto;
-    margin-top: -1rem;
-    text-align-last: right;
-    padding: 1.25rem;
-    background-color: #e9ecef;
-    opacity: 1;
-    display: block;
-    width: 100%;
-    font-size: 1rem;
-    font-weight: 400;
-    line-height: 1.5;
-    background-clip: padding-box;
-    border: 1px solid #ced4da;
-    appearance: none;
-    border-radius: 0.25rem;
-    transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
-}
-
-#urlLink a{
-    color: #212529;
 }

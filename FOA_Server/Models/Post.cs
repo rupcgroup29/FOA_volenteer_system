@@ -95,8 +95,7 @@ namespace FOA_Server.Models
                 {
                     for (int i = 0; i < this.CategoryID.Length; i++) //Loop that runs on all the Category array
                     {
-                        //Insert the categoryID and postID to many-to-many table in db
-                        int response = dbs.InsertCategoryToPost(postId, this.CategoryID[i]); 
+                        int response = dbs.InsertCategoryToPost(postId, this.CategoryID[i]); //Insert the categoryID and postID to many-to-many table in db
                         if (response <= 0)
                         {
                             return null;
@@ -159,6 +158,7 @@ namespace FOA_Server.Models
                     count++;
                 }
             }
+
             return count;
         }
 

@@ -33,7 +33,7 @@ namespace FOA_Server.Models
                 {
                     // vaild there is not the same already in the list
                     bool uniqueName = UniqueName(this.ProgramName, VpList);
-                    if (!uniqueName)
+                    if (uniqueName == false)
                     {
                         throw new Exception(" Volunteer Program under that name is allready exists ");
                     }

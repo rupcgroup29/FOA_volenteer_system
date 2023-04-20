@@ -43,7 +43,7 @@ namespace FOA_Server.Models
             try
             {
                 smtpClient.Send(resetPasswordMessage);
-                Trace.WriteLine("email send successfully");
+                Trace.WriteLine("code send successfully");
 
             }
             catch (Exception ex)

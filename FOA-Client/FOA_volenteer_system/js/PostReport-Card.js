@@ -169,7 +169,7 @@ function RenderRelevantDetails() {
 
     //Screenshot
     var imgStr = "";
-    src =  currentPostObject.screenshot;
+    src =  imageFolder + currentPostObject.screenshot;
     imgStr = `<img class="screenshotImg" src='${src}'/>`;
 
     document.getElementById("showScreenshot").innerHTML = imgStr;

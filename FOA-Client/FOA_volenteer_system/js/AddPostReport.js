@@ -1,18 +1,13 @@
 ﻿var api;
-var imageFolder;
 var currentUser = JSON.parse(sessionStorage.getItem("user"));
 
 $(document).ready(function () {
     if (location.hostname === "localhost" || location.hostname === "127.0.0.1") {
         api = "https://localhost:7109/api/";
     }
-    else api = "https://proj.ruppin.ac.il/cgroup29/prod/api/";
-
-    //for image folder 
-    if (location.hostname === "localhost" || location.hostname === "127.0.0.1") {
-        imageFolder = "https://localhost:7109/Images/";
+    else {
+        api = "https://proj.ruppin.ac.il/cgroup29/prod/api/";
     }
-    else imageFolder = "https://proj.ruppin.ac.il/cgroup29/prod/Images/";
 
     //Nav bar - Permission
     if (currentUser.permissionID == 4) // a volunteer is logged in
@@ -99,7 +94,6 @@ function error(data) {
 
 // add new post 
 function AddNewPost(data) {
-    let src = imageFolder + data;
     let keyWordsAndHashtages = separatekeyWordsAndHashtages();  // ענת: מפעיל פונקציה שתופסת את כל הטקסט, מפרידה לפי פסיק ומחזירה מערך
     let categoryID = getChecked();
     let countryID = isKnownOrNotCountry();      // למקרה ומשתמש לא בחר מדינה מפני שאינו יודע איזו
@@ -110,7 +104,7 @@ function AddNewPost(data) {
         Description: $("#description").val(),
         KeyWordsAndHashtages: keyWordsAndHashtages,
         Threat: $("#content_threat").val(),
-        Screenshot: src,    
+        Screenshot: data[0],    
         AmountOfLikes: $("#exposure_likes").val(),
         AmountOfShares: $("#exposure_shares").val(),
         AmountOfComments: $("#exposure_Comments").val(),

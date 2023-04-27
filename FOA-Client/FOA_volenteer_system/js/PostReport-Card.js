@@ -1,4 +1,5 @@
 ﻿var api;
+var imageFolder;
 var currentUser = JSON.parse(sessionStorage.getItem("user"));
 var currentPostID = JSON.parse(sessionStorage.getItem("post"));;
 var currentPostObject;
@@ -6,8 +7,12 @@ var currentPostObject;
 $(document).ready(function () {
     if (location.hostname === "localhost" || location.hostname === "127.0.0.1") {
         api = "https://localhost:7109/api/";
+        imageFolder = "https://localhost:7109/Images/";
     }
-    else api = "https://proj.ruppin.ac.il/cgroup29/prod/api/";
+    else {
+        api = "https://proj.ruppin.ac.il/cgroup29/prod/api/";
+        imageFolder = "https://proj.ruppin.ac.il/cgroup29/prod/Images/";
+    }
 
     //Nav bar - Permission
     if (currentUser.permissionID == 4) // a volunteer is logged in
@@ -95,8 +100,7 @@ function RenderRelevantDetails() {
         str_postStatus += '<option class="opt" value="1">אושר</option>';
         str_postStatus += '<option class="opt" value="2">נדחה</option>';
 
-    } else if (currentPostObject.postStatus == 1)
-    {
+    } else if (currentPostObject.postStatus == 1) {
         str_postStatus += '<option class="opt" value="1">אושר</option>';
         $("#ManagerStatus").attr("disabled", true);
     } else {
@@ -131,7 +135,7 @@ function RenderRelevantDetails() {
     //IHRA
     // ענת: לא לשכוח לדאוג לתא גדול יותר במידה ויש הרבה קטגוריות
     for (var i = 0; i < currentPostObject.categoryName.length - 1; i++) {
-        str_category += currentPostObject.categoryName[i] + ', ';
+        str_category += '<p>' + currentPostObject.categoryName[i] + '</p>';
     }
     str_category += currentPostObject.categoryName[currentPostObject.categoryName.length - 1];
     $("#ihraCategory").val(str_category);
@@ -148,7 +152,7 @@ function RenderRelevantDetails() {
     //urlLink
     //$("#urlLink").val(currentPostObject.urlLink);
     str_urlLink = "";
-    str_urlLink += '<a href="' + currentPostObject.urlLink + '" target="_blank" class="urlLink_display" >קישור לפוסט</a>' 
+    str_urlLink += '<a href="' + currentPostObject.urlLink + '" target="_blank" class="urlLink_display" >קישור לפוסט</a>'
     document.getElementById("urlLink").innerHTML += str_urlLink;
 
     //description
@@ -160,6 +164,13 @@ function RenderRelevantDetails() {
     }
     str_KnH += currentPostObject.keyWordsAndHashtages[currentPostObject.keyWordsAndHashtages.length - 1];
     $("#kw_Hashtags").val(str_KnH);
+
+    //Screenshot
+    var imgStr = "";
+    src = imageFolder + currentPostObject.screenshot;
+    imgStr = `<img class="screenshotImg" src='${src}'/>`;
+
+    document.getElementById("showScreenshot").innerHTML = imgStr;
 
 }
 

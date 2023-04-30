@@ -2,29 +2,14 @@
 var currentUser = JSON.parse(sessionStorage.getItem("user"));
 var programsArr = [];
 var teamsArr = [];
+var relevantUserObject;
+
 
 $(document).ready(function () {
     if (location.hostname === "localhost" || location.hostname === "127.0.0.1") {
         api = "https://localhost:7109/api/";
     }
     else api = "https://proj.ruppin.ac.il/cgroup29/prod/api/";
-
-    //Nav bar - Permission
-    if (currentUser.permissionID == 4) // a volunteer is logged in
-    {
-        $(".ManagerNav").hide();
-        $(".VolunteerNav").show();
-    }
-    else //Manager is logged in
-    {
-        $(".ManagerNav").show();
-        $(".VolunteerNav").hide();
-    }
-    $("#u39").mouseenter(UserEnterSubManu);
-    $("#u39").mouseleave(UserExitSubManu);
-    $("#u40").mouseleave(UserExitSubManu);
-
-    $("#logout").click(logout);
 
     $('#contactForm').submit(updateUser);
 
@@ -34,30 +19,21 @@ $(document).ready(function () {
     getTeamsList();
 
     enableOther();
-    renderMyUserDetails();
+    getMyUserDetails();
 
 });
 
-//NAVBAR USER
-
-function UserEnterSubManu() {
-    $("#u40").css("visibility", "inherit")
-    $("#u40").show();
+// GET My User Details
+function getMyUserDetails() {
+    ajaxCall("GET", api + "UserServices/" + currentUser.userID, "", getMyUserDetailsSCB, getMyUserDetailsECB);
 }
-function UserExitSubManu() {
-    $("#u40").css("visibility", "hidden")
-    $("#u40").hide();
+function getMyUserDetailsSCB(data) {
+    relevantUserObject = data;
+    renderMyUserDetails();
 }
-
-//logout function
-function logout() {
-    isLogIn = false;
-    sessionStorage.clear();
-    window.location.assign("Log-In.html");
+function getMyUserDetailsECB(err) {
+    alert("Input Error");
 }
-
-//END - NAVBAR USER
-
 
 function renderMyUserDetails() {
     //Card Header
@@ -102,7 +78,12 @@ function renderMyUserDetails() {
     }
     document.getElementById("permission").innerHTML += str_perm;
     //team
-    $("#team").val(currentUser.teamName);
+    let str_team = "";
+    str_team += '<option class="opt" value="' + currentUser.teamID + '">' + currentUser.teamName + '</option>';
+    for (var i = 0; i < teamsArr.length; i++) {
+        str_team += '<option class="opt" value="' + teamsArr[i].teamID + '">' + teamsArr[i].teamName + '</option>';
+    }
+    document.getElementById("team").innerHTML += str_team;
     //roleDescription
     $("#roleDescription").val(currentUser.roleDescription);
     //firstName

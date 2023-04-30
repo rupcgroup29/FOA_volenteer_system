@@ -20,17 +20,6 @@ h2 {
     font-weight: bold !important;
 }
 
-.screenshotImg {
-    max-width: 75%;
-    height: 500px;
-    margin: 5px;
-}
-
-.screenshotDiv {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
 
 :root {
     --bs-blue: #0d6efd;
@@ -7173,6 +7162,7 @@ textarea.form-control-lg {
 }
 
 .fixed-top {
+
     top: 0;
     right: 0;
     left: 0;
@@ -11986,15 +11976,10 @@ p {
 }*/
 
 .btn-xl {
-    margin: 7px;
     padding: 1.25rem 2.5rem;
     font-family: "Montserrat", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
     font-size: 1.125rem;
     font-weight: 700;
-}
-
-.updateBTN {
-    margin-top: -2rem !important;
 }
 
 .btn-social {
@@ -12481,7 +12466,7 @@ section#contact {
         }
 
             section#contact form#contactForm .form-group input.form-control, select.form-control,
-            section#contact form#LogInForm .form-group input.form-control {
+            section#contact form#LogInForm .form-group input.form-control{
                 height: auto;
                 margin-top: -1rem;
                 text-align-last: right;
@@ -12753,9 +12738,9 @@ select::-ms-expand {
 }
 
     #myTable td {
+        text-align: right; /* right-align text */
         padding: 12px; /* Add padding */
         color: lightyellow;
-        text-align: center;
     }
 
     #myTable tr {
@@ -12773,13 +12758,13 @@ select::-ms-expand {
         }
 
     #myTable th {
-        text-align: center;
+        text-align: right; /* right-align text */
         padding: 12px; /* Add padding */
         color: black;
     }
 
 .teamName_display, .fullName_display, .userName_display, .email_display {
-    width: 15%;
+    width: 22.5%;
 }
 
 .viewButton_display {
@@ -12811,12 +12796,13 @@ select::-ms-expand {
 
 #imageLogin img {
     height: 6rem;
-    margin: 10px;
+    margin:10px;
 }
 
-#imageLogin {
-    text-align: center;
-    margin: auto;
+#imageLogin{
+    text-align:center;
+    margin:auto;
+
 }
 
 #urlLink {
@@ -12838,6 +12824,6 @@ select::-ms-expand {
     transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
 }
 
-    #urlLink a {
-        color: #212529;
-    }
+#urlLink a{
+    color: #212529;
+}

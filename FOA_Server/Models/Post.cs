@@ -11,7 +11,7 @@ namespace FOA_Server.Models
         public string Description { get; set; }
         public string[] KeyWordsAndHashtages { get; set; }
         public int Threat { get; set; }
-        public string Screenshot { get; set; }
+        // public string Screenshot { get; set; }
         public int AmountOfLikes { get; set; }
         public int AmountOfShares { get; set; }
         public int AmountOfComments { get; set; }
@@ -37,14 +37,14 @@ namespace FOA_Server.Models
         private static List<Post> postsList = new List<Post>();
 
         public Post() { }
-        public Post(int postID, string urlLink, string description, string[] keyWordsAndHashtages, int threat, string screenshot, int amountOfLikes, int amountOfShares, int amountOfComments, int postStatus, int removalStatus, int userID, int platformID, int[] categoryID, int postStatusManager, int removalStatusManager, int country, int language, string countryName, string languageName, string platformName, DateTime insertDate)
+        public Post(int postID, string urlLink, string description, string[] keyWordsAndHashtages, int threat, int amountOfLikes, int amountOfShares, int amountOfComments, int postStatus, int removalStatus, int userID, int platformID, int[] categoryID, int postStatusManager, int removalStatusManager, int country, int language, string countryName, string languageName, string platformName, DateTime insertDate)
         {
             PostID = postID;
             UrlLink = urlLink;
             Description = description;
             KeyWordsAndHashtages = keyWordsAndHashtages;
             Threat = threat;
-            Screenshot = screenshot;
+            // Screenshot = screenshot;
             AmountOfLikes = amountOfLikes;
             AmountOfShares = amountOfShares;
             AmountOfComments = amountOfComments;

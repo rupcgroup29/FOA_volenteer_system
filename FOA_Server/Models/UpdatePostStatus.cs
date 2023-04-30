@@ -8,7 +8,8 @@
         public int RemovalStatus { get; set; }
         public int RemovalStatusManager { get; set; }
 
-        public UpdatePostStatus(int postID,int postStatus, int postStatusManager, int removalStatus, int removalStatusManager)
+
+        public UpdatePostStatus(int postID, int postStatus, int postStatusManager, int removalStatus, int removalStatusManager)
         {
             PostID = postID;
             PostStatus = postStatus;
@@ -16,9 +17,6 @@
             RemovalStatus = removalStatus;
             RemovalStatusManager = removalStatusManager;
         }
-
-
-
 
     }
 }

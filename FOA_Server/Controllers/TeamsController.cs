@@ -25,17 +25,8 @@ namespace FOA_Server.Controllers
 
         // POST api/<TeamsController>
         [HttpPost]
-        public IActionResult Post([FromBody] Team newTeam)
+        public void Post([FromBody] string value)
         {
-            try
-            {
-                Team team = newTeam.InsertNewTeam();
-                return Ok(team);
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(new { errorMessage = ex.Message });
-            }
         }
 
         // PUT api/<TeamsController>/5

@@ -78,7 +78,7 @@ namespace FOA_Server.Controllers
                         int i = 1;
                         while (System.IO.File.Exists(filePath))
                         {
-                            fileName = $"{i++}_{nameWithoutExtension}{extension}";
+                            fileName = $"{nameWithoutExtension}{extension}_{i++}";
                             filePath = Path.Combine(path, fileName);
                         }
                     }

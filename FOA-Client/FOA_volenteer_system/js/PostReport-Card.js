@@ -7,12 +7,14 @@ var currentPostObject;
 $(document).ready(function () {
     if (location.hostname === "localhost" || location.hostname === "127.0.0.1") {
         api = "https://localhost:7109/api/";
+    }
+    else api = "https://proj.ruppin.ac.il/cgroup29/prod/api/";
+
+    //for image folder 
+    if (location.hostname === "localhost" || location.hostname === "127.0.0.1") {
         imageFolder = "https://localhost:7109/Images/";
     }
-    else {
-        api = "https://proj.ruppin.ac.il/cgroup29/prod/api/";
-        imageFolder = "https://proj.ruppin.ac.il/cgroup29/prod/Images/";
-    }
+    else imageFolder = "https://proj.ruppin.ac.il/cgroup29/prod/Images/";
 
     let str_PostCardHeader = "";
     str_PostCardHeader += '<h2 class="section-heading text-uppercase">עריכת דיווח מספר ' + currentPostID + '</h2>';
@@ -130,12 +132,14 @@ function RenderRelevantDetails() {
 
     //Screenshot
     var imgStr = "";
-    src = imageFolder + currentPostObject.screenshot;
+    src =  currentPostObject.screenshot;
     imgStr = `<img class="screenshotImg" src='${src}'/>`;
 
     document.getElementById("showScreenshot").innerHTML = imgStr;
 
 }
+
+
 
 
 // edit post - submit

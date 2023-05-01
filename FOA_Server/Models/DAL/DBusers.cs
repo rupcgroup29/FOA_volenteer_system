@@ -1,7 +1,5 @@
-﻿using System;
-using System.Data;
+﻿using System.Data;
 using System.Data.SqlClient;
-using System.Globalization;
 
 namespace FOA_Server.Models.DAL
 {
@@ -69,7 +67,7 @@ namespace FOA_Server.Models.DAL
                 }
             }
         }
-
+       
         // This method reads all the Users with names(program name etc)
         public List<UserService> ReadAllUsersWithNames()
         {
@@ -294,8 +292,8 @@ namespace FOA_Server.Models.DAL
 
         }
 
-
-
+    
+        
         // This method update a user to the user table 
         public int UpdateUserWithPassword(UserService user)
         {
@@ -529,7 +527,7 @@ namespace FOA_Server.Models.DAL
 
             return cmd;
         }
-
+    
         private SqlCommand CreateCommandWithStoredProcedureUpdateWithoutPassword(String spName, SqlConnection con, UserService user)
         {
             SqlCommand cmd = new SqlCommand(); // create the command object
@@ -696,8 +694,7 @@ namespace FOA_Server.Models.DAL
 
 
 
-        // Permission:
-
+        // Permission
         // This method reads all Permission
         public List<Permission> ReadPermissions()
         {
@@ -752,8 +749,7 @@ namespace FOA_Server.Models.DAL
 
 
 
-        // HourReport:
-
+        // HourReport
         // This method reads all Hour Reports
         public List<HourReport> ReadHourReports()
         {
@@ -783,28 +779,10 @@ namespace FOA_Server.Models.DAL
                 {
                     HourReport h = new HourReport();
                     h.ReportID = Convert.ToInt32(dataReader["ReportID"]);
-                    h.UserID = Convert.ToInt32(dataReader["UserID"]);
                     h.Date = Convert.ToDateTime(dataReader["Date"]);
-
-                    //אם שניהם יהיו מסוג DateTime
-                    TimeSpan timeStart = (TimeSpan)dataReader["StartTime"];
-                    DateTime dateTimeStart = h.Date.Add(timeStart);
-                    h.StartTime = dateTimeStart;
-
-                    TimeSpan timeEnd = (TimeSpan)dataReader["EndTime"];
-                    DateTime dateTimeEnd = h.Date.Add(timeEnd);
-                    h.EndTime = dateTimeEnd;
-
-                    ////אם שניהם יהיו מסוג TimeSpan
-                    //string timeStartString = dataReader["StartTime"].ToString();
-                    //TimeSpan startTime = TimeSpan.ParseExact(timeStartString, @"hh\:mm\:ss", CultureInfo.InvariantCulture);
-                    //h.StartTime = startTime;
-
-                    //string timeEndString = dataReader["StartTime"].ToString();
-                    //TimeSpan endTime = TimeSpan.ParseExact(timeEndString, @"hh\:mm\:ss", CultureInfo.InvariantCulture);
-                    //h.EndTime = endTime;
-
-                    // h.Status = Convert.ToInt32(dataReader["Status"]);
+                    //  h.StartTime = Convert.ToDateTime(dataReader["StartTime"]);
+                    //h.EndTime = Convert.ToDateTime(dataReader["EndTime"]);
+                    h.Status = Convert.ToInt32(dataReader["Status"]);
 
                     list.Add(h);
                 }
@@ -827,127 +805,6 @@ namespace FOA_Server.Models.DAL
             }
         }
 
-        // This method inserts new hour report to the its table 
-        public int InsertHourReport(HourReport shift)
-        {
-            SqlConnection con;
-            SqlCommand cmd;
-
-            try
-            {
-                con = connect("myProjDB"); // create the connection
-            }
-            catch (Exception ex)
-            {
-                // write to log
-                throw (ex);
-            }
-
-            cmd = CreateCommandWithStoredProcedureInsert("spInsertHourReport", con, shift);             // create the command
-
-            try
-            {
-                int numEffected = cmd.ExecuteNonQuery();  // execute the command
-                return numEffected;
-            }
-            catch (Exception ex)
-            {
-                // write to log
-                Console.WriteLine("Error");
-                throw (ex);
-            }
-
-            finally
-            {
-                if (con != null)
-                {
-                    // close the db connection
-                    con.Close();
-                }
-            }
-
-        }
-
-        public int UpdateShiftStatus(int reportID, int status)
-        {
-            SqlConnection con;
-            SqlCommand cmd;
-
-            try
-            {
-                con = connect("myProjDB"); // create the connection
-            }
-            catch (Exception ex)
-            {
-                // write to log
-                Console.WriteLine("Error");
-                throw (ex);
-            }
-
-            cmd = CreateCommandWithStoredProcedureUpdate("spUpdateHourReportStatus", con, reportID, status);     // create the command
-
-            try
-            {
-                int numEffected = cmd.ExecuteNonQuery();  // execute the command
-                return numEffected;
-            }
-            catch (Exception ex)
-            {
-                // write to log
-                throw (ex);
-            }
-
-            finally
-            {
-                if (con != null)
-                {
-                    // close the db connection
-                    con.Close();
-                }
-            }
-        }
-
-
-
-        // Create the SqlCommand using a stored procedure for INSERT Hour Report
-        private SqlCommand CreateCommandWithStoredProcedureInsert(String spName, SqlConnection con, HourReport shift)
-        {
-            SqlCommand cmd = new SqlCommand(); // create the command object
-
-            cmd.Connection = con;              // assign the connection to the command object
-
-            cmd.CommandText = spName;          // can be Select, Insert, Update, Delete 
-
-            cmd.CommandTimeout = 10;           // Time to wait for the execution' The default is 30 seconds
-
-            cmd.CommandType = System.Data.CommandType.StoredProcedure; // the type of the command, can also be stored procedure
-
-            cmd.Parameters.AddWithValue("@UserID", shift.UserID);
-            cmd.Parameters.AddWithValue("@Date", shift.Date);
-            cmd.Parameters.AddWithValue("@StartTime", shift.StartTime);
-            cmd.Parameters.AddWithValue("@EndTime", shift.EndTime);
-
-            return cmd;
-        }
-
-        // Create the SqlCommand using a stored procedure for UPDATE Hour Report
-        private SqlCommand CreateCommandWithStoredProcedureUpdate(String spName, SqlConnection con, int reportID,  int status)
-        {
-            SqlCommand cmd = new SqlCommand(); // create the command object
-
-            cmd.Connection = con;              // assign the connection to the command object
-
-            cmd.CommandText = spName;          // can be Select, Insert, Update, Delete 
-
-            cmd.CommandTimeout = 10;           // Time to wait for the execution' The default is 30 seconds
-
-            cmd.CommandType = System.Data.CommandType.StoredProcedure; // the type of the command, can also be stored procedure
-
-            cmd.Parameters.AddWithValue("@ReportID", reportID);
-            cmd.Parameters.AddWithValue("@Status", status);
-
-            return cmd;
-        }
 
 
 

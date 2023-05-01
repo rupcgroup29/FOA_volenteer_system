@@ -26,6 +26,11 @@ $(document).ready(function () {
 
     FilterByPost();
 
+    // for the popup alert for manegers:  
+    closePopup();
+
+
+
 });
 
 function FilterByPost() {
@@ -83,7 +88,7 @@ function RenderPostsList() {
         str += '<th style="width:10%;">תאריך</th>';
         str += '<th style="width:5%;"></th>';
         str += '</tr>';
-        for (var i = postsArr.length-1 ; i > 0 ; i--) {
+        for (var i = postsArr.length - 1; i > 0; i--) {
             var currenRemovalStatus;
             if (postsArr[i].removalStatus == 0)
                 currenRemovalStatus = "דווח";
@@ -120,7 +125,11 @@ function AlertPostsForApproval() {
     ajaxCall("GET", api + "Posts/numberOfNoneStatusPosts", "", AlertPostsForApprovalSCB, AlertPostsForApprovalECB);
 }
 function AlertPostsForApprovalSCB(data) {
-    alert(data + " פוסטים ממתינים לאישור מנהל");
+    str_popup = 'ישנם ' + data + ' פוסטים הממתינים לאישור מנהל';
+    $('#popupHeadline').text(str_popup);
+    //document.getElementById("popup").innerHTML += str_popup;
+    openPopup();
+    //alert(data + " פוסטים ממתינים לאישור מנהל");
 }
 function AlertPostsForApprovalECB(err) {
     alert("Input Error");
@@ -148,3 +157,11 @@ function renderRecommendation() {
     document.getElementById("RecommendationSection").innerHTML += str_Reco;
 }
 
+function openPopup() {
+    let popup = document.getElementById('popup');
+    popup.classList.add('open-popup')
+}
+function closePopup() {
+    let popup = document.getElementById('popup');
+    popup.classList.remove('open-popup')
+}

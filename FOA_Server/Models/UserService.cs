@@ -233,7 +233,7 @@ namespace FOA_Server.Models
 
 
         // user log in
-        public static UserService Login(string email, string password)
+        public static int Login(string email, string password)
         {
             UsersList = ReadAllUsers();
 
@@ -242,10 +242,10 @@ namespace FOA_Server.Models
                 if (email == u.Email && password == u.Password)
                 {
                     if (u.IsActive == false) { throw new Exception(" this user is not active "); }
-                    return u;
+                    return u.UserID;
                 }
             }
-            return null;
+            return -1;
         }
 
 

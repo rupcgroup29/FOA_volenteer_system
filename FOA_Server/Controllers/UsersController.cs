@@ -87,14 +87,14 @@ namespace FOA_Server.Controllers
 
             try
             {
-                UserService userService = UserService.Login(email, password);
+                int loginUserID = UserService.Login(email, password);
 
-                if (userService == null)
+                if (loginUserID < 0)
                 {
-                    throw new Exception(" wrong email or password ");
+                    throw new Exception(" האימייל או הסיסמא שהזנת שגויים ");
                 }
 
-                return Ok(userService);
+                return Ok(loginUserID);
             }
             catch (Exception ex)
             {

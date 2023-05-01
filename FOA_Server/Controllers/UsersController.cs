@@ -94,7 +94,7 @@ namespace FOA_Server.Controllers
                     throw new Exception(" האימייל או הסיסמא שהזנת שגויים ");
                 }
 
-                return Ok(loginUserID);
+                return Ok(loginUserID); //return logged-in user's ID
             }
             catch (Exception ex)
             {

@@ -29,12 +29,12 @@ namespace FOA_Server.Models
             DBposts dbs = new DBposts();
             var result = dbs.ReadExposureKeyWordsAndHashtags();
 
-            if (result != "")     // if zero posts has been uploaded to the system in the last week 
+            if (!string.IsNullOrEmpty(result))  // if zero posts has been uploaded to the system in the last week 
             {
                 kwAndHashtagExp = result;
-                return kwAndHashtagExp;
             }
-            else { return kwAndHashtagExp; }
+
+            return kwAndHashtagExp;
         }
 
         // Exposure Platform
@@ -43,12 +43,12 @@ namespace FOA_Server.Models
             DBposts dbs = new DBposts();
             var result = dbs.ReadExposurePlatform();
 
-            if (result != "")      // if zero posts has been uploaded to the system in the last week 
+            if (!string.IsNullOrEmpty(result))  // if zero posts has been uploaded to the system in the last week 
             {
                 platformExp = result;
-                return platformExp;
             }
-            else { return platformExp; }
+
+            return platformExp;
         }
 
         // Exposure Language
@@ -57,12 +57,12 @@ namespace FOA_Server.Models
             DBposts dbs = new DBposts();
             var result = dbs.ReadExposureLanguage();
 
-            if (result != "")      // if zero posts has been uploaded to the system in the last week 
+            if (!string.IsNullOrEmpty(result))  // if zero posts has been uploaded to the system in the last week 
             {
                 langExp = result;
-                return langExp;
             }
-            else { return langExp; }
+
+            return langExp;
         }
 
 

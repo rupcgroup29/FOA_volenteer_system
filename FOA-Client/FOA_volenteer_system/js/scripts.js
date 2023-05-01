@@ -9,7 +9,7 @@
 
 window.addEventListener('DOMContentLoaded', event => {
     //Nav bar - Permission
-    if (currentUser.permissionID == 4) // a volunteer is logged in
+    if (currentUser[1] === 4) // a volunteer is logged in
     {
         $(".ManagerNav").hide();
         $(".VolunteerNav").show();

@@ -25,7 +25,7 @@ $(document).ready(function () {
 
 // GET My User Details
 function getMyUserDetails() {
-    ajaxCall("GET", api + "UserServices/" + currentUser, "", getMyUserDetailsSCB, getMyUserDetailsECB);
+    ajaxCall("GET", api + "UserServices/" + currentUser[0], "", getMyUserDetailsSCB, getMyUserDetailsECB);
 }
 function getMyUserDetailsSCB(data) {
     relevantUserObject = data;

@@ -150,10 +150,10 @@ function editPost() {
     let removalStatusManager = "1"; // default if no one changed it yet
 
     if (postStatus != 0) { // status changed
-        postStatusManager = currentUser.userID;
+        postStatusManager = currentUser[0];
     }
     if (removalStatus != 0) { // status changed
-        removalStatusManager = currentUser.userID;
+        removalStatusManager = currentUser[0];
     }
     if (removalStatus != 0 && postStatus == 0) { //alert if removed from platform and havn't been approved yet
         alert("שים לב שלא עדכנת סטטוס האם הפוסט אנטישמי או לא!");

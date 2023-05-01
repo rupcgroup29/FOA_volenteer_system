@@ -78,7 +78,7 @@ function AddNewPost(data) {
         AmountOfComments: $("#exposure_Comments").val(),
         PostStatus: "1",
         RemovalStatus: "1",
-        UserID: currentUser,
+        UserID: currentUser[0],
         PlatformID: $("#platform").val(),
         CategoryID: categoryID,
         PostStatusManager: "1",      // במטרה לשלוח עם יוזר איידי קיים, ישתנה בעריכת פוסט

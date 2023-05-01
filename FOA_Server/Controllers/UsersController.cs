@@ -1,5 +1,6 @@
 ﻿using FOA_Server.Models;
 using Microsoft.AspNetCore.Mvc;
+using System;
 using System.Diagnostics;
 using System.Net;
 using System.Net.Mail;
@@ -87,14 +88,14 @@ namespace FOA_Server.Controllers
 
             try
             {
-                int loginUserID = UserService.Login(email, password);
+                int[] loginUserID = UserService.Login(email, password);
 
-                if (loginUserID < 0)
+                if (!loginUserID.Any())
                 {
                     throw new Exception(" האימייל או הסיסמא שהזנת שגויים ");
                 }
 
-                return Ok(loginUserID); //return logged-in user's ID
+                return Ok(loginUserID); //returns array with logged-in user's ID and he's permmitionID
             }
             catch (Exception ex)
             {

@@ -3,7 +3,7 @@ var currentUser = JSON.parse(sessionStorage.getItem("user"));
 
 var relevantUserID = JSON.parse(sessionStorage.getItem("userCard"));
 if (relevantUserID == undefined) {
-    sessionStorage.setItem("userCard", JSON.stringify(currentUser.userID));
+    sessionStorage.setItem("userCard", JSON.stringify(currentUser[0]));
     relevantUserID = JSON.parse(sessionStorage.getItem("userCard"));
 }
 
@@ -26,7 +26,7 @@ $(document).ready(function () {
 
     enableOther();
 
-    if (currentUser.userID != relevantUserID)  // if the user is editing someone else's user details- get without password
+    if (currentUser[0] != relevantUserID)  // if the user is editing someone else's user details- get without password
     {
         getAnotherUserDetails();
     }
@@ -48,7 +48,7 @@ function getAnotherUserDetailsECB(err) {
 
 // GET My User Details
 function getMyUserDetails() {
-    ajaxCall("GET", api + "UserServices/" + currentUser.userID, "", getMyUserDetailsSCB, getMyUserDetailsECB);
+    ajaxCall("GET", api + "UserServices/" + currentUser[0], "", getMyUserDetailsSCB, getMyUserDetailsECB);
 }
 function getMyUserDetailsSCB(data) {
     relevantUserObject = data;
@@ -120,7 +120,7 @@ function renderUserDetails() {
     //phone
     $("#phone").val(relevantUserObject.phoneNum);
     //password
-    if (currentUser.userID == relevantUserID)  // if the user is editing his own user details- show password
+    if (currentUser[0] == relevantUserID)  // if the user is editing his own user details- show password
     {
         let str_pass = "";
         str_pass += `<div class="form-headers">`;

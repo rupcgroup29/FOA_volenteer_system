@@ -233,19 +233,21 @@ namespace FOA_Server.Models
 
 
         // user log in
-        public static int Login(string email, string password)
+        public static int[] Login(string email, string password)
         {
             UsersList = ReadAllUsers();
+            int[] userDetails = new int[2];
 
             foreach (UserService u in UsersList)
             {
                 if (email == u.Email && password == u.Password)
                 {
                     if (u.IsActive == false) { throw new Exception(" this user is not active "); }
-                    return u.UserID;
+                    userDetails = new int[2] {u.UserID, u.PermissionID};
+                    return userDetails;
                 }
             }
-            return -1;
+            return userDetails;
         }
 
 

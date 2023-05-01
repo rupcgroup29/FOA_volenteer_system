@@ -15,7 +15,7 @@ $(document).ready(function () {
 
     // alerts for manager if just logged in
     if (justLoggedIn == true) {
-        if (currentUser.permissionID == 2) // a manager is logged in
+        if (currentUser[1] === 2) // a manager is logged in
         {
             AlertPostsForApproval();
         }

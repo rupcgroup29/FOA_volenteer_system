@@ -25,7 +25,7 @@ $(document).ready(function () {
 
 // GET My User Details
 function getMyUserDetails() {
-    ajaxCall("GET", api + "UserServices/" + currentUser.userID, "", getMyUserDetailsSCB, getMyUserDetailsECB);
+    ajaxCall("GET", api + "UserServices/" + currentUser, "", getMyUserDetailsSCB, getMyUserDetailsECB);
 }
 function getMyUserDetailsSCB(data) {
     relevantUserObject = data;
@@ -38,11 +38,11 @@ function getMyUserDetailsECB(err) {
 function renderMyUserDetails() {
     //Card Header
     let str_header = "";
-    str_header += `<h2 class="section-heading text-uppercase"> מתנדב מספר ` + currentUser.userID + `</h2>`;
+    str_header += `<h2 class="section-heading text-uppercase"> מתנדב מספר ` + relevantUserObject.userID + `</h2>`;
     document.getElementById("CardHeader").innerHTML += str_header;
     //is active
     let str_isActive = "";
-    if (currentUser.isActive == true) {
+    if (relevantUserObject.isActive == true) {
         str_isActive += `<option class="opt" value="0">כן </option>`;
         str_isActive += `<option class="opt" value="1">לא </option>`;
     }
@@ -53,23 +53,23 @@ function renderMyUserDetails() {
     document.getElementById("IsActive").innerHTML += str_isActive;
     //volunteerProgram
     let str_Prog = "";
-    str_Prog += '<option class="opt" value="' + currentUser.programID + '">' + currentUser.programName + '</option>';
+    str_Prog += '<option class="opt" value="' + relevantUserObject.programID + '">' + relevantUserObject.programName + '</option>';
     for (var i = 0; i < programsArr.length; i++) {
         str_Prog += '<option class="opt" value="' + programsArr[i].programID + '">' + programsArr[i].programName + '</option>';
     }
     str_Prog += '<option class="opt" value="999">אחר </option>';
     document.getElementById("volunteerProgram").innerHTML += str_Prog;
+
     //permission
     let str_perm = "";
-    if (currentUser.permission == 4) {
-        str_perm += `<option class="opt" value="4">מתנדב.ת</option>`;
+    if (relevantUserObject.permissionID == 4) {
+        str_perm += `<option class="opt" value="4" >מתנדב.ת</option>`;
+        //str_perm += `<option class="opt" value="3">מנהל.ת צוות</option>`;
+        //str_perm += `<option class="opt" value="2">מנהל.ת</option>`;
+    } else if (relevantUserObject.permissionID == 3) {
         str_perm += `<option class="opt" value="3">מנהל.ת צוות</option>`;
-        str_perm += `<option class="opt" value="2">מנהל.ת</option>`;
-    }
-    if (currentUser.permission == 3) {
-        str_perm += `<option class="opt" value="3">מנהל.ת צוות</option>`;
-        str_perm += `<option class="opt" value="4">מתנדב.ת</option>`;
-        str_perm += `<option class="opt" value="2">מנהל.ת</option>`;
+        //str_perm += `<option class="opt" value="4">מתנדב.ת</option>`;
+        //str_perm += `<option class="opt" value="2">מנהל.ת</option>`;
     }
     else {
         str_perm += `<option class="opt" value="2">מנהל.ת</option>`;
@@ -77,54 +77,43 @@ function renderMyUserDetails() {
         str_perm += `<option class="opt" value="4">מתנדב.ת</option>`;
     }
     document.getElementById("permission").innerHTML += str_perm;
+
     //team
     let str_team = "";
-    str_team += '<option class="opt" value="' + currentUser.teamID + '">' + currentUser.teamName + '</option>';
+    str_team += '<option class="opt" value="' + relevantUserObject.teamID + '">' + relevantUserObject.teamName + '</option>';
     for (var i = 0; i < teamsArr.length; i++) {
         str_team += '<option class="opt" value="' + teamsArr[i].teamID + '">' + teamsArr[i].teamName + '</option>';
     }
     document.getElementById("team").innerHTML += str_team;
     //roleDescription
-    $("#roleDescription").val(currentUser.roleDescription);
+    $("#roleDescription").val(relevantUserObject.roleDescription);
     //firstName
-    $("#firstName").val(currentUser.firstName);
+    $("#firstName").val(relevantUserObject.firstName);
     //surname
-    $("#surname").val(currentUser.surname);
+    $("#surname").val(relevantUserObject.surname);
     //user_name
-    $("#user_name").val(currentUser.userName);
+    $("#user_name").val(relevantUserObject.userName);
     //email
-    $("#email").val(currentUser.email);
+    $("#email").val(relevantUserObject.email);
     //phone
-    $("#phone").val(currentUser.phoneNum);
+    $("#phone").val(relevantUserObject.phoneNum);
     //Password
-    $("#Password").val(currentUser.password);
+    $("#Password").val(relevantUserObject.password);
 }
 
 function updateUser() {
-    let firstName = $("#firstName").val();
-    let surname = $("#surname").val();
-    let user_name = $("#user_name").val();
-    let email = $("#email").val();
-    let phone = $("#phone").val();
-    let volunteerProgram = $("#volunteerProgram").val();
-    let permission = $("#permission").val();
-    let team = $("#team").val();
-    let roleDescription = $("#roleDescription").val();
-    let programName = $("#Different_school").val();
-    let password = $("Password").val();
-
     const updateUser = {
-        FirstName: firstName,
-        Surname: surname,
-        UserName: user_name,
-        PhoneNum: phone,
-        RoleDescription: roleDescription,
-        PermissionID: permission,
-        TeamID: team,
-        ProgramID: volunteerProgram,
-        Email: email,
-        Password: password,
-        ProgramName: programName
+        FirstName: $("#firstName").val(),
+        Surname: $("#surname").val(),
+        UserName: $("#user_name").val(),
+        PhoneNum: $("#phone").val(),
+        RoleDescription: $("#roleDescription").val(),
+        PermissionID: $("#permission").val(),
+        TeamID: $("#team").val(),
+        ProgramID: $("#volunteerProgram").val(),
+        Email: $("#email").val(),
+        Password: $("Password").val(),
+        ProgramName: $("#Different_school").val()
     }
 
     ajaxCall("PUT", api + "Users/" + relevantUserID, JSON.stringify(updateUser), updateUserSCB, updateUserECB);

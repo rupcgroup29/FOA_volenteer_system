@@ -119,7 +119,7 @@ namespace FOA_Server.Controllers
                 Guid newPassword = Guid.NewGuid();      // create random password
 
                 // bulid & send the email 
-                string messageBody = $"בעקבות לחיצה שלך על כפתור 'שכחתי סיסמא', להלן הסיסמא החדשה שלך למערכת המתנדבים של FOA: {newPassword}";
+                string messageBody = $"בעקבות לחיצה על כפתור 'שכחתי סיסמא', להלן הסיסמא החדשה שלך למערכת המתנדבים של העמותה למאבק באנטישמיות ברשת: {newPassword}";
                 string subject = "Reset Password to the FOA Volenteer System";
                 EmailService emailService = new EmailService();
                 emailService.SendEmail(emailService.createMailMessage(resetEmail, messageBody, subject));

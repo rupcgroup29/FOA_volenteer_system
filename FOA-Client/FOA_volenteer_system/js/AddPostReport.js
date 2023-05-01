@@ -9,24 +9,6 @@ $(document).ready(function () {
         api = "https://proj.ruppin.ac.il/cgroup29/prod/api/";
     }
 
-    //Nav bar - Permission
-    if (currentUser.permissionID == 4) // a volunteer is logged in
-    {
-        $(".ManagerNav").hide();
-        $(".VolunteerNav").show();
-    }
-    else //Manager is logged in
-    {
-        $(".ManagerNav").show();
-        $(".VolunteerNav").hide();
-    }
-
-    $("#u39").mouseenter(UserEnterSubManu);
-    $("#u39").mouseleave(UserExitSubManu);
-    $("#u40").mouseleave(UserExitSubManu);
-
-    $("#logout").click(logout);
-
     //"other" sections will be readonly when page is up
     $("#platform_diff").attr("readonly", true);
     $("#country_diff").attr("readonly", true);
@@ -44,26 +26,6 @@ $(document).ready(function () {
     enableOtherLanguage()
 
 });
-
-//NAVBAR USER
-
-function UserEnterSubManu() {
-    $("#u40").css("visibility", "inherit")
-    $("#u40").show();
-}
-function UserExitSubManu() {
-    $("#u40").css("visibility", "hidden")
-    $("#u40").hide();
-}
-
-//logout function
-function logout() {
-    isLogIn = false;
-    sessionStorage.clear();
-    window.location.assign("Log-In.html");
-}
-
-//END - NAVBAR USER
 
 // submit new post
 function SaveImage() {

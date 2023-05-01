@@ -17,25 +17,6 @@ $(document).ready(function () {
     }
     else api = "https://proj.ruppin.ac.il/cgroup29/prod/api/";
 
-
-
-    //Nav bar - Permission
-    if (currentUser.permissionID == 4) // a volunteer is logged in
-    {
-        $(".ManagerNav").hide();
-        $(".VolunteerNav").show();
-    }
-    else //Manager is logged in
-    {
-        $(".ManagerNav").show();
-        $(".VolunteerNav").hide();
-    }
-    $("#u39").mouseenter(UserEnterSubManu);
-    $("#u39").mouseleave(UserExitSubManu);
-    $("#u40").mouseleave(UserExitSubManu);
-
-    $("#logout").click(logout);
-
     $('#contactForm').submit(updateUser);
 
     // get the volunteer Program list
@@ -52,25 +33,6 @@ $(document).ready(function () {
     else getMyUserDetails();
 
 });
-//NAVBAR USER
-
-function UserEnterSubManu() {
-    $("#u40").css("visibility", "inherit")
-    $("#u40").show();
-}
-function UserExitSubManu() {
-    $("#u40").css("visibility", "hidden")
-    $("#u40").hide();
-}
-
-//logout function
-function logout() {
-    isLogIn = false;
-    sessionStorage.clear();
-    window.location.assign("Log-In.html");
-}
-
-//END - NAVBAR USER
 
 // GET Another User Details
 function getAnotherUserDetails() {
@@ -86,7 +48,7 @@ function getAnotherUserDetailsECB(err) {
 
 // GET My User Details
 function getMyUserDetails() {
-    ajaxCall("GET", api + "UserServices/" + relevantUserID, "", getMyUserDetailsSCB, getMyUserDetailsECB);
+    ajaxCall("GET", api + "UserServices/" + currentUser.userID, "", getMyUserDetailsSCB, getMyUserDetailsECB);
 }
 function getMyUserDetailsSCB(data) {
     relevantUserObject = data;
@@ -157,6 +119,7 @@ function renderUserDetails() {
     $("#email").val(relevantUserObject.email);
     //phone
     $("#phone").val(relevantUserObject.phoneNum);
+    //password
     if (currentUser.userID == relevantUserID)  // if the user is editing his own user details- show password
     {
         let str_pass = "";

@@ -41,7 +41,7 @@ namespace FOA_Server.Models.DAL
                     p.UrlLink = dataReader["UrlLink"].ToString();
                     p.Description = dataReader["Description"].ToString();
                     p.Threat = Convert.ToInt32(dataReader["Threat"]);
-                    p.Screenshot = dataReader["Screenshot"].ToString();
+                    // p.Screenshot = dataReader["Screenshot"].ToString();
                     p.AmountOfLikes = Convert.ToInt32(dataReader["AmountOfLikes"]);
                     p.AmountOfShares = Convert.ToInt32(dataReader["AmountOfShares"]);
                     p.AmountOfComments = Convert.ToInt32(dataReader["AmountOfComments"]);
@@ -94,7 +94,7 @@ namespace FOA_Server.Models.DAL
 
             try
             {
-                int lastId = Convert.ToInt32(cmd.ExecuteScalar()); // execute the command //נותן את האופציה לקבל ערך בחזרה מפונקציית ההכנסה (id)
+                int lastId = Convert.ToInt32(cmd.ExecuteScalar()); //Executescalar requires the command to have a transaction (id)
                 return lastId;
             }
             catch (Exception ex)
@@ -792,7 +792,7 @@ namespace FOA_Server.Models.DAL
 
             try
             {
-                int lastId = Convert.ToInt32(cmd.ExecuteScalar());
+                int lastId = Convert.ToInt32(cmd.ExecuteScalar());//Executescalar requires the command to have a transaction
                 return lastId;
             }
             catch (Exception ex)
@@ -887,7 +887,7 @@ namespace FOA_Server.Models.DAL
 
             try
             {
-                int lastId = Convert.ToInt32(cmd.ExecuteScalar());
+                int lastId = Convert.ToInt32(cmd.ExecuteScalar()); // Executescalar requires the command to have a transaction
                 return lastId;
             }
             catch (Exception ex)
@@ -1078,7 +1078,7 @@ namespace FOA_Server.Models.DAL
 
             try
             {
-                int lastId = Convert.ToInt32(cmd.ExecuteScalar());
+                int lastId = Convert.ToInt32(cmd.ExecuteScalar());//Executescalar requires the command to have a transaction
                 return lastId;
             }
             catch (Exception ex)
@@ -1166,7 +1166,7 @@ namespace FOA_Server.Models.DAL
             cmd.Parameters.AddWithValue("@AmountOfLikes", post.AmountOfLikes);
             cmd.Parameters.AddWithValue("@AmountOfShares", post.AmountOfShares);
             cmd.Parameters.AddWithValue("@AmountOfComments", post.AmountOfComments);
-            cmd.Parameters.AddWithValue("@Screenshot", post.Screenshot);
+            cmd.Parameters.AddWithValue("@Screenshot", "");
             cmd.Parameters.Add("@LastID", SqlDbType.Int).Direction = ParameterDirection.Output;
 
             return cmd;

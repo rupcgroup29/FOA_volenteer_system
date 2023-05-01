@@ -41,7 +41,7 @@ namespace FOA_Server.Models.DAL
                     p.UrlLink = dataReader["UrlLink"].ToString();
                     p.Description = dataReader["Description"].ToString();
                     p.Threat = Convert.ToInt32(dataReader["Threat"]);
-                    // p.Screenshot = dataReader["Screenshot"].ToString();
+                    p.Screenshot = dataReader["Screenshot"].ToString();
                     p.AmountOfLikes = Convert.ToInt32(dataReader["AmountOfLikes"]);
                     p.AmountOfShares = Convert.ToInt32(dataReader["AmountOfShares"]);
                     p.AmountOfComments = Convert.ToInt32(dataReader["AmountOfComments"]);
@@ -1166,7 +1166,7 @@ namespace FOA_Server.Models.DAL
             cmd.Parameters.AddWithValue("@AmountOfLikes", post.AmountOfLikes);
             cmd.Parameters.AddWithValue("@AmountOfShares", post.AmountOfShares);
             cmd.Parameters.AddWithValue("@AmountOfComments", post.AmountOfComments);
-            cmd.Parameters.AddWithValue("@Screenshot", "");
+            cmd.Parameters.AddWithValue("@Screenshot", post.Screenshot);
             cmd.Parameters.Add("@LastID", SqlDbType.Int).Direction = ParameterDirection.Output;
 
             return cmd;

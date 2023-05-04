@@ -189,8 +189,8 @@ namespace FOA_Server.Models.DAL
 
             try
             {
-                int numEffected = cmd.ExecuteNonQuery();  // execute the command
-                return numEffected;
+                int lastId = Convert.ToInt32(cmd.ExecuteScalar()); //Executescalar requires the command to have a transaction (id)
+                return lastId;
             }
             catch (Exception ex)
             {
@@ -285,6 +285,7 @@ namespace FOA_Server.Models.DAL
             cmd.Parameters.AddWithValue("@TeamName", team.TeamName);
             cmd.Parameters.AddWithValue("@Description", team.Description);
             cmd.Parameters.AddWithValue("@TeamLeader", team.TeamLeader);
+            cmd.Parameters.Add("@LastID", SqlDbType.Int).Direction = ParameterDirection.Output;
 
             return cmd;
         }

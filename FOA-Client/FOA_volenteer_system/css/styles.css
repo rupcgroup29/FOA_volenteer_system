@@ -20,6 +20,11 @@ h2 {
     font-weight: bold !important;
 }
 
+.teamDetails{
+    text-align: center;
+    color: #fff;
+}
+
 .screenshotImg {
     max-width: 75%;
     height: 500px;

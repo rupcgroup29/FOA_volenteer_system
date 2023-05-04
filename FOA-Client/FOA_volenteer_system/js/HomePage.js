@@ -24,7 +24,7 @@ $(document).ready(function () {
     readPosts();
     getRecommendation();
 
-    FilterByPost();
+    //FilterByPost();
 
     // for the popup alert for manegers:  
     closePopup();
@@ -33,7 +33,7 @@ $(document).ready(function () {
 
 });
 
-function FilterByPost() {
+/*function FilterByPost() {
     // Declare variables
     var input = document.getElementById("myInput");
     var filter = input.value.toUpperCase();
@@ -53,7 +53,7 @@ function FilterByPost() {
             }
         }
     }
-}
+}*/
 
 // read all posts
 function readPosts() {
@@ -111,9 +111,7 @@ function drawPostsDataTable(array) {
                     },
                     {
                         render: function (data, type, row, meta) {      //יצירת כפתור צפייה בפוסט
-                            let dataPost = "data-postId='" + row.postID + "'";
                             viewBtn = '<button onclick="OpenPostCard(' + row.postID + ')">צפייה</button>';;
-                            //deleteBtn = "<button type='button' class = 'deleteBtn btn btn-danger' " + dataCar + "> Delete </button>";
                             return viewBtn;
                         }
                     }
@@ -171,7 +169,7 @@ function drawPostsDataTable(array) {
 //// save the relevant post to open in edit\view mode (Depends on permission)
 function OpenPostCard(postID) {
     sessionStorage.setItem("post", JSON.stringify(postID));
-    location.replace("PostReportCard%20.html");
+    window.location.href = "PostReportCard%20.html";
 }
 
 // התראות למנהל על כמות פוסטים שטרם אושרו

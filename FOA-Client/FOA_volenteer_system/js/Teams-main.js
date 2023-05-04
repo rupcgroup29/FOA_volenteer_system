@@ -79,5 +79,5 @@ function RenderUsersList() {
 // save the relevant user to open in edit\view mode (Depends on permission)
 function OpenUserCard(userID) {
     sessionStorage.setItem("userCard", JSON.stringify(userID));
-    location.replace("UserCard.html");
+    window.location.href = "UserCard.html";
 }

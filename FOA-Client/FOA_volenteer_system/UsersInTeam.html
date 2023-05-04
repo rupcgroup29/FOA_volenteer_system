@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <meta name="description" content="" />
+    <meta name="author" content="" />
+    <title>FOA Volunteers System- Teams</title>
+    <!-- Favicon-->
+    <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
+    <!-- Font Awesome icons (free version)-->
+    <script src="https://use.fontawesome.com/releases/v6.1.0/js/all.js" crossorigin="anonymous"></script>
+    <!-- Google fonts-->
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css" />
+    <link href="https://fonts.googleapis.com/css?family=Roboto+Slab:400,100,300,700" rel="stylesheet" type="text/css" />
+    <!-- Core theme CSS (includes Bootstrap)-->
+    <link href="css/styles.css" rel="stylesheet" />
+
+    <!-- for dataTable functions -->
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.13.1/css/jquery.dataTables.min.css">
+
+
+    <!-- תוספות שלנו-->
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.1/dist/jquery.slim.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- for dataTable functions -->
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.13.1/css/jquery.dataTables.min.css">
+    <!-- font  -->
+    <link href='https://fonts.googleapis.com/css?family=Arimo' rel='stylesheet'>
+    <script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script>
+    <!-- קישור לעמודי JS -->
+    <script src="js/ajaxCall.js"></script>
+    <script src="js/UsersInTeam.js"></script>
+    <script src="js/scripts.js"></script>
+    <link href="css/navbar.css" rel="stylesheet" />
+
+</head>
+<body id="page-top">
+    <nav class="ManagerNav navbar navbar-expand-lg navbar-dark fixed-top" id="mainNav">
+        <div class="container">
+            <!-- Account Icon -->
+            <div id="u39" class="ax_default icon" data-label="Account Icon">
+                <!--<img id="u39_img" class="img " src="assets/img/account_icon_u39.svg" />-->
+                <i id="u39_img" class='fas fa-user-alt'></i>
+                <div id="u39_text" class="text ">
+                    <p></p>
+                </div>
+
+                <!-- Sub Menu (Dynamic Panel) -->
+                <div id="u40" class="ax_default ax_default_hidden" data-label="Sub Menu">
+                    <div id="u40_state0" class="panel_state" data-label="user">
+                        <div id="u40_state0_content" class="panel_state_content">
+
+                            <!-- Unnamed (Rectangle) -->
+                            <div id="u41" class="ax_default heading_3">
+                                <div id="u41_div" class=""></div>
+                                <div id="u41_text" class="text ">
+                                    <p>
+                                        <span>
+                                            <button id="logout">התנתק</button>
+                                        </span>
+                                    </p>
+                                </div>
+                            </div>
+
+                            <!-- Unnamed (Rectangle) -->
+                            <div id="u42" class="ax_default heading_3">
+                                <div id="u42_div" class=""></div>
+                                <div id="u42_text" class="text ">
+                                    <p><span><a href="MyUserCard.html">פרטים אישיים</a></span></p>
+                                </div>
+                            </div>
+
+                            <!-- Unnamed (Line) -->
+                            <div id="u43" class="ax_default line">
+                                <img id="u43_img" class="img " src="images/home_page/u43.svg" />
+                                <div id="u43_text" class="text ">
+                                    <p></p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="collapse navbar-collapse" id="navbarResponsive">
+                <ul class="navbar-nav text-uppercase ms-auto py-4 py-lg-0">
+                    <li class="nav-item"><a class="nav-link" href="Teams-main.html">צוותים</a></li>
+                    <li class="nav-item"><a class="nav-link" href="AddHours.html">דיווח שעות</a></li>
+                    <li class="nav-item"><a class="nav-link" href="AddPostReport.html">דיווח על פוסט</a></li>
+                    <!--<li class="nav-item"><a class="navbar-brand" href="HomePage.html"><img src="assets/img/LOGO-removebg-preview.png" alt="logo" /></a></li>-->
+                </ul>
+                <a class="navbar-brand" href="HomePage.html"><img src="assets/img/LOGO-removebg-preview.png" alt="logo" /></a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Teams -->
+    <section class="page-section" id="contact">
+        <div class="container">
+            <div class="text-center">
+                <h2 id="headline" class="section-heading text-uppercase"></h2>
+            </div>
+
+            <div id="teamDetails">
+                <!-- renter team detaild -->
+            </div>
+
+            <div id="UsersTable">
+                <table id="dataTable" class="display nowrap">
+                    <thead>
+                        <tr>
+                            <th>שם משתמש</th>
+                            <th>שם פרטי</th>
+                            <th>שם משפחה</th>
+                            <th>אימייל</th>
+                            <th>פלאפון</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                </table>
+            </div>
+
+        </div>
+    </section>
+
+
+    <!-- Footer-->
+    <footer class="footer py-4">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-lg-4 text-lg-start">Copyright &copy; Your Website 2022</div>
+                <div class="col-lg-4 my-3 my-lg-0">
+                    <a class="btn btn-dark btn-social mx-2" href="#!" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+                    <a class="btn btn-dark btn-social mx-2" href="#!" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+                    <a class="btn btn-dark btn-social mx-2" href="#!" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+                </div>
+                <div class="col-lg-4 text-lg-end">
+                    <a class="link-dark text-decoration-none me-3" href="#!">Privacy Policy</a>
+                    <a class="link-dark text-decoration-none" href="#!">Terms of Use</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+
+
+    <!-- Bootstrap core JS-->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Core theme JS-->
+    <script src="js/scripts.js"></script>
+    <!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *-->
+    <!-- * *                               SB Forms JS                               * *-->
+    <!-- * * Activate your form at https://startbootstrap.com/solution/contact-forms * *-->
+    <!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *-->
+    <script src="https://cdn.startbootstrap.com/sb-forms-latest.js"></script>
+</body>
+</html>

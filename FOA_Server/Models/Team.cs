@@ -72,11 +72,11 @@ namespace FOA_Server.Models
                 }
 
                 DBteams dbs = new DBteams();
-                int good = dbs.InsertTeam(this);
-                if (good > 0)
+                int newTeamID = dbs.InsertTeam(this);    //returns the new team's ID
+                if (newTeamID > 0)
                 {
                     DBusers dBusers = new DBusers();
-                    int updated = dBusers.UpdateTeamLeaderTeam(this.TeamLeader, this.TeamID);
+                    int updated = dBusers.UpdateTeamLeaderTeam(this.TeamLeader, newTeamID);
                     if (updated > 0)
                         return this;
                     else { throw new Exception(" לא הצליח לעדכן את מספר הצוות למנהל הצוות שנבחר "); }

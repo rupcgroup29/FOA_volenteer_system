@@ -20,29 +20,18 @@ $(document).ready(function () {
 
 
 function RegisterUser() {
-    let firstName = $("#firstName").val();
-    let surname = $("#surname").val();
-    let user_name = $("#user_name").val();
-    let email = $("#email").val();
-    let phone = $("#phone").val();
-    let volunteerProgram = $("#volunteerProgram").val();
-    let permission = $("#permission").val();
-    let team = $("#team").val();
-    let roleDescription = $("#roleDescription").val();
-    let programName = $("#Different_school").val();
-
     const newUser = {
-        FirstName: firstName,
-        Surname: surname,
-        UserName: user_name,
-        PhoneNum: phone,
-        RoleDescription: roleDescription,
-        PermissionID: permission,
-        TeamID: team,
-        ProgramID: volunteerProgram,
-        Email: email,
+        FirstName: $("#firstName").val(),
+        Surname: $("#surname").val(),
+        UserName: $("#user_name").val(),
+        PhoneNum: $("#phone").val(),
+        RoleDescription: $("#roleDescription").val(),
+        PermissionID: $("#permission").val(),
+        TeamID: $("#team").val(),
+        ProgramID: $("#volunteerProgram").val(),
+        Email: $("#email").val(),
         Password: "", //במטרה לשלוח אובייקט משתמש שלם, ישתנה בדאטה בייס
-        ProgramName: programName,
+        ProgramName: $("#Different_school").val(),
     }
 
     ajaxCall("POST", api + "UserServices", JSON.stringify(newUser), postRegisterSCB, postRegisterECB);

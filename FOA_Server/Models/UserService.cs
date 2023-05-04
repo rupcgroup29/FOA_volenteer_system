@@ -21,12 +21,13 @@ namespace FOA_Server.Models
         public string? ProgramName { get; set; }
         public string? TeamName { get; set; }
         public DateTime? LastReasetPassword { get; set; }
+        public int? HoursCount { get; set; }
 
         private static List<UserService> UsersList = new List<UserService>();
 
         public UserService() { }
 
-        public UserService(int userID, string firstName, string surname, string userName, string phoneNum, string roleDescription, int permissionID, bool isActive, string? password, int teamID, int programID, string email, string? programName, string? teamName, DateTime ? lastReasetPassword, string? permissionName)
+        public UserService(int userID, string firstName, string surname, string userName, string phoneNum, string roleDescription, int permissionID, bool isActive, string? password, int teamID, int programID, string email, string? programName, string? teamName, DateTime ? lastReasetPassword, string? permissionName, int? hoursCount)
         {
             UserID = userID;
             FirstName = firstName;
@@ -44,6 +45,7 @@ namespace FOA_Server.Models
             TeamName = teamName;
             LastReasetPassword = lastReasetPassword;
             PermissionName = permissionName;
+            HoursCount = hoursCount;
         }
 
 

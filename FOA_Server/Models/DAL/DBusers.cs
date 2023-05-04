@@ -1131,7 +1131,7 @@ namespace FOA_Server.Models.DAL
                 throw (ex);
             }
 
-            cmd = CreateCommandWithStoredProcedureDelete("spUpdateHourReportStatus", con, hourReport);     // create the command
+            cmd = CreateCommandWithStoredProcedureDelete("spDeleteHourReportStatus", con, hourReport);     // create the command
 
             try
             {

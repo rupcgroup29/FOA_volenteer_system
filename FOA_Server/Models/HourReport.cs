@@ -33,6 +33,12 @@ namespace FOA_Server.Models
             return dbs.ReadHourReports();
         }
 
+        // read all user's hour reports
+        public static List<HourReport> ReadUserHourReports(int userId)
+        {
+            DBusers dbs = new DBusers();
+            return dbs.ReadUserHourReports(userId);
+        }
 
         //Insert new Hour Report 
         public bool InsertHourReports()

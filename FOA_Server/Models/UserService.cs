@@ -76,6 +76,13 @@ namespace FOA_Server.Models
             return db.ReadUserByIDWithoutPassword(id);
         }
 
+        // get user by id without password
+        public static List<UserService> ReadUsersInTeam(int teamId)
+        {
+            DBusers db = new DBusers();
+            return db.ReadUsersInTeam(teamId);
+        }
+
 
         // insert new user
         public int InsertUser()

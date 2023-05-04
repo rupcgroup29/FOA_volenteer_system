@@ -18,10 +18,10 @@ namespace FOA_Server.Controllers
         }
 
         // GET api/<HourReportsController>/5
-        [HttpGet("{id}")]
-        public string Get(int id)
+        [HttpGet("{userId}")]
+        public List<HourReport> Get(int userId)
         {
-            return "value";
+            return HourReport.ReadUserHourReports(userId);
         }
 
         // POST api/<HourReportsController>

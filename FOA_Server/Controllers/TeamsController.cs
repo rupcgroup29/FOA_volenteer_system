@@ -17,11 +17,26 @@ namespace FOA_Server.Controllers
         }
 
         // GET api/<TeamsController>/5
-        [HttpGet("{id}")]
-        public string Get(int id)
+        [HttpGet("teamsDetails")]
+        public List<Object> GetTeamsDetails()
         {
-            return "value";
+            return Team.ReadTeamsDetails();
         }
+
+        // GET api/<TeamsController>/5
+        [HttpGet("teamLeadersWithoutTeam")]
+        public List<Object> GetTeamLeadersWithoutTeamToLead()
+        {
+            try
+            {
+                return Team.ReadTeamLeadersWithoutTeamToLead();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("cannot read all team leaders" + ex.Message);
+            }
+        }
+
 
         // POST api/<TeamsController>
         [HttpPost]
@@ -38,10 +53,13 @@ namespace FOA_Server.Controllers
             }
         }
 
+
         // PUT api/<TeamsController>/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
+        [HttpPut]
+        public bool Put([FromBody] Team team)
         {
+            bool affected = team.UpdateTeam();       // update team's details
+            return affected;
         }
 
         // DELETE api/<TeamsController>/5

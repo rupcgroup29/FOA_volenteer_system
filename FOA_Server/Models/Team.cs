@@ -27,6 +27,35 @@ namespace FOA_Server.Models
             return dbs.ReadTeams();
         }
 
+        // read all teams details
+        public static List<Object> ReadTeamsDetails()
+        {
+            DBteams dbs = new DBteams();
+            return dbs.ReadTeamsDetails();
+        }
+
+        // read all teams details
+        public static List<Object> ReadTeamLeadersWithoutTeamToLead()
+        {
+            DBteams dbs = new DBteams();
+            return dbs.ReadTeamLeadersWithoutTeamToLead();
+        }
+
+        // get direct user's maneger (return the team leader's userID)
+        public static int GetUserManegerID(int teamID)
+        {
+            teamsList = ReadAllTeams();
+            foreach (Team team in teamsList)
+            {
+                if (team.TeamID == teamID)
+                {
+                    return team.TeamLeader;
+                }
+            }
+            return 0;
+        }
+
+
 
         // insert new team
         public Team InsertNewTeam()
@@ -44,8 +73,15 @@ namespace FOA_Server.Models
 
                 DBteams dbs = new DBteams();
                 int good = dbs.InsertTeam(this);
-                if (good > 0) { return this; }
-                else { return null; }
+                if (good > 0)
+                {
+                    DBusers dBusers = new DBusers();
+                    int updated = dBusers.UpdateTeamLeaderTeam(this.TeamLeader, this.TeamID);
+                    if (updated > 0)
+                        return this;
+                    else { throw new Exception(" לא הצליח לעדכן את מספר הצוות למנהל הצוות שנבחר "); }
+                }
+                else { throw new Exception(" כישלון בהוספת הצוות החדש "); }
 
             }
             catch (Exception exp)
@@ -56,8 +92,30 @@ namespace FOA_Server.Models
         }
 
 
+        // update team
+        public bool UpdateTeam()
+        {
+            teamsList = ReadAllTeams();
+            try
+            {
+                foreach (Team t in teamsList)
+                {
+                    if (t.TeamID == this.TeamID)
+                    {
+                        DBteams dbs = new DBteams();
+                        int good = dbs.UpdateTeam(this);
+                        if (good > 0) { return true; }
+                        else { return false; }
+                    }
+                }
+                throw new Exception(" no such team ");
 
-
+            }
+            catch (Exception exp)
+            {
+                throw new Exception(" didn't succeed in updating team's details " + exp.Message);
+            }
+        }
 
     }
 }

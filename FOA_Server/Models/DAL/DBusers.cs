@@ -127,6 +127,70 @@ namespace FOA_Server.Models.DAL
             }
         }
 
+        // This method reads all the Users with names(program name etc)
+        public List<UserService> ReadUsersInTeam(int teamId)
+        {
+            SqlConnection con;
+            SqlCommand cmd;
+
+            try
+            {
+                con = connect("myProjDB"); // create the connection
+            }
+            catch (Exception ex)
+            {
+                // write to log
+                Console.WriteLine("Error");
+                throw (ex);
+            }
+
+            cmd = CreateCommandWithStoredProcedureReadUsersInTeam("spReadUsersScreenByTeamID", con, teamId);      // create the command
+
+            List<UserService> list = new List<UserService>();
+
+            try
+            {
+                SqlDataReader dataReader = cmd.ExecuteReader(CommandBehavior.CloseConnection);
+
+                while (dataReader.Read())
+                {
+                    UserService usr = new UserService();
+                    usr.UserID = Convert.ToInt32(dataReader["UserID"]);
+                    usr.FirstName = dataReader["FirstName"].ToString();
+                    usr.Surname = dataReader["Surname"].ToString();
+                    usr.UserName = dataReader["UserName"].ToString();
+                    usr.Email = dataReader["Email"].ToString();
+                    usr.IsActive = Convert.ToBoolean(dataReader["TeamID"]);
+                    usr.PhoneNum = dataReader["PhoneNum"].ToString();
+                    usr.RoleDescription = dataReader["RoleDescription"].ToString();
+                    usr.PermissionID = Convert.ToInt32(dataReader["PermissionID"]);
+                    usr.PermissionName = dataReader["PermissionName"].ToString();
+                    usr.ProgramID = Convert.ToInt32(dataReader["ProgramID"]);
+                    usr.ProgramName = dataReader["ProgramName"].ToString();
+                    usr.TeamID = Convert.ToInt32(dataReader["TeamID"]);
+                    usr.TeamName = dataReader["TeamName"].ToString();
+
+                    list.Add(usr);
+                }
+                return list;
+            }
+            catch (Exception ex)
+            {
+                // write to log
+                Console.WriteLine("Error");
+                throw (ex);
+            }
+
+            finally
+            {
+                if (con != null)
+                {
+                    // close the db connection
+                    con.Close();
+                }
+            }
+        }
+
 
         // This method reads user's details by id with password
         public UserService ReadUserByIDWithPassword(int userId)
@@ -250,6 +314,7 @@ namespace FOA_Server.Models.DAL
                 }
             }
         }
+
 
 
 
@@ -416,6 +481,46 @@ namespace FOA_Server.Models.DAL
             }
         }
 
+        // This method update teamID into the (team leader) user table 
+        public int UpdateTeamLeaderTeam(int userID, int teamID)
+        {
+            SqlConnection con;
+            SqlCommand cmd;
+
+            try
+            {
+                con = connect("myProjDB"); // create the connection
+            }
+            catch (Exception ex)
+            {
+                // write to log
+                Console.WriteLine("Error");
+                throw (ex);
+            }
+
+            cmd = CreateCommandWithStoredProcedureUpdateTeamLeaderTeam("spUpdateTeamLeaderTeam", con, userID, teamID);     // create the command
+
+            try
+            {
+                int numEffected = cmd.ExecuteNonQuery();  // execute the command
+                return numEffected;
+            }
+            catch (Exception ex)
+            {
+                // write to log
+                throw (ex);
+            }
+
+            finally
+            {
+                if (con != null)
+                {
+                    // close the db connection
+                    con.Close();
+                }
+            }
+        }
+
 
 
 
@@ -470,6 +575,25 @@ namespace FOA_Server.Models.DAL
 
             return cmd;
         }
+
+        // Create the SqlCommand using a stored procedure for Read user by ID with password
+        private SqlCommand CreateCommandWithStoredProcedureReadUsersInTeam(string spName, SqlConnection con, int teamId)
+        {
+            SqlCommand cmd = new SqlCommand(); // create the command object
+
+            cmd.Connection = con;              // assign the connection to the command object
+
+            cmd.CommandText = spName;          // can be Select, Insert, Update, Delete 
+
+            cmd.CommandTimeout = 10;           // Time to wait for the execution' The default is 30 seconds
+
+            cmd.CommandType = System.Data.CommandType.StoredProcedure; // the type of the command, can also be stored procedure
+
+            cmd.Parameters.AddWithValue("@TeamID", teamId);
+
+            return cmd;
+        }
+
 
 
 
@@ -571,6 +695,24 @@ namespace FOA_Server.Models.DAL
             cmd.Parameters.AddWithValue("@Email", email);
             cmd.Parameters.AddWithValue("@Password", password);
             cmd.Parameters.AddWithValue("@LastReasetPassword", DateTime.Now.AddMinutes(5));
+
+            return cmd;
+        }
+
+        private SqlCommand CreateCommandWithStoredProcedureUpdateTeamLeaderTeam(String spName, SqlConnection con, int userID, int teamID)
+        {
+            SqlCommand cmd = new SqlCommand(); // create the command object
+
+            cmd.Connection = con;              // assign the connection to the command object
+
+            cmd.CommandText = spName;          // can be Select, Insert, Update, Delete 
+
+            cmd.CommandTimeout = 10;           // Time to wait for the execution' The default is 30 seconds
+
+            cmd.CommandType = System.Data.CommandType.StoredProcedure; // the type of the command, can also be stored procedure
+
+            cmd.Parameters.AddWithValue("@UserID", userID);
+            cmd.Parameters.AddWithValue("@TeamID", teamID);
 
             return cmd;
         }
@@ -804,7 +946,7 @@ namespace FOA_Server.Models.DAL
                     //TimeSpan endTime = TimeSpan.ParseExact(timeEndString, @"hh\:mm\:ss", CultureInfo.InvariantCulture);
                     //h.EndTime = endTime;
 
-                    // h.Status = Convert.ToInt32(dataReader["Status"]);
+                    h.Status = Convert.ToInt32(dataReader["Status"]);
 
                     list.Add(h);
                 }
@@ -826,6 +968,70 @@ namespace FOA_Server.Models.DAL
                 }
             }
         }
+
+        // This method reads all Hour Reports
+        public List<HourReport> ReadUserHourReports(int userId)
+        {
+            SqlConnection con;
+            SqlCommand cmd;
+
+            try
+            {
+                con = connect("myProjDB"); // create the connection
+            }
+            catch (Exception ex)
+            {
+                // write to log
+                Console.WriteLine("Error");
+                throw (ex);
+            }
+
+            cmd = CreateCommandWithStoredProcedureReadUserHourReports("spReadHourReportsByID", con, userId);      // create the command
+
+            List<HourReport> list = new List<HourReport>();
+
+            try
+            {
+                SqlDataReader dataReader = cmd.ExecuteReader(CommandBehavior.CloseConnection);
+
+                while (dataReader.Read())
+                {
+                    HourReport h = new HourReport();
+                    h.ReportID = Convert.ToInt32(dataReader["ReportID"]);
+                    h.Date = Convert.ToDateTime(dataReader["Date"]);
+
+                    //אם שניהם יהיו מסוג DateTime
+                    TimeSpan timeStart = (TimeSpan)dataReader["StartTime"];
+                    DateTime dateTimeStart = h.Date.Add(timeStart);
+                    h.StartTime = dateTimeStart;
+
+                    TimeSpan timeEnd = (TimeSpan)dataReader["EndTime"];
+                    DateTime dateTimeEnd = h.Date.Add(timeEnd);
+                    h.EndTime = dateTimeEnd;
+
+                    h.Status = Convert.ToInt32(dataReader["Status"]);
+
+                    list.Add(h);
+                }
+                return list;
+            }
+            catch (Exception ex)
+            {
+                // write to log
+                Console.WriteLine("Error");
+                throw (ex);
+            }
+
+            finally
+            {
+                if (con != null)
+                {
+                    // close the db connection
+                    con.Close();
+                }
+            }
+        }
+
 
         // This method inserts new hour report to the its table 
         public int InsertHourReport(HourReport shift)
@@ -908,6 +1114,25 @@ namespace FOA_Server.Models.DAL
         }
 
 
+
+
+        // Create the SqlCommand using a stored procedure for Read user's hours reports
+        private SqlCommand CreateCommandWithStoredProcedureReadUserHourReports(string spName, SqlConnection con, int userId)
+        {
+            SqlCommand cmd = new SqlCommand(); // create the command object
+
+            cmd.Connection = con;              // assign the connection to the command object
+
+            cmd.CommandText = spName;          // can be Select, Insert, Update, Delete 
+
+            cmd.CommandTimeout = 10;           // Time to wait for the execution' The default is 30 seconds
+
+            cmd.CommandType = System.Data.CommandType.StoredProcedure; // the type of the command, can also be stored procedure
+
+            cmd.Parameters.AddWithValue("@UserID", userId);
+
+            return cmd;
+        }
 
         // Create the SqlCommand using a stored procedure for INSERT Hour Report
         private SqlCommand CreateCommandWithStoredProcedureInsert(String spName, SqlConnection con, HourReport shift)

@@ -41,20 +41,40 @@ namespace FOA_Server.Controllers
             return UserService.ReadUserByIdWithPassword(myUserId);
         }
 
+        // GET api/<UserServicesController>/5
+        [HttpGet("teamLeader/{teamId}")]   // get user's team leader contact details
+        public UserService GetUserTeamLeaderDetails(int teamId)
+        {
+            int teamLeaderID = Team.GetUserManegerID(teamId);
+            return UserService.ReadUserByIdWithoutPassword(teamLeaderID);
+        }
+
+        // GET api/<UserServicesController>/5
+        [HttpGet("usersInTeam/{teamId}")]   // get all users in a specific team
+        public List<UserService> GetUsersInTeam(int teamId)
+        {
+            return UserService.ReadUsersInTeam(teamId);
+        }
+
 
         // POST api/<UserServicesController>
         [HttpPost]      //insert new user, with different volnteer program, with sent welcome mail with the password
         public bool Post([FromBody] UserService user)
         {
-            if (user.ProgramID == 999)  //if new volanteer program was choosen
-            {
-                new VolunteerProgram(user.ProgramID, user.ProgramName).InsertVolunteerProgram();
-                VolunteerProgram newID = new VolunteerProgram();
-                int programID = newID.getVolunteerProgramByName(user.ProgramName);
-                user.ProgramID = programID;
-            }
             try
             {
+                try
+                {
+                    if (user.ProgramID == 999)  //if new volanteer program was choosen
+                    {
+                        new VolunteerProgram(user.ProgramID, user.ProgramName).InsertVolunteerProgram();
+                        VolunteerProgram newID = new VolunteerProgram();
+                        int programID = newID.getVolunteerProgramByName(user.ProgramName);
+                        user.ProgramID = programID;
+                    }
+                }
+                catch (Exception e) { throw new Exception(" מסגרת התנדבות זו כבר קיימת במערת " + e.Message); }
+
                 int insertedUser = user.InsertUser();   //gets the new user's ID in the database
 
                 if (insertedUser > 0)
@@ -76,7 +96,7 @@ namespace FOA_Server.Controllers
                 else return false;
             }
             catch (Exception ex)
-            { throw new Exception(" didn't succeed in inserting " + ex.Message); }
+            { throw new Exception(" didn't succeed in inserting new user " + ex.Message); }
         }
 
         // POST api/<UserServicesController>/6

@@ -37,7 +37,7 @@ function FilterByPost() {
     // Declare variables
     var input = document.getElementById("myInput");
     var filter = input.value.toUpperCase();
-    var table = document.getElementById("myTable");
+    var table = document.getElementById("dataTable");
     var tr = table.getElementsByTagName("tr");
     var txtValue;
 
@@ -61,57 +61,111 @@ function readPosts() {
 }
 function readPostsSCB(data) {
     postsArr = data;
-    RenderPostsList();
+    drawPostsDataTable(postsArr);
 }
 function readPostsECB(err) {
-    alert("Input Error");
+    alert("Error " + err);
 }
 
 // render the posts list
 // יש להוסיף פילטור של פוסטים מאושרים ע"י מנהל בלבד
-function RenderPostsList() {
+function drawPostsDataTable(array) {
     let str = "";
-    if (postsArr == null) {
+    if (array.length == 0) {
         alert("There's no posts yet");
     } else {
-        str += '<table dir="rtl" id="myTable">';
-        str += '<tr class="header">';
-        str += '<th style="width:5%;">מס"ד</th>';
-        str += '<th style="width:10%;">פלטפורמה</th>';
-        str += '<th style="width:10%;">קישור</th>';
-        str += '<th style="width:10%;">שפה</th>';
-        str += '<th style="width:10%;">שיתופים</th>';
-        str += '<th style="width:10%;">תגובות</th>';
-        str += '<th style="width:10%;">לייקים</th>';
-        str += '<th style="width:10%;">סטטוס בפלטפורמה</th>';
-        str += '<th style="width:10%;">משתמש מדווח</th>';
-        str += '<th style="width:10%;">תאריך</th>';
-        str += '<th style="width:5%;"></th>';
-        str += '</tr>';
-        for (var i = postsArr.length - 1; i > 0; i--) {
-            var currenRemovalStatus;
-            if (postsArr[i].removalStatus == 0)
-                currenRemovalStatus = "דווח";
-            else currenRemovalStatus = "הוסר";
+        try {
+            tbl = $('#dataTable').DataTable({
+                "info": false,
+                data: array,
+                pageLength: 10,     //כמה שורות יהיו בכל עמוד
 
-            str += '<tr>';
-            str += '<td class="postID_display">' + postsArr[i].postID + '</td>';
-            str += '<td class="Platform_display">' + postsArr[i].platformName + '</td>';
-            str += '<td ><a href="' + postsArr[i].urlLink + '" target="_blank" class="urlLink_display" >קישור לפוסט</a></td>';
-            str += '<td class="language_display">' + postsArr[i].languageName + '</td>';
-            str += '<td class="amountOfShares_display">' + postsArr[i].amountOfShares + '</td>';
-            str += '<td class="amountOfComments_display">' + postsArr[i].amountOfComments + '</td>';
-            str += '<td class="amountOfLikes_display">' + postsArr[i].amountOfLikes + '</td>';
-            str += '<td class="currenRemovalStatus_display">' + currenRemovalStatus + '</td>';
-            str += '<td class="userName_display">' + postsArr[i].userName + '</td>';
-            let DateOfPost = (postsArr[i].insertDate).split('T')[0];  // cut the time from the DateTime format
-            str += '<td class="insertDate_display">' + DateOfPost + '</td>';
-            str += `<td class="viewButton_display"><button onclick="OpenPostCard(` + postsArr[i].postID + `)">צפייה</button></td>`;
-            str += '</tr>';
+                columns: [
+                    { data: 'postID', orderSequence: ['desc', 'asc'] }, // specify orderSequence
+                    { data: "platformName" },
+                    {
+                        data: "urlLink",
+                        render: function (data, type, row, meta) {
+                            return '<a href="' + data + '" target="_blank" class="urlLink_display" >קישור לפוסט</a>';
+                        }
+                    },
+                    { data: "languageName" },
+                    { data: "amountOfShares" },
+                    { data: "amountOfComments" },
+                    { data: "amountOfLikes" },
+                    {
+                        data: "postStatus",
+                        render: function (data, type, row, meta) {
+                            if (data == 0)
+                                return 'דווח';
+                            else
+                                return 'הוסר';
+                        }
+                    },
+                    { data: "userName" },
+                    {
+                        data: "insertDate",
+                        render: function (data, type, row, meta) {
+                            return data.split('T')[0];  // cut the time from the DateTime format
+                        }
+                    },
+                    {
+                        render: function (data, type, row, meta) {      //יצירת כפתור צפייה בפוסט
+                            let dataPost = "data-postId='" + row.postID + "'";
+                            viewBtn = '<button onclick="OpenPostCard(' + row.postID + ')">צפייה</button>';;
+                            //deleteBtn = "<button type='button' class = 'deleteBtn btn btn-danger' " + dataCar + "> Delete </button>";
+                            return viewBtn;
+                        }
+                    }
+                ],
+                order: [[0, 'desc']],  // sort the first column (postID) in descending order
+                language: {
+                    url: '//cdn.datatables.net/plug-ins/1.13.4/i18n/he.json'
+                }
+
+            });
+        } catch (err) {
+            alert(err);
         }
     }
-    str += '</table>';
-    document.getElementById("PostsTable").innerHTML += str;
+    /*str += '<table dir="rtl" id="myTable">';
+     str += '<tr class="header">';
+     str += '<th style="width:5%;">מס"ד</th>';
+     str += '<th style="width:10%;">פלטפורמה</th>';
+     str += '<th style="width:10%;">קישור</th>';
+     str += '<th style="width:10%;">שפה</th>';
+     str += '<th style="width:10%;">שיתופים</th>';
+     str += '<th style="width:10%;">תגובות</th>';
+     str += '<th style="width:10%;">לייקים</th>';
+     str += '<th style="width:10%;">סטטוס בפלטפורמה</th>';
+     str += '<th style="width:10%;">משתמש מדווח</th>';
+     str += '<th style="width:10%;">תאריך</th>';
+     str += '<th style="width:5%;"></th>';
+     str += '</tr>';
+     for (var i = postsArr.length - 1; i > 0; i--) {
+         var currenRemovalStatus;
+         if (postsArr[i].removalStatus == 0)
+             currenRemovalStatus = "דווח";
+         else currenRemovalStatus = "הוסר";
+ 
+         str += '<tr>';
+         str += '<td class="postID_display">' + postsArr[i].postID + '</td>';
+         str += '<td class="Platform_display">' + postsArr[i].platformName + '</td>';
+         str += '<td ><a href="' + postsArr[i].urlLink + '" target="_blank" class="urlLink_display" >קישור לפוסט</a></td>';
+         str += '<td class="language_display">' + postsArr[i].languageName + '</td>';
+         str += '<td class="amountOfShares_display">' + postsArr[i].amountOfShares + '</td>';
+         str += '<td class="amountOfComments_display">' + postsArr[i].amountOfComments + '</td>';
+         str += '<td class="amountOfLikes_display">' + postsArr[i].amountOfLikes + '</td>';
+         str += '<td class="currenRemovalStatus_display">' + currenRemovalStatus + '</td>';
+         str += '<td class="userName_display">' + postsArr[i].userName + '</td>';
+         let DateOfPost = (postsArr[i].insertDate).split('T')[0];  // cut the time from the DateTime format
+         str += '<td class="insertDate_display">' + DateOfPost + '</td>';
+         str += `<td class="viewButton_display"><button onclick="OpenPostCard(` + postsArr[i].postID + `)">צפייה</button></td>`;
+         str += '</tr>';
+     }
+ }
+ str += '</table>';
+ document.getElementById("dataTable").innerHTML += str; */
 }
 
 //// save the relevant post to open in edit\view mode (Depends on permission)

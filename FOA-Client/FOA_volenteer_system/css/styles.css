@@ -12733,6 +12733,29 @@ select::-ms-expand {
 }
 
 
+/* DataTable - start */
+.dataTables_wrapper .dataTables_length, .dataTables_wrapper .dataTables_filter, .dataTables_wrapper .dataTables_info, .dataTables_wrapper .dataTables_processing, .dataTables_wrapper .dataTables_paginate {
+    color: #fff !important;
+    direction: rtl !important;
+}
+
+    .dataTables_wrapper .dataTables_length select,
+    .dataTables_wrapper .dataTables_filter input {
+        border: 1px solid #000 !important;
+        background-color: white !important;
+    }
+
+.dataTables_wrapper .dataTables_filter {
+    padding-bottom: 12px !important;
+}
+    .dataTables_wrapper .dataTables_filter input {
+        margin-right: 7px !important;
+    }
+
+label, .dataTables_wrapper .dataTables_paginate {
+    font-size: 19px !important;
+}
+/* DataTable - end */
 /* התחלה - עיצובים של טבלת צוותים*/
 #myInput {
     background-image: url('/css/searchicon.png'); /* Add a search icon to input */
@@ -12745,37 +12768,39 @@ select::-ms-expand {
     margin-bottom: 12px; /* Add some space below the input */
 }
 
-#myTable {
+#dataTable {
     border-collapse: collapse; /* Collapse borders */
     width: 100%; /* Full-width */
     border: 1px solid #ddd; /* Add a grey border */
     font-size: 18px; /* Increase font-size */
+    direction: rtl;
 }
 
-    #myTable td {
+    #dataTable td {
         padding: 12px; /* Add padding */
         color: lightyellow;
         text-align: center;
     }
 
-    #myTable tr {
+    #dataTable tr {
         /* Add a bottom border to all table rows */
         border-bottom: 1px solid #ddd;
     }
 
-        #myTable tr:hover, #myTable td:hover {
+        #dataTable tr:hover, #dataTable td:hover {
             /* Add a background color to the table header and on hover */
             background-color: goldenrod;
         }
 
-        #myTable tr.header {
+        #dataTable tr.header {
             background-color: white;
         }
 
-    #myTable th {
+    #dataTable th {
         text-align: center;
         padding: 12px; /* Add padding */
         color: black;
+        background-color: #fff;
     }
 
 .teamName_display, .fullName_display, .userName_display, .email_display {

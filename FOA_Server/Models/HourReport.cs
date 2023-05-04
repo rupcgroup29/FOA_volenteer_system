@@ -52,7 +52,7 @@ namespace FOA_Server.Models
                 }
 
                 DBusers dbs = new DBusers();
-                int good = dbs.InsertHourReport(this); 
+                int good = dbs.InsertHourReport(this);
                 if (good > 0) { return true; }
                 else { return false; }
 
@@ -66,18 +66,25 @@ namespace FOA_Server.Models
 
 
         // update shift status by team leader
-        public bool UpdateShiftStatus(int reportID, int status)
+        public bool UpdateShiftStatus(int reportID, int status, int userId)
         {
             try
             {
                 DBusers dbs = new DBusers();
-                if(dbs.UpdateShiftStatus(reportID, status) > 0)
+                if (dbs.UpdateShiftStatus(reportID, status, userId) > 0)
                     return true;
                 else { return false; }
             }
-            catch (Exception exp) {return false; }
+            catch (Exception exp) { return false; }
         }
 
+
+        // delete shift with status 0
+        public void DeleteHourReports()
+        {
+            DBusers dbusers = new DBusers();
+            dbusers.DeleteHourReports(this);
+        }
 
 
     }

@@ -1074,7 +1074,7 @@ namespace FOA_Server.Models.DAL
 
         }
 
-        public int UpdateShiftStatus(int reportID, int status)
+        public int UpdateShiftStatus(int reportID, int status, int userId)
         {
             SqlConnection con;
             SqlCommand cmd;
@@ -1090,7 +1090,7 @@ namespace FOA_Server.Models.DAL
                 throw (ex);
             }
 
-            cmd = CreateCommandWithStoredProcedureUpdate("spUpdateHourReportStatus", con, reportID, status);     // create the command
+            cmd = CreateCommandWithStoredProcedureUpdate("spUpdateHourReportStatus", con, reportID, status, userId);     // create the command
 
             try
             {
@@ -1114,6 +1114,45 @@ namespace FOA_Server.Models.DAL
         }
 
 
+        // This method deletes hour report with status '0' from its table 
+        public int DeleteHourReports(HourReport hourReport)
+        {
+            SqlConnection con;
+            SqlCommand cmd;
+
+            try
+            {
+                con = connect("myProjDB"); // create the connection
+            }
+            catch (Exception ex)
+            {
+                // write to log
+                Console.WriteLine("Error");
+                throw (ex);
+            }
+
+            cmd = CreateCommandWithStoredProcedureDelete("spUpdateHourReportStatus", con, hourReport);     // create the command
+
+            try
+            {
+                int numEffected = cmd.ExecuteNonQuery();  // execute the command
+                return numEffected;
+            }
+            catch (Exception ex)
+            {
+                // write to log
+                throw (ex);
+            }
+
+            finally
+            {
+                if (con != null)
+                {
+                    // close the db connection
+                    con.Close();
+                }
+            }
+        }
 
 
         // Create the SqlCommand using a stored procedure for Read user's hours reports
@@ -1156,7 +1195,7 @@ namespace FOA_Server.Models.DAL
         }
 
         // Create the SqlCommand using a stored procedure for UPDATE Hour Report
-        private SqlCommand CreateCommandWithStoredProcedureUpdate(String spName, SqlConnection con, int reportID,  int status)
+        private SqlCommand CreateCommandWithStoredProcedureUpdate(String spName, SqlConnection con, int reportID,  int status, int userId)
         {
             SqlCommand cmd = new SqlCommand(); // create the command object
 
@@ -1170,6 +1209,25 @@ namespace FOA_Server.Models.DAL
 
             cmd.Parameters.AddWithValue("@ReportID", reportID);
             cmd.Parameters.AddWithValue("@Status", status);
+            cmd.Parameters.AddWithValue("@UserID", userId);
+
+            return cmd;
+        }
+
+        // Create the SqlCommand using a stored procedure for DELETE Hour Report
+        private SqlCommand CreateCommandWithStoredProcedureDelete(String spName, SqlConnection con, HourReport hourReport)
+        {
+            SqlCommand cmd = new SqlCommand(); // create the command object
+
+            cmd.Connection = con;              // assign the connection to the command object
+
+            cmd.CommandText = spName;          // can be Select, Insert, Update, Delete 
+
+            cmd.CommandTimeout = 10;           // Time to wait for the execution' The default is 30 seconds
+
+            cmd.CommandType = System.Data.CommandType.StoredProcedure; // the type of the command, can also be stored procedure
+
+            cmd.Parameters.AddWithValue("@ReportID", hourReport.ReportID);
 
             return cmd;
         }

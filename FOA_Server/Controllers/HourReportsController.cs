@@ -27,7 +27,7 @@ namespace FOA_Server.Controllers
         // POST api/<HourReportsController>
         [HttpPost]
         public IActionResult Post([FromBody] HourReport shift)
-            {
+        {
             try
             {
                 bool affected = shift.InsertHourReports();
@@ -41,13 +41,13 @@ namespace FOA_Server.Controllers
 
         // PUT api/<HourReportsController>/5
         [HttpPut("{reportID}")]
-        public IActionResult Put(int reportID, int status)
+        public IActionResult Put(int reportID, int status, int userId)
         {
             try
             {
                 HourReport shiftStatus = new HourReport();
 
-                bool affected = shiftStatus.UpdateShiftStatus(reportID, status); 
+                bool affected = shiftStatus.UpdateShiftStatus(reportID, status, userId);
                 if (affected)
                 {
                     return Ok(affected);
@@ -63,9 +63,21 @@ namespace FOA_Server.Controllers
 
 
         // DELETE api/<HourReportsController>/5
-        [HttpDelete("{id}")]
-        public void Delete(int id)
+        [HttpDelete]
+        public void Delete()
         {
+            try
+            {
+                HourReport delete = new HourReport();
+                delete.DeleteHourReports();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+
         }
+
+
     }
 }

@@ -82,8 +82,12 @@ namespace FOA_Server.Models
         // delete shift with status 0
         public void DeleteHourReports()
         {
-            DBusers dbusers = new DBusers();
-            dbusers.DeleteHourReports(this);
+            if (this.Status == 0)
+            {
+                DBusers dbusers = new DBusers();
+                dbusers.DeleteHourReports(this);
+            }
+            else throw new Exception(" cannot delete an hour report becouse its status has already changed ");
         }
 
 

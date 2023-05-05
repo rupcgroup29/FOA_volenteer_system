@@ -639,17 +639,17 @@ namespace FOA_Server.Models.DAL
 
             cmd.CommandType = System.Data.CommandType.StoredProcedure; // the type of the command, can also be stored procedure
 
-            cmd.Parameters.AddWithValue("@UserID", user.UserID);
             cmd.Parameters.AddWithValue("@FirstName", user.FirstName);
             cmd.Parameters.AddWithValue("@Surname", user.Surname);
             cmd.Parameters.AddWithValue("@UserName", user.UserName);
             cmd.Parameters.AddWithValue("@Email", user.Email);
-            cmd.Parameters.AddWithValue("@Password", user.Password);
             cmd.Parameters.AddWithValue("@PhoneNum", user.PhoneNum);
             cmd.Parameters.AddWithValue("@RoleDescription", user.RoleDescription);
             cmd.Parameters.AddWithValue("@PermissionID", user.PermissionID);
-            cmd.Parameters.AddWithValue("@ProgramID", user.ProgramID);
             cmd.Parameters.AddWithValue("@TeamID", user.TeamID);
+            cmd.Parameters.AddWithValue("@ProgramID", user.ProgramID);
+            cmd.Parameters.AddWithValue("@UserID", user.UserID);
+            cmd.Parameters.AddWithValue("@Password", user.Password);
 
             return cmd;
         }
@@ -666,7 +666,6 @@ namespace FOA_Server.Models.DAL
 
             cmd.CommandType = System.Data.CommandType.StoredProcedure; // the type of the command, can also be stored procedure
 
-            cmd.Parameters.AddWithValue("@UserID", user.UserID);
             cmd.Parameters.AddWithValue("@FirstName", user.FirstName);
             cmd.Parameters.AddWithValue("@Surname", user.Surname);
             cmd.Parameters.AddWithValue("@UserName", user.UserName);
@@ -674,8 +673,9 @@ namespace FOA_Server.Models.DAL
             cmd.Parameters.AddWithValue("@PhoneNum", user.PhoneNum);
             cmd.Parameters.AddWithValue("@RoleDescription", user.RoleDescription);
             cmd.Parameters.AddWithValue("@PermissionID", user.PermissionID);
-            cmd.Parameters.AddWithValue("@ProgramID", user.ProgramID);
             cmd.Parameters.AddWithValue("@TeamID", user.TeamID);
+            cmd.Parameters.AddWithValue("@ProgramID", user.ProgramID);
+            cmd.Parameters.AddWithValue("@UserID", user.UserID);
 
             return cmd;
         }

@@ -48,6 +48,7 @@ namespace FOA_Server.Models.DAL
                     usr.PermissionID = Convert.ToInt32(dataReader["PermissionID"]);
                     usr.ProgramID = Convert.ToInt32(dataReader["ProgramID"]);
                     usr.TeamID = Convert.ToInt32(dataReader["TeamID"]);
+                    usr.HoursCount = Convert.ToInt32(dataReader["HoursCount"]);
 
                     list.Add(usr);
                 }
@@ -105,6 +106,7 @@ namespace FOA_Server.Models.DAL
                     usr.Email = dataReader["Email"].ToString();
                     usr.PermissionName = dataReader["PermissionName"].ToString();
                     usr.TeamName = dataReader["TeamName"].ToString();
+                    usr.HoursCount = Convert.ToInt32(dataReader["HoursCount"]);
 
                     list.Add(usr);
                 }
@@ -169,6 +171,7 @@ namespace FOA_Server.Models.DAL
                     usr.ProgramName = dataReader["ProgramName"].ToString();
                     usr.TeamID = Convert.ToInt32(dataReader["TeamID"]);
                     usr.TeamName = dataReader["TeamName"].ToString();
+                    usr.HoursCount = Convert.ToInt32(dataReader["HoursCount"]);
 
                     list.Add(usr);
                 }
@@ -234,6 +237,7 @@ namespace FOA_Server.Models.DAL
                     user.TeamID = Convert.ToInt32(dataReader["TeamID"]);
                     user.TeamName = dataReader["TeamName"].ToString();
                     user.Password = dataReader["Password"].ToString();
+                    user.HoursCount = Convert.ToInt32(dataReader["HoursCount"]);
                 }
                 return user;
             }
@@ -295,6 +299,7 @@ namespace FOA_Server.Models.DAL
                     user.ProgramName = dataReader["ProgramName"].ToString();
                     user.TeamID = Convert.ToInt32(dataReader["TeamID"]);
                     user.TeamName = dataReader["TeamName"].ToString();
+                    user.HoursCount = Convert.ToInt32(dataReader["HoursCount"]);
                 }
                 return user;
             }

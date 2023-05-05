@@ -64,12 +64,12 @@ namespace FOA_Server.Controllers
 
         // DELETE api/<HourReportsController>/5
         [HttpDelete]
-        public void Delete()
+        public void Delete(int reportID)
         {
             try
             {
                 HourReport delete = new HourReport();
-                delete.DeleteHourReports();
+                delete.DeleteHourReports(reportID);
             }
             catch (Exception ex)
             {

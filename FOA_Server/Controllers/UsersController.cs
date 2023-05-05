@@ -108,14 +108,14 @@ namespace FOA_Server.Controllers
 
             try
             {
-                int[] loginUserID = UserService.Login(email, password);
+                int[] loginUser = UserService.Login(email, password);
 
-                if (!loginUserID.Any())
+                if (loginUser[0] == 0 && loginUser[1] == 0)
                 {
                     throw new Exception(" האימייל או הסיסמא שהזנת שגויים ");
                 }
 
-                return Ok(loginUserID); //returns array with logged-in user's ID and he's permmitionID
+                return Ok(loginUser); //returns array with logged-in user's ID and he's permmitionID
             }
             catch (Exception ex)
             {

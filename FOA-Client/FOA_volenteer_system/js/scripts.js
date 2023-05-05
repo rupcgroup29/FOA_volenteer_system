@@ -5,11 +5,14 @@
 */
 //
 // Scripts
-// 
+//
+
+var currentUser = JSON.parse(sessionStorage.getItem("user"));
+
 
 window.addEventListener('DOMContentLoaded', event => {
     //Nav bar - Permission
-    if (currentUser[1] === 4) // a volunteer is logged in
+    if (currentUser[1] == 4) // a volunteer is logged in
     {
         $(".ManagerNav").hide();
         $(".VolunteerNav").show();
@@ -19,19 +22,19 @@ window.addEventListener('DOMContentLoaded', event => {
         $(".ManagerNav").show();
         $(".VolunteerNav").hide();
     }
-    $("#u39").mouseenter(UserEnterSubManu);
-    $("#u39").mouseleave(UserExitSubManu);
-    $("#u40").mouseleave(UserExitSubManu);
+    $(".u39").mouseenter(UserEnterSubManu);
+    $(".u39").mouseleave(UserExitSubManu);
+    $(".u40").mouseleave(UserExitSubManu);
 
-    $("#logout").click(logout);
+    $(".logout").click(logout);
 
 
     //-------------------------------------------------------------------------------------------------
     // Activate Bootstrap scrollspy on the main nav element
-    const mainNav = document.body.querySelector('#mainNav');
+    const mainNav = document.body.querySelector('.mainNav');
     if (mainNav) {
         new bootstrap.ScrollSpy(document.body, {
-            target: '#mainNav',
+            target: '.mainNav',
             offset: 74,
         });
     };
@@ -54,12 +57,12 @@ window.addEventListener('DOMContentLoaded', event => {
 //NAVBAR USER
 
 function UserEnterSubManu() {
-    $("#u40").css("visibility", "inherit")
-    $("#u40").show();
+    $(".u40").css("visibility", "inherit")
+    $(".u40").show();
 }
 function UserExitSubManu() {
-    $("#u40").css("visibility", "hidden")
-    $("#u40").hide();
+    $(".u40").css("visibility", "hidden")
+    $(".u40").hide();
 }
 
 //logout function

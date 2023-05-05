@@ -1,6 +1,7 @@
 ﻿using FOA_Server.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Hosting;
+using System.Text.Json;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -26,11 +27,12 @@ namespace FOA_Server.Controllers
 
         // POST api/<HourReportsController>
         [HttpPost]
-        public IActionResult Post([FromBody] HourReport shift)
+        public IActionResult Post([FromBody] HourReport[] shifts)
         {
             try
             {
-                bool affected = shift.InsertHourReports();
+                HourReport hourReports = new HourReport();
+                bool affected = hourReports.InsertHourReports(shifts);
                 return Ok(affected);
             }
             catch (Exception ex)
@@ -40,14 +42,14 @@ namespace FOA_Server.Controllers
         }
 
         // PUT api/<HourReportsController>/5
-        [HttpPut("{reportID}")]
-        public IActionResult Put(int reportID, int status, int userId)
+        [HttpPut]
+        public IActionResult Put(string jsonString)
         {
             try
             {
-                HourReport shiftStatus = new HourReport();
-
-                bool affected = shiftStatus.UpdateShiftStatus(reportID, status, userId);
+                //int reportID, int status, int userId;
+                HourReport shiftsStatus = new HourReport();
+                bool affected = shiftsStatus.UpdateShiftStatus(jsonString);
                 if (affected)
                 {
                     return Ok(affected);

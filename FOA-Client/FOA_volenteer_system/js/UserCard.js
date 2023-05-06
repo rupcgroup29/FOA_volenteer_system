@@ -143,7 +143,7 @@ function updateUser() {
     let team = $("#team").val();
     let roleDescription = $("#roleDescription").val();
     let programName = $("#Different_school").val();
-    if (currentUser.userID == relevantUserID)  // if the user is editing his own user details- show password
+    if (currentUser[0] == relevantUserID)  // if the user is editing his own user details- show password
     {
         let password = $("Password").val();
     }

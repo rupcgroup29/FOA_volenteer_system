@@ -11,7 +11,7 @@ $(document).ready(function () {
     }
     else api = "https://proj.ruppin.ac.il/cgroup29/prod/api/";
 
-    $('#contactForm').submit(updateUser);
+    $('#contactForm').submit(updateMyUser);
 
     // get the volunteer Program list
     getVolunteerProgramsList();
@@ -101,7 +101,7 @@ function renderMyUserDetails() {
     $("#Password").val(relevantUserObject.password);
 }
 
-function updateUser() {
+function updateMyUser() {
     const updateUser = {
         FirstName: $("#firstName").val(),
         Surname: $("#surname").val(),
@@ -116,17 +116,17 @@ function updateUser() {
         ProgramName: $("#Different_school").val()
     }
 
-    ajaxCall("PUT", api + "Users/" + relevantUserID, JSON.stringify(updateUser), updateUserSCB, updateUserECB);
+    ajaxCall("PUT", api + "Users/" + relevantUserID, JSON.stringify(updateUser), updateMyUserSCB, updateMyUserECB);
     sessionStorage.setItem("userCard", JSON.stringify());
     return false;
 }
-function updateUserSCB(data) {
+function updateMyUserSCB(data) {
     alert("משתמש עודכן בהצלחה");
     window.location.assign("Teams-main.html");
     location.assign("Teams-main.html")
 }
 
-function updateUserECB(err) {
+function updateMyUserECB(err) {
     alert("שגיאה בעדכון המשתמש, אנא נסו שוב");
 }
 

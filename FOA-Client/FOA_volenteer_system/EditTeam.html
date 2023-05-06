@@ -26,7 +26,7 @@
     <script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script>
 
     <!-- קישור לעמודי JS -->
-    <script src="js/Register.js"></script>
+    <script src="js/AddTeam.js"></script>
     <script src="js/ajaxCall.js"></script>
     <script src="js/scripts.js"></script>
     <link href="css/navbar.css" rel="stylesheet" />
@@ -94,113 +94,39 @@
         </div>
     </nav>
 
-    <!-- New User Details-->
+    <!-- New Team Details-->
     <section class="page-section" id="contact">
         <div class="container">
-            <div class="text-center">
-                <h2 class="section-heading text-uppercase">רישום מתנדב חדש</h2>
-            </div>            <!-- to get an API token!-->
+            <div class="text-center" id="CardHeader">
+                <!--render Card Header-->
+            </div>
             <form id="contactForm" data-sb-form-api-token="API_TOKEN">
                 <div class="row align-items-stretch mb-5">
-                    <div class="col-md-6">
-                        <div dir="rtl" class="row" id="Selection+Other">
-
-                            <div dir="rtl" class="col-6 form-group" id="schoolDiv">
-                                <!-- volunteerProgram-->
-                                <div class="form-headers">
-                                    <p> מסגרת התנדבות</p>
-                                </div>
-                                <select dir="rtl" class="form-control" id="volunteerProgram" required>
-                                    <!-- render -->
-                                </select>
-                            </div>
-                            <div class="col-6 form-headers form-group " id="DifSchoolDiv">
-                                <!-- Different_school-->
-                                <p> אחר</p>
-                                <input id="Different_school" class="form-control" type="text" placeholder="אחר" readonly />
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <!-- Permission-->
-                            <div class="form-headers">
-                                <p> הרשאת מערכת</p>
-                            </div>
-                            <select dir="rtl" class="form-control" id="permission" required>
-                                <!-- render -->
-                            </select>
-                        </div>
-                        <div class="form-group">
-                            <!-- Team -->
-                            <div class="form-headers">
-                                <p> בחירת צוות התנדבות</p>
-                            </div>
-                            <select dir="rtl" class="form-control" id="team" required>
-                                <!-- render -->
-                            </select>
-                        </div>
-                        <div class="form-group">
-                            <!-- roleDescription-->
-                            <div class="form-headers">
-                                <p> תיאור תפקיד בעמותה</p>
-                            </div>
-                            <input dir="rtl" class="form-control" id="roleDescription" placeholder="תיאור תפקיד " maxlength="250" />
-                        </div>
+                    <div class="col-12 form-headers form-group ">
+                        <!-- Team Name-->
+                        <p> שם הצוות</p>
+                        <input id="TeamName" class="form-control" type="text" />
                     </div>
-                    <div class="col-md-6">
-                        <div class="form-group">
-                            <!-- First Name input-->
-                            <div class="form-headers">
-                                <p> שם פרטי</p>
-                            </div>
-                            <input dir="rtl" class="form-control" id="firstName" type="text" placeholder="שם פרטי *" required />
+                    <div class="col-12 form-headers form-group ">
+                        <!-- description-->
+                        <p> תיאור תפקידי הצוות</p>
+                        <input id="description" class="form-control" type="text" />
+                    </div>
+                    <div class="form-group">
+                        <!-- teamLeader-->
+                        <div class="form-headers">
+                            <p>
+                                ראש הצוות
+                            </p>
                         </div>
-                        <div class="form-group">
-                            <!--Last Name input-->
-                            <div class="form-headers">
-                                <p> שם משפחה</p>
-                            </div>
-                            <input dir="rtl" class="form-control" id="surname" type="text" placeholder="שם משפחה *" required />
-                        </div>
-                        <div class="form-group">
-                            <!-- User_name-->
-                            <div class="form-headers">
-                                <p> שם משתמש במערכת</p>
-                            </div>
-                            <input dir="rtl" class="form-control" id="user_name" type="text" placeholder="שם משתמש *" required />
-                        </div>
-                        <div class="form-group">
-                            <!-- Email address input-->
-                            <div class="form-headers">
-                                <p> כתובת אימייל</p>
-                            </div>
-                            <input dir="rtl" class="form-control" id="email" type="email" placeholder="אימייל *" required />
-                        </div>
-                        <div class="form-group mb-md-0">
-                            <!-- Phone number input-->
-                            <div class="form-headers">
-                                <p> טלפון</p>
-                            </div>
-                            <input dir="rtl" class="form-control" id="phone" type="tel" placeholder="טלפון *" required />
-                        </div>
+                        <select dir="rtl" class="form-control" id="teamLeader" required>
+                            <!-- render list -->
+                        </select>
                     </div>
                 </div>
-                <!-- Submit success message-->
-                <!---->
-                <!-- This is what your users will see when the form-->
-                <!-- has successfully submitted-->
-                <!--<div class="d-none" id="submitSuccessMessage">
-                    <div class="text-center text-white mb-3">
-                        <div class="fw-bolder">מתנדב.ת נשמר.ה בהצלחה!!</div>
-                    </div>
-                </div>
-                 Submit error message
 
-                 This is what your users will see when there is
-                 an error submitting the form
-                <div class="d-none" id="submitErrorMessage"><div class="text-center text-danger mb-3">בעיה בשמירת הנתונים!</div></div>-->
                 <!--Submit Button-->
                 <div class="text-center">
-                    <!--<input type="submit" id="submitButton" value="הוספת משתמש" class="btn btn-primary btn-xl text-uppercase" />-->
                     <button class="btn btn-primary btn-xl text-uppercase" id="submitButton" type="submit">שמור</button>
                 </div>
             </form>

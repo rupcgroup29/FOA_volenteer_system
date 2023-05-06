@@ -88,7 +88,7 @@
 
             <div class="collapse navbar-collapse" id="navbarResponsive">
                 <ul class="navbar-nav text-uppercase ms-auto py-4 py-lg-0">
-                    <li class="nav-item"><a class="nav-link" href="Teams-main.html">צוותים</a></li>
+                    <li class="nav-item"><a class="nav-link" href="Teams-main.html">משתמשים</a></li>
                     <li class="nav-item"><a class="nav-link" href="AddHours.html">דיווח שעות</a></li>
                     <li class="nav-item"><a class="nav-link" href="AddPostReport.html">דיווח על פוסט</a></li>
                     <!--<li class="nav-item"><a class="navbar-brand" href="HomePage.html"><img src="assets/img/LOGO-removebg-preview.png" alt="logo" /></a></li>-->
@@ -101,18 +101,27 @@
 
     <!-- Teams -->
     <section class="page-section" id="contact">
-        <div class="container">
+        <div class="container" id="BoxesDiv">
             <div class="text-center">
-                <h2 class="section-heading text-uppercase">המתנדבים בעמותה</h2>
+                <h2 class="section-heading text-uppercase">צוותי העמותה</h2>
             </div>
-            <div dir="rtl">
-                <button><a href="Register.html">הוספת מתנדב חדש</a></button>
+            <div id="NewTeamAndUser">
+                <div class="col-6 TeamBox">
+                    <div class="BoxBorder">
+                        <h3>הוספת משתמש חדש</h3>
+                        <button><a href="Register.html">להוספה</a></button>
+                    </div>
+                </div>
+                <div class="col-6 TeamBox">
+
+                    <div class="BoxBorder">
+                        <h3>הוספת צוות חדש</h3>
+                        <button><a href="AddTeam.html">להוספה</a></button>
+                    </div>
+                </div>
             </div>
-            <!-- Teams filter-->
-            <input dir="rtl" type="text" id="myInput" onkeyup="FilterByTeamName()" placeholder="הקלד שם צוות..">
-            <!-- Teams table-->
-            <div id="UsersTable">
-                <!-- render table -->
+            <div dir="rtl" id="TeamBoxesRenderDiv">
+
             </div>
 
         </div>

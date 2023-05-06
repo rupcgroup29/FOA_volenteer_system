@@ -1,6 +1,6 @@
 ﻿var api;
 var isLoggedIn;
-var usersArr = [];
+var TeamsArr = [];
 var currentUser = sessionStorage.getItem("user");
 
 
@@ -10,74 +10,54 @@ $(document).ready(function () {
     }
     else api = "https://proj.ruppin.ac.il/cgroup29/prod/api/";
 
-    readUsers();
-    FilterByTeamName();
+    readTeams();
 });
 
-function FilterByTeamName() {
-    // Declare variables
-    var input, filter, table, tr, td, i, txtValue;
-    input = document.getElementById("myInput");
-    filter = input.value.toUpperCase();
-    table = document.getElementById("dataTable");
-    tr = table.getElementsByTagName("tr");
 
-    // Loop through all table rows, and hide those who don't match the search query
-    for (i = 0; i < tr.length; i++) {
-        td = tr[i].getElementsByTagName("td")[0];
-        if (td) {
-            txtValue = td.textContent || td.innerText;
-            if (txtValue.toUpperCase().indexOf(filter) > -1) {
-                tr[i].style.display = "";
-            } else {
-                tr[i].style.display = "none";
-            }
-        }
-    }
-}
 
-// read all users
-function readUsers() {
-    ajaxCall("GET", api + "UserServices/AllUsers", "", getAllUsersSCB, getAllUsersECB);
+// read all Teams
+function readTeams() {
+    ajaxCall("GET", api + "Teams/teamsDetails", "", getAllTeamsSCB, getAllTeamsECB);
 }
-function getAllUsersSCB(data) {
-    usersArr = data;
-    RenderUsersList();
+function getAllTeamsSCB(data) {
+    TeamsArr = data;
+    RenderTeams();
 
 }
-function getAllUsersECB(err) {
+function getAllTeamsECB(err) {
     alert("Input Error");
 }
 
-// render the users list
-function RenderUsersList() {
-    if (usersArr[0] == null) {
-        alert("There's no users yet");
+//Render Teams
+function RenderTeams()
+{
+    if (TeamsArr == null) {
+        alert("There are no teams yet");
     } else {
         let str = "";
-        str += '<table dir="rtl" id="myTable">';
-        str += '<tr class="header">';
-        str += '<th>צוות</th>';
-        str += '<th>שם מלא</th>';
-        str += '<th>שם משתמש</th>';
-        str += '<th>אימייל</th>';
-        str += '<th></th>';
-        str += '</tr>';
-        for (var i = 0; i < usersArr.length; i++) {
-            str += '<tr>';
-            str += '<td class="teamName_display">' + usersArr[i].teamName + '</td>';
-            str += '<td class="fullName_display">' + usersArr[i].firstName + " " + usersArr[i].surname + '</td>';
-            str += '<td class="userName_display">' + usersArr[i].userName + '</td>';
-            str += '<td class="email_display">' + usersArr[i].email + '</td>';
-            str += '<td class="viewButton_display""><button onclick="OpenUserCard(' + usersArr[i].userID + ')">כרטיס מתנדב</a></button></td>';
-            str += '</tr>';
+        for (var i = 0; i < TeamsArr.length; i++) {
+            str += '<div class="col-4 TeamBox">';
+            str += '<div class="BoxBorder">';
+            str += '<h3>צוות ' + TeamsArr[i].teamName + '</h3>';
+            str += '<p>מנהל.ת הצוות: ' + TeamsArr[i].fullname + '</p>';
+            str += '<p>כמות מתנדבים בצוות: ' + TeamsArr[i].noOfVolunteerUsers + '</p>';
+            str += '<button onclick="OpenTeamCard(' + TeamsArr[i].teamID + ')">צפייה</button>';
+            str += '<button onclick="EditTeam(' + TeamsArr[i].teamID + ')">עריכה</button>';
+            str += '</div>';
+            str += '</div>';
         }
-        str += '</table>';
-        document.getElementById("UsersTable").innerHTML += str;
+        document.getElementById("TeamBoxesRenderDiv").innerHTML += str;
     }
 }
-// save the relevant user to open in edit\view mode (Depends on permission)
-function OpenUserCard(userID) {
-    sessionStorage.setItem("userCard", JSON.stringify(userID));
-    window.location.href = "UserCard.html";
+
+// save the relevant team to open it
+function OpenTeamCard(teamID) {
+    sessionStorage.setItem("team", JSON.stringify(teamID));
+    window.location.href = "UsersInTeam.html";
+}
+
+
+function EditTeam(teamID) {
+    sessionStorage.setItem("team", JSON.stringify(teamID));
+    window.location.href = "EditTeam.html";
 }

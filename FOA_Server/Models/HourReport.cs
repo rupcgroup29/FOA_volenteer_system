@@ -1,6 +1,10 @@
 ﻿using FOA_Server.Models.DAL;
+using System.Data;
+using System.Net;
 using System.Runtime.Serialization;
 using System.Security.Cryptography.Xml;
+using System.Text.Json;
+
 
 namespace FOA_Server.Models
 {
@@ -41,51 +45,80 @@ namespace FOA_Server.Models
         }
 
         //Insert new Hour Report 
-        public bool InsertHourReports()
+        public bool InsertHourReports(HourReport[] reports)
         {
             try
             {
-                TimeSpan timeSpane = this.EndTime - this.StartTime;
-                if (timeSpane.TotalMilliseconds < 0)    //אם הזמן שהיוזר הזין הוא שלילי
-                {
-                    throw new Exception(" שעת הכניסה שהזנת היא אחרי שעת הסיום, אנא נסה שוב ");
-                }
-
                 DBusers dbs = new DBusers();
-                int good = dbs.InsertHourReport(this);
-                if (good > 0) { return true; }
-                else { return false; }
+                bool allInserted = true;
+                foreach (HourReport report in reports)
+                {
+                    try
+                    {
+                        TimeSpan timeSpane = report.EndTime - report.StartTime;
+                        if (timeSpane.TotalMilliseconds < 0)    //אם הזמן שהיוזר הזין הוא שלילי
+                        {
+                            throw new Exception(" שעת הכניסה שהזנת היא אחרי שעת הסיום, אנא נסה שוב ");
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        throw new Exception(" ההכנסה כשלה, " + ex.Message);
+                    }
 
+                    int good = dbs.InsertHourReport(report);
+                    if (good <= 0)
+                    {
+                        allInserted = false;
+                        break;    // Exit loop early if any report fails to insert
+                    }
+                }
+                return allInserted;
             }
-            catch (Exception exp)
+            catch (Exception ex)
             {
-                // write to error log file
-                throw new Exception(" ההכנסה כשלה, " + exp.Message);
+                throw new Exception(" ההכנסה כשלה, " + ex.Message);
             }
         }
 
 
         // update shift status by team leader
-        public bool UpdateShiftStatus(int reportID, int status, int userId)
+        public bool UpdateShiftStatus(string jsonString)
         {
             try
             {
+                JsonElement updateStatus = JsonDocument.Parse(jsonString).RootElement;
                 DBusers dbs = new DBusers();
-                if (dbs.UpdateShiftStatus(reportID, status, userId) > 0)
-                    return true;
-                else { return false; }
+                bool allUpdated = true;
+                foreach (JsonElement report in updateStatus.EnumerateArray())
+                {
+                    int reportId = report.GetProperty("reportId").GetInt32();
+                    int status = report.GetProperty("status").GetInt32();
+                    int userId = report.GetProperty("userId").GetInt32();
+
+                    int rowsAffected = dbs.UpdateShiftStatus(reportId, status, userId);
+                    if (rowsAffected == 0)
+                    {
+                        allUpdated = false;
+                        break;    // Exit loop early if any report fails to insert
+                    }
+                }
+                return allUpdated;
             }
-            catch (Exception exp) { return false; }
+            catch (Exception ex)
+            {
+                throw new Exception(" ההכנסה כשלה, " + ex.Message);
+            }
         }
 
 
         // delete shift with status 0
-        public void DeleteHourReports()
+        public void DeleteHourReports(int reportID)
         {
             if (this.Status == 0)
             {
                 DBusers dbusers = new DBusers();
-                dbusers.DeleteHourReports(this);
+                dbusers.DeleteHourReports(reportID);
             }
             else throw new Exception(" cannot delete an hour report becouse its status has already changed ");
         }

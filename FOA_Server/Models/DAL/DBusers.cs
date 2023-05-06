@@ -48,6 +48,7 @@ namespace FOA_Server.Models.DAL
                     usr.PermissionID = Convert.ToInt32(dataReader["PermissionID"]);
                     usr.ProgramID = Convert.ToInt32(dataReader["ProgramID"]);
                     usr.TeamID = Convert.ToInt32(dataReader["TeamID"]);
+                    usr.HoursCount = Convert.ToDouble(dataReader["HoursCount"]);
 
                     list.Add(usr);
                 }
@@ -105,6 +106,7 @@ namespace FOA_Server.Models.DAL
                     usr.Email = dataReader["Email"].ToString();
                     usr.PermissionName = dataReader["PermissionName"].ToString();
                     usr.TeamName = dataReader["TeamName"].ToString();
+                    usr.HoursCount = Convert.ToDouble(dataReader["HoursCount"]);
 
                     list.Add(usr);
                 }
@@ -169,6 +171,7 @@ namespace FOA_Server.Models.DAL
                     usr.ProgramName = dataReader["ProgramName"].ToString();
                     usr.TeamID = Convert.ToInt32(dataReader["TeamID"]);
                     usr.TeamName = dataReader["TeamName"].ToString();
+                    usr.HoursCount = Convert.ToDouble(dataReader["HoursCount"]);
 
                     list.Add(usr);
                 }
@@ -234,6 +237,7 @@ namespace FOA_Server.Models.DAL
                     user.TeamID = Convert.ToInt32(dataReader["TeamID"]);
                     user.TeamName = dataReader["TeamName"].ToString();
                     user.Password = dataReader["Password"].ToString();
+                    user.HoursCount = Convert.ToDouble(dataReader["HoursCount"]);
                 }
                 return user;
             }
@@ -295,6 +299,7 @@ namespace FOA_Server.Models.DAL
                     user.ProgramName = dataReader["ProgramName"].ToString();
                     user.TeamID = Convert.ToInt32(dataReader["TeamID"]);
                     user.TeamName = dataReader["TeamName"].ToString();
+                    user.HoursCount = Convert.ToDouble(dataReader["HoursCount"]);
                 }
                 return user;
             }
@@ -639,17 +644,17 @@ namespace FOA_Server.Models.DAL
 
             cmd.CommandType = System.Data.CommandType.StoredProcedure; // the type of the command, can also be stored procedure
 
-            cmd.Parameters.AddWithValue("@UserID", user.UserID);
             cmd.Parameters.AddWithValue("@FirstName", user.FirstName);
             cmd.Parameters.AddWithValue("@Surname", user.Surname);
             cmd.Parameters.AddWithValue("@UserName", user.UserName);
             cmd.Parameters.AddWithValue("@Email", user.Email);
-            cmd.Parameters.AddWithValue("@Password", user.Password);
             cmd.Parameters.AddWithValue("@PhoneNum", user.PhoneNum);
             cmd.Parameters.AddWithValue("@RoleDescription", user.RoleDescription);
             cmd.Parameters.AddWithValue("@PermissionID", user.PermissionID);
-            cmd.Parameters.AddWithValue("@ProgramID", user.ProgramID);
             cmd.Parameters.AddWithValue("@TeamID", user.TeamID);
+            cmd.Parameters.AddWithValue("@ProgramID", user.ProgramID);
+            cmd.Parameters.AddWithValue("@UserID", user.UserID);
+            cmd.Parameters.AddWithValue("@Password", user.Password);
 
             return cmd;
         }
@@ -666,7 +671,6 @@ namespace FOA_Server.Models.DAL
 
             cmd.CommandType = System.Data.CommandType.StoredProcedure; // the type of the command, can also be stored procedure
 
-            cmd.Parameters.AddWithValue("@UserID", user.UserID);
             cmd.Parameters.AddWithValue("@FirstName", user.FirstName);
             cmd.Parameters.AddWithValue("@Surname", user.Surname);
             cmd.Parameters.AddWithValue("@UserName", user.UserName);
@@ -674,8 +678,9 @@ namespace FOA_Server.Models.DAL
             cmd.Parameters.AddWithValue("@PhoneNum", user.PhoneNum);
             cmd.Parameters.AddWithValue("@RoleDescription", user.RoleDescription);
             cmd.Parameters.AddWithValue("@PermissionID", user.PermissionID);
-            cmd.Parameters.AddWithValue("@ProgramID", user.ProgramID);
             cmd.Parameters.AddWithValue("@TeamID", user.TeamID);
+            cmd.Parameters.AddWithValue("@ProgramID", user.ProgramID);
+            cmd.Parameters.AddWithValue("@UserID", user.UserID);
 
             return cmd;
         }
@@ -1115,7 +1120,7 @@ namespace FOA_Server.Models.DAL
 
 
         // This method deletes hour report with status '0' from its table 
-        public int DeleteHourReports(HourReport hourReport)
+        public int DeleteHourReports(int hourReport)
         {
             SqlConnection con;
             SqlCommand cmd;
@@ -1215,7 +1220,7 @@ namespace FOA_Server.Models.DAL
         }
 
         // Create the SqlCommand using a stored procedure for DELETE Hour Report
-        private SqlCommand CreateCommandWithStoredProcedureDelete(String spName, SqlConnection con, HourReport hourReport)
+        private SqlCommand CreateCommandWithStoredProcedureDelete(String spName, SqlConnection con, int hourReport)
         {
             SqlCommand cmd = new SqlCommand(); // create the command object
 
@@ -1227,7 +1232,7 @@ namespace FOA_Server.Models.DAL
 
             cmd.CommandType = System.Data.CommandType.StoredProcedure; // the type of the command, can also be stored procedure
 
-            cmd.Parameters.AddWithValue("@ReportID", hourReport.ReportID);
+            cmd.Parameters.AddWithValue("@ReportID", hourReport);
 
             return cmd;
         }

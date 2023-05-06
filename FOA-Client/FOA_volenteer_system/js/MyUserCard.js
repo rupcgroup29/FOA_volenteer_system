@@ -11,7 +11,7 @@ $(document).ready(function () {
     }
     else api = "https://proj.ruppin.ac.il/cgroup29/prod/api/";
 
-    $('#contactForm').submit(updateMyUser);
+    $('#contactForm').submit(updateUser);
 
     // get the volunteer Program list
     getVolunteerProgramsList();
@@ -101,8 +101,9 @@ function renderMyUserDetails() {
     $("#Password").val(relevantUserObject.password);
 }
 
-function updateMyUser() {
+function updateUser() {
     const updateUser = {
+        UserID: currentUser[0],
         FirstName: $("#firstName").val(),
         Surname: $("#surname").val(),
         UserName: $("#user_name").val(),
@@ -112,21 +113,21 @@ function updateMyUser() {
         TeamID: $("#team").val(),
         ProgramID: $("#volunteerProgram").val(),
         Email: $("#email").val(),
-        Password: $("Password").val(),
-        ProgramName: $("#Different_school").val()
+        ProgramName: $("#Different_school").val(),
+        Password: $("#Password").val()
     }
 
-    ajaxCall("PUT", api + "Users/" + relevantUserID, JSON.stringify(updateUser), updateMyUserSCB, updateMyUserECB);
+    ajaxCall("PUT", api + "UserServices/myUser", JSON.stringify(updateUser), updateUserSCB, updateUserECB);
     sessionStorage.setItem("userCard", JSON.stringify());
     return false;
 }
-function updateMyUserSCB(data) {
+function updateUserSCB(data) {
     alert("משתמש עודכן בהצלחה");
     window.location.assign("Teams-main.html");
     location.assign("Teams-main.html")
 }
 
-function updateMyUserECB(err) {
+function updateUserECB(err) {
     alert("שגיאה בעדכון המשתמש, אנא נסו שוב");
 }
 

@@ -115,6 +115,60 @@ namespace FOA_Server.Models.DAL
             }
         }
 
+        // This method reads all Teams
+        public Object ReadTeamDetailsByID(int teamID)
+        {
+            SqlConnection con;
+            SqlCommand cmd;
+
+            try
+            {
+                con = connect("myProjDB"); // create the connection
+            }
+            catch (Exception ex)
+            {
+                // write to log
+                Console.WriteLine("Error");
+                throw (ex);
+            }
+
+            cmd = CreateCommandWithStoredProcedureRead("spReadTeamsByTeamID", con, teamID);      // create the command
+            Object obj = new Object();
+
+            try
+            {
+                SqlDataReader dataReader = cmd.ExecuteReader(CommandBehavior.CloseConnection);
+
+                while (dataReader.Read())
+                {
+                    obj = new
+                    {
+                        TeamID = Convert.ToInt32(dataReader["TeamID"]),
+                        TeamName = dataReader["TeamName"].ToString(),
+                        Description = dataReader["Description"].ToString(),
+                        Fullname = dataReader["fullName"].ToString(),
+                        UserID = Convert.ToInt32(dataReader["UserID"])
+                    };
+                }
+                return obj;
+            }
+            catch (Exception ex)
+            {
+                // write to log
+                Console.WriteLine("Error");
+                throw (ex);
+            }
+
+            finally
+            {
+                if (con != null)
+                {
+                    // close the db connection
+                    con.Close();
+                }
+            }
+        }
+
         // This method reads all Team Leaders with no leading team yet
         public List<Object> ReadTeamLeadersWithoutTeamToLead()
         {
@@ -265,6 +319,24 @@ namespace FOA_Server.Models.DAL
             cmd.CommandTimeout = 10;           // Time to wait for the execution' The default is 30 seconds
 
             cmd.CommandType = System.Data.CommandType.StoredProcedure; // the type of the command, can also be stored procedure
+
+            return cmd;
+        }
+
+        // Create the SqlCommand using a stored procedure for READ
+        private SqlCommand CreateCommandWithStoredProcedureRead(string spName, SqlConnection con, int teamID)
+        {
+            SqlCommand cmd = new SqlCommand(); // create the command object
+
+            cmd.Connection = con;              // assign the connection to the command object
+
+            cmd.CommandText = spName;          // can be Select, Insert, Update, Delete 
+
+            cmd.CommandTimeout = 10;           // Time to wait for the execution' The default is 30 seconds
+
+            cmd.CommandType = System.Data.CommandType.StoredProcedure; // the type of the command, can also be stored procedure
+
+            cmd.Parameters.AddWithValue("@TeamID", teamID);
 
             return cmd;
         }

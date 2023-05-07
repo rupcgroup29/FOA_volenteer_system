@@ -12896,3 +12896,11 @@ label, .dataTables_wrapper .dataTables_paginate {
     color: goldenrod;
 
 }
+
+#CardInfo {
+    margin: auto;
+    padding: 1rem;
+    background-color: rgba(128, 128, 128, 0.5);
+    color: white;
+    text-align: center;
+}

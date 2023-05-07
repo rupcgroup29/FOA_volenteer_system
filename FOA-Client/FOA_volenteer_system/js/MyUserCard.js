@@ -117,7 +117,7 @@ function updateUser() {
         Password: $("#Password").val()
     }
 
-    ajaxCall("PUT", api + "UserServices/myUser", JSON.stringify(updateUser), updateUserSCB, updateUserECB);
+    ajaxCall("PUT", api + "Users/" + relevantUserID, JSON.stringify(updateUser), updateUserSCB, updateUserECB);
     sessionStorage.setItem("userCard", JSON.stringify());
     return false;
 }

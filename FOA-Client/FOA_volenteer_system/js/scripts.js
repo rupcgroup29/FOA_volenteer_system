@@ -1,5 +1,3 @@
-
-
 var currentUser = JSON.parse(sessionStorage.getItem("user"));
 
 

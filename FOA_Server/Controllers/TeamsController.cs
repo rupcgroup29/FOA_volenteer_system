@@ -24,6 +24,13 @@ namespace FOA_Server.Controllers
         }
 
         // GET api/<TeamsController>/5
+        [HttpGet("teamDetails/{teamID}")]
+        public Object GetTeamDetailsByID(int teamID)
+        {
+            return Team.ReadTeamDetailsByID(teamID);
+        }
+
+        // GET api/<TeamsController>/5
         [HttpGet("teamLeadersWithoutTeam")]
         public List<Object> GetTeamLeadersWithoutTeamToLead()
         {

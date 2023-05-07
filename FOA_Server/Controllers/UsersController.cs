@@ -42,10 +42,11 @@ namespace FOA_Server.Controllers
         }
 
         // GET api/<UserServicesController>/5
-        [HttpGet("teamLeader/{teamId}")]   // get user's team leader contact details
-        public UserService GetUserTeamLeaderDetails(int teamId)
+        [HttpGet("teamLeader/{userID}")]   // get user's team leader contact details
+        public UserService GetUserTeamLeaderDetails(int userID)
         {
-            int teamLeaderID = Team.GetUserManegerID(teamId);
+            UserService correntUser = UserService.ReadUserByIdWithPassword(userID);
+            int teamLeaderID = Team.GetUserManegerID(correntUser.TeamID);
             return UserService.ReadUserByIdWithoutPassword(teamLeaderID);
         }
 

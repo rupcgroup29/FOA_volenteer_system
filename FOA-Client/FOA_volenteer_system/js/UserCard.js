@@ -133,24 +133,6 @@ function renderUserDetails() {
 }
 
 function updateUser() {
-<<<<<<< HEAD
-=======
-    let firstName = $("#firstName").val();
-    let surname = $("#surname").val();
-    let user_name = $("#user_name").val();
-    let email = $("#email").val();
-    let phone = $("#phone").val();
-    let volunteerProgram = $("#volunteerProgram").val();
-    let permission = $("#permission").val();
-    let team = $("#team").val();
-    let roleDescription = $("#roleDescription").val();
-    let programName = $("#Different_school").val();
-    if (currentUser.userID == relevantUserID)  // if the user is editing his own user details- show password
-    {
-        let password = $("Password").val();
-    }
-
->>>>>>> parent of 0ba6482 (5.5)
     const newUser = {
         UserID: relevantUserID,
         FirstName: $("#firstName").val(),

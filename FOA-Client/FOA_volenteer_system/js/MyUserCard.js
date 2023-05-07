@@ -117,6 +117,7 @@ function updateUser() {
         Password: $("#Password").val()
     }
 
+    ajaxCall("PUT", api + "UserServices/myUser", JSON.stringify(updateUser), updateUserSCB, updateUserECB);
 <<<<<<< HEAD
     ajaxCall("PUT", api + "UserServices/myUser", JSON.stringify(updateUser), updateUserSCB, updateUserECB);
 =======

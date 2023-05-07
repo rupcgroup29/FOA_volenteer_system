@@ -103,6 +103,7 @@ function renderMyUserDetails() {
 
 function updateUser() {
     const updateUser = {
+        UserID: currentUser[0],
         FirstName: $("#firstName").val(),
         Surname: $("#surname").val(),
         UserName: $("#user_name").val(),
@@ -112,11 +113,15 @@ function updateUser() {
         TeamID: $("#team").val(),
         ProgramID: $("#volunteerProgram").val(),
         Email: $("#email").val(),
-        Password: $("Password").val(),
-        ProgramName: $("#Different_school").val()
+        ProgramName: $("#Different_school").val(),
+        Password: $("#Password").val()
     }
 
+<<<<<<< HEAD
+    ajaxCall("PUT", api + "UserServices/myUser", JSON.stringify(updateUser), updateUserSCB, updateUserECB);
+=======
     ajaxCall("PUT", api + "Users/" + relevantUserID, JSON.stringify(updateUser), updateUserSCB, updateUserECB);
+>>>>>>> parent of 0ba6482 (5.5)
     sessionStorage.setItem("userCard", JSON.stringify());
     return false;
 }

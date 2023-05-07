@@ -21,7 +21,7 @@ namespace FOA_Server.Models
         public string? ProgramName { get; set; }
         public string? TeamName { get; set; }
         public DateTime? LastReasetPassword { get; set; }
-        public int? HoursCount { get; set; }
+        public double? HoursCount { get; set; }
 
         private static List<UserService> UsersList = new List<UserService>();
 

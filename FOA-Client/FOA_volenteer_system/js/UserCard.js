@@ -133,6 +133,8 @@ function renderUserDetails() {
 }
 
 function updateUser() {
+<<<<<<< HEAD
+=======
     let firstName = $("#firstName").val();
     let surname = $("#surname").val();
     let user_name = $("#user_name").val();
@@ -148,21 +150,22 @@ function updateUser() {
         let password = $("Password").val();
     }
 
+>>>>>>> parent of 0ba6482 (5.5)
     const newUser = {
-        FirstName: firstName,
-        Surname: surname,
-        UserName: user_name,
-        PhoneNum: phone,
-        RoleDescription: roleDescription,
-        PermissionID: permission,
-        TeamID: team,
-        ProgramID: volunteerProgram,
-        Email: email,
-        Password: password,
-        ProgramName: programName
+        UserID: relevantUserID,
+        FirstName: $("#firstName").val(),
+        Surname: $("#surname").val(),
+        UserName: $("#user_name").val(),
+        PhoneNum: $("#phone").val(),
+        RoleDescription: $("#roleDescription").val(),
+        PermissionID: $("#permission").val(),
+        TeamID: $("#team").val(),
+        ProgramID: $("#volunteerProgram").val(),
+        Email: $("#email").val(),
+        ProgramName: $("#Different_school").val()
     }
 
-    ajaxCall("PUT", api + "Users/" + relevantUserID, JSON.stringify(newUser), updateUserSCB, updateUserECB);
+    ajaxCall("PUT", api + "UserServices", JSON.stringify(newUser), updateUserSCB, updateUserECB);
     sessionStorage.setItem("userCard", JSON.stringify());
     return false;
 }

@@ -15,7 +15,7 @@ $(document).ready(function () {
 
     // alerts for manager if just logged in
     if (justLoggedIn == true) {
-        if (currentUser[1] === 2) // a manager is logged in
+        if (currentUser[1] == 2) // a manager is logged in
         {
             AlertPostsForApproval();
         }
@@ -24,36 +24,11 @@ $(document).ready(function () {
     readPosts();
     getRecommendation();
 
-    //FilterByPost();
-
     // for the popup alert for manegers:  
     closePopup();
 
 
-
 });
-
-/*function FilterByPost() {
-    // Declare variables
-    var input = document.getElementById("myInput");
-    var filter = input.value.toUpperCase();
-    var table = document.getElementById("dataTable");
-    var tr = table.getElementsByTagName("tr");
-    var txtValue;
-
-    // Loop through all table rows, and hide those who don't match the search query
-    for (var i = 0; i < tr.length; i++) {
-        var td = tr[i].getElementsByTagName("td")[1];
-        if (td) {
-            txtValue = td.textContent || td.innerText;
-            if (txtValue.toUpperCase().indexOf(filter) > -1) {
-                tr[i].style.display = "";
-            } else {
-                tr[i].style.display = "none";
-            }
-        }
-    }
-}*/
 
 // read all posts
 function readPosts() {
@@ -166,7 +141,7 @@ function drawPostsDataTable(array) {
  document.getElementById("dataTable").innerHTML += str; */
 }
 
-//// save the relevant post to open in edit\view mode (Depends on permission)
+// save the relevant post to open in edit\view mode (Depends on permission)
 function OpenPostCard(postID) {
     sessionStorage.setItem("post", JSON.stringify(postID));
     window.location.href = "PostReportCard%20.html";
@@ -179,9 +154,7 @@ function AlertPostsForApproval() {
 function AlertPostsForApprovalSCB(data) {
     str_popup = 'ישנם ' + data + ' פוסטים הממתינים לאישור מנהל';
     $('#popupHeadline').text(str_popup);
-    //document.getElementById("popup").innerHTML += str_popup;
     openPopup();
-    //alert(data + " פוסטים ממתינים לאישור מנהל");
 }
 function AlertPostsForApprovalECB(err) {
     alert("Input Error");

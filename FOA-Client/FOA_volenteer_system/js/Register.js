@@ -13,8 +13,9 @@ $(document).ready(function () {
     getVolunteerProgramsList();
     // get the teams list
     getTeamsList();
+    // get the Permissions list
+    getPermissionsList();
 
-    hideIsActiveDiv();
     enableOther();
 });
 
@@ -94,10 +95,26 @@ function getTeamECB(err) {
     console.log(err);
 }
 
+// get the Permissions list
+function getPermissionsList() {
+    ajaxCall("GET", api + "Permissions", "", getPermissionsSCB, getPermissionsECB);
+    return false;
+}
 
-function hideIsActiveDiv() {
-    var element = document.getElementById("IsActive");
-    element.style.display = "none";
+function getPermissionsSCB(data) {
+    if (data == null) {
+        alert("There are no teams yet");
+    } else {
+        let str = "";
+        str += '<option class="opt" value="0">סוג הרשאת מערכת *</option>';
+        for (var i = 0; i < data.length; i++) {
+            str += '<option class="opt" value="' + data[i].permissionID + '">' + data[i].permissionName + '</option>';
+        }
+        document.getElementById("permission").innerHTML += str;
+    }
+}
+function getPermissionsECB(err) {
+    console.log(err);
 }
 
 // enable Other volunteer program only if other selected

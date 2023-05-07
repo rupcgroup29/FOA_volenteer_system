@@ -1,5 +1,5 @@
 ﻿
-#logout {
+.logout {
     background-color: transparent;
     border: 0px;
     text-align: center;
@@ -8,19 +8,19 @@
     font-size: 16px;    
 }
 
-    #logout:hover {
+    .logout:hover {
         color: #daa520 !important;
         text-decoration: underline !important;
     }
 
 
-#u39_img {
+.u39_img {
     font-size: 36px;
     color: white;
 }
 
 
-#u39_img {
+.u39_img {
     border-width: 0px;
     position: absolute;
     width: 38px;
@@ -28,7 +28,7 @@
     margin-left: 16px;
 }
 
-#u39 {
+.u39 {
     border-width: 0px;
     position: absolute;
     width: 38px;
@@ -38,7 +38,7 @@
     font-style: normal;
 }
 
-    #u39 .text {
+    .u39 .text {
         position: absolute;
         align-self: center;
         padding: 2px 2px 2px 2px;
@@ -46,7 +46,7 @@
         width: 100%;
     }
 
-#u39_text {
+.u39_text {
     border-width: 0px;
     word-wrap: break-word;
     text-transform: none;
@@ -55,7 +55,7 @@
 
 
 
-#u40 {
+.u40 {
     border-width: 0px;
     position: absolute;
     margin-left: -26px;
@@ -65,7 +65,7 @@
     visibility: hidden;
 }
 
-#u40_state0 {
+.u40_state0 {
     border-width: 0px;
     position: absolute;
     left: 0px;
@@ -85,7 +85,7 @@
     box-shadow: none;
 }
 
-#u40_state0_content {
+.u40_state0_content {
     border-width: 0px;
     position: absolute;
     left: 0px;

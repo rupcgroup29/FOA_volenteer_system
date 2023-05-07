@@ -1,22 +1,22 @@
 ﻿var api;
 var isLoggedIn;
 var usersArr = [];
+//user = {
+//    0: 10,
+//    1: 3
+//}
+//sessionStorage.setItem("user", JSON.stringify(user));
+//var currentUser = JSON.parse(sessionStorage.getItem("user"));
 
-user = {
-    0: 10,
-    1: 3
-}
-sessionStorage.setItem("user", JSON.stringify(user));
-var currentUser = JSON.parse(sessionStorage.getItem("user"));
-
-team = {
-    "teamID": 1,
-    "teamName": "ניטור 01",
-    "description": "צוות ניטור תכנים אנטישמיים ברשת, מספר 1",
-    "teamLeader": 10
-}
-sessionStorage.setItem("team", JSON.stringify(team));
-var currentTeam = JSON.parse(sessionStorage.getItem("team"));
+//team = {
+//    "teamID": 1,
+//    "teamName": "ניטור 01",
+//    "description": "צוות ניטור תכנים אנטישמיים ברשת, מספר 1",
+//    "teamLeader": 10
+//}
+//sessionStorage.setItem("team", JSON.stringify(team));
+var currentTeamId = JSON.parse(sessionStorage.getItem("team"));
+var currentTeamLeader;
 
 
 $(document).ready(function () {
@@ -25,7 +25,7 @@ $(document).ready(function () {
     }
     else api = "https://proj.ruppin.ac.il/cgroup29/prod/api/";
 
-    healine = "פרטי הצוות: " + currentTeam.teamName;
+    healine = "פרטי צוות " + currentTeamId;
     $("#headline").html(healine);
     GetTeamLeaderName();
     ReadUsers();
@@ -33,22 +33,23 @@ $(document).ready(function () {
 });
 
 function GetTeamLeaderName() {
-    ajaxCall("GET", api + "UserServices/teamLeader/" + currentTeam.teamID, "", getTeamLeaderSCB, getTeamLeaderECB);
+    ajaxCall("GET", api + "UserServices/teamLeader/" + currentTeamId, "", getTeamLeaderSCB, getTeamLeaderECB);
 }
 function getTeamLeaderSCB(data) {
-    RenderTeamDetails(data);
+    currentTeamLeader = data;
+    RenderTeamDetails();
 }
 function getTeamLeaderECB(err) {
     alert(err);
 }
 
-function RenderTeamDetails(data) {  
+function RenderTeamDetails() {  
     str = '<h3 class="teamDetails">';
-    str += currentTeam.description;
+    str += 'להשלים פה את תיאור הקבוצה';
     str += '</h3>';
     str += '<h3 class="teamDetails">';
     str += 'הצוות מנוהל ע"י ';
-    str += data.firstName + ' ' + data.surname;
+    str += currentTeamLeader.firstName + ' ' + currentTeamLeader.surname;
     str += '</h3>';
     document.getElementById("teamDetails").innerHTML += str;
 }
@@ -56,7 +57,7 @@ function RenderTeamDetails(data) {
 
 // read all users
 function ReadUsers() {
-    ajaxCall("GET", api + "UserServices/usersInTeam/" + currentTeam.teamID, "", getAllUsersSCB, getAllUsersECB);
+    ajaxCall("GET", api + "UserServices/usersInTeam/" + currentTeamId, "", getAllUsersSCB, getAllUsersECB);
 }
 function getAllUsersSCB(data) {
     usersArr = data;

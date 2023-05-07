@@ -38,20 +38,20 @@
 
 </head>
 <body id="page-top">
-    <nav class="ManagerNav navbar navbar-expand-lg navbar-dark fixed-top" id="mainNav">
+    <!-- Navigation Manager navbar-expand-lg-->
+    <nav class="ManagerNav navbar navbar-expand-lg navbar-dark fixed-top mainNav">
         <div class="container">
             <!-- Account Icon -->
-            <div id="u39" class="ax_default icon" data-label="Account Icon">
-                <!--<img id="u39_img" class="img " src="assets/img/account_icon_u39.svg" />-->
-                <i id="u39_img" class='fas fa-user-alt'></i>
-                <div id="u39_text" class="text ">
+            <div class="u39 ax_default icon" data-label="Account Icon">
+                <i class='u39_img fas fa-user-alt'></i>
+                <div class="u39_text text ">
                     <p></p>
                 </div>
 
                 <!-- Sub Menu (Dynamic Panel) -->
-                <div id="u40" class="ax_default ax_default_hidden" data-label="Sub Menu">
-                    <div id="u40_state0" class="panel_state" data-label="user">
-                        <div id="u40_state0_content" class="panel_state_content">
+                <div class="u40 ax_default ax_default_hidden" data-label="Sub Menu">
+                    <div class="u40_state0 panel_state" data-label="user">
+                        <div class="u40_state0_content panel_state_content">
 
                             <!-- Unnamed (Rectangle) -->
                             <div id="u41" class="ax_default heading_3">
@@ -59,7 +59,7 @@
                                 <div id="u41_text" class="text ">
                                     <p>
                                         <span>
-                                            <button id="logout">התנתק</button>
+                                            <button class="logout">התנתק</button>
                                         </span>
                                     </p>
                                 </div>
@@ -88,7 +88,7 @@
 
             <div class="collapse navbar-collapse" id="navbarResponsive">
                 <ul class="navbar-nav text-uppercase ms-auto py-4 py-lg-0">
-                    <li class="nav-item"><a class="nav-link" href="Teams-main.html">צוותים</a></li>
+                    <li class="nav-item"><a class="nav-link" href="Teams-main.html">משתמשים</a></li>
                     <li class="nav-item"><a class="nav-link" href="AddHours.html">דיווח שעות</a></li>
                     <li class="nav-item"><a class="nav-link" href="AddPostReport.html">דיווח על פוסט</a></li>
                     <!--<li class="nav-item"><a class="navbar-brand" href="HomePage.html"><img src="assets/img/LOGO-removebg-preview.png" alt="logo" /></a></li>-->
@@ -98,20 +98,30 @@
         </div>
     </nav>
 
+
     <!-- Teams -->
     <section class="page-section" id="contact">
-        <div class="container">
+        <div class="container" id="BoxesDiv">
             <div class="text-center">
-                <h2 class="section-heading text-uppercase">המתנדבים בעמותה</h2>
+                <h2 class="section-heading text-uppercase">צוותי העמותה</h2>
             </div>
-            <div dir="rtl">
-                <button><a href="Register.html">הוספת מתנדב חדש</a></button>
+            <div id="NewTeamAndUser">
+                <div class="col-6 TeamBox">
+                    <div class="BoxBorder">
+                        <h3>הוספת משתמש חדש</h3>
+                        <button><a href="Register.html">להוספה</a></button>
+                    </div>
+                </div>
+                <div class="col-6 TeamBox">
+
+                    <div class="BoxBorder">
+                        <h3>הוספת צוות חדש</h3>
+                        <button><a href="AddTeam.html">להוספה</a></button>
+                    </div>
+                </div>
             </div>
-            <!-- Teams filter-->
-            <input dir="rtl" type="text" id="myInput" onkeyup="FilterByTeamName()" placeholder="הקלד שם צוות..">
-            <!-- Teams table-->
-            <div id="UsersTable">
-                <!-- render table -->
+            <div dir="rtl" id="TeamBoxesRenderDiv">
+
             </div>
 
         </div>

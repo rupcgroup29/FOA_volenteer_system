@@ -12012,13 +12012,13 @@ p {
     border-radius: 100%;
 }
 
-#mainNav {
+.mainNav {
     padding-top: 1rem;
     padding-bottom: 1rem;
     background-color: #212529;
 }
 
-    #mainNav .navbar-toggler {
+    .mainNav .navbar-toggler {
         padding: 0.75rem;
         font-size: 0.75rem;
         font-family: "Montserrat", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
@@ -12026,7 +12026,7 @@ p {
         font-weight: 700;
     }
 
-    #mainNav .navbar-brand {
+    .mainNav .navbar-brand {
         color: #ffc800;
         font-family: "Montserrat", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
         font-weight: 700;
@@ -12034,11 +12034,11 @@ p {
         text-transform: uppercase;
     }
 
-        #mainNav .navbar-brand img {
+        .mainNav .navbar-brand img {
             height: 80rem;
         }
 
-    #mainNav .navbar-nav .nav-item .nav-link {
+    .mainNav .navbar-nav .nav-item .nav-link {
         font-family: "Montserrat", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
         font-size: 1.5rem;
         color: #fff;
@@ -12047,50 +12047,50 @@ p {
         border-radius: 0.25rem;
     }
 
-        #mainNav .navbar-nav .nav-item .nav-link.active, #mainNav .navbar-nav .nav-item .nav-link:hover {
+        .mainNav .navbar-nav .nav-item .nav-link.active, .mainNav .navbar-nav .nav-item .nav-link:hover {
             color: #ffc800;
         }
 
 @media (min-width: 992px) {
-    #mainNav {
+    .mainNav {
         padding-top: 1.5rem;
         padding-bottom: 1.5rem;
         border: none;
         transition: padding-top 0.3s ease-in-out, padding-bottom 0.3s ease-in-out;
     }
 
-        #mainNav .navbar-brand {
+        .mainNav .navbar-brand {
             font-size: 1.5em;
             transition: font-size 0.3s ease-in-out;
         }
 
-            #mainNav .navbar-brand img {
+            .mainNav .navbar-brand img {
                 height: 6rem;
                 transition: height 0.3s ease-in-out;
             }
 
-        #mainNav.navbar-shrink {
+        .mainNav.navbar-shrink {
             padding-top: 1rem;
             padding-bottom: 1rem;
             background-color: #212529;
         }
 
-            #mainNav.navbar-shrink .navbar-brand {
+            .mainNav.navbar-shrink .navbar-brand {
                 font-size: 1.25em;
             }
 
-                #mainNav.navbar-shrink .navbar-brand svg,
-                #mainNav.navbar-shrink .navbar-brand img {
+                .mainNav.navbar-shrink .navbar-brand svg,
+                .mainNav.navbar-shrink .navbar-brand img {
                     height: 4.5rem;
                 }
 
-        #mainNav .navbar-nav .nav-item {
+        .mainNav .navbar-nav .nav-item {
             /*margin-right: 1rem;*/
             margin-top: 6px;
             padding-right: 1rem;
         }
 
-            #mainNav .navbar-nav .nav-item:last-child {
+            .mainNav .navbar-nav .nav-item:last-child {
                 margin-right: 0;
             }
 }
@@ -12472,7 +12472,7 @@ section#contact {
     section#contact .section-heading {
         color: #358079;
         /*-webkit-text-stroke: 0.25px white;*/
-        text-shadow: 0px 0px 3px #cc9f29;
+        text-shadow: 2px 2px 2px #cc9f29;
     }
 
     section#contact form#contactForm .form-group, section#contact form#LogInForm .form-group {
@@ -12761,7 +12761,7 @@ label, .dataTables_wrapper .dataTables_paginate {
     font-size: 19px !important;
 }
 /* DataTable - end */
-/* התחלה - עיצובים של טבלת צוותים*/
+/* התחלה - עיצובים של טבלת משתמשים*/
 #myInput {
     background-image: url('/css/searchicon.png'); /* Add a search icon to input */
     background-position: 10px 12px; /* Position the search icon */
@@ -12820,7 +12820,7 @@ label, .dataTables_wrapper .dataTables_paginate {
     width: auto;
 }
 
-/* סוף - עיצובים של טבלת צוותים*/
+/* סוף - עיצובים של טבלת משתמשים*/
 
 
 #RecommendationSection h4 {
@@ -12832,6 +12832,7 @@ label, .dataTables_wrapper .dataTables_paginate {
     margin-bottom: 10px;
     padding: 10px;
     text-align: center;
+    background-color: rgba(128, 128, 128, 0.5);
 }
 
 /*קישורים בדף בית*/
@@ -12871,3 +12872,27 @@ label, .dataTables_wrapper .dataTables_paginate {
     #urlLink a {
         color: #212529;
     }
+
+/* TeamBox*/
+.TeamBox {
+    display: inline-block;
+    font-size: 16px;
+    box-sizing: border-box;
+}
+
+#BoxesDiv {
+    font-size: 0;
+}
+
+.BoxBorder {
+    margin: 0.5rem;
+    padding: 1rem;
+    background-color: rgba(128, 128, 128, 0.5);
+    color: white;
+    text-align: center;
+}
+
+#NewTeamAndUser .BoxBorder {
+    color: goldenrod;
+
+}

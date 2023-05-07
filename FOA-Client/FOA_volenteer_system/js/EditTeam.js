@@ -1,7 +1,6 @@
 ﻿var api;
 var currentUser = JSON.parse(sessionStorage.getItem("user"));
 var currentTeamId = JSON.parse(sessionStorage.getItem("team"));
-var currentTeamDetails;
 var TeamLeadersList = [];
 
 
@@ -12,7 +11,7 @@ $(document).ready(function () {
     }
     else api = "https://proj.ruppin.ac.il/cgroup29/prod/api/";
 
-    $('#contactForm').submit(AddNewTeam);
+    $('#contactForm').submit(EditTeam);
 
     // get the Team Leaders list
     getTeamLeadersList();
@@ -30,7 +29,7 @@ function EditTeam() {
         teamLeader: $("#teamLeader").val()
     }
 
-    ajaxCall("PUT", api + "Teams/" + currentTeamId, JSON.stringify(Team), putEditTeamSCB, putEditTeamECB);
+    ajaxCall("PUT", api + "Teams", JSON.stringify(Team), putEditTeamSCB, putEditTeamECB);
     return false;
 }
 function putEditTeamSCB(data) { 
@@ -45,7 +44,6 @@ function putEditTeamECB(err) {
 
 // get the Team Details
 function getTeamDetails() {
-    // לוודא את התוספת של האייפיאיי כי כתבתי את זה לפני שהייתה קיימת הפקודה
     ajaxCall("GET", api + "Teams/teamDetails/" + currentTeamId, "", getTeamDetailsSCB, getTeamDetailsECB);
     return false;
 }
@@ -54,30 +52,30 @@ function getTeamDetailsSCB(data) {
     if (data == null) {
         alert("There's no team leader that haven't been assigned yet");
     } else {
-        currentTeamDetails = data;
-        RenderDetails();
+        
+        RenderDetails(data);
     }
 }
 function getTeamDetailsECB(err) {
     console.log(err);
 }
 
-function RenderDetails() {
+function RenderDetails(data) {
     //Card Header
     let str_header = "";
     str_header += `<h2 class="section-heading text-uppercase"> צוות מספר ` + currentTeamId + `</h2>`;
     document.getElementById("CardHeader").innerHTML += str_header;
     //teamLeader
     let teamLeader = "";
-    teamLeader += '<option class="opt" value="' + currentTeamDetails.userID + '">' + relevantUserObject.fullname + '</option>';
-    for (var i = 0; i < data.length; i++) {
-        teamLeader += '<option class="opt" value="' + TeamLeadersList[i].userID + '">' + TeamLeadersList[i].firstName + ' ' + TeamLeadersList[i].lastName + '</option>';
+    teamLeader += '<option class="opt" value="' + data.userID + '">' + data.fullname + '</option>';
+    for (var i = 0; i < TeamLeadersList.length; i++) {
+        teamLeader += '<option class="opt" value="' + TeamLeadersList[i].userID + '">' + TeamLeadersList[i].fullname + '</option>';
     }
     document.getElementById("teamLeader").innerHTML += teamLeader;
     //TeamName
-    $("#TeamName").val(currentTeamDetails.teamName);
+    $("#TeamName").val(data.teamName);
     //description
-    $("#description").val(currentTeamDetails.description);
+    $("#description").val(data.description);
 }
 
 // get the Team Leaders List

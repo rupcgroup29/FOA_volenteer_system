@@ -1,22 +1,7 @@
 ﻿var api;
 var isLoggedIn;
 var usersArr = [];
-//user = {
-//    0: 10,
-//    1: 3
-//}
-//sessionStorage.setItem("user", JSON.stringify(user));
-//var currentUser = JSON.parse(sessionStorage.getItem("user"));
-
-//team = {
-//    "teamID": 1,
-//    "teamName": "ניטור 01",
-//    "description": "צוות ניטור תכנים אנטישמיים ברשת, מספר 1",
-//    "teamLeader": 10
-//}
-//sessionStorage.setItem("team", JSON.stringify(team));
 var currentTeamId = JSON.parse(sessionStorage.getItem("team"));
-var currentTeamLeader;
 
 
 $(document).ready(function () {
@@ -27,29 +12,28 @@ $(document).ready(function () {
 
     healine = "פרטי צוות " + currentTeamId;
     $("#headline").html(healine);
-    GetTeamLeaderName();
+    GetTeamDetails();
     ReadUsers();
 
 });
 
-function GetTeamLeaderName() {
-    ajaxCall("GET", api + "UserServices/teamLeader/" + currentTeamId, "", getTeamLeaderSCB, getTeamLeaderECB);
+function GetTeamDetails() {
+    ajaxCall("GET", api + "Teams/teamDetails/" + currentTeamId, "", getTeamDetailsSCB, getTeamDetailsECB);
 }
-function getTeamLeaderSCB(data) {
-    currentTeamLeader = data;
-    RenderTeamDetails();
+function getTeamDetailsSCB(data) {
+    RenderTeamDetails(data);
 }
-function getTeamLeaderECB(err) {
+function getTeamDetailsECB(err) {
     alert(err);
 }
 
-function RenderTeamDetails() {  
+function RenderTeamDetails(data) {  
     str = '<h3 class="teamDetails">';
-    str += 'להשלים פה את תיאור הקבוצה';
+    str += data.description
     str += '</h3>';
     str += '<h3 class="teamDetails">';
-    str += 'הצוות מנוהל ע"י ';
-    str += currentTeamLeader.firstName + ' ' + currentTeamLeader.surname;
+    str += 'ראש הצוות- ';
+    str += data.fullname;
     str += '</h3>';
     document.getElementById("teamDetails").innerHTML += str;
 }

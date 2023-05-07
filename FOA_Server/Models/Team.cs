@@ -34,6 +34,14 @@ namespace FOA_Server.Models
             return dbs.ReadTeamsDetails();
         }
 
+        // read a specific team's details 
+        public static Object ReadTeamDetailsByID(int teamID)
+        {
+            DBteams dbs = new DBteams();
+            return dbs.ReadTeamDetailsByID(teamID);
+        }
+
+
         // read all teams details
         public static List<Object> ReadTeamLeadersWithoutTeamToLead()
         {

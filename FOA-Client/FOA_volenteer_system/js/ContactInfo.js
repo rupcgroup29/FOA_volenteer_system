@@ -8,25 +8,24 @@ $(document).ready(function () {
     }
     else api = "https://proj.ruppin.ac.il/cgroup29/prod/api/";
 
-    //getManagerDetails();
+    getManagerDetails();
 
 });
 
+function getManagerDetails() {
+    ajaxCall("GET", api + "UserServices/" + currentUser[0], "", getManagerDetailsSCB, getManagerDetailsECB);
+}
+function getManagerDetailsSCB(data) {
+    renderManagerDetails(data);
+}
+function getManagerDetailsECB(err) {
+    alert("Input Error");
+}
 
-//function getManagerDetails() {
-//    //לעדכן את הקריאה כאן כי היא לא מעודכנת
-//    ajaxCall("GET", api + "UserServices/" + currentUser[0], "", getManagerDetailsSCB, getManagerDetailsECB);
-//}
-//function getManagerDetailsSCB(data) {
-//    renderManagerDetails(data);
-//}
-//function getManagerDetailsECB(err) {
-//    alert("Input Error");
-//}
-
-//function renderManagerDetails(data) {
-
-
-
-//    document.getElementById("CardInfo").innerHTML += str;
-//}
+function renderManagerDetails(data) {
+    str = "";
+    str += "<h3>מנהל הצוות - " + data.firstName + " " + data.surname +"</h3>";
+    str += "<h4>מספר טלפון: " + data.phoneNum +"</h4>";
+    str += "<h4>אימייל: " + data.email +"</h4>";
+    document.getElementById("CardInfo").innerHTML += str;
+}

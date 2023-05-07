@@ -50,7 +50,7 @@ function getTeamLeadersListSCB(data) {
         let str = "";
         str += '<option class="opt" value="0">בחר ראש צוות *</option>';
         for (var i = 0; i < data.length; i++) {
-            str += '<option class="opt" value="' + data[i].userID + '">' + data[i].firstName + ' ' + data[i].lastName + '</option>';
+            str += '<option class="opt" value="' + data[i].userID + '">' + data[i].fullname + '</option>';
         }
         document.getElementById("teamLeader").innerHTML += str;
     }

@@ -61,7 +61,6 @@ function error(data) {
 
 // add new post 
 function AddNewPost(data) {
-    //let src = data;
     let keyWordsAndHashtages = separatekeyWordsAndHashtages();  // ענת: מפעיל פונקציה שתופסת את כל הטקסט, מפרידה לפי פסיק ומחזירה מערך
     let categoryID = getChecked();
     let countryID = isKnownOrNotCountry();      // למקרה ומשתמש לא בחר מדינה מפני שאינו יודע איזו
@@ -81,8 +80,8 @@ function AddNewPost(data) {
         UserID: currentUser[0],
         PlatformID: $("#platform").val(),
         CategoryID: categoryID,
-        PostStatusManager: "1",      // במטרה לשלוח עם יוזר איידי קיים, ישתנה בעריכת פוסט
-        RemovalStatusManager: "1",   // במטרה לשלוח עם יוזר איידי קיים, ישתנה בעריכת פוסט
+        PostStatusManager: "1",      // ישתנה בעריכת פוסט
+        RemovalStatusManager: "1",   // ישתנה בעריכת פוסט
         CountryID: countryID,
         LanguageID: $("#language").val(),
         PlatformName: $("#platform_diff").val(),
@@ -93,7 +92,7 @@ function AddNewPost(data) {
     ajaxCall("POST", api + "Posts", JSON.stringify(newPost), postAddNewPostSCB, postAddNewPostECB);
     return false;
 }
-function postAddNewPostSCB(data) { // הוספת משתמש הצליחה
+function postAddNewPostSCB(data) { // הוספת דיווח הצליחה
     alert("דיווח הפוסט נוסף בהצלחה");
     location.assign("HomePage.html")
 }

@@ -9,9 +9,9 @@ namespace FOA_Server.Models
         public string KeyWordsAndHashtages { get; set; }
 
         // const parameters for the exposure 3 parameters
-        private static string langExp;
-        private static string platformExp;
-        private static string kwAndHashtagExp;
+        private static string langExp = "";
+        private static string platformExp = "";
+        private static string kwAndHashtagExp = "";
 
         public Recommendation(string language, string platform, string keyWordsAndHashtages)
         {
@@ -29,7 +29,7 @@ namespace FOA_Server.Models
             DBposts dbs = new DBposts();
             var result = dbs.ReadExposureKeyWordsAndHashtags();
 
-            if (!string.IsNullOrEmpty(result))  // if zero posts has been uploaded to the system in the last week 
+            if (result != null)  // if zero posts has been uploaded to the system in the last week 
             {
                 kwAndHashtagExp = result;
             }
@@ -43,7 +43,7 @@ namespace FOA_Server.Models
             DBposts dbs = new DBposts();
             var result = dbs.ReadExposurePlatform();
 
-            if (!string.IsNullOrEmpty(result))  // if zero posts has been uploaded to the system in the last week 
+            if (result != null)  // if zero posts has been uploaded to the system in the last week 
             {
                 platformExp = result;
             }
@@ -57,7 +57,7 @@ namespace FOA_Server.Models
             DBposts dbs = new DBposts();
             var result = dbs.ReadExposureLanguage();
 
-            if (!string.IsNullOrEmpty(result))  // if zero posts has been uploaded to the system in the last week 
+            if (result != null)  // if zero posts has been uploaded to the system in the last week 
             {
                 langExp = result;
             }

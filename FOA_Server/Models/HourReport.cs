@@ -63,7 +63,23 @@ namespace FOA_Server.Models
                     }
                     catch (Exception ex)
                     {
-                        throw new Exception(" ההכנסה כשלה, " + ex.Message);
+                        throw new Exception(ex.Message);
+                    }
+
+                    try
+                    {
+                        List<HourReport> usersList = ReadUserHourReports(report.UserID);
+                        foreach (HourReport user in usersList)
+                        {
+                            if (!((report.StartTime >= user.EndTime) || (report.EndTime <= user.StartTime)))
+                            {
+                                throw new Exception(" כבר הכנסת דיווח שעות עם אותם הזמנים ");
+                            }
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        throw new Exception(ex.Message);
                     }
 
                     int good = dbs.InsertHourReport(report);

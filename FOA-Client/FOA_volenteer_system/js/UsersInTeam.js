@@ -27,27 +27,20 @@ function getTeamDetailsSCB(data) {
 function GetTeamLeaderName() {
     ajaxCall("GET", api + "UserServices/teamLeader/" + currentTeamId, "", getTeamLeaderSCB, getTeamLeaderECB);
 }
-function getTeamLeaderSCB(data) {
-    currentTeamLeader = data;
-    RenderTeamDetails();
+function getTeamDetailsSCB(data) {
+    RenderTeamDetails(data);
 }
 function getTeamDetailsECB(err) {
     alert(err);
 }
 
 function RenderTeamDetails(data) {  
-function RenderTeamDetails() {  
     str = '<h3 class="teamDetails">';
     str += data.description
     str += '</h3>';
     str += '<h3 class="teamDetails">';
     str += 'ראש הצוות- ';
     str += data.fullname;
-    str += 'להשלים פה את תיאור הקבוצה';
-    str += '</h3>';
-    str += '<h3 class="teamDetails">';
-    str += 'הצוות מנוהל ע"י ';
-    str += currentTeamLeader.firstName + ' ' + currentTeamLeader.surname;
     str += '</h3>';
     document.getElementById("teamDetails").innerHTML += str;
 }

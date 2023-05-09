@@ -117,16 +117,9 @@ function updateUser() {
         Password: $("#Password").val()
     }
 
-<<<<<<< HEAD
-    ajaxCall("PUT", api + "Users/" + relevantUserID, JSON.stringify(updateUser), updateUserSCB, updateUserECB);
-=======
+
     ajaxCall("PUT", api + "UserServices/myUser", JSON.stringify(updateUser), updateUserSCB, updateUserECB);
-<<<<<<< HEAD
-    ajaxCall("PUT", api + "UserServices/myUser", JSON.stringify(updateUser), updateUserSCB, updateUserECB);
-=======
     ajaxCall("PUT", api + "Users/" + relevantUserID, JSON.stringify(updateUser), updateUserSCB, updateUserECB);
->>>>>>> parent of 0ba6482 (5.5)
->>>>>>> 2686acbbed9ed3f9084a54ebff53a1ef7c388bb9
     sessionStorage.setItem("userCard", JSON.stringify());
     return false;
 }

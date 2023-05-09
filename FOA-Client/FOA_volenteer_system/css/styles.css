@@ -12898,7 +12898,7 @@ label, .dataTables_wrapper .dataTables_paginate {
 }
 
 #CardInfo {
-    margin: auto;
+    margin: 56px auto;
     padding: 1rem;
     background-color: rgba(128, 128, 128, 0.5);
     color: white;

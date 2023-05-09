@@ -2,8 +2,6 @@
 var isLoggedIn;
 var usersArr = [];
 var currentTeamId = JSON.parse(sessionStorage.getItem("team"));
-var currentTeamId = JSON.parse(sessionStorage.getItem("team"));
-var currentTeamLeader;
 
 
 $(document).ready(function () {
@@ -24,17 +22,12 @@ function GetTeamDetails() {
 }
 function getTeamDetailsSCB(data) {
     RenderTeamDetails(data);
-function GetTeamLeaderName() {
-    ajaxCall("GET", api + "UserServices/teamLeader/" + currentTeamId, "", getTeamLeaderSCB, getTeamLeaderECB);
-}
-function getTeamDetailsSCB(data) {
-    RenderTeamDetails(data);
 }
 function getTeamDetailsECB(err) {
     alert(err);
 }
 
-function RenderTeamDetails(data) {  
+function RenderTeamDetails(data) {
     str = '<h3 class="teamDetails">';
     str += data.description
     str += '</h3>';
@@ -91,6 +84,7 @@ function RenderUsersList(array) {
         }
     }
 }
+
 // save the relevant user to open in edit\view mode (Depends on permission)
 function OpenUserCard(userID) {
     sessionStorage.setItem("userCard", JSON.stringify(userID));

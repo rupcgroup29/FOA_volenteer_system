@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
     <meta name="description" content="" />
     <meta name="author" content="" />
-    <title>FOA Volunteers System- User card</title>
+    <title>Agency - Hour Report</title>
     <!-- Favicon-->
     <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
     <!-- Font Awesome icons (free version)-->
@@ -24,13 +24,11 @@
     <!-- font  -->
     <link href='https://fonts.googleapis.com/css?family=Arimo' rel='stylesheet'>
     <script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script>
-
-
     <!-- קישור לעמודי JS -->
-    <script src="js/UserCard.js"></script>
     <script src="js/ajaxCall.js"></script>
-    <script src="js/scripts.js"></script>
     <link href="css/navbar.css" rel="stylesheet" />
+    <script src="js/scripts.js"></script>
+
 
 
 </head>
@@ -96,7 +94,6 @@
                     <li class="nav-item"><a class="nav-link" href="Teams-main.html">משתמשים</a></li>
                     <li class="nav-item"><a class="nav-link" href="Hours-Main.html">דיווח שעות</a></li>
                     <li class="nav-item"><a class="nav-link" href="AddPostReport.html">דיווח על פוסט</a></li>
-                    <!--<li class="nav-item"><a class="navbar-brand" href="HomePage.html"><img src="assets/img/LOGO-removebg-preview.png" alt="logo" /></a></li>-->
                 </ul>
                 <a class="navbar-brand" href="HomePage.html"><img src="assets/img/LOGO-removebg-preview.png" alt="logo" /></a>
             </div>
@@ -171,118 +168,19 @@
     </nav>
 
 
-    <!-- New User Details-->
+    <!-- Log in Details-->
     <section class="page-section" id="contact">
         <div class="container">
-            <div class="text-center" id="CardHeader">
-                <!--render Card Header-->
+            <div class="text-center">
+                <h2 class="section-heading text-uppercase">דיווח שעות- ייערך בהמשך</h2>
+            </div>            <!-- to get an API token!-->
+            <div>
+                <h3>הוספת צוות חדש</h3>
+                <button><a href="AddHours.html">הוספת דיווח שעות</a></button>
             </div>
-            <form id="contactForm" data-sb-form-api-token="API_TOKEN">
-                <div class="row align-items-stretch mb-5">
-                    <div class="col-md-6">
-                        <div class="form-group" id="IsActiveDiv">
-                            <!-- IsActive-->
-                            <div class="form-headers">
-                                <p> מתנדב פעיל</p>
-                            </div>
-                            <select dir="rtl" class="form-control" id="IsActive">
-                                <!--render isActive selection-->
-                            </select>
-                        </div>
-                        <div dir="rtl" class="row" id="Selection+Other">
-
-                            <div dir="rtl" class="col-6 form-group" id="schoolDiv">
-                                <!-- volunteerProgram-->
-                                <div class="form-headers">
-                                    <p> מסגרת התנדבות</p>
-                                </div>
-                                <select dir="rtl" class="form-control" id="volunteerProgram" required>
-                                    <!-- render -->
-                                </select>
-                            </div>
-                            <div class="col-6 form-headers form-group " id="DifSchoolDiv">
-                                <!-- Different_school-->
-                                <p> אחר</p>
-                                <input id="Different_school" class="form-control" type="text" placeholder="אחר" readonly />
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <!-- Permission-->
-                            <div class="form-headers">
-                                <p> הרשאת מערכת</p>
-                            </div>
-                            <select dir="rtl" class="form-control" id="permission" required>
-                                <!-- render -->
-                            </select>
-                        </div>
-                        <div class="form-group">
-                            <!-- Team -->
-                            <div class="form-headers">
-                                <p> בחירת צוות התנדבות</p>
-                            </div>
-                            <select dir="rtl" class="form-control" id="team" required>
-                                <!-- render -->
-                            </select>
-                        </div>
-                        <div class="form-group">
-                            <!-- roleDescription-->
-                            <div class="form-headers">
-                                <p> תיאור תפקיד בעמותה</p>
-                            </div>
-                            <input dir="rtl" class="form-control" id="roleDescription" maxlength="250" />
-                        </div>
-
-                    </div>
-                    <div class="col-md-6">
-                        <div class="form-group">
-                            <!-- First Name input-->
-                            <div class="form-headers">
-                                <p> שם פרטי</p>
-                            </div>
-                            <input dir="rtl" class="form-control" id="firstName" type="text" required />
-                        </div>
-                        <div class="form-group">
-                            <!--Last Name input-->
-                            <div class="form-headers">
-                                <p> שם משפחה</p>
-                            </div>
-                            <input dir="rtl" class="form-control" id="surname" type="text" required />
-                        </div>
-                        <div class="form-group">
-                            <!-- User_name-->
-                            <div class="form-headers">
-                                <p> שם משתמש במערכת</p>
-                            </div>
-                            <input dir="rtl" class="form-control" id="user_name" type="text" required />
-                        </div>
-                        <div class="form-group">
-                            <!-- Email address input-->
-                            <div class="form-headers">
-                                <p> כתובת אימייל</p>
-                            </div>
-                            <input dir="rtl" class="form-control" id="email" type="email" required />
-                        </div>
-                        <div class="form-group mb-md-0">
-                            <!-- Phone number input-->
-                            <div class="form-headers">
-                                <p> טלפון</p>
-                            </div>
-                            <input dir="rtl" class="form-control" id="phone" type="tel" required />
-                        </div>
-                        <div class="form-group" id="PasswordDiv">
-                            <!-- Password-->
-                        </div>
-                    </div>
-                </div>
-                <!--Submit Button-->
-                <div class="text-center">
-                    <button class="btn btn-primary btn-xl text-uppercase" id="submitButton" type="submit">שמור</button>
-                </div>
-            </form>
         </div>
     </section>
-
-    <!--Footer-->
+    <!-- Footer-->
     <footer class="footer py-4">
         <div class="container">
             <div class="row align-items-center">
@@ -300,5 +198,16 @@
         </div>
     </footer>
 
+
+
+    <!-- Bootstrap core JS-->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Core theme JS-->
+    <script src="js/scripts.js"></script>
+    <!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *-->
+    <!-- * *                               SB Forms JS                               * *-->
+    <!-- * * Activate your form at https://startbootstrap.com/solution/contact-forms * *-->
+    <!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *-->
+    <script src="https://cdn.startbootstrap.com/sb-forms-latest.js"></script>
 </body>
 </html>

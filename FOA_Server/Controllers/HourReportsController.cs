@@ -13,9 +13,9 @@ namespace FOA_Server.Controllers
     {
         // GET: api/<HourReportsController>
         [HttpGet]
-        public List<HourReport> Get()
+        public List<Object> Get()
         {
-            return HourReport.ReadAllHourReports();
+            return HourReport.ReadUsersHourReports();
         }
 
         // GET api/<HourReportsController>/5

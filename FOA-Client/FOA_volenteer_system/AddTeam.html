@@ -170,6 +170,45 @@
     </nav>
 
 
+    <!-- New Team Details-->
+    <section class="page-section" id="contact">
+        <div class="container">
+            <div class="text-center">
+                <h2 class="section-heading text-uppercase">רישום צוות חדש</h2>
+            </div>            <!-- to get an API token!-->
+            <form id="contactForm" data-sb-form-api-token="API_TOKEN">
+                <div class="row align-items-stretch mb-5">
+                    <div class="col-12 form-headers form-group ">
+                        <!-- Team Name-->
+                        <p> שם הצוות</p>
+                        <input id="TeamName" class="form-control" type="text" placeholder="שם הצוות *" />
+                    </div>
+                    <div class="col-12 form-headers form-group ">
+                        <!-- description-->
+                        <p> תיאור תפקידי הצוות</p>
+                        <input id="description" class="form-control" type="text" placeholder="תיאור *" />
+                    </div>
+                    <div class="form-group">
+                        <!-- teamLeader-->
+                        <div class="form-headers">
+                            <p>
+                                ראש הצוות
+                            </p>
+                        </div>
+                        <select dir="rtl" class="form-control" id="teamLeader" required>
+                            <!-- render list -->
+                        </select>
+                    </div>
+                </div>
+
+                <!--Submit Button-->
+                <div class="text-center">
+                    <button class="btn btn-primary btn-xl text-uppercase" id="submitButton" type="submit">שמור</button>
+                </div>
+            </form>
+        </div>
+    </section>
+
     <!--Footer-->
     <footer class="footer py-4">
         <div class="container">

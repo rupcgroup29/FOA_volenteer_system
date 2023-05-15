@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
     <meta name="description" content="" />
     <meta name="author" content="" />
-    <title>Agency - Hour Report</title>
+    <title>FOA- Hour Report</title>
     <!-- Favicon-->
     <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
     <!-- Font Awesome icons (free version)-->
@@ -16,6 +16,7 @@
     <!-- Core theme CSS (includes Bootstrap)-->
     <link href="css/styles.css" rel="stylesheet" />
 
+
     <!-- תוספות שלנו-->
     <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.1/dist/jquery.slim.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
@@ -24,7 +25,12 @@
     <!-- font  -->
     <link href='https://fonts.googleapis.com/css?family=Arimo' rel='stylesheet'>
     <script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script>
+    <!-- for dataTable functions -->
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.13.1/css/jquery.dataTables.min.css">
     <!-- קישור לעמודי JS -->
+    <script src="js/Hours-Main.js"></script>
     <script src="js/ajaxCall.js"></script>
     <link href="css/navbar.css" rel="stylesheet" />
     <script src="js/scripts.js"></script>
@@ -170,13 +176,36 @@
 
     <!-- Log in Details-->
     <section class="page-section" id="contact">
-        <div class="container">
+        <div class="container" dir="rtl">
             <div class="text-center">
-                <h2 class="section-heading text-uppercase">דיווח שעות- ייערך בהמשך</h2>
-            </div>            <!-- to get an API token!-->
-            <div>
-                <h3>הוספת צוות חדש</h3>
-                <button><a href="AddHours.html">הוספת דיווח שעות</a></button>
+                <h2 class="section-heading text-uppercase">דיווחי שעות התנדבות</h2>
+                <div class="row" id="HoursMainButtons">
+                    <div class="col-4">
+                        <select id="usersList">
+                            <!-- Render Users List -->
+                        </select>
+                        <button type="button" onclick="ChangeVolHours()">החל</button>
+                    </div>
+                    <div class="col-4">
+                        <button><a href="AddHours.html">הוספת דיווח שעות</a></button>
+                    </div>
+                    <div class="col-4">
+                        <button><a href="AllHours.html">כלל דיווחי שעות</a></button>
+                    </div>
+                    <div id="HoursTable">
+                        <table id="dataTable" class="display nowrap">
+                            <thead>
+                                <tr>
+                                    <th>תאריך</th>
+                                    <th>שעת התחלה</th>
+                                    <th>שעת סיום</th>
+                                    <th>סטטוס שעות</th>
+                                </tr>
+                            </thead>
+                        </table>
+                    </div>
+
+                </div>
             </div>
         </div>
     </section>

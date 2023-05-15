@@ -1,5 +1,8 @@
 ﻿var api;
 var currentUser = JSON.parse(sessionStorage.getItem("user"));
+let rowNum = 0;
+let ShiftsArr = [];
+let ShiftsToSend = [];
 
 $(document).ready(function () {
     if (location.hostname === "localhost" || location.hostname === "127.0.0.1") {
@@ -7,54 +10,93 @@ $(document).ready(function () {
     }
     else api = "https://proj.ruppin.ac.il/cgroup29/prod/api/";
 
-    $('#contactForm').submit(AddNewTeam);
+    RenderOneMoreRow();
 
-    // get the Team Leaders list
-    getTeamLeadersList();
+    $('#contactForm').submit(AddShifts);
+
 });
 
 
-function AddNewTeam() {
-    const newTeam = {
-        teamID: "", //במטרה לשלוח אובייקט צוות שלם, ישתנה בדאטה בייס
-        teamName: $("#TeamName").val(),
-        description: $("#description").val(),
-        teamLeader: $("#teamLeader").val()
-    }
+function AddShifts() {
+    for (var i = 0; i < rowNum; i++) {
+        // Assuming you have a date value in the format "YYYY-MM-DD"
+        let dateValue = $("#SelectedDate" + i + "").val();
+        // Create a new Date object with the date value
+        const date = new Date(dateValue);
+        // Set the time portion to the desired value (e.g., 12:00 PM)
+        date.setHours(12);
+        date.setMinutes(0);
+        date.setSeconds(0);
+        date.setMilliseconds(0);
+        // The resulting datetime value
+        const datetimeValue = date.toISOString(); // "2023-05-15T12:00:00.000Z"
 
-    ajaxCall("POST", api + "Teams", JSON.stringify(newTeam), postAddNewTeamSCB, postAddNewTeamECB);
-    return false;
-}
-function postAddNewTeamSCB(data) { 
-    alert("הצוות נוסף בהצלחה");
-    window.location.assign("Teams-main.html");
-    location.assign("Teams-main.html")
-}
+        // Assuming you have a time value in the format "HH:mm"
+        const startTimeValue = $("#StartHour" + i + "").val();
+        // Create a new Date object with the current date
+        const startTime = new Date();
+        // Set the time portion to the desired value (using the time value)
+        const [startHours, startMinutes] = startTimeValue.split(":");
+        startTime.setHours(startHours);
+        startTime.setMinutes(startMinutes);
+        startTime.setSeconds(0);
+        startTime.setMilliseconds(0);
+        // The resulting datetime value
+        const startDateTimeValue = startTime.toISOString();
 
-function postAddNewTeamECB(err) {
-    alert(err);
-}
+        // Assuming you have a time value in the format "HH:mm"
+        const endTimeValue = $("#FinishHour" + i + "").val();
+        // Create a new Date object with the current date
+        const endTime = new Date();
+        // Set the time portion to the desired value (using the time value)
+        const [endHours, endMinutes] = endTimeValue.split(":");
+        endTime.setHours(endHours);
+        endTime.setMinutes(endMinutes);
+        endTime.setSeconds(0);
+        endTime.setMilliseconds(0);
+        // The resulting datetime value
+        const endDateTimeValue = endTime.toISOString();
 
-
-
-// get the Team Leaders List
-function getTeamLeadersList() {
-    ajaxCall("GET", api + "Teams/teamLeadersWithoutTeam", "", getTeamLeadersListSCB, getTeamLeadersListECB);
-    return false;
-}
-
-function getTeamLeadersListSCB(data) {
-    if (data == null) {
-        alert("There's no team leader that haven't been assigned yet");
-    } else {
-        let str = "";
-        str += '<option class="opt" value="0">בחר ראש צוות *</option>';
-        for (var i = 0; i < data.length; i++) {
-            str += '<option class="opt" value="' + data[i].userID + '">' + data[i].fullname + '</option>';
+        const Shift = {
+            userID: currentUser[0],
+            date: datetimeValue,
+            startTime: startDateTimeValue,
+            endTime: endDateTimeValue
         }
-        document.getElementById("teamLeader").innerHTML += str;
+
+        ShiftsToSend[i] = Shift;
     }
+    ajaxCall("POST", api + "HourReports", JSON.stringify(ShiftsToSend), postAddShiftsSCB, postAddShiftsECB);
+    return false;
 }
-function getTeamLeadersListECB(err) {
-    console.log(err);
+function postAddShiftsSCB(data) {
+    alert("המשמרות נוספו בהצלחה");
+    window.location.assign("Hours-Main.html");
+    location.assign("Hours-Main.html")
 }
+
+function postAddShiftsECB(err) {
+    alert("לא הצלחנו להוסיף את המשמרות שהזנת");
+}
+
+function RenderOneMoreRow() {
+    let str = "";
+    str += `<div class="row" dir="rtl">`;
+    str += `<div class="col-4 form-headers form-group ">`;
+    str += `<p> תאריך</p>`;
+    str += `<input id="SelectedDate` + rowNum + `" class="form-control" type="date" value="${$("#SelectedDate" + (rowNum - 1)).val() || ''}" />`; // Populate with previous row's value
+    str += `</div>`;
+    str += `<div class="col-4 form-headers form-group ">`;
+    str += `<p> שעת התחלה</p>`;
+    str += `<input id="StartHour` + rowNum + `" class="form-control" type="time" value="${$("#StartHour" + (rowNum - 1)).val() || ''}" />`; // Populate with previous row's value
+    str += `</div>`;
+    str += `<div class="col-4 form-headers form-group ">`;
+    str += `<p> שעת סיום</p>`;
+    str += `<input id="FinishHour` + rowNum + `" class="form-control" type="time" value="${$("#FinishHour" + (rowNum - 1)).val() || ''}" />`; // Populate with previous row's value
+    str += `</div>`;
+    str += `</div>`;
+    document.getElementById("RenderShifts").innerHTML += str;
+
+    rowNum++; // Increment the row number
+}
+

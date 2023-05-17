@@ -160,6 +160,15 @@ function AlertPostsForApprovalECB(err) {
     alert("Input Error");
 }
 
+function openPopup() {
+    let popup = document.getElementById('popup');
+    popup.classList.add('open-popup');
+}
+function closePopup() {
+    let popup = document.getElementById('popup');
+    popup.classList.remove('open-popup');
+}
+
 // GET Exposure 
 function getRecommendation() {
     ajaxCall("GET", api + "Recommendations", "", getRecommendationSCB, getRecommendationECB);
@@ -182,11 +191,3 @@ function renderRecommendation() {
     document.getElementById("RecommendationSection").innerHTML += str_Reco;
 }
 
-function openPopup() {
-    let popup = document.getElementById('popup');
-    popup.classList.add('open-popup')
-}
-function closePopup() {
-    let popup = document.getElementById('popup');
-    popup.classList.remove('open-popup')
-}

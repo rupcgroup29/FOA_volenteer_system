@@ -143,16 +143,16 @@ function RenderRelevantDetails() {
 // edit post - submit
 function editPost() {
     let postStatus = $("#ManagerStatus").val();
-    let postStatusManager = "1";   // default if no one changed it yet
+    //let postStatusManager = "1";   // default if no one changed it yet
     let removalStatus = $("#removalStatus").val();
-    let removalStatusManager = "1"; // default if no one changed it yet
+    //let removalStatusManager = "1"; // default if no one changed it yet
 
-    if (postStatus != 0) { // status changed
-        postStatusManager = currentUser[0];
-    }
-    if (removalStatus != 0) { // status changed
-        removalStatusManager = currentUser[0];
-    }
+    //if (postStatus != 0) { // status changed
+    //    postStatusManager = currentUser[0];
+    //}
+    //if (removalStatus != 0) { // status changed
+    //    removalStatusManager = currentUser[0];
+    //}
     if (removalStatus != 0 && postStatus == 0) { //alert if removed from platform and havn't been approved yet
         alert("שים לב שלא עדכנת סטטוס האם הפוסט אנטישמי או לא!");
         return false;
@@ -161,9 +161,9 @@ function editPost() {
     const editedPost = {
         PostID: currentPostID,
         PostStatus: parseInt(postStatus),
-        PostStatusManager: postStatusManager,
+        PostStatusManager: currentUser[0],
         RemovalStatus: parseInt(removalStatus),
-        RemovalStatusManager: removalStatusManager
+        RemovalStatusManager: currentUser[0]
     }
 
     ajaxCall("PUT", api + "ReadPosts", JSON.stringify(editedPost), editPostSCB, editPostECB);

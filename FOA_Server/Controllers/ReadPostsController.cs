@@ -44,7 +44,7 @@ namespace FOA_Server.Controllers
             }
             catch (Exception ex)
             {
-                throw new Exception(" didn't succeed in updating this post " + ex.Message);
+                throw new Exception(ex.Message);
             }
         }
 

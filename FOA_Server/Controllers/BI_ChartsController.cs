@@ -37,5 +37,35 @@ namespace FOA_Server.Controllers
             }
         }
 
+        // GET: api/<BI_ChartsController>
+        [HttpGet("Get_PostsUploadedByMonth")]
+        public List<Object> Get_PostsUploadedByMonth()
+        {
+            try
+            {
+                return BI_chart.ReadPostsUploadedByMonth();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
+
+        // GET: api/<BI_ChartsController>
+        [HttpGet("Get_PercentagePostsRemoved")]
+        public List<Object> Get_PercentagePostsRemoved()
+        {
+            try
+            {
+                return BI_chart.ReadPercentagePostsRemoved();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
+
+
+
     }
 }

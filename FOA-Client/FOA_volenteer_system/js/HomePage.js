@@ -21,6 +21,10 @@ $(document).ready(function () {
         }
         sessionStorage.setItem("justLoggedIn", JSON.stringify(false));
     }
+
+    $("#RecommendationSection").dblclick(goToBIpage);
+    $("#watchMore").click(goToBIpage);
+
     readPosts();
     getRecommendation();
 
@@ -29,6 +33,10 @@ $(document).ready(function () {
 
 
 });
+
+function goToBIpage() {
+    window.location.assign("BI.html");
+}
 
 // read all posts
 function readPosts() {

@@ -23,7 +23,6 @@ $(document).ready(function () {
     }
 
     $("#RecommendationSection").dblclick(goToBIpage);
-    $("#watchMore").click(goToBIpage);
 
     readPosts();
     getRecommendation();

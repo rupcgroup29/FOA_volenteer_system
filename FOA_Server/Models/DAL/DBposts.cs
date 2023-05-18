@@ -678,6 +678,54 @@ namespace FOA_Server.Models.DAL
             }
         }
 
+        // This method reads TOP 5 of KeyWordsAndHashtages
+        public List<string> ReadTop5KeyWordsAndHashtages()
+        {
+            SqlConnection con;
+            SqlCommand cmd;
+
+            try
+            {
+                con = connect("myProjDB"); // create the connection
+            }
+            catch (Exception ex)
+            {
+                // write to log
+                Console.WriteLine("Error");
+                throw (ex);
+            }
+
+            cmd = CreateCommandWithStoredProcedureRead("spReadTop5KW", con);      // create the command
+
+            List<string> list = new List<string>();
+
+            try
+            {
+                SqlDataReader dataReader = cmd.ExecuteReader(CommandBehavior.CloseConnection);
+
+                while (dataReader.Read())
+                {
+                    list.Add(dataReader["KeyWordsAndHashtages"].ToString());
+                }
+                return list;
+            }
+            catch (Exception ex)
+            {
+                // write to log
+                Console.WriteLine("Error");
+                throw (ex);
+            }
+
+            finally
+            {
+                if (con != null)
+                {
+                    // close the db connection
+                    con.Close();
+                }
+            }
+        }
+
         // This method insert a new KeyWordsAndHashtages
         public int InsertKeyWordsAndHashtages(KeyWordsAndHashtages keyWordsAndHashtages)
         {

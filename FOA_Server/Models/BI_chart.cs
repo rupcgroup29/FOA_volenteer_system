@@ -12,6 +12,17 @@ namespace FOA_Server.Models
         private static List<Object> listObject = new List<Object>();
 
 
+        ///// TOP 5 HASHTAGS & KEYWORDS
+
+        public static List<string> ReadTop5KeyWordsAndHashtages()
+        {
+            DBposts dbs = new DBposts();
+            return dbs.ReadTop5KeyWordsAndHashtages();
+        }
+
+
+
+
         ///// BAR-CHART for REMOVED POSTS vs IHRA CATEGORY
 
         // read all IHRAs
@@ -63,7 +74,8 @@ namespace FOA_Server.Models
                             if (post.RemovalStatus == 0)
                             {
                                 item.NotRemovedPosts = item.NotRemovedPosts + 1;
-                            } else item.RemovedPosts = item.RemovedPosts + 1;
+                            }
+                            else item.RemovedPosts = item.RemovedPosts + 1;
                         }
                     }
                 }

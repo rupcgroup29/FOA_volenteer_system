@@ -37,6 +37,19 @@ h2 {
     align-items: center;
 }
 
+.top5 {
+    color: white;
+    text-align: center;
+}
+
+#top5KeyWordsAndHashtages {
+    border: 2px double white;
+    background: rgba(128, 128, 128, 0.5);
+    padding: 21px;
+    margin-bottom: 10px;
+    max-width: fit-content;
+}
+
 :root {
     --bs-blue: #0d6efd;
     --bs-indigo: #6610f2;

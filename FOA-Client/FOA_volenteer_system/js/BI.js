@@ -37,6 +37,7 @@ function Render_RemovedPost_vs_IHRAcategory(data) {
         autoSize: true,
         title: {
             text: "IHRA סטטוס הפוסט ברשתות החברתית כתלות בסוג קטגוריית",
+            fontSize: '23',
         },
         data: data,
         series: [
@@ -100,6 +101,7 @@ function Render_PostsUploadedByMonth(data) {
         autoSize: true,
         title: {
             text: 'כמות הפוסטים שהועלו למערכת לפי חודשים',
+            fontSize: '23',
         },
         data: data,
         series: [
@@ -142,7 +144,7 @@ function Render_PercentagePostsRemoved(data) {
         autoSize: true,
         title: {
             text: 'אחוז פוסטים שהוסרו מהרשתות החברתיות',
-            FontFamily: 'Arimo',
+            fontSize: '23',
             color: 'white',
         },
         background: {
@@ -206,7 +208,8 @@ function Render_PostsPerPlatfom(data) {
     const options = {
         container: document.getElementById('PostsPerPlatfom'),
         title: {
-            text: "כמות הפוסטים שהועלו בכל פלטפורמה",
+            text: "כמות הפוסטים שהועלו בכל פלטפורמה",       
+            fontSize: '23',
         },
         data: data,
         series: [
@@ -216,6 +219,7 @@ function Render_PostsPerPlatfom(data) {
                 yKey: 'Count',
                 stroke: '#646464',
                 fill: '#c79e28',
+                FontFamily: 'Arimo',
             },
         ],
         legend: {

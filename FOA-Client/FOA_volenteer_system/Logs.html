@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
     <meta name="description" content="" />
     <meta name="author" content="" />
-    <title>FOA Volunteers System- Teams</title>
+    <title>FOA Volunteers System- Home page</title>
     <!-- Favicon-->
     <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
     <!-- Font Awesome icons (free version)-->
@@ -16,23 +16,22 @@
     <!-- Core theme CSS (includes Bootstrap)-->
     <link href="css/styles.css" rel="stylesheet" />
 
-    <!-- for dataTable functions -->
-    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
-    <script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
-    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.13.1/css/jquery.dataTables.min.css">
-
 
     <!-- תוספות שלנו-->
     <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.1/dist/jquery.slim.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- for dataTable functions -->
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.13.1/css/jquery.dataTables.min.css">
     <!-- font  -->
     <link href='https://fonts.googleapis.com/css?family=Arimo' rel='stylesheet'>
     <script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script>
     <!-- קישור לעמודי JS -->
     <script src="js/ajaxCall.js"></script>
-    <script src="js/Teams-main.js"></script>
+    <script src="js/Logs.js"></script>
     <script src="js/scripts.js"></script>
     <link href="css/navbar.css" rel="stylesheet" />
 
@@ -106,99 +105,26 @@
         </div>
     </nav>
 
-    <!-- Navigation Manager navbar-expand-lg-->
-    <nav class="ManagerNav navbar navbar-expand-lg navbar-dark fixed-top mainNav">
-        <div class="container">
-            <!-- Account Icon -->
-            <div class="u39 ax_default icon" data-label="Account Icon">
-                <i class='u39_img fas fa-user-alt'></i>
-                <div class="u39_text text ">
-                    <p></p>
-                </div>
-
-                <!-- Sub Menu (Dynamic Panel) -->
-                <div class="u40 ax_default ax_default_hidden" data-label="Sub Menu">
-                    <div class="u40_state0 panel_state" data-label="user">
-                        <div class="u40_state0_content panel_state_content">
-
-                            <!-- Unnamed (Rectangle) -->
-                            <div class="u41 ax_default heading_3">
-                                <div class="u41_div"></div>
-                                <div class="u41_text text">
-                                    <p>
-                                        <span>
-                                            <button class="logout">התנתק</button>
-                                        </span>
-                                    </p>
-                                </div>
-                            </div>
-
-                            <!-- Unnamed (Rectangle) -->
-                            <div class="u44 ax_default heading_3">
-                                <div class="u44_div"></div>
-                                <div class="u44_text text ">
-                                    <p><span><a href="ContactInfo.html">יצירת קשר</a></span></p>
-                                </div>
-                            </div>
-
-                            <!-- Unnamed (Rectangle) -->
-                            <div class="u42 ax_default heading_3">
-                                <div class="u42_div"></div>
-                                <div class="u42_text text ">
-                                    <p><span><a href="MyUserCard.html">פרטים אישיים</a></span></p>
-                                </div>
-                            </div>
-
-                            <!-- Unnamed (Line) -->
-                            <div class="u43 ax_default line">
-                                <img class="u43_img img " src="images/home_page/u43.svg" />
-                                <div class="u43_text text ">
-                                    <p></p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-
-            <div class="collapse navbar-collapse" id="navbarResponsive">
-                <ul class="navbar-nav text-uppercase ms-auto py-4 py-lg-0">
-                    <li class="nav-item"><a class="nav-link" href="Teams-main.html">משתמשים</a></li>
-                    <li class="nav-item"><a class="nav-link" href="Hours-Main.html">דיווח שעות</a></li>
-                    <li class="nav-item"><a class="nav-link" href="AddPostReport.html">דיווח על פוסט</a></li>
-                </ul>
-                <a class="navbar-brand" href="HomePage.html"><img src="assets/img/LOGO-removebg-preview.png" alt="logo" /></a>
-            </div>
-        </div>
-    </nav>
-
-
-    <!-- Teams -->
+    <!-- Posts -->
     <section class="page-section" id="contact">
-        <div class="container" id="BoxesDiv">
+        <div class="container">
             <div class="text-center">
-                <h2 class="section-heading text-uppercase">צוותי העמותה</h2>
-            </div>
-            <div id="NewTeamAndUser">
-                <div class="col-6 TeamBox">
-                    <div class="BoxBorder">
-                        <h3>הוספת משתמש חדש</h3>
-                        <button><a href="Register.html">להוספה</a></button>
-                    </div>
-                </div>
-                <div class="col-6 TeamBox">
-
-                    <div class="BoxBorder">
-                        <h3>הוספת צוות חדש</h3>
-                        <button><a href="AddTeam.html">להוספה</a></button>
-                    </div>
-                </div>
-            </div>
-            <div dir="rtl" id="TeamBoxesRenderDiv">
-
+                <h2 class="section-heading text-uppercase">דף לוגים</h2>
             </div>
 
+            <div id="logsDiv">
+                <table id="dataTable" class="display nowrap">
+                    <thead>
+                        <tr>
+                            <th>מס"ד</th>
+                            <th>תאריך ושעה</th>
+                            <th>פעולה</th>
+                            <th>טבלה בדאטה בייס</th>
+                            <th>תיאור</th>
+                        </tr>
+                    </thead>
+                </table>
+            </div>
         </div>
     </section>
 

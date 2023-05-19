@@ -94,7 +94,7 @@
     height: 1px;
 }
 
-#u41_div {
+.u41_div {
     border-width: 0px;
     position: absolute;
     left: 0px;
@@ -113,7 +113,7 @@
     font-size: 13px;
 }
 
-#u41 {
+.u41 {
     border-width: 0px;
     position: absolute;
     left: 35px;
@@ -126,7 +126,7 @@
     font-size: 13px;
 }
 
-    #u41 .text {
+    .u41 .text {
         position: absolute;
         align-self: flex-start;
         padding: 0px 0px 0px 0px;
@@ -134,7 +134,7 @@
         width: 100%;
     }
 
-#u41_div.mouseOver {
+.u41_div.mouseOver {
     border-width: 0px;
     position: absolute;
     left: 0px;
@@ -154,23 +154,23 @@
 }
 
 
-#u41_text {
+.u41_text {
     border-width: 0px;
     white-space: nowrap;
     text-transform: none;
 }
 
-#u42 a {
+.u42 a {
     color: #000 !important;
     text-decoration: none !important;
     font-size: 16px;
 }
 
-    #u42 a:hover {
+    .u42 a:hover {
         color: #daa520 !important;
     }
 
-#u42_div {
+.u42_div {
     border-width: 0px;
     position: absolute;
     left: 0px;
@@ -189,7 +189,7 @@
     font-size: 13px;
 }
 
-#u42 {
+.u42 {
     border-width: 0px;
     position: absolute;
     left: 14px;
@@ -202,7 +202,7 @@
     font-size: 13px;
 }
 
-    #u42 .text {
+    .u42 .text {
         position: absolute;
         align-self: flex-start;
         padding: 0px 0px 0px 0px;
@@ -210,7 +210,7 @@
         width: 100%;
     }
 
-#u42_div.mouseOver {
+.u42_div.mouseOver {
     border-width: 0px;
     position: absolute;
     left: 0px;
@@ -229,23 +229,23 @@
     font-size: 13px;
 }
 
-#u42_text {
+.u42_text {
     border-width: 0px;
     white-space: nowrap;
     text-transform: none;
 }
 
-#u44 a {
+.u44 a {
     color: #000 !important;
     text-decoration: none !important;
     font-size: 16px;
 }
 
-    #u44 a:hover {
+    .u44 a:hover {
         color: #daa520 !important;
     }
 
-#u44_div {
+.u44_div {
     border-width: 0px;
     position: absolute;
     left: 0px;
@@ -264,7 +264,7 @@
     font-size: 13px;
 }
 
-#u44 {
+.u44 {
     border-width: 0px;
     position: absolute;
     left: 24px;
@@ -277,7 +277,7 @@
     font-size: 13px;
 }
 
-    #u44 .text {
+    .u44 .text {
         position: absolute;
         align-self: flex-start;
         padding: 0px 0px 0px 0px;
@@ -285,7 +285,7 @@
         width: 100%;
     }
 
-#u44_div.mouseOver {
+.u44_div.mouseOver {
     border-width: 0px;
     position: absolute;
     left: 0px;
@@ -304,14 +304,14 @@
     font-size: 13px;
 }
 
-#u44_text {
+.u44_text {
     border-width: 0px;
     white-space: nowrap;
     text-transform: none;
 }
 
 
-#u43_img {
+.u43_img {
     border-width: 0px;
     position: absolute;
     left: 7px;
@@ -321,7 +321,7 @@
     background-color: #00645c8c;
 }
 
-#u43 {
+.u43 {
     visibility: inherit;
     border-width: 0px;
     position: absolute;
@@ -332,7 +332,7 @@
     display: flex;
 }
 
-    #u43 .text {
+    .u43 .text {
         position: absolute;
         align-self: center;
         padding: 2px 2px 2px 2px;
@@ -340,7 +340,7 @@
         width: 100%;
     }
 
-#u43_text {
+.u43_text {
     border-width: 0px;
     word-wrap: break-word;
     text-transform: none;

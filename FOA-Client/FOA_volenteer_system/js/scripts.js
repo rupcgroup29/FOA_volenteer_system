@@ -3,16 +3,22 @@ var currentUser = JSON.parse(sessionStorage.getItem("user"));
 
 window.addEventListener('DOMContentLoaded', event => {
     //Nav bar - Permission
-    if (currentUser[1] == 4) // a volunteer is logged in
-    {
+    if (currentUser[1] == 4) {    //Volunteer is logged in
         $(".ManagerNav").hide();
+        $(".AdminNav").hide();
         $(".VolunteerNav").show();
     }
-    else //Manager is logged in
-    {
-        $(".ManagerNav").show();
+    else if (currentUser[1] == 1) { //Admin is logged in
+        $(".AdminNav").show();
+        $(".ManagerNav").hide();
         $(".VolunteerNav").hide();
     }
+    else {                        //Manager is logged in
+        $(".ManagerNav").show();
+        $(".AdminNav").hide();
+        $(".VolunteerNav").hide();
+    }
+
     $(".u39").mouseenter(UserEnterSubManu);
     $(".u39").mouseleave(UserExitSubManu);
     $(".u40").mouseleave(UserExitSubManu);

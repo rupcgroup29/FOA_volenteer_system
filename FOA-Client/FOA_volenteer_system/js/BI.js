@@ -11,7 +11,8 @@ $(document).ready(function () {
     Top5KeyWordsAndHashtages();
     PostsUploadedByMonth();
     PercentagePostsRemoved();
-
+    Last7DaysPostUploaded();
+    PostsPerPlatfom();
 
 });
 
@@ -171,6 +172,69 @@ function Render_PercentagePostsRemoved(data) {
 
     agCharts.AgChart.create(options);
 }
+
+
+
+///// NUMBER OF POSTS UPLOADED IN THE LAST 7 DAYS /////
+
+function Last7DaysPostUploaded() {
+    ajaxCall("GET", api + "BI_Charts/Get_ReadPostsCountLast7Days", "", getLast7DaysPostUploadedSCB, getECB);
+    return false;
+}
+function getLast7DaysPostUploadedSCB(data) {
+    RenderLast7DaysPostUploaded(data);
+}
+
+function RenderLast7DaysPostUploaded(data) {
+    str = '<h3 class="top5">בשבוע האחרון נוספו </br> עוד ' + data + ' פוסטים חדשים</h3>';
+    document.getElementById('PostsCountLast7Days').innerHTML += str;
+}
+
+
+
+///// Removed Post vs IHRA category /////
+
+function PostsPerPlatfom() {
+    ajaxCall("GET", api + "BI_Charts/Get_ReadPostsPerPlatfom", "", getPostsPerPlatfomSCB, getECB);
+    return false;
+}
+function getPostsPerPlatfomSCB(data) {
+    Render_PostsPerPlatfom(data);
+}
+
+function Render_PostsPerPlatfom(data) {
+    const options = {
+        container: document.getElementById('PostsPerPlatfom'),
+        title: {
+            text: "כמות הפוסטים שהועלו בכל פלטפורמה",
+        },
+        data: data,
+        series: [
+            {
+                type: 'column',
+                xKey: 'PlatformName',  
+                yKey: 'Count',
+                stroke: '#646464',
+                fill: '#c79e28',
+            },
+        ],
+        legend: {
+            enabled: false,
+        },
+    };
+
+    agCharts.AgChart.create(options);
+}
+
+
+
+
+
+
+
+
+
+
 
 
 

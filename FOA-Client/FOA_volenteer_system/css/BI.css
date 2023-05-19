@@ -3,15 +3,16 @@
     text-align: center;
 }
 
-#top5KeyWordsAndHashtages {
+#top5KeyWordsAndHashtages, #PostsCountLast7Days {
     border: 2px double white;
     background: rgba(128, 128, 128, 0.5);
     padding: 21px;
     margin-bottom: 10px;
     max-width: fit-content;
+    max-width: 25%;
 }
 
-#PostsUploadedByMonth {
+#PostsUploadedByMonth, #PostsPerPlatfom {
     /*border: 2px solid #c79e28;*/
     margin: 20px 0 20px 0;
 }

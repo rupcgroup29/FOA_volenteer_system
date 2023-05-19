@@ -65,7 +65,33 @@ namespace FOA_Server.Controllers
             }
         }
 
-
+        // GET: api/<BI_ChartsController>
+        [HttpGet("Get_ReadPostsCountLast7Days")]
+        public int Get_ReadPostsCountLast7Days()
+        {
+            try
+            {
+                return BI_chart.ReadPostsCountLast7Days();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
+        
+        // GET: api/<BI_ChartsController>
+        [HttpGet("Get_ReadPostsPerPlatfom")]
+        public List<Object> Get_ReadPostsPerPlatfom()
+        {
+            try
+            {
+                return BI_chart.ReadPostsPerPlatfom();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
 
     }
 }

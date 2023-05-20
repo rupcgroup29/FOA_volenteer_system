@@ -5,7 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
     <meta name="description" content="" />
     <meta name="author" content="" />
+
     <title>FOA- Hour Report</title>
+
     <!-- Favicon-->
     <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
     <!-- Font Awesome icons (free version)-->
@@ -30,8 +32,8 @@
     <script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.13.1/css/jquery.dataTables.min.css">
     <!-- קישור לעמודי JS -->
-    <script src="js/Hours-Main.js"></script>
     <script src="js/ajaxCall.js"></script>
+    <script src="js/Hours-Main.js"></script>
     <link href="css/navbar.css" rel="stylesheet" />
     <script src="js/scripts.js"></script>
 
@@ -241,11 +243,12 @@
         </div>
     </nav>
 
-    <!-- Log in Details-->
+    <!-- Hours Details-->
     <section class="page-section" id="contact">
         <div class="container" dir="rtl">
             <div class="text-center">
                 <h2 class="section-heading text-uppercase">דיווחי שעות התנדבות</h2>
+                <div id="subHeadline"></div>
                 <div class="row" id="HoursMainButtons">
                     <div class="col-4">
                         <select id="usersList">
@@ -259,23 +262,30 @@
                     <div class="col-4">
                         <button><a href="AllHours.html">כלל דיווחי שעות</a></button>
                     </div>
-                    <div id="HoursTable">
-                        <table id="dataTable" class="display nowrap">
-                            <thead>
-                                <tr>
-                                    <th>תאריך</th>
-                                    <th>שעת התחלה</th>
-                                    <th>שעת סיום</th>
-                                    <th>סטטוס שעות</th>
-                                </tr>
-                            </thead>
-                        </table>
-                    </div>
+                </div>
+                <div id="HoursTable">
+                    <table id="dataTable" class="display nowrap">
+                        <thead>
+                            <tr>
+                                <th></th>
+                                <th>תאריך</th>
+                                <th>שעת התחלה</th>
+                                <th>שעת סיום</th>
+                                <th>סטטוס שעות</th>
+                                <th></th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                    </table>
 
+                    <!--<div class="col-12 text-center mt-4">
+                        <button type="button" onclick="updateStatus()">שמור</button>
+                    </div>-->
                 </div>
             </div>
         </div>
     </section>
+
 
     <!-- Footer-->
     <!--<footer class="footer py-4">

@@ -16,45 +16,32 @@ $(document).ready(function () {
 
 });
 
-
 function AddShifts() {
     for (var i = 0; i < rowNum; i++) {
-        // Assuming you have a date value in the format "YYYY-MM-DD"
-        let dateValue = $("#SelectedDate" + i + "").val();
-        // Create a new Date object with the date value
+        let dateValue = $("#SelectedDate" + i).val();
         const date = new Date(dateValue);
-        // Set the time portion to the desired value (e.g., 12:00 PM)
-        date.setHours(12);
+        date.setHours(0);
         date.setMinutes(0);
         date.setSeconds(0);
         date.setMilliseconds(0);
-        // The resulting datetime value
-        const datetimeValue = date.toISOString(); // "2023-05-15T12:00:00.000Z"
+        const datetimeValue = date.toISOString();
 
-        // Assuming you have a time value in the format "HH:mm"
-        const startTimeValue = $("#StartHour" + i + "").val();
-        // Create a new Date object with the current date
-        const startTime = new Date();
-        // Set the time portion to the desired value (using the time value)
+        const startTimeValue = $("#StartHour" + i).val();
         const [startHours, startMinutes] = startTimeValue.split(":");
-        startTime.setHours(startHours);
+        const startTime = new Date(date.getTime());
+        startTime.setUTCHours(startHours - date.getTimezoneOffset() / 60);
         startTime.setMinutes(startMinutes);
         startTime.setSeconds(0);
         startTime.setMilliseconds(0);
-        // The resulting datetime value
         const startDateTimeValue = startTime.toISOString();
 
-        // Assuming you have a time value in the format "HH:mm"
-        const endTimeValue = $("#FinishHour" + i + "").val();
-        // Create a new Date object with the current date
-        const endTime = new Date();
-        // Set the time portion to the desired value (using the time value)
+        const endTimeValue = $("#FinishHour" + i).val();
         const [endHours, endMinutes] = endTimeValue.split(":");
-        endTime.setHours(endHours);
+        const endTime = new Date(date.getTime());
+        endTime.setUTCHours(endHours - date.getTimezoneOffset() / 60);
         endTime.setMinutes(endMinutes);
         endTime.setSeconds(0);
         endTime.setMilliseconds(0);
-        // The resulting datetime value
         const endDateTimeValue = endTime.toISOString();
 
         const Shift = {
@@ -62,13 +49,15 @@ function AddShifts() {
             date: datetimeValue,
             startTime: startDateTimeValue,
             endTime: endDateTimeValue
-        }
+        };
 
         ShiftsToSend[i] = Shift;
     }
     ajaxCall("POST", api + "HourReports", JSON.stringify(ShiftsToSend), postAddShiftsSCB, postAddShiftsECB);
     return false;
 }
+
+
 function postAddShiftsSCB(data) {
     alert("המשמרות נוספו בהצלחה");
     window.location.assign("Hours-Main.html");

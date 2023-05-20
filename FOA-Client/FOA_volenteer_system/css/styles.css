@@ -12909,5 +12909,19 @@ label, .dataTables_wrapper .dataTables_paginate {
     text-align: center;
 }
 
+.delete-icon {
+    cursor: pointer;
+    color: red;
+}
 
+#subHeadline{
+    color:white;
+}
 
+#HoursMainButtons {
+    font-size: 1.5rem;
+    color: #fff;
+    letter-spacing: 0.0625em;
+    padding:2rem;
+
+}

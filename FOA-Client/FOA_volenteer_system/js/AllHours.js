@@ -9,51 +9,28 @@ $(document).ready(function () {
     }
     else api = "https://proj.ruppin.ac.il/cgroup29/prod/api/";
 
-    healine = "פרטי צוות " + currentTeamId;
+    healine = "כלל דיווחי השעות ";
     $("#headline").html(healine);
-    GetTeamDetails();
+    GetHoursDetails();
     ReadUsers();
 
 });
 
-function GetTeamDetails() {
-    ajaxCall("GET", api + "Teams/teamDetails/" + currentTeamId, "", getTeamDetailsSCB, getTeamDetailsECB);
+function GetHoursDetails() {
+    ajaxCall("GET", api + "HourReports", "", getHoursDetailsSCB, getHoursDetailsECB);
 }
-function getTeamDetailsSCB(data) {
-    RenderTeamDetails(data);
+function getHoursDetailsSCB(data) {
+    RenderHourReports(data);
 }
-function getTeamDetailsECB(err) {
+function getHoursDetailsECB(err) {
     alert(err);
 }
 
-function RenderTeamDetails(data) {
-    str = '<h3 class="teamDetails">';
-    str += data.description
-    str += '</h3>';
-    str += '<h3 class="teamDetails">';
-    str += 'ראש הצוות- ';
-    str += data.fullname;
-    str += '</h3>';
-    document.getElementById("teamDetails").innerHTML += str;
-}
 
-
-// read all users
-function ReadUsers() {
-    ajaxCall("GET", api + "UserServices/usersInTeam/" + currentTeamId, "", getAllUsersSCB, getAllUsersECB);
-}
-function getAllUsersSCB(data) {
-    usersArr = data;
-    RenderUsersList(usersArr);
-}
-function getAllUsersECB(err) {
-    alert("Error " + err);
-}
-
-// render the team's users list
-function RenderUsersList(array) {
+// Render Hour Reports
+function RenderHourReports(array) {
     if (array.length == 0) {
-        alert("There's no users in this team yet");
+        alert("There's no Hour Reports yet");
     } else {
         try {
             tbl = $('#dataTable').DataTable({
@@ -62,15 +39,78 @@ function RenderUsersList(array) {
                 pageLength: 10,     //כמה שורות יהיו בכל עמוד
 
                 columns: [
-                    { data: 'userName' },
-                    { data: "firstName" },
-                    { data: "surname" },
-                    { data: "email" },
-                    { data: "phoneNum" },
                     {
-                        render: function (data, type, row, meta) {      //יצירת כפתור צפייה במשתמש הנבחר
-                            viewBtn = '<button onclick="OpenUserCard(' + row.userID + ')">צפייה</button>';;
-                            return viewBtn;
+                        data: null,
+                        render: function (data, type, row) {
+                            let trashcanHtml = '';
+                            if (data.status === 0) {
+                                trashcanHtml = `
+                                    <span class="delete-icon" onclick="confirmDelete('${data.reportID}')">
+                                        <i class="fas fa-trash-alt"></i>
+                                    </span>
+                                `;
+                            }
+                            return trashcanHtml;
+                        }
+                    },
+                    { data: "teamName" },
+                    { data: 'userName' },
+                    {
+                        data: 'date',
+                        render: function (data, type, row) {
+                            // Convert the datetime value to date
+                            const datetime = new Date(data);
+                            const day = datetime.getDate().toString().padStart(2, '0');
+                            const month = (datetime.getMonth() + 1).toString().padStart(2, '0');
+                            const year = datetime.getFullYear();
+                            const formattedDate = day + '/' + month + '/' + year;
+
+                            return formattedDate;
+                        }
+                    },
+                    {
+                        data: "startTime",
+                        render: function (data, type, row) {
+                            // Convert the datetime value to time
+                            const datetime = new Date(data);
+                            const hours = datetime.getHours().toString().padStart(2, '0');
+                            const minutes = datetime.getMinutes().toString().padStart(2, '0');
+                            const time = hours + ':' + minutes;
+
+                            return time;
+                        }
+                    },
+                    {
+                        data: "endTime",
+                        render: function (data, type, row) {
+                            // Convert the datetime value to time
+                            const datetime = new Date(data);
+                            const hours = datetime.getHours().toString().padStart(2, '0');
+                            const minutes = datetime.getMinutes().toString().padStart(2, '0');
+                            const time = hours + ':' + minutes;
+
+                            return time;
+                        }
+                    },
+                    {
+                        data: "status",
+                        render: function (data, type, row) {
+                            let statusText = "";
+                            switch (data) {
+                                case 0:
+                                    statusText = "טרם נקבע";
+                                    break;
+                                case 1:
+                                    statusText = "אושר";
+                                    break;
+                                case 2:
+                                    statusText = "נדחה";
+                                    break;
+                                default:
+                                    statusText = "";
+                                    break;
+                            }
+                            return statusText;
                         }
                     }
                 ],

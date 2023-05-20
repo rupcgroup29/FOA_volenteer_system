@@ -4,7 +4,6 @@ var currentUser = sessionStorage.getItem("user");
 var currentUserDetails;
 var usersArr = [];
 
-
 $(document).ready(function () {
     if (location.hostname === "localhost" || location.hostname === "127.0.0.1") {
         api = "https://localhost:7109/api/";
@@ -16,8 +15,14 @@ $(document).ready(function () {
     {
         readMyDetails();
     }
-
 });
+
+////save updates
+//$(document).on('change', '.status-select', function () {
+//    const selectedStatus = $(this).val();
+//    const rowIndex = $(this).closest('tr').data('report-id');
+//    updateStatus(selectedStatus, rowIndex);
+//});
 
 // get My Hours
 function getMyHours() {
@@ -26,14 +31,16 @@ function getMyHours() {
 }
 function getMyHoursSCB(data) {
     RenderHoursList(data);
+
 }
 function getMyHoursECB(err) {
     alert("Input Error");
 }
 
+//Render Hours List
 function RenderHoursList(array) {
     if (array.length == 0) {
-        alert(" עדיין לא דווחו שעות למשתמש.ת");
+        alert("עדיין לא דווחו שעות למשתמש.ת");
     } else {
         try {
             // Check if the DataTable is already initialized
@@ -50,58 +57,102 @@ function RenderHoursList(array) {
                 "info": false,
                 data: array,
                 pageLength: 10,
-                columns: [
-                    {
-                        data: 'date',
-                        render: function (data, type, row) {
-                            // Convert the datetime value to date
-                            const datetime = new Date(data);
-                            const date = datetime.toISOString().split('T')[0];
+                columns: [{
+                    data: null,
+                    render: function (data, type, row) {
+                        let trashcanHtml = '';
+                        if (data.status === 0) {
+                            trashcanHtml = `
+                                    <span class="delete-icon" onclick="confirmDelete('${data.reportID}')">
+                                        <i class="fas fa-trash-alt"></i>
+                                    </span>
+                                `;
+                        }
+                        return trashcanHtml;
+                    }
+                },
+                {
+                    data: 'date',
+                    render: function (data, type, row) {
+                        // Convert the datetime value to date
+                        const datetime = new Date(data);
+                        const day = datetime.getDate().toString().padStart(2, '0');
+                        const month = (datetime.getMonth() + 1).toString().padStart(2, '0');
+                        const year = datetime.getFullYear();
+                        const formattedDate = day + '/' + month + '/' + year;
 
-                            return date;
-                        }
-                    },
-                    {
-                        data: "startTime",
-                        render: function (data, type, row) {
-                            // Convert the datetime value to time
-                            const datetime = new Date(data);
-                            const time = datetime.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+                        return formattedDate;
+                    }
+                },
+                {
+                    data: "startTime",
+                    render: function (data, type, row) {
+                        // Convert the datetime value to time
+                        const datetime = new Date(data);
+                        const hours = datetime.getHours().toString().padStart(2, '0');
+                        const minutes = datetime.getMinutes().toString().padStart(2, '0');
+                        const time = hours + ':' + minutes;
 
-                            return time;
-                        }
-                    },
-                    {
-                        data: "endTime",
-                        render: function (data, type, row) {
-                            // Convert the datetime value to time
-                            const datetime = new Date(data);
-                            const time = datetime.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+                        return time;
+                    }
+                },
+                {
+                    data: "endTime",
+                    render: function (data, type, row) {
+                        // Convert the datetime value to time
+                        const datetime = new Date(data);
+                        const hours = datetime.getHours().toString().padStart(2, '0');
+                        const minutes = datetime.getMinutes().toString().padStart(2, '0');
+                        const time = hours + ':' + minutes;
 
-                            return time;
+                        return time;
+                    }
+                },
+                {
+                    data: "status",
+                    render: function (data, type, row) {
+                        let statusText = "";
+                        switch (data) {
+                            case 0:
+                                statusText = "טרם נקבע";
+                                break;
+                            case 1:
+                                statusText = "אושר";
+                                break;
+                            case 2:
+                                statusText = "נדחה";
+                                break;
+                            default:
+                                statusText = "";
+                                break;
                         }
-                    },
-                    {
-                        data: "status",
-                        render: function (data, type, row) {
-                            let statusText = "";
-                            switch (data) {
-                                case 0:
-                                    statusText = "טרם נקבע";
-                                    break;
-                                case 1:
-                                    statusText = "אושר";
-                                    break;
-                                case 2:
-                                    statusText = "נדחה";
-                                    break;
-                                default:
-                                    statusText = "";
-                                    break;
-                            }
-                            return statusText;
+                        return statusText;
+                    }
+                },
+                {
+                    data: null,
+                    render: function (data, type, row) {
+                        let selectionHtml = "";
+                        if (data.status === 0) {
+                            selectionHtml = `
+                                    <select class="status-select">
+                                        <option value="0" selected>טרם נקבע</option>
+                                        <option value="1">אושר</option>
+                                        <option value="2">נדחה</option>
+                                    </select>
+                                `;
                         }
-                    },
+                        return selectionHtml;
+                    }
+
+                },
+                {
+                    data: null,
+                    render: function (data, type, row, meta) {      //יצירת כפתור צפייה במשתמש הנבחר
+                        viewBtn = '<button onclick="OpenHourCard(' + row.userID + ')">צפייה</button>';;
+                        return viewBtn;
+                    }
+                }
                 ],
                 language: {
                     url: '//cdn.datatables.net/plug-ins/1.13.4/i18n/he.json'
@@ -111,6 +162,29 @@ function RenderHoursList(array) {
             alert(err);
         }
     }
+}
+
+//confirm delete 
+function confirmDelete(reportID) {
+    const confirmation = confirm("בטוח.ה שברצונך למחוק את משמרת זו?");
+    if (confirmation) {
+        deleteHours(reportID);
+    }
+}
+
+//delete Hours
+function deleteHours(reportID) {
+    let num = parseInt(reportID);
+    ajaxCall("DELETE", api + "HourReports", num, deleteHoursSCB, deleteHoursECB);
+    return false;
+}
+
+function deleteHoursSCB(num) {
+    alert("Hour report deleted successfully");
+}
+
+function deleteHoursECB(err) {
+    alert("Failed to delete the hour report. Error: " + err.responseText);
 }
 
 // read My Details
@@ -127,10 +201,19 @@ function readMyDetailsSCB(data) {
     if (currentUser[1] == 2) { //manager
         getAllVolunteers();
     }
+    renderHeadline(data);
 }
 
 function readMyDetailsECB(err) {
     alert("Input Error");
+}
+
+//headline 
+function renderHeadline(data) {
+    str = "<h2>";
+    str += data.firstName + ", אושרו לך עד היום " + data.hoursCount + " שעות התנדבות! כל הכבוד!";
+    str += "</h2>";
+    document.getElementById("subHeadline").innerHTML += str;
 }
 
 // get Volunteers In My Team
@@ -147,7 +230,7 @@ function getVolunteersInMyTeamECB(err) {
     alert("לא הצלחתי למצוא את המשתמשים בצוות שלך");
 }
 
-// get all Volunteers 
+// get all Volunteers
 function getAllVolunteers() {
     ajaxCall("GET", api + "UserServices", "", getAllVolunteersSCB, getAllVolunteersECB);
 }
@@ -188,3 +271,27 @@ function getVolunteerHoursSCB(data) {
 function getVolunteerHoursECB(err) {
     alert("Input Error");
 }
+
+// update Status
+//function updateStatus(selectedStatus, rowIndex) {
+//    const selectedHourReport = tbl.row(rowIndex).data();
+//    selectedHourReport.status = selectedStatus;
+
+//    ajaxCall("PUT", api + "HourReports/" + selectedHourReport.reportID, selectedHourReport, updateStatusSCB, updateStatusECB);
+//}
+
+//function updateStatusSCB() {
+//    alert("הסטטוס עודכן בהצלחה");
+//}
+
+//function updateStatusECB(xhr, textStatus, errorThrown) {
+//    if (xhr.status === 400) {
+//        alert("Invalid request. Please check your input.");
+//    } else if (xhr.status === 404) {
+//        alert("The resource was not found.");
+//    } else if (xhr.status === 500) {
+//        alert("Internal Server Error. Please try again later.");
+//    } else {
+//        alert("Failed to update the status. Error: " + xhr.responseText);
+//    }
+//}

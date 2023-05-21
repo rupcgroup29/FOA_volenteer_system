@@ -306,7 +306,7 @@ function confirmDelete(reportID) {
 
 //delete Hours
 function deleteHours(reportID) {
-    ajaxCall("DELETE", api + "HourReports", reportID, deleteHoursSCB, deleteHoursECB);
+    ajaxCall("DELETE", api + "HourReports/" + reportID, "", deleteHoursSCB, deleteHoursECB);
     return false;
 }
 

@@ -64,6 +64,13 @@ namespace FOA_Server.Models
         }
 
 
+        // read all team's users hour reports
+        public static List<Object> GetUsersHourReportsInTeam(int teamID)
+        {
+            DBteams dbs = new DBteams();
+            return dbs.ReadUsersHourReportsInTeam(teamID);
+        }
+
 
         // insert new team
         public Team InsertNewTeam()

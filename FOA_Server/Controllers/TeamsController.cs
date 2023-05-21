@@ -44,6 +44,21 @@ namespace FOA_Server.Controllers
             }
         }
 
+        // GET api/<TeamsController>/5
+        [HttpGet("GetUsersHourReportsInTeam")]
+        public List<Object> GetUsersHourReportsInTeam(int teamID)
+        {
+            try
+            {
+                return Team.GetUsersHourReportsInTeam(teamID);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("cannot read all team leaders" + ex.Message);
+            }
+        }
+
+
 
         // POST api/<TeamsController>
         [HttpPost]

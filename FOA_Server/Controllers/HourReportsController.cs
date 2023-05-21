@@ -43,13 +43,13 @@ namespace FOA_Server.Controllers
 
         // PUT api/<HourReportsController>/5
         [HttpPut]
-        public IActionResult Put(string jsonString)
+        public IActionResult Put(UpdateHourReport[] listOfHours)
         {
             try
             {
                 //int reportID, int status, int userId;
                 HourReport shiftsStatus = new HourReport();
-                bool affected = shiftsStatus.UpdateShiftStatus(jsonString);
+                bool affected = shiftsStatus.UpdateShiftStatus(listOfHours);
                 if (affected)
                 {
                     return Ok(affected);

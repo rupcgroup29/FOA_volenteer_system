@@ -102,20 +102,15 @@ namespace FOA_Server.Models
 
 
         // update shift status by team leader
-        public bool UpdateShiftStatus(string jsonString)
+        public bool UpdateShiftStatus(UpdateHourReport[] listOfHours)
         {
             try
             {
-                JsonElement updateStatus = JsonDocument.Parse(jsonString).RootElement;
                 DBusers dbs = new DBusers();
                 bool allUpdated = true;
-                foreach (JsonElement report in updateStatus.EnumerateArray())
+                foreach (UpdateHourReport report in listOfHours)
                 {
-                    int reportId = report.GetProperty("reportId").GetInt32();
-                    int status = report.GetProperty("status").GetInt32();
-                    int userId = report.GetProperty("userId").GetInt32();
-
-                    int rowsAffected = dbs.UpdateShiftStatus(reportId, status, userId);
+                    int rowsAffected = dbs.UpdateShiftStatus(report.ReportID, report.Status, report.UserID);
                     if (rowsAffected == 0)
                     {
                         allUpdated = false;

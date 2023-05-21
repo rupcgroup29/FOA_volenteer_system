@@ -34,125 +34,6 @@ function getMyHoursECB(err) {
 }
 
 //Render Hours List
-//function RenderHoursList(array) {
-//    if (array.length == 0) {
-//        alert("עדיין לא דווחו שעות למשתמש.ת");
-//    } else {
-//        try {
-//            // Check if the DataTable is already initialized
-//            if ($.fn.DataTable.isDataTable('#dataTable')) {
-//                // Destroy the existing DataTable instance
-//                $('#dataTable').DataTable().destroy();
-//            }
-
-//            // Clear the table container
-//            $('#dataTableContainer').empty();
-
-//            // Create the new table
-//            tbl = $('#dataTable').DataTable({
-//                "info": false,
-//                data: array,
-//                pageLength: 10,
-//                columns: [{
-//                    data: null,
-//                    render: function (data, type, row) {
-//                        let trashcanHtml = '';
-//                        if (data.status === 0) {
-//                            trashcanHtml = `
-//                                    <span class="delete-icon" onclick="confirmDelete('${data.reportID}')">
-//                                        <i class="fas fa-trash-alt"></i>
-//                                    </span>`;
-//                        }
-//                        return trashcanHtml;
-//                    }
-//                },
-//                {
-//                    data: 'date',
-//                    render: function (data, type, row) {
-//                        // Convert the datetime value to date
-//                        const datetime = new Date(data);
-//                        const day = datetime.getDate().toString().padStart(2, '0');
-//                        const month = (datetime.getMonth() + 1).toString().padStart(2, '0');
-//                        const year = datetime.getFullYear();
-//                        const formattedDate = day + '/' + month + '/' + year;
-
-//                        return formattedDate;
-//                    }
-//                },
-//                {
-//                    data: "startTime",
-//                    render: function (data, type, row) {
-//                        // Convert the datetime value to time
-//                        const datetime = new Date(data);
-//                        const hours = datetime.getHours().toString().padStart(2, '0');
-//                        const minutes = datetime.getMinutes().toString().padStart(2, '0');
-//                        const time = hours + ':' + minutes;
-
-//                        return time;
-//                    }
-//                },
-//                {
-//                    data: "endTime",
-//                    render: function (data, type, row) {
-//                        // Convert the datetime value to time
-//                        const datetime = new Date(data);
-//                        const hours = datetime.getHours().toString().padStart(2, '0');
-//                        const minutes = datetime.getMinutes().toString().padStart(2, '0');
-//                        const time = hours + ':' + minutes;
-
-//                        return time;
-//                    }
-//                    },
-//                    {
-//                        data: "sum",
-//                        render: function (data, type, row) {
-//                            let statusText = "";
-//                            switch (data) {
-//                                case 0:
-//                                    statusText = "טרם נקבע";
-//                                    break;
-//                                case 1:
-//                                    statusText = "אושר";
-//                                    break;
-//                                case 2:
-//                                    statusText = "נדחה";
-//                                    break;
-//                                default:
-//                                    statusText = "";
-//                                    break;
-//                            }
-//                            return statusText;
-//                        }
-//                    },
-//                    { data: 'count' },
-//                {
-//                    data: null,
-//                    render: function (data, type, row) {
-//                        let selectionHtml = "";
-//                        if (data.status === 0) {
-//                            selectionHtml = `
-//                                    <select class="status-select">
-//                                        <option value="0" selected>טרם נקבע</option>
-//                                        <option value="1">אושר</option>
-//                                        <option value="2">נדחה</option>
-//                                    </select>`;
-//                        }
-//                        return selectionHtml;
-//                    }
-//                }
-//                ],
-//                language: {
-//                    url: '//cdn.datatables.net/plug-ins/1.13.4/i18n/he.json'
-//                }
-//            });
-//        } catch (err) {
-//            alert(err);
-//        }
-//    }
-//}
-
-//confirm delete
-
 function RenderHoursList(array) {
     if (array.length == 0) {
         alert("עדיין לא דווחו שעות למשתמש.ת");
@@ -311,7 +192,9 @@ function deleteHours(reportID) {
 }
 
 function deleteHoursSCB(num) {
-    alert("Hour report deleted successfully");
+    alert("דיווח השעות נמחק בהצלחה!");
+    window.location.assign("Hours-Main.html");
+    location.assign("Hours-Main.html")
 }
 
 function deleteHoursECB(err) {

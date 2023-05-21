@@ -154,7 +154,7 @@ function updateUser() {
 function updateUserSCB(data) {
     alert("משתמש עודכן בהצלחה");
     window.location.assign("Teams-main.html");
-    location.assign("Teams-main.html")
+    location.assign("Teams-main.html");
 }
 
 function updateUserECB(err) {

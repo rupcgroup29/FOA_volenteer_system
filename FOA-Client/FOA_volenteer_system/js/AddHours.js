@@ -16,33 +16,23 @@ $(document).ready(function () {
 
 });
 
+//Add Shifts
 function AddShifts() {
     for (var i = 0; i < rowNum; i++) {
         let dateValue = $("#SelectedDate" + i).val();
         const date = new Date(dateValue);
-        date.setHours(0);
-        date.setMinutes(0);
-        date.setSeconds(0);
-        date.setMilliseconds(0);
-        const datetimeValue = date.toISOString();
 
         const startTimeValue = $("#StartHour" + i).val();
         const [startHours, startMinutes] = startTimeValue.split(":");
-        const startTime = new Date(date.getTime());
-        startTime.setUTCHours(startHours - date.getTimezoneOffset() / 60);
-        startTime.setMinutes(startMinutes);
-        startTime.setSeconds(0);
-        startTime.setMilliseconds(0);
-        const startDateTimeValue = startTime.toISOString();
 
         const endTimeValue = $("#FinishHour" + i).val();
         const [endHours, endMinutes] = endTimeValue.split(":");
-        const endTime = new Date(date.getTime());
-        endTime.setUTCHours(endHours - date.getTimezoneOffset() / 60);
-        endTime.setMinutes(endMinutes);
-        endTime.setSeconds(0);
-        endTime.setMilliseconds(0);
-        const endDateTimeValue = endTime.toISOString();
+
+        const datetimeValue = `${date.getFullYear()}-${padNumber(date.getMonth() + 1)}-${padNumber(date.getDate())}T${padNumber(startHours)}:${padNumber(startMinutes)}:00`;
+
+        const startDateTimeValue = `${date.getFullYear()}-${padNumber(date.getMonth() + 1)}-${padNumber(date.getDate())}T${padNumber(startHours)}:${padNumber(startMinutes)}:00`;
+
+        const endDateTimeValue = `${date.getFullYear()}-${padNumber(date.getMonth() + 1)}-${padNumber(date.getDate())}T${padNumber(endHours)}:${padNumber(endMinutes)}:00`;
 
         const Shift = {
             userID: currentUser[0],
@@ -55,6 +45,10 @@ function AddShifts() {
     }
     ajaxCall("POST", api + "HourReports", JSON.stringify(ShiftsToSend), postAddShiftsSCB, postAddShiftsECB);
     return false;
+}
+
+function padNumber(number) {
+    return number.toString().padStart(2, '0');
 }
 
 

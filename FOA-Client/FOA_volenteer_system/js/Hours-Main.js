@@ -223,6 +223,7 @@ function RenderHoursList(array) {
                             return time;
                         }
                     },
+                    { data: 'shiftTime' },
                     {
                         data: "status",
                         render: function (data, type, row) {
@@ -244,7 +245,6 @@ function RenderHoursList(array) {
                             return statusText;
                         }
                     },
-                    { data: 'count' },
                     {
                         data: null,
                         render: function (data, type, row) {
@@ -269,16 +269,16 @@ function RenderHoursList(array) {
             alert(err);
         }
     }
+}
 
-    // Function to handle selection change and add object to the selectionChanges array
-    function handleSelectionChange(reportID, userID, status) {
-        const selectionObj = {
-            reportId: reportID,
-            userId: userID,
-            status: parseInt(status)
-        };
-        selectionChanges.push(selectionObj);
-    }
+// Function to handle selection change and add object to the selectionChanges array
+function handleSelectionChange(reportID, userID, status) {
+    const selectionObj = {
+        reportId: reportID,
+        userId: userID,
+        status: parseInt(status)
+    };
+    selectionChanges.push(selectionObj);
 }
 
 //save team leader statuses

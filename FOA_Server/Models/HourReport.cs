@@ -16,10 +16,11 @@ namespace FOA_Server.Models
         public DateTime StartTime { get; set; }
         public DateTime EndTime { get; set; }
         public int Status { get; set; }
+        public double? ShiftTime { get; set; }
 
 
         public HourReport() { }
-        public HourReport(int reportID, DateTime date, DateTime startTime, DateTime endTime, int status, int userID)
+        public HourReport(int reportID, DateTime date, DateTime startTime, DateTime endTime, int status, int userID, double? shiftTime)
         {
             ReportID = reportID;
             Date = date;
@@ -27,6 +28,7 @@ namespace FOA_Server.Models
             EndTime = endTime;
             Status = status;
             UserID = userID;
+            ShiftTime = shiftTime;
         }
 
 

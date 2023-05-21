@@ -942,6 +942,7 @@ namespace FOA_Server.Models.DAL
                     h.EndTime = dateTimeEnd;
 
                     h.Status = Convert.ToInt32(dataReader["Status"]);
+                    h.ShiftTime = Convert.ToDouble(dataReader["Count"]);
 
                     list.Add(h);
                 }
@@ -1009,8 +1010,10 @@ namespace FOA_Server.Models.DAL
                         Status = Convert.ToInt32(dataReader["Status"]),
                         TeamName = dataReader["TeamName"].ToString(),
                         UserName = dataReader["UserName"].ToString(),
-                        UserID = Convert.ToInt32(dataReader["UserID"])
-                    });
+                        UserID = Convert.ToInt32(dataReader["UserID"]),
+                        ShiftTime = Convert.ToDouble(dataReader["Count"])
+
+                });
                   
                 }
                 return list;

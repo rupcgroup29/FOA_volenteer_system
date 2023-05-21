@@ -65,7 +65,7 @@ namespace FOA_Server.Controllers
 
 
         // DELETE api/<HourReportsController>/5
-        [HttpDelete]
+        [HttpDelete("{reportID}")]
         public void Delete(int reportID)
         {
             try

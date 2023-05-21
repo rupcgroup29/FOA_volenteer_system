@@ -45,7 +45,7 @@ namespace FOA_Server.Controllers
         }
 
         // GET api/<TeamsController>/5
-        [HttpGet("GetUsersHourReportsInTeam")]
+        [HttpGet("GetUsersHourReportsInTeam/{teamID}")]
         public List<Object> GetUsersHourReportsInTeam(int teamID)
         {
             try

@@ -5,9 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
     <meta name="description" content="" />
     <meta name="author" content="" />
-
-    <title>FOA- Hour Report</title>
-
+    <title>FOA- All Hours</title>
     <!-- Favicon-->
     <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
     <!-- Font Awesome icons (free version)-->
@@ -18,26 +16,29 @@
     <!-- Core theme CSS (includes Bootstrap)-->
     <link href="css/styles.css" rel="stylesheet" />
 
+    <!-- for dataTable functions -->
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.13.1/css/jquery.dataTables.min.css">
+
 
     <!-- תוספות שלנו-->
     <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.1/dist/jquery.slim.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
-    <!-- font  -->
-    <link href='https://fonts.googleapis.com/css?family=Arimo' rel='stylesheet'>
-    <script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script>
     <!-- for dataTable functions -->
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
     <script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.13.1/css/jquery.dataTables.min.css">
+    <!-- font  -->
+    <link href='https://fonts.googleapis.com/css?family=Arimo' rel='stylesheet'>
+    <script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script>
     <!-- קישור לעמודי JS -->
     <script src="js/ajaxCall.js"></script>
-    <script src="js/Hours-Main.js"></script>
-    <link href="css/navbar.css" rel="stylesheet" />
+    <script src="js/teamHours.js"></script>
     <script src="js/scripts.js"></script>
-
-
+    <link href="css/navbar.css" rel="stylesheet" />
 
 </head>
 <body id="page-top">
@@ -243,49 +244,29 @@
         </div>
     </nav>
 
-    <!-- Hours Details-->
-    <section class="page-section" id="contact">
-        <div class="container" dir="rtl">
-            <div class="text-center">
-                <h2 class="section-heading text-uppercase">דיווחי שעות התנדבות</h2>
-                <div id="subHeadline"></div>
-                <div class="row" id="HoursMainButtons">
-                    <div class="col-4">
-                        <select id="usersList">
-                            <!-- Render Users List -->
-                        </select>
-                        <button type="button" onclick="ChangeVolHours()">החל</button>
-                    </div>
-                    <div class="col-4">
-                        <button><a href="AddHours.html">הוספת דיווח שעות</a></button>
-                    </div>
-                    <div class="col-4" id="allUsersReportsButton">
-                        <button><a href="AllHours.html">כלל דיווחי שעות</a></button>
-                    </div>
-                    <div class="col-4" id="teamUsersReportsButton">
-                        <button><a href="teamHours.html">נותר לי לאשר</a></button>
-                    </div>
-                </div>
-                <div id="HoursTable">
-                    <table id="dataTable" class="display nowrap">
-                        <thead>
-                            <tr>
-                                <th></th>
-                                <th>תאריך</th>
-                                <th>שעת התחלה</th>
-                                <th>שעת סיום</th>
-                                <th>שעות בפועל</th>
-                                <th>סטטוס שעות</th>
-                                <th></th>
-                            </tr>
-                        </thead>
-                    </table>
 
-                    <div class="col-12 text-center mt-4">
-                        <button type="button" onclick="updateStatus()">שמור</button>
-                    </div>
-                </div>
+    <!-- All Hours -->
+    <section class="page-section" id="contact">
+        <div class="container">
+            <div class="text-center">
+                <h2 id="headline" class="section-heading text-uppercase"></h2>
             </div>
+            <div id="UsersTable">
+                <table id="dataTable" class="display nowrap">
+                    <thead>
+                        <tr>
+                            <th></th>
+                            <th>צוות</th>
+                            <th>שם משתמש</th>
+                            <th>תאריך</th>
+                            <th>התחלה</th>
+                            <th>סיום</th>
+                            <th>סטטוס</th>
+                        </tr>
+                    </thead>
+                </table>
+            </div>
+
         </div>
     </section>
 

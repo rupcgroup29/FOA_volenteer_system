@@ -13,10 +13,8 @@ $(document).ready(function () {
     else api = "https://proj.ruppin.ac.il/cgroup29/prod/api/";
 
     getMyHours();
-    if (currentUser[1] != 4) // Not a volunteer
-    {
-        readMyDetails();
-    }
+    readMyDetails();
+    hideHoursMainButtons();
 
 });
 
@@ -130,7 +128,7 @@ function RenderHoursList(array) {
                         data: null,
                         render: function (data, type, row) {
                             let selectionHtml = "";
-                            if (data.status === 0) {
+                            if (data.status === 0 && currentUser[1] !== 4) {
                                 selectionHtml = `
                                     <select class="status-select" onchange="handleSelectionChange('${data.reportID}', '${data.userID}', this.value)">
                                         <option value="0" selected>טרם נקבע</option>
@@ -292,4 +290,11 @@ function getVolunteerHoursSCB(data) {
 }
 function getVolunteerHoursECB(err) {
     alert("Input Error");
+}
+
+//hide Hours Main Buttons from premmition 4
+function hideHoursMainButtons() {
+    if (currentUser[1] === 4) {
+        document.getElementById("HoursMainButtons").style.display = "none";
+    }
 }

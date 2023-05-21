@@ -942,6 +942,7 @@ namespace FOA_Server.Models.DAL
                     h.EndTime = dateTimeEnd;
 
                     h.Status = Convert.ToInt32(dataReader["Status"]);
+                    h.UserID = Convert.ToInt32(dataReader["UserID"]);
                     h.ShiftTime = Convert.ToDouble(dataReader["Count"]);
 
                     list.Add(h);

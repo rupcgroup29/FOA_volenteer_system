@@ -275,23 +275,23 @@ function RenderHoursList(array) {
 function handleSelectionChange(reportID, userID, status) {
     const selectionObj = {
         reportId: reportID,
-        userId: userID,
-        status: parseInt(status)
+        status: parseInt(status),
+        userId: userID
     };
     selectionChanges.push(selectionObj);
 }
 
 //save team leader statuses
 function updateStatus() {
-    ajaxCall("PUT", api + "HourReports", JSON.stringify(selectionChanges), putEditTeamSCB, putEditTeamECB);
+    ajaxCall("PUT", api + "HourReports", JSON.stringify(selectionChanges), updateStatusSCB, updateStatusECB);
     return false;
 }
-function putEditTeamSCB(data) {
+function updateStatusSCB(data) {
     alert("דיווחים התעדכנו בהצלחה");
     window.location.assign("Hours-Main.html");
     location.assign("Hours-Main.html")
 }
-function putEditTeamECB(err) {
+function updateStatusECB(err) {
     alert(err);
 }
 

@@ -3,6 +3,8 @@ var isLoggedIn;
 var currentUser = sessionStorage.getItem("user");
 var currentUserDetails;
 var usersArr = [];
+// Define an array to store the changed selection values
+var selectionChanges = [];
 
 $(document).ready(function () {
     if (location.hostname === "localhost" || location.hostname === "127.0.0.1") {
@@ -15,14 +17,8 @@ $(document).ready(function () {
     {
         readMyDetails();
     }
-});
 
-////save updates
-//$(document).on('change', '.status-select', function () {
-//    const selectedStatus = $(this).val();
-//    const rowIndex = $(this).closest('tr').data('report-id');
-//    updateStatus(selectedStatus, rowIndex);
-//});
+});
 
 // get My Hours
 function getMyHours() {
@@ -38,6 +34,125 @@ function getMyHoursECB(err) {
 }
 
 //Render Hours List
+//function RenderHoursList(array) {
+//    if (array.length == 0) {
+//        alert("עדיין לא דווחו שעות למשתמש.ת");
+//    } else {
+//        try {
+//            // Check if the DataTable is already initialized
+//            if ($.fn.DataTable.isDataTable('#dataTable')) {
+//                // Destroy the existing DataTable instance
+//                $('#dataTable').DataTable().destroy();
+//            }
+
+//            // Clear the table container
+//            $('#dataTableContainer').empty();
+
+//            // Create the new table
+//            tbl = $('#dataTable').DataTable({
+//                "info": false,
+//                data: array,
+//                pageLength: 10,
+//                columns: [{
+//                    data: null,
+//                    render: function (data, type, row) {
+//                        let trashcanHtml = '';
+//                        if (data.status === 0) {
+//                            trashcanHtml = `
+//                                    <span class="delete-icon" onclick="confirmDelete('${data.reportID}')">
+//                                        <i class="fas fa-trash-alt"></i>
+//                                    </span>`;
+//                        }
+//                        return trashcanHtml;
+//                    }
+//                },
+//                {
+//                    data: 'date',
+//                    render: function (data, type, row) {
+//                        // Convert the datetime value to date
+//                        const datetime = new Date(data);
+//                        const day = datetime.getDate().toString().padStart(2, '0');
+//                        const month = (datetime.getMonth() + 1).toString().padStart(2, '0');
+//                        const year = datetime.getFullYear();
+//                        const formattedDate = day + '/' + month + '/' + year;
+
+//                        return formattedDate;
+//                    }
+//                },
+//                {
+//                    data: "startTime",
+//                    render: function (data, type, row) {
+//                        // Convert the datetime value to time
+//                        const datetime = new Date(data);
+//                        const hours = datetime.getHours().toString().padStart(2, '0');
+//                        const minutes = datetime.getMinutes().toString().padStart(2, '0');
+//                        const time = hours + ':' + minutes;
+
+//                        return time;
+//                    }
+//                },
+//                {
+//                    data: "endTime",
+//                    render: function (data, type, row) {
+//                        // Convert the datetime value to time
+//                        const datetime = new Date(data);
+//                        const hours = datetime.getHours().toString().padStart(2, '0');
+//                        const minutes = datetime.getMinutes().toString().padStart(2, '0');
+//                        const time = hours + ':' + minutes;
+
+//                        return time;
+//                    }
+//                    },
+//                    {
+//                        data: "sum",
+//                        render: function (data, type, row) {
+//                            let statusText = "";
+//                            switch (data) {
+//                                case 0:
+//                                    statusText = "טרם נקבע";
+//                                    break;
+//                                case 1:
+//                                    statusText = "אושר";
+//                                    break;
+//                                case 2:
+//                                    statusText = "נדחה";
+//                                    break;
+//                                default:
+//                                    statusText = "";
+//                                    break;
+//                            }
+//                            return statusText;
+//                        }
+//                    },
+//                    { data: 'count' },
+//                {
+//                    data: null,
+//                    render: function (data, type, row) {
+//                        let selectionHtml = "";
+//                        if (data.status === 0) {
+//                            selectionHtml = `
+//                                    <select class="status-select">
+//                                        <option value="0" selected>טרם נקבע</option>
+//                                        <option value="1">אושר</option>
+//                                        <option value="2">נדחה</option>
+//                                    </select>`;
+//                        }
+//                        return selectionHtml;
+//                    }
+//                }
+//                ],
+//                language: {
+//                    url: '//cdn.datatables.net/plug-ins/1.13.4/i18n/he.json'
+//                }
+//            });
+//        } catch (err) {
+//            alert(err);
+//        }
+//    }
+//}
+
+//confirm delete
+
 function RenderHoursList(array) {
     if (array.length == 0) {
         alert("עדיין לא דווחו שעות למשתמש.ת");
@@ -57,102 +172,94 @@ function RenderHoursList(array) {
                 "info": false,
                 data: array,
                 pageLength: 10,
-                columns: [{
-                    data: null,
-                    render: function (data, type, row) {
-                        let trashcanHtml = '';
-                        if (data.status === 0) {
-                            trashcanHtml = `
+                columns: [
+                    {
+                        data: null,
+                        render: function (data, type, row) {
+                            let trashcanHtml = '';
+                            if (data.status === 0) {
+                                trashcanHtml = `
                                     <span class="delete-icon" onclick="confirmDelete('${data.reportID}')">
                                         <i class="fas fa-trash-alt"></i>
-                                    </span>
-                                `;
+                                    </span>`;
+                            }
+                            return trashcanHtml;
                         }
-                        return trashcanHtml;
-                    }
-                },
-                {
-                    data: 'date',
-                    render: function (data, type, row) {
-                        // Convert the datetime value to date
-                        const datetime = new Date(data);
-                        const day = datetime.getDate().toString().padStart(2, '0');
-                        const month = (datetime.getMonth() + 1).toString().padStart(2, '0');
-                        const year = datetime.getFullYear();
-                        const formattedDate = day + '/' + month + '/' + year;
+                    },
+                    {
+                        data: 'date',
+                        render: function (data, type, row) {
+                            // Convert the datetime value to date
+                            const datetime = new Date(data);
+                            const day = datetime.getDate().toString().padStart(2, '0');
+                            const month = (datetime.getMonth() + 1).toString().padStart(2, '0');
+                            const year = datetime.getFullYear();
+                            const formattedDate = day + '/' + month + '/' + year;
 
-                        return formattedDate;
-                    }
-                },
-                {
-                    data: "startTime",
-                    render: function (data, type, row) {
-                        // Convert the datetime value to time
-                        const datetime = new Date(data);
-                        const hours = datetime.getHours().toString().padStart(2, '0');
-                        const minutes = datetime.getMinutes().toString().padStart(2, '0');
-                        const time = hours + ':' + minutes;
-
-                        return time;
-                    }
-                },
-                {
-                    data: "endTime",
-                    render: function (data, type, row) {
-                        // Convert the datetime value to time
-                        const datetime = new Date(data);
-                        const hours = datetime.getHours().toString().padStart(2, '0');
-                        const minutes = datetime.getMinutes().toString().padStart(2, '0');
-                        const time = hours + ':' + minutes;
-
-                        return time;
-                    }
-                },
-                {
-                    data: "status",
-                    render: function (data, type, row) {
-                        let statusText = "";
-                        switch (data) {
-                            case 0:
-                                statusText = "טרם נקבע";
-                                break;
-                            case 1:
-                                statusText = "אושר";
-                                break;
-                            case 2:
-                                statusText = "נדחה";
-                                break;
-                            default:
-                                statusText = "";
-                                break;
+                            return formattedDate;
                         }
-                        return statusText;
-                    }
-                },
-                {
-                    data: null,
-                    render: function (data, type, row) {
-                        let selectionHtml = "";
-                        if (data.status === 0) {
-                            selectionHtml = `
-                                    <select class="status-select">
+                    },
+                    {
+                        data: "startTime",
+                        render: function (data, type, row) {
+                            // Convert the datetime value to time
+                            const datetime = new Date(data);
+                            const hours = datetime.getHours().toString().padStart(2, '0');
+                            const minutes = datetime.getMinutes().toString().padStart(2, '0');
+                            const time = hours + ':' + minutes;
+
+                            return time;
+                        }
+                    },
+                    {
+                        data: "endTime",
+                        render: function (data, type, row) {
+                            // Convert the datetime value to time
+                            const datetime = new Date(data);
+                            const hours = datetime.getHours().toString().padStart(2, '0');
+                            const minutes = datetime.getMinutes().toString().padStart(2, '0');
+                            const time = hours + ':' + minutes;
+
+                            return time;
+                        }
+                    },
+                    {
+                        data: "status",
+                        render: function (data, type, row) {
+                            let statusText = "";
+                            switch (data) {
+                                case 0:
+                                    statusText = "טרם נקבע";
+                                    break;
+                                case 1:
+                                    statusText = "אושר";
+                                    break;
+                                case 2:
+                                    statusText = "נדחה";
+                                    break;
+                                default:
+                                    statusText = "";
+                                    break;
+                            }
+                            return statusText;
+                        }
+                    },
+                    { data: 'count' },
+                    {
+                        data: null,
+                        render: function (data, type, row) {
+                            let selectionHtml = "";
+                            if (data.status === 0) {
+                                selectionHtml = `
+                                    <select class="status-select" onchange="handleSelectionChange('${data.reportID}', '${data.userID}', this.value)">
                                         <option value="0" selected>טרם נקבע</option>
                                         <option value="1">אושר</option>
                                         <option value="2">נדחה</option>
-                                    </select>
-                                `;
+                                    </select>`;
+                            }
+                            return selectionHtml;
                         }
-                        return selectionHtml;
                     }
-
-                },
-                {
-                    data: null,
-                    render: function (data, type, row, meta) {      //יצירת כפתור צפייה במשתמש הנבחר
-                        viewBtn = '<button onclick="OpenHourCard(' + row.userID + ')">צפייה</button>';;
-                        return viewBtn;
-                    }
-                }
                 ],
                 language: {
                     url: '//cdn.datatables.net/plug-ins/1.13.4/i18n/he.json'
@@ -162,9 +269,34 @@ function RenderHoursList(array) {
             alert(err);
         }
     }
+
+    // Function to handle selection change and add object to the selectionChanges array
+    function handleSelectionChange(reportID, userID, status) {
+        const selectionObj = {
+            reportId: reportID,
+            userId: userID,
+            status: parseInt(status)
+        };
+        selectionChanges.push(selectionObj);
+    }
 }
 
-//confirm delete 
+//save team leader statuses
+function updateStatus() {
+    ajaxCall("PUT", api + "HourReports", JSON.stringify(selectionChanges), putEditTeamSCB, putEditTeamECB);
+    return false;
+}
+function putEditTeamSCB(data) {
+    alert("דיווחים התעדכנו בהצלחה");
+    window.location.assign("Hours-Main.html");
+    location.assign("Hours-Main.html")
+}
+function putEditTeamECB(err) {
+    alert(err);
+}
+
+
+//confirm delete Hours
 function confirmDelete(reportID) {
     const confirmation = confirm("בטוח.ה שברצונך למחוק את משמרת זו?");
     if (confirmation) {
@@ -174,8 +306,7 @@ function confirmDelete(reportID) {
 
 //delete Hours
 function deleteHours(reportID) {
-    let num = parseInt(reportID);
-    ajaxCall("DELETE", api + "HourReports", num, deleteHoursSCB, deleteHoursECB);
+    ajaxCall("DELETE", api + "HourReports", reportID, deleteHoursSCB, deleteHoursECB);
     return false;
 }
 
@@ -210,10 +341,18 @@ function readMyDetailsECB(err) {
 
 //headline 
 function renderHeadline(data) {
-    str = "<h2>";
-    str += data.firstName + ", אושרו לך עד היום " + data.hoursCount + " שעות התנדבות! כל הכבוד!";
-    str += "</h2>";
-    document.getElementById("subHeadline").innerHTML += str;
+    if (data.hoursCount == 0) {
+        str = "<h2>";
+        str += data.firstName + ", טרם אושרו לך שעות התנדבות";
+        str += "</h2>";
+        document.getElementById("subHeadline").innerHTML += str;
+    }
+    else {
+        str = "<h2>";
+        str += data.firstName + ", אושרו לך עד היום " + data.hoursCount + " שעות התנדבות! כל הכבוד!";
+        str += "</h2>";
+        document.getElementById("subHeadline").innerHTML += str;
+    }
 }
 
 // get Volunteers In My Team
@@ -271,27 +410,3 @@ function getVolunteerHoursSCB(data) {
 function getVolunteerHoursECB(err) {
     alert("Input Error");
 }
-
-// update Status
-//function updateStatus(selectedStatus, rowIndex) {
-//    const selectedHourReport = tbl.row(rowIndex).data();
-//    selectedHourReport.status = selectedStatus;
-
-//    ajaxCall("PUT", api + "HourReports/" + selectedHourReport.reportID, selectedHourReport, updateStatusSCB, updateStatusECB);
-//}
-
-//function updateStatusSCB() {
-//    alert("הסטטוס עודכן בהצלחה");
-//}
-
-//function updateStatusECB(xhr, textStatus, errorThrown) {
-//    if (xhr.status === 400) {
-//        alert("Invalid request. Please check your input.");
-//    } else if (xhr.status === 404) {
-//        alert("The resource was not found.");
-//    } else if (xhr.status === 500) {
-//        alert("Internal Server Error. Please try again later.");
-//    } else {
-//        alert("Failed to update the status. Error: " + xhr.responseText);
-//    }
-//}

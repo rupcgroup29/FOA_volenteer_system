@@ -222,6 +222,70 @@ namespace FOA_Server.Models.DAL
             }
         }
 
+        // This method reads all users un-approved hour reports by team ID
+        public List<Object> ReadUsersHourReportsInTeam(int teamID)
+        {
+            SqlConnection con;
+            SqlCommand cmd;
+
+            try
+            {
+                con = connect("myProjDB"); // create the connection
+            }
+            catch (Exception ex)
+            {
+                // write to log
+                Console.WriteLine("Error");
+                throw (ex);
+            }
+
+            cmd = CreateCommandWithStoredProcedureRead("spReadUnApprovedHourReportsByTeamID", con, teamID);      // create the command
+
+            List<Object> list = new List<Object>();
+
+            try
+            {
+                SqlDataReader dataReader = cmd.ExecuteReader(CommandBehavior.CloseConnection);
+
+                while (dataReader.Read())
+                {
+                    DateTime date = Convert.ToDateTime(dataReader["Date"]);
+
+                    TimeSpan timeStart = (TimeSpan)dataReader["StartTime"];
+                    DateTime dateTimeStart = date.Add(timeStart);
+
+                    TimeSpan timeEnd = (TimeSpan)dataReader["EndTime"];
+                    DateTime dateTimeEnd = date.Add(timeEnd);
+
+                    list.Add(new
+                    {
+                        ReportID = Convert.ToInt32(dataReader["ReportID"]),
+                        Date = date,
+                        StartTime = dateTimeStart,
+                        EndTine = dateTimeEnd,
+                        Status = Convert.ToInt32(dataReader["Status"]),
+                        Count = Convert.ToInt32(dataReader["Count"])
+                    });
+                }
+                return list;
+            }
+            catch (Exception ex)
+            {
+                // write to log
+                Console.WriteLine("Error");
+                throw (ex);
+            }
+
+            finally
+            {
+                if (con != null)
+                {
+                    // close the db connection
+                    con.Close();
+                }
+            }
+        }
+
 
         // This method inserts a new team to the team table 
         public int InsertTeam(Team team)

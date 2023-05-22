@@ -119,7 +119,7 @@ function getPlatformsListSCB(data) {
         alert("אין פלטפורמות עדיין");
     } else {
         let str = "";
-        str += '<option class="opt" value="0">בחר רשת חברתית *</option>';
+        str += '<option class="opt" value="0">* בחר רשת חברתית</option>';
         for (var i = 0; i < data.length; i++) {
             str += '<option class="opt" value="' + data[i].platformID + '">' + data[i].platformName + '</option>';
         }
@@ -165,7 +165,7 @@ function getLanguagesSCB(data) {
         alert("אין שפות עדיין");
     } else {
         let str = "";
-        str += '<option class="opt" value="0">בחר שפה *</option>';
+        str += '<option class="opt" value="0">* בחר שפה</option>';
         for (var i = 0; i < data.length; i++) {
             str += '<option class="opt" value="' + data[i].languageID + '">' + data[i].languageName + '</option>';
         }

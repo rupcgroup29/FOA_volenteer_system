@@ -3,6 +3,7 @@ var isLoggedIn;
 var currentUser = sessionStorage.getItem("user");
 var currentUserDetails;
 var usersArr = [];
+
 // Define an array to store the changed selection values
 var selectionChanges = [];
 
@@ -11,6 +12,11 @@ $(document).ready(function () {
         api = "https://localhost:7109/api/";
     }
     else api = "https://proj.ruppin.ac.il/cgroup29/prod/api/";
+
+    // if volenteer is login
+    if (currentUser[1] === 4)
+        document.getElementById('updateShiftsBTN_Div').style.display = 'none';
+
 
     getMyHours();
     readMyDetails();
@@ -139,7 +145,7 @@ function RenderHoursList(array) {
                             return selectionHtml;
                         },
                     }
-                ],               
+                ],
                 order: [[1, 'desc']],  // sort the sec column (date) in descending order
                 language: {
                     url: '//cdn.datatables.net/plug-ins/1.13.4/i18n/he.json'

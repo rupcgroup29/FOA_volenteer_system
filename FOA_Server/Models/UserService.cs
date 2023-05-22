@@ -190,17 +190,7 @@ namespace FOA_Server.Models
         public bool UpdateUserWithPassword()
         {
             UsersList = ReadAllUsers();
-            try
-            {
-                if (this.ProgramID == 999)  //if new volanteer program was choosen
-                {
-                    new VolunteerProgram(this.ProgramID, this.ProgramName).InsertVolunteerProgram();
-                    VolunteerProgram newID = new VolunteerProgram();
-                    int programID = newID.getVolunteerProgramByName(this.ProgramName);
-                    this.ProgramID = programID;
-                }
-            }
-            catch (Exception e) { throw new Exception(" מסגרת התנדבות זו כבר קיימת במערת " + e.Message); }
+        
             try
             {
                 foreach (UserService u in UsersList)

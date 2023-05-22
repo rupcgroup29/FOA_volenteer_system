@@ -14,8 +14,13 @@ $(document).ready(function () {
         imageFolder = "https://proj.ruppin.ac.il/cgroup29/prod/Images/";
     }
 
-    let str_PostCardHeader = "";
-    str_PostCardHeader += '<h2 class="section-heading text-uppercase">עריכת דיווח מספר ' + currentPostID + '</h2>';
+    let str_PostCardHeader = '<h2 class="section-heading text-uppercase">';
+    if (currentUser[1] == 4) {    // if volanteer is login
+        enableEditingFields();
+        str_PostCardHeader += 'צפייה בפרטי דיווח מספר ' + currentPostID + '</h2>';
+    } else {
+        str_PostCardHeader += 'עריכת דיווח מספר ' + currentPostID + '</h2>';
+    }
     document.getElementById("PostCardHeader").innerHTML += str_PostCardHeader;
 
     readPostByID();
@@ -194,3 +199,8 @@ function enableInitialReportingFields() {
     $("#Keywords_hashtags").attr("readonly", false);
 }
 
+// אם מתנדב מחובר אז שהוא לא יוכל לערוך את השדות
+function enableEditingFields() {
+    $("#removalStatus").attr("disabled", true);
+    $("#ManagerStatus").attr("disabled", true);
+}

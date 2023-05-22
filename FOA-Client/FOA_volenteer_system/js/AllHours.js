@@ -114,6 +114,7 @@ function RenderHourReports(array) {
                         }
                     }
                 ],
+                order: [[3, 'desc']],  // sort the sec column (date) in descending order
                 language: {
                     url: '//cdn.datatables.net/plug-ins/1.13.4/i18n/he.json'
                 }

@@ -117,16 +117,13 @@ function updateUser() {
         Password: $("#Password").val()
     }
 
-
     ajaxCall("PUT", api + "UserServices/myUser", JSON.stringify(updateUser), updateUserSCB, updateUserECB);
-    ajaxCall("PUT", api + "Users/" + relevantUserID, JSON.stringify(updateUser), updateUserSCB, updateUserECB);
     sessionStorage.setItem("userCard", JSON.stringify());
     return false;
 }
 function updateUserSCB(data) {
     alert("משתמש עודכן בהצלחה");
-    window.location.assign("Teams-main.html");
-    location.assign("Teams-main.html")
+    window.location.assign("MyUserCard.html");
 }
 
 function updateUserECB(err) {

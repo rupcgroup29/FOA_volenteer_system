@@ -510,7 +510,7 @@ namespace FOA_Server.Models.DAL
 
                 while (dataReader.Read())
                 {
-                    result = dataReader["Platfom"].ToString();
+                    result = dataReader["Platform"].ToString();
                 }
 
                 return result;

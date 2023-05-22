@@ -10,8 +10,6 @@ $(document).ready(function () {
     }
     else api = "https://proj.ruppin.ac.il/cgroup29/prod/api/";
 
-    healine = "פרטי צוות " + currentTeamId;
-    $("#headline").html(healine);
     GetTeamDetails();
     ReadUsers();
 
@@ -28,6 +26,9 @@ function getTeamDetailsECB(err) {
 }
 
 function RenderTeamDetails(data) {
+    healine = "פרטי צוות " + data.teamName;
+    $("#headline").html(healine);
+
     str = '<h3 class="teamDetails">';
     str += data.description
     str += '</h3>';

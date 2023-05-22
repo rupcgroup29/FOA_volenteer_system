@@ -11,6 +11,10 @@ $(document).ready(function () {
     }
     else api = "https://proj.ruppin.ac.il/cgroup29/prod/api/";
 
+    // if volanteer is login
+    if (currentUser[1] == 4)
+        enableEditingFields();
+
     $('#contactForm').submit(updateUser);
 
     // get the volunteer Program list
@@ -129,7 +133,6 @@ function updateUser() {
     }
 
     ajaxCall("PUT", api + "UserServices/myUser", JSON.stringify(updateUser), updateUserSCB, updateUserECB);
-    sessionStorage.setItem("userCard", JSON.stringify());
     return false;
 }
 function updateUserSCB(data) {
@@ -144,21 +147,35 @@ function updateUserECB(err) {
 
 // enable Other volunteer program only if other selected
 function enableOther() {
-    var sel = document.getElementById('volunteerProgram');
+    var difSchoolDiv = document.getElementById('DifSchoolDiv');
+    difSchoolDiv.style.display = 'none';
 
-    sel.addEventListener("change", ShowDivIfOtherSelected);
-
-    function ShowDivIfOtherSelected() {
-
-        if (sel.value === '999') {
-            $("#Different_school").attr("readonly", false);
+    var volunteerProgramSelect = document.getElementById('volunteerProgram');
+    volunteerProgramSelect.addEventListener('change', function () {
+        if (volunteerProgramSelect.value === '999') {
+            difSchoolDiv.style.display = 'block';
+            document.getElementById('Different_school').removeAttribute('readonly');
+            schoolDiv.classList.add('col-6');
+        } else {
+            difSchoolDiv.style.display = 'none';
+            document.getElementById('Different_school').setAttribute('readonly', 'readonly');
+            schoolDiv.classList.remove('col-6');
         }
-        else {
-            $("#Different_school").attr("readonly", true);
-            document.getElementById('Different_school').value = '';
-        }
-    }
+    });
 }
+//function enableOther() {
+//    var sel = document.getElementById('volunteerProgram');
+//    sel.addEventListener("change", ShowDivIfOtherSelected);
+//}
+//function ShowDivIfOtherSelected() {
+//    if (sel.value === '999') {
+//        $("#Different_school").attr("readonly", false);
+//    }
+//    else {
+//        $("#Different_school").attr("readonly", true);
+//        document.getElementById('Different_school').value = '';
+//    }
+//}
 
 // get the Volunteer Programs list
 function getVolunteerProgramsList() {
@@ -189,4 +206,14 @@ function getTeamSCB(data) {
 
 function getTeamECB(err) {
     console.log(err);
+}
+
+// אם מתנדב מחובר אז שהוא לא יוכל לערוך חלק מהשדות
+function enableEditingFields() {
+    $("#IsActive").attr("disabled", true);
+    $("#volunteerProgram").attr("disabled", true);
+    $("#permission").attr("disabled", true);
+    $("#team").attr("disabled", true);
+    $("#roleDescription").attr("disabled", true);
+    $("#user_name").attr("disabled", true);
 }

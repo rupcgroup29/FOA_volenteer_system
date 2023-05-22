@@ -164,16 +164,48 @@ namespace FOA_Server.Controllers
         [HttpPut("myUser")]     //update my user's details (the user who is logged in)
         public bool PutMyUser([FromBody] UserService user)
         {
-            bool affected = user.UpdateUserWithPassword();
-            return affected;
+            try
+            {
+                try
+                {
+                    if (user.ProgramID == 999)  //if new volanteer program was choosen
+                    {
+                        new VolunteerProgram(user.ProgramID, user.ProgramName).InsertVolunteerProgram();
+                        VolunteerProgram newID = new VolunteerProgram();
+                        int programID = newID.getVolunteerProgramByName(user.ProgramName);
+                        user.ProgramID = programID;
+                    }
+                }
+                catch (Exception e) { throw new Exception(" מסגרת התנדבות זו כבר קיימת במערת " + e.Message); }
+
+                bool affected = user.UpdateUserWithPassword();
+                return affected;
+            }
+            catch (Exception e) { throw new Exception(e.Message); }
         }
 
         // PUT api/<UserServicesController>/5
         [HttpPut]    // update another user's details (NOT the user who is logged in)
         public bool Put([FromBody] UserService user)
         {
-            bool affected = user.UpdateUser();       // update another user's details
-            return affected;
+            try
+            {
+                try
+                {
+                    if (user.ProgramID == 999)  //if new volanteer program was choosen
+                    {
+                        new VolunteerProgram(user.ProgramID, user.ProgramName).InsertVolunteerProgram();
+                        VolunteerProgram newID = new VolunteerProgram();
+                        int programID = newID.getVolunteerProgramByName(user.ProgramName);
+                        user.ProgramID = programID;
+                    }
+                }
+                catch (Exception e) { throw new Exception(" מסגרת התנדבות זו כבר קיימת במערת " + e.Message); }
+
+                bool affected = user.UpdateUser();       // update another user's details
+                return affected;
+            }
+            catch (Exception e) { throw new Exception(e.Message); }
         }
 
 

@@ -27,7 +27,7 @@ namespace FOA_Server.Models
 
         public UserService() { }
 
-        public UserService(int userID, string firstName, string surname, string userName, string phoneNum, string roleDescription, int permissionID, bool isActive, string? password, int teamID, int programID, string email, string? programName, string? teamName, DateTime ? lastReasetPassword, string? permissionName, int? hoursCount)
+        public UserService(int userID, string firstName, string surname, string userName, string phoneNum, string roleDescription, int permissionID, bool isActive, string? password, int teamID, int programID, string email, string? programName, string? teamName, DateTime? lastReasetPassword, string? permissionName, int? hoursCount)
         {
             UserID = userID;
             FirstName = firstName;
@@ -192,6 +192,17 @@ namespace FOA_Server.Models
             UsersList = ReadAllUsers();
             try
             {
+                if (this.ProgramID == 999)  //if new volanteer program was choosen
+                {
+                    new VolunteerProgram(this.ProgramID, this.ProgramName).InsertVolunteerProgram();
+                    VolunteerProgram newID = new VolunteerProgram();
+                    int programID = newID.getVolunteerProgramByName(this.ProgramName);
+                    this.ProgramID = programID;
+                }
+            }
+            catch (Exception e) { throw new Exception(" מסגרת התנדבות זו כבר קיימת במערת " + e.Message); }
+            try
+            {
                 foreach (UserService u in UsersList)
                 {
                     if (u.UserID == this.UserID)
@@ -252,7 +263,7 @@ namespace FOA_Server.Models
                 if (email == u.Email && password == u.Password)
                 {
                     if (u.IsActive == false) { throw new Exception(" this user is not active "); }
-                    userDetails = new int[2] {u.UserID, u.PermissionID};
+                    userDetails = new int[2] { u.UserID, u.PermissionID };
                     return userDetails;
                 }
             }

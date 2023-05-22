@@ -264,15 +264,9 @@
                                 <option class="opt" value="3">לא בטוח</option>
                             </select>
                         </div>
-                        <div class="row">
-                            <div class="col-6 form-group platformDiv">
-                                <!-- platform_diff-->
-                                <div class="form-headers">
-                                    <p> אחר</p>
-                                </div>
-                                <input dir="rtl" class="form-control" id="platform_diff" type="text" placeholder="אחר " />
-                            </div>
-                            <div class="col-6 form-group platformDiv">
+
+                        <div class="row" dir="rtl">
+                            <div class="form-group" id="platformDiv">
                                 <!-- platform-->
                                 <div class="form-headers">
                                     <p> רשת חברתית</p>
@@ -281,16 +275,17 @@
                                     <!-- render list -->
                                 </select>
                             </div>
-                        </div>
-                        <div class="row ">
-                            <div class="col-6 form-group platformDiv">
-                                <!-- country_diff-->
+                            <div class="col-6 form-group" id="diffPlatformDiv">
+                                <!-- platform_diff-->
                                 <div class="form-headers">
                                     <p> אחר</p>
                                 </div>
-                                <input dir="rtl" class="form-control" id="country_diff" type="text" placeholder="אחר " />
+                                <input dir="rtl" class="form-control" id="platform_diff" type="text" placeholder="אחר " />
                             </div>
-                            <div class="col-6 form-group">
+                        </div>
+
+                        <div class="row" dir="rtl">
+                            <div id="countryDiv" class="form-group">
                                 <!-- Country-->
                                 <div class="form-headers">
                                     <p> מדינה</p>
@@ -299,16 +294,18 @@
                                     <!-- render list -->
                                 </select>
                             </div>
-                        </div>
-                        <div class="row ">
-                            <div class="col-6 form-group languageDiv">
-                                <!-- language_diff-->
+                            <div id="diffCountryDiv" class="col-6 form-group ">
+                                <!-- country_diff-->
                                 <div class="form-headers">
                                     <p> אחר</p>
                                 </div>
-                                <input dir="rtl" class="form-control" id="language_diff" type="text" placeholder="אחר " />
+                                <input dir="rtl" class="form-control" id="country_diff" type="text" placeholder="אחר " />
                             </div>
-                            <div class="col-6 form-group ">
+
+                        </div>
+
+                        <div class="row" dir="rtl">
+                            <div id="languageDiv" class="form-group ">
                                 <!-- language-->
                                 <div class="form-headers">
                                     <p> שפה</p>
@@ -316,6 +313,13 @@
                                 <select dir="rtl" class="form-control" id="language" required data-sb-validations="required">
                                     <!-- render list -->
                                 </select>
+                            </div>
+                            <div id="diffLanguageDiv" class="col-6 form-group">
+                                <!-- language_diff-->
+                                <div class="form-headers">
+                                    <p> אחר</p>
+                                </div>
+                                <input dir="rtl" class="form-control" id="language_diff" type="text" placeholder="אחר " />
                             </div>
                         </div>
 

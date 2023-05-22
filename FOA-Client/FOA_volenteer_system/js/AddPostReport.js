@@ -71,7 +71,7 @@ function AddNewPost(data) {
         Description: $("#description").val(),
         KeyWordsAndHashtages: keyWordsAndHashtages,
         Threat: $("#content_threat").val(),
-        Screenshot: data[0],    
+        Screenshot: data[0],
         AmountOfLikes: $("#exposure_likes").val(),
         AmountOfShares: $("#exposure_shares").val(),
         AmountOfComments: $("#exposure_Comments").val(),
@@ -219,53 +219,100 @@ function separatekeyWordsAndHashtages() {
 
 // enable Other platform only if other selected
 function enableOtherPlatform() {
-    var sel = document.getElementById('platform');
+    var difPlatforDiv = document.getElementById('diffPlatformDiv');
+    difPlatforDiv.style.display = 'none';
 
-    sel.addEventListener("change", enableDivIfOtherSelected);
-
-    function enableDivIfOtherSelected() {
-
-        if (sel.value === '999') {
-            $("#platform_diff").attr("readonly", false);
-        }
-        else {
-            $("#platform_diff").attr("readonly", true);
+    var platformSelect = document.getElementById('platform');
+    platformSelect.addEventListener('change', function () {
+        if (platformSelect.value === '999') {
+            difPlatforDiv.style.display = 'block';
+            document.getElementById('platform_diff').removeAttribute('readonly');
+            platformDiv.classList.add('col-6');
+        } else {
+            difPlatforDiv.style.display = 'none';
+            document.getElementById('platform_diff').setAttribute('readonly', 'readonly');
+            platformDiv.classList.remove('col-6');
             document.getElementById('platform_diff').value = '';
         }
-    }
+    });
 }
+//function enableOtherPlatform() {
+//var sel = document.getElementById('platform');
+//sel.addEventListener("change", enableDivIfOtherSelected);
+//function enableDivIfOtherSelected() {
+
+//    if (sel.value === '999') {
+//        $("#platform_diff").attr("readonly", false);
+//    }
+//    else {
+//        $("#platform_diff").attr("readonly", true);
+//        document.getElementById('platform_diff').value = '';
+//    }
+//}
+//}
+
 // enable Other country only if other selected
 function enableOtherCountry() {
-    var sel = document.getElementById('country');
+    var difCountryForDiv = document.getElementById('diffCountryDiv');
+    difCountryForDiv.style.display = 'none';
 
-    sel.addEventListener("change", enableDivIfOtherSelected);
-
-    function enableDivIfOtherSelected() {
-
-        if (sel.value === '999') {
-            $("#country_diff").attr("readonly", false);
+    var countrySelect = document.getElementById('country');
+    countrySelect.addEventListener('change', function () {
+        if (countrySelect.value === '999') {
+            difCountryForDiv.style.display = 'block';
+            document.getElementById('country_diff').removeAttribute('readonly');
+            countryDiv.classList.add('col-6');
+        } else {
+            difCountryForDiv.style.display = 'none';
+            document.getElementById('country_diff').setAttribute('readonly', 'readonly');
+            document.getElementById('country_diff').value = '';;
+            countryDiv.classList.remove('col-6');
         }
-        else {
-            $("#country_diff").attr("readonly", true);
-            document.getElementById('country_diff').value = '';
-        }
-    }
+    });
 }
+//function enableOtherCountry() {
+//    var sel = document.getElementById('country');
+//    sel.addEventListener("change", enableDivIfOtherSelected);
+//    function enableDivIfOtherSelected() {
+//        if (sel.value === '999') {
+//            $("#country_diff").attr("readonly", false);
+//        }
+//        else {
+//            $("#country_diff").attr("readonly", true);
+//            document.getElementById('country_diff').value = '';
+//        }
+//    }
+//}
 // enable Other language only if other selected
 function enableOtherLanguage() {
-    var sel = document.getElementById('language');
+    var difLanguageForDiv = document.getElementById('diffLanguageDiv');
+    difLanguageForDiv.style.display = 'none';
 
-    sel.addEventListener("change", enableDivIfOtherSelected);
-
-    function enableDivIfOtherSelected() {
-
-        if (sel.value === '999') {
-            $("#language_diff").attr("readonly", false);
+    var languageSelect = document.getElementById('language');
+    languageSelect.addEventListener('change', function () {
+        if (languageSelect.value === '999') {
+            difLanguageForDiv.style.display = 'block';
+            document.getElementById('language_diff').removeAttribute('readonly');
+            languageDiv.classList.add('col-6');
+        } else {
+            difLanguageForDiv.style.display = 'none';
+            document.getElementById('language_diff').setAttribute('readonly', 'readonly');
+            document.getElementById('language_diff').value = '';;
+            languageDiv.classList.remove('col-6');
         }
-        else {
-            $("#language_diff").attr("readonly", true);
-            document.getElementById('language_diff').value = '';
-        }
-    }
+    });
 }
+//function enableOtherLanguage() {
+//    var sel = document.getElementById('language');
+//    sel.addEventListener("change", enableDivIfOtherSelected);
+//    function enableDivIfOtherSelected() {
+//        if (sel.value === '999') {
+//            $("#language_diff").attr("readonly", false);
+//        }
+//        else {
+//            $("#language_diff").attr("readonly", true);
+//            document.getElementById('language_diff').value = '';
+//        }
+//    }
+//}
 

@@ -450,7 +450,7 @@ namespace FOA_Server.Models.DAL
                 throw (ex);
             }
 
-            cmd = CreateCommandWithStoredProcedureRead("spExposureIndexKeyWords", con);      // create the command
+            cmd = CreateCommandWithStoredProcedureRead("spRecomadationKeyWord", con);      // create the command
 
             string result = "";
 
@@ -460,7 +460,7 @@ namespace FOA_Server.Models.DAL
 
                 while (dataReader.Read())
                 {
-                    result = dataReader["KeyWordsAndHashtages"].ToString();
+                    result = dataReader["KeyWords"].ToString();
                 }
 
                 return result;
@@ -500,7 +500,7 @@ namespace FOA_Server.Models.DAL
                 throw (ex);
             }
 
-            cmd = CreateCommandWithStoredProcedureRead("spExposureIndexPlatform", con);      // create the command
+            cmd = CreateCommandWithStoredProcedureRead("spRecomadationPlatform", con);      // create the command
 
             string result = "";
 
@@ -510,7 +510,7 @@ namespace FOA_Server.Models.DAL
 
                 while (dataReader.Read())
                 {
-                    result = dataReader["PlatformName"].ToString();
+                    result = dataReader["Platfom"].ToString();
                 }
 
                 return result;
@@ -550,7 +550,7 @@ namespace FOA_Server.Models.DAL
                 throw (ex);
             }
 
-            cmd = CreateCommandWithStoredProcedureRead("spExposureIndexLan", con);      // create the command
+            cmd = CreateCommandWithStoredProcedureRead("spRecomadationLng", con);      // create the command
 
             string result = "";
 
@@ -560,7 +560,7 @@ namespace FOA_Server.Models.DAL
 
                 while (dataReader.Read())
                 {
-                    result = dataReader["LanguageName"].ToString();
+                    result = dataReader["Lng"].ToString();
                 }
 
                 return result;

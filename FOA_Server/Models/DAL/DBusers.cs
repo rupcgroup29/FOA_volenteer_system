@@ -1013,7 +1013,6 @@ namespace FOA_Server.Models.DAL
                         UserName = dataReader["UserName"].ToString(),
                         UserID = Convert.ToInt32(dataReader["UserID"]),
                         ShiftTime = Convert.ToDouble(dataReader["Count"])
-
                 });
                   
                 }

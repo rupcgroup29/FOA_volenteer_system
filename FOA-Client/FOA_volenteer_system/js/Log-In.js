@@ -12,6 +12,17 @@ $(document).ready(function () {
     $("#forgotPassEmail").hide();
     $("#ForgotPasswordForm").submit(ForgotPassword);
 
+    // show/hide password
+    const togglePassword = document.querySelector("#togglePassword");
+    const password = document.querySelector("#Password-input");
+    togglePassword.addEventListener("click", function () {
+        // toggle the type attribute
+        const type = password.getAttribute("type") === "Password" ? "text" : "Password";
+        password.setAttribute("type", type);
+        // toggle the icon
+        this.classList.toggle("bi-eye");
+    });
+
 });
 
 

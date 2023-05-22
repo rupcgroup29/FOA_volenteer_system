@@ -1,0 +1,18 @@
+﻿#PasswordDiv {
+    position: relative;
+}
+
+    #PasswordDiv input[type="password"],
+    #PasswordDiv input[type="text"] {
+        width: 100%;
+        padding: 12px 36px 12px 12px;
+        box-sizing: border-box;
+    }
+
+.bi {
+    position: absolute;
+    top: 57%;
+    right: 95%;
+    cursor: pointer;
+    color: #beb4b4;
+}

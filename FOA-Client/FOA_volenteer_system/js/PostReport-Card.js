@@ -98,7 +98,7 @@ function RenderRelevantDetails() {
     //IHRA
     // ענת: לא לשכוח לדאוג לתא גדול יותר במידה ויש הרבה קטגוריות
     for (var i = 0; i < currentPostObject.categoryName.length - 1; i++) {
-        str_category += '<p>' + currentPostObject.categoryName[i] + '</p>';
+        str_category += currentPostObject.categoryName[i] + ', ';
     }
     str_category += currentPostObject.categoryName[currentPostObject.categoryName.length - 1];
     $("#ihraCategory").val(str_category);

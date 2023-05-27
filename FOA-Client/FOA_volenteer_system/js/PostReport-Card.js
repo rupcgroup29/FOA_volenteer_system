@@ -64,7 +64,7 @@ function RenderRelevantDetails() {
     //managerStatus
     if (currentPostObject.postStatus == 0) // if status have'nt changed yet
     {
-        str_postStatus += '<option class="opt" value="0">ממתין לסטטוס</option>';
+        str_postStatus += '<option class="opt" value="0">ממתין לאישור</option>';
         str_postStatus += '<option class="opt" value="1">אושר</option>';
         str_postStatus += '<option class="opt" value="2">נדחה</option>';
 

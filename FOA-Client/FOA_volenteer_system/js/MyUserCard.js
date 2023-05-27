@@ -70,6 +70,7 @@ function renderMyUserDetails() {
     let str_Prog = "";
     str_Prog += '<option class="opt" value="' + relevantUserObject.programID + '">' + relevantUserObject.programName + '</option>';
     for (var i = 0; i < programsArr.length; i++) {
+        if (programsArr[i].programID != relevantUserObject.programID)
         str_Prog += '<option class="opt" value="' + programsArr[i].programID + '">' + programsArr[i].programName + '</option>';
     }
     str_Prog += '<option class="opt" value="999">אחר </option>';

@@ -302,6 +302,12 @@ function getVolunteerHoursECB(err) {
 //hide Hours Main Buttons from premmition 4
 function hideHoursMainButtons() {
     if (currentUser[1] === 4) {
-        document.getElementById("HoursMainButtons").style.display = "none";
+        document.getElementById("allUsersReportsButton").style.display = "none";
+        document.getElementById("teamUsersReportsButton").style.display = "none";
+        document.getElementById("UsersOptions").style.display = "none";
+    }
+    if (currentUser[1] == 3 && currentUser) {
+        document.getElementById("allUsersReportsButton").style.display = "none";
     }
 }
+

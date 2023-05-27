@@ -66,9 +66,13 @@ function drawPostsDataTable(array) {
                     { data: 'postID', orderSequence: ['desc', 'asc'] }, // specify orderSequence
                     { data: "platformName" },
                     {
-                        data: "urlLink",
+                        data: "postStatus",
                         render: function (data, type, row, meta) {
-                            return '<a href="' + data + '" target="_blank" class="urlLink_display" >קישור לפוסט</a>';
+                            if (data == 0)
+                                return 'ממתין לאישור';
+                            if (data==1)
+                                return 'מאושר';
+                            else return 'נדחה'
                         }
                     },
                     { data: "languageName" },
@@ -112,7 +116,7 @@ function drawPostsDataTable(array) {
      str += '<tr class="header">';
      str += '<th style="width:5%;">מס"ד</th>';
      str += '<th style="width:10%;">פלטפורמה</th>';
-     str += '<th style="width:10%;">קישור</th>';
+     str += '<th style="width:10%;">אושר כפוסט אנטישמי</th>';
      str += '<th style="width:10%;">שפה</th>';
      str += '<th style="width:10%;">שיתופים</th>';
      str += '<th style="width:10%;">תגובות</th>';

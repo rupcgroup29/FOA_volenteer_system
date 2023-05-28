@@ -1,0 +1,44 @@
+﻿.popup {
+    position: absolute;
+    width: 550px;
+    background: #fff;
+    -webkit-border-radius: 6px;
+    -moz-border-radius: 6px;
+    border-radius: 9px;
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0.1);
+    text-align: center;
+    padding: 0 30px 44px;
+    color: #333;
+    visibility: hidden;
+    transition: all 0.4s ease-in-out;
+    border: 3px solid #d7a720;
+}
+
+.open-popup {
+    visibility: visible;
+    top: 18%;
+    transform: translate(-50%, -50%) scale(1);
+    z-index: 9; /* שיופיע מעל כל הדיבים בדף */
+}
+
+.popup h2 {
+    font-size: 38px;
+    font-weight: 500;
+    margin: 30px 0 10px;
+}
+
+.popup button {
+    width: 100%;
+    margin-top: 21px;
+    padding: 10px 0;
+    background-color: #d7a720;
+    color: #fff;
+    border: 0;
+    outline: none;
+    font-size: 18px;
+    border-radius: 4px;
+    box-shadow: 0 5px 5px rgba(0,0,0,0.2);
+}

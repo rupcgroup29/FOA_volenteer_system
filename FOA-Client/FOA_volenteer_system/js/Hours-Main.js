@@ -14,14 +14,12 @@ $(document).ready(function () {
     }
     else api = "https://proj.ruppin.ac.il/cgroup29/prod/api/";
 
-    // if volenteer is login
-    if (currentUser[1] === 4)
-        document.getElementById('updateShiftsBTN_Div').style.display = 'none';
-
-
     getMyHours();
     readMyDetails();
-    hideHoursMainButtons();
+    ViewByPermissions();
+
+    // for the popup alert for team leaders:  
+    closePopup();
 
 });
 //headline 
@@ -278,6 +276,7 @@ function renderVolunteersInMyTeam(usersArr) {
 
     }
     document.getElementById("usersList").innerHTML += str;
+    AlertShiftsForApproval();
 }
 
 function ChangeVolHours() {
@@ -297,7 +296,7 @@ function getVolunteerHoursECB(err) {
 }
 
 //hide Hours Main Buttons from premmition 4
-function hideHoursMainButtons() {
+function ViewByPermissions() {
     if (currentUser[1] === 4) //volunteer
     {
         document.getElementById("allUsersReportsButton").style.display = "none";
@@ -314,3 +313,25 @@ function hideHoursMainButtons() {
     }
 }
 
+// התראות למנהל צוות על כמות דיווחים שטרם אושרו
+function AlertShiftsForApproval() {
+    ajaxCall("GET", api + "Teams/GetUsersHourReportsInTeam/" + currentTeamId, "", AlertShiftsForApprovalSCB, AlertShiftsForApprovalECB);
+    return false;
+}
+function AlertShiftsForApprovalSCB(data) {
+    str_popup = 'ישנם ' + data.length + ' דיווחי שעות הממתינים לאישורך';
+    $('#popupHeadline1').text(str_popup);
+    openPopup1();
+}
+function AlertShiftsForApprovalECB(err) {
+    alert("Input Error");
+}
+
+function openPopup1() {
+    let popup = document.getElementById('popup1');
+    popup.classList.add('open-popup');
+}
+function closePopup() {
+    let popup = document.getElementById('popup1');
+    popup.classList.remove('open-popup');
+}

@@ -71,7 +71,7 @@ function RenderUsersList(array) {
                     { data: "phoneNum" },
                     {
                         render: function (data, type, row, meta) {      //יצירת כפתור צפייה במשתמש הנבחר
-                            viewBtn = '<button onclick="OpenUserCard(' + row.userID + ')">צפייה</button>';;
+                            viewBtn = '<button class="view-button" onclick="OpenUserCard(' + row.userID + ')">צפייה</button>';;
                             return viewBtn;
                         }
                     }

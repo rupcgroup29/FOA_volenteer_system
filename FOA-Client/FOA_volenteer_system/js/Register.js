@@ -84,7 +84,7 @@ function getTeamSCB(data) {
         alert("There are no teams yet");
     } else {
         let str = "";
-        str += '<option class="opt" value="0">בחר צוות התנדבות *</option>';
+        str += '<option class="opt" value="0">בחירת צוות התנדבות *</option>';
         for (var i = 0; i < data.length; i++) {
             str += '<option class="opt" value="' + data[i].teamID + '">' + data[i].teamName + '</option>';
         }

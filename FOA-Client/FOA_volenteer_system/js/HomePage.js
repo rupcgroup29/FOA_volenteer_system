@@ -97,7 +97,7 @@ function drawPostsDataTable(array) {
                     },
                     {
                         render: function (data, type, row, meta) {      //יצירת כפתור צפייה בפוסט
-                            viewBtn = '<button onclick="OpenPostCard(' + row.postID + ')">צפייה</button>';;
+                            viewBtn = '<button class="view-button" onclick="OpenPostCard(' + row.postID + ')">צפייה</button>';;
                             return viewBtn;
                         }
                     }

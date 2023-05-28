@@ -48,7 +48,7 @@ function getTeamLeadersListSCB(data) {
         alert("There's no team leader that haven't been assigned yet");
     } else {
         let str = "";
-        str += '<option class="opt" value="0">בחר ראש צוות *</option>';
+        str += '<option class="opt" value="0">בחירת ראש צוות *</option>';
         for (var i = 0; i < data.length; i++) {
             str += '<option class="opt" value="' + data[i].userID + '">' + data[i].fullname + '</option>';
         }

@@ -20,7 +20,7 @@ h2 {
     font-weight: bold !important;
 }
 
-.teamDetails{
+.teamDetails {
     text-align: center;
     color: #fff;
 }
@@ -12757,6 +12757,7 @@ select::-ms-expand {
 .dataTables_wrapper .dataTables_filter {
     padding-bottom: 12px !important;
 }
+
     .dataTables_wrapper .dataTables_filter input {
         margin-right: 7px !important;
     }
@@ -12892,13 +12893,16 @@ label, .dataTables_wrapper .dataTables_paginate {
     margin: 0.5rem;
     padding: 1rem;
     background-color: rgba(128, 128, 128, 0.5);
-    color: white;
+    color: lightyellow;
     text-align: center;
 }
 
+    .BoxBorder h3 {
+        color: goldenrod;
+    }
+
 #NewTeamAndUser .BoxBorder {
     color: goldenrod;
-
 }
 
 #CardInfo {
@@ -12911,17 +12915,77 @@ label, .dataTables_wrapper .dataTables_paginate {
 
 .delete-icon {
     cursor: pointer;
-    color: red;
+    color: darkred;
 }
 
-#subHeadline{
-    color:white;
+#subHeadline {
+    color: white;
 }
 
 #HoursMainButtons {
     font-size: 1.5rem;
-    color: #fff;
     letter-spacing: 0.0625em;
-    padding:2rem;
-
+    padding: 2rem;
 }
+
+    /* round-button */
+.round-button {
+    border-radius: 0.25rem;
+    background-color: transparent;
+    color: lightyellow;
+    border: 2px solid goldenrod;
+    padding: 5px 10px;
+    cursor: pointer;
+    height: 3.2rem;
+}
+
+.view-button {
+    border-radius: 0.25rem;
+    background-color: transparent;
+    color: lightyellow;
+    border: 2px solid #358079;
+    padding: 5px 10px;
+    cursor: pointer;
+    margin: 2px;
+}
+
+    .round-button a, .view-button a {
+        color: lightyellow;
+        text-decoration: none;
+    }
+
+    #HoursMainButtons .round-button:hover, .view-button:hover {
+        background-color: goldenrod;
+        color: lightyellow;
+    }
+
+#usersList {
+    border-radius: 0.25rem;
+    background-color: transparent;
+    color: lightyellow;
+    border: 2px solid goldenrod;
+    padding: 5px 10px;
+    cursor: pointer;
+    height: 3.2rem;
+}
+
+    #usersList option {
+        /* Styles for the dropdown options */
+        background-color: transparent;
+        color: #358079;
+    }
+
+.hoursStatus {
+    border-radius: 0.25rem;
+    background-color: transparent;
+    color: lightyellow;
+    border: 2px solid #358079;
+    padding: 5px 10px;
+    cursor: pointer;
+}
+
+    .hoursStatus option {
+        /* Styles for the dropdown options */
+        background-color: transparent;
+        color: #358079;
+    }

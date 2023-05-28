@@ -150,7 +150,7 @@ function RenderHoursList(array) {
                             let selectionHtml = "";
                             if (data.status === 0 && currentUser[1] !== 4) {
                                 selectionHtml = `
-                                    <select class="status-select" onchange="handleSelectionChange('${data.reportID}', '${data.userID}', this.value)">
+                                    <select class="hoursStatus status-select" onchange="handleSelectionChange('${data.reportID}', '${data.userID}', this.value)">
                                         <option value="0" selected>טרם נקבע</option>
                                         <option value="1">אושר</option>
                                         <option value="2">נדחה</option>

@@ -18,28 +18,57 @@ $(document).ready(function () {
 
     // get the Team's Details
     getTeamDetails();
+
+    // get the users details
+    getUsersDetails();
+
 });
 
 
 function EditTeam() {
     const Team = {
-        teamID: currentTeamId, 
+        teamID: currentTeamId,
         teamName: $("#TeamName").val(),
         description: $("#description").val(),
-        teamLeader: $("#teamLeader").val()
+        teamLeader: $("#teamLeader").val(),
+        selectedUsers: selectedUsers
     }
 
     ajaxCall("PUT", api + "Teams", JSON.stringify(Team), putEditTeamSCB, putEditTeamECB);
+
     return false;
 }
-function putEditTeamSCB(data) { 
+function putEditTeamSCB(data) {
     alert("הצוות התעדכן בהצלחה");
     window.location.assign("Teams-main.html");
     location.assign("Teams-main.html")
 }
-
 function putEditTeamECB(err) {
     alert(err);
+}
+
+
+// get the users details
+function getUsersDetails() {
+    ajaxCall("GET", api + "UserServices", "", getUsersDetailsSCB, getUsersDetailsECB);
+    return false;
+}
+function getUsersDetailsSCB(data) {
+    if (data == null) {
+        alert("There's no users yet");
+    } else {
+        var teamMembers = '<option class="opt" value="0">בחר.י ממתנדב.ת להוספה לצוות</option>';
+        for (var i = 0; i < data.length; i++) {
+            if (data[i].permissionID == 4 && data[i].teamID != currentTeamId) {
+                teamMembers += '<option class="opt" value="' + data[i].userID + '">' + data[i].userName + '</option>';
+            }
+        }
+        $("#teamMembers").html(teamMembers);
+        $("#teamMembers").change(addToSelectedUsers);
+    }
+}
+function getUsersDetailsECB(err) {
+    console.log(err);
 }
 
 // get the Team Details
@@ -47,12 +76,11 @@ function getTeamDetails() {
     ajaxCall("GET", api + "Teams/teamDetails/" + currentTeamId, "", getTeamDetailsSCB, getTeamDetailsECB);
     return false;
 }
-
 function getTeamDetailsSCB(data) {
     if (data == null) {
         alert("There's no team leader that haven't been assigned yet");
     } else {
-        
+
         RenderDetails(data);
     }
 }
@@ -65,7 +93,7 @@ function RenderDetails(data) {
     let str_header = "";
     str_header += `<h2 class="section-heading text-uppercase"> צוות ` + data.teamName + `</h2>`;
     document.getElementById("CardHeader").innerHTML += str_header;
-    //teamLeader
+    //team Leader
     let teamLeader = "";
     teamLeader += '<option class="opt" value="' + data.userID + '">' + data.fullname + '</option>';
     for (var i = 0; i < TeamLeadersList.length; i++) {
@@ -77,6 +105,7 @@ function RenderDetails(data) {
     //description
     $("#description").val(data.description);
 }
+
 
 // get the Team Leaders List
 function getTeamLeadersList() {
@@ -94,3 +123,47 @@ function getTeamLeadersListSCB(data) {
 function getTeamLeadersListECB(err) {
     console.log(err);
 }
+
+//adding members
+var selectedUsers = [];
+function addToSelectedUsers() {
+    var selectedUserId = $("#teamMembers").val();
+    var selectedUserName = $("#teamMembers option:selected").text();
+
+    if (selectedUserId !== "0" && !isUserAlreadySelected(selectedUserId)) {
+        var user = {
+            userId: selectedUserId,
+            name: selectedUserName,
+            teamID: currentTeamId
+        };
+
+        selectedUsers.push(user);
+        displaySelectedUsers();
+    }
+}
+
+
+function isUserAlreadySelected(userId) {
+    return selectedUsers.some(function (user) {
+        return user.id === userId;
+    });
+}
+
+function removeFromSelectedUsers(userId) {
+    selectedUsers = selectedUsers.filter(function (user) {
+        return user.id !== userId;
+    });
+    displaySelectedUsers();
+}
+
+function displaySelectedUsers() {
+    var selectedUsersList = "";
+    for (var i = 0; i < selectedUsers.length; i++) {
+        selectedUsersList += "<li>" + selectedUsers[i].name + " <button class='delete-button' onclick='removeFromSelectedUsers(\"" + selectedUsers[i].id + "\")'><i class='fas fa-times'></i></button></li>";
+    }
+    $("#selectedUsersList").html(selectedUsersList);
+}
+
+
+
+

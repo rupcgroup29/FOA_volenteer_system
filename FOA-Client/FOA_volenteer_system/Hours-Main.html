@@ -6,7 +6,7 @@
     <meta name="description" content="" />
     <meta name="author" content="" />
 
-    <title>FOA- Hour Report</title>
+    <title>FOA- Hour Reports</title>
 
     <!-- Favicon-->
     <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
@@ -61,7 +61,7 @@
                                 <div class="u41_text text">
                                     <p>
                                         <span>
-                                            <button class="logout">התנתק</button>
+                                            <button class="logout">התנתקות</button>
                                         </span>
                                     </p>
                                 </div>
@@ -99,7 +99,7 @@
             <div class="collapse navbar-collapse" id="navbarResponsive">
                 <ul class="navbar-nav text-uppercase ms-auto py-4 py-lg-0">
                     <li class="nav-item"><a class="nav-link" href="Logs.html">דף לוגים</a></li>
-                    <li class="nav-item"><a class="nav-link" href="Teams-main.html">משתמשים</a></li>
+                    <li class="nav-item"><a class="nav-link" href="Teams-main.html">צוותים</a></li>
                     <li class="nav-item"><a class="nav-link" href="Hours-Main.html">דיווח שעות</a></li>
                     <li class="nav-item"><a class="nav-link" href="AddPostReport.html">דיווח על פוסט</a></li>
                 </ul>
@@ -129,7 +129,7 @@
                                 <div class="u41_text text">
                                     <p>
                                         <span>
-                                            <button class="logout">התנתק</button>
+                                            <button class="logout">התנתקות</button>
                                         </span>
                                     </p>
                                 </div>
@@ -166,7 +166,7 @@
 
             <div class="collapse navbar-collapse" id="navbarResponsive">
                 <ul class="navbar-nav text-uppercase ms-auto py-4 py-lg-0">
-                    <li class="nav-item"><a class="nav-link" href="Teams-main.html">משתמשים</a></li>
+                    <li class="nav-item"><a class="nav-link" href="Teams-main.html">צוותים</a></li>
                     <li class="nav-item"><a class="nav-link" href="Hours-Main.html">דיווח שעות</a></li>
                     <li class="nav-item"><a class="nav-link" href="AddPostReport.html">דיווח על פוסט</a></li>
                 </ul>
@@ -196,7 +196,7 @@
                                 <div class="u41_text text">
                                     <p>
                                         <span>
-                                            <button class="logout">התנתק</button>
+                                            <button class="logout">התנתקות</button>
                                         </span>
                                     </p>
                                 </div>
@@ -259,16 +259,16 @@
                         <select id="usersList">
                             <!-- Render Users List -->
                         </select>
-                        <button type="button" onclick="ChangeVolHours()">החל</button>
+                        <button type="button" class="round-button" onclick="ChangeVolHours()">החל</button>
                     </div>
                     <div class="col-4">
-                        <button><a href="AddHours.html">הוספת דיווח שעות</a></button>
+                        <buttonn type="button" class="round-button"><a href="AddHours.html">הוספת דיווח שעות</a></buttonn>
                     </div>
                     <div class="col-4" id="allUsersReportsButton">
-                        <button><a href="AllHours.html">כלל דיווחי שעות</a></button>
+                        <button class="round-button"><a href="AllHours.html">כלל דיווחי שעות</a></button>
                     </div>
                     <div class="col-4" id="teamUsersReportsButton">
-                        <button><a href="teamHours.html">נותר לי לאשר</a></button>
+                        <button class="round-button"><a href="teamHours.html">נותר לי לאשר</a></button>
                     </div>
                 </div>
                 <div id="HoursTable">
@@ -287,7 +287,7 @@
                     </table>
 
                     <div id="updateShiftsBTN_Div" class="col-12 text-center mt-4">
-                        <button type="button" onclick="updateStatus()">שמור</button>
+                        <button class="view-button" type="button" onclick="updateStatus()">שמירה</button>
                     </div>
                 </div>
             </div>

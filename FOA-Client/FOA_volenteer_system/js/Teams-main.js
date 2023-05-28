@@ -41,8 +41,8 @@ function RenderTeams()
             str += '<h3>צוות ' + TeamsArr[i].teamName + '</h3>';
             str += '<p>מנהל.ת הצוות: ' + TeamsArr[i].fullname + '</p>';
             str += '<p>כמות מתנדבים בצוות: ' + TeamsArr[i].noOfVolunteerUsers + '</p>';
-            str += '<button onclick="OpenTeamCard(' + TeamsArr[i].teamID + ')">צפייה</button>';
-            str += '<button onclick="EditTeam(' + TeamsArr[i].teamID + ')">עריכה</button>';
+            str += '<button class="view-button" onclick="OpenTeamCard(' + TeamsArr[i].teamID + ')">צפייה</button>';
+            str += '<button class="view-button" onclick="EditTeam(' + TeamsArr[i].teamID + ')">עריכה</button>';
             str += '</div>';
             str += '</div>';
         }

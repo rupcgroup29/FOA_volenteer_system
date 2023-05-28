@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
     <meta name="description" content="" />
     <meta name="author" content="" />
-    <title>FOA Volunteers System- Register user</title>
+    <title>FOA- Register user</title>
     <!-- Favicon-->
     <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
     <!-- Font Awesome icons (free version)-->
@@ -30,6 +30,8 @@
     <script src="js/ajaxCall.js"></script>
     <script src="js/scripts.js"></script>
     <link href="css/navbar.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+
 
 
 </head>
@@ -55,7 +57,7 @@
                                 <div class="u41_text text">
                                     <p>
                                         <span>
-                                            <button class="logout">התנתק</button>
+                                            <button class="logout">התנתקות</button>
                                         </span>
                                     </p>
                                 </div>
@@ -93,7 +95,7 @@
             <div class="collapse navbar-collapse" id="navbarResponsive">
                 <ul class="navbar-nav text-uppercase ms-auto py-4 py-lg-0">
                     <li class="nav-item"><a class="nav-link" href="Logs.html">דף לוגים</a></li>
-                    <li class="nav-item"><a class="nav-link" href="Teams-main.html">משתמשים</a></li>
+                    <li class="nav-item"><a class="nav-link" href="Teams-main.html">צוותים</a></li>
                     <li class="nav-item"><a class="nav-link" href="Hours-Main.html">דיווח שעות</a></li>
                     <li class="nav-item"><a class="nav-link" href="AddPostReport.html">דיווח על פוסט</a></li>
                 </ul>
@@ -123,7 +125,7 @@
                                 <div class="u41_text text">
                                     <p>
                                         <span>
-                                            <button class="logout">התנתק</button>
+                                            <button class="logout">התנתקות</button>
                                         </span>
                                     </p>
                                 </div>
@@ -160,7 +162,7 @@
 
             <div class="collapse navbar-collapse" id="navbarResponsive">
                 <ul class="navbar-nav text-uppercase ms-auto py-4 py-lg-0">
-                    <li class="nav-item"><a class="nav-link" href="Teams-main.html">משתמשים</a></li>
+                    <li class="nav-item"><a class="nav-link" href="Teams-main.html">צוותים</a></li>
                     <li class="nav-item"><a class="nav-link" href="Hours-Main.html">דיווח שעות</a></li>
                     <li class="nav-item"><a class="nav-link" href="AddPostReport.html">דיווח על פוסט</a></li>
                 </ul>
@@ -190,7 +192,7 @@
                                 <div class="u41_text text">
                                     <p>
                                         <span>
-                                            <button class="logout">התנתק</button>
+                                            <button class="logout">התנתקות</button>
                                         </span>
                                     </p>
                                 </div>
@@ -266,11 +268,33 @@
                             <!-- render list -->
                         </select>
                     </div>
+                    <div class="form-group">
+                        <!-- teamMembers-->
+                        <div class="form-headers">
+                            <p>
+                                הוספת חברי צוות
+                            </p>
+                        </div>
+                        <select dir="rtl" class="form-control" id="teamMembers" required>
+                            <!-- render list -->
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <!-- team Members I selected-->
+                        <div class="form-headers">
+                            <p>
+                                חברי צוות שהוספתי
+                            </p>
+                        </div>
+                        <div>
+                            <ul dir="rtl" class="form-control" id="selectedUsersList"></ul>
+                        </div>
+                    </div>
                 </div>
 
                 <!--Submit Button-->
                 <div class="text-center">
-                    <button class="btn btn-primary btn-xl text-uppercase" id="submitButton" type="submit">שמור</button>
+                    <button class="btn btn-primary btn-xl text-uppercase" id="submitButton" type="submit">שמירה</button>
                 </div>
             </form>
         </div>

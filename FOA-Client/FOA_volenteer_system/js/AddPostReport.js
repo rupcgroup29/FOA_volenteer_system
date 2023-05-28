@@ -119,7 +119,7 @@ function getPlatformsListSCB(data) {
         alert("אין פלטפורמות עדיין");
     } else {
         let str = "";
-        str += '<option class="opt" value="0">* בחר רשת חברתית</option>';
+        str += '<option class="opt" value="0">* בחירת רשת חברתית</option>';
         for (var i = 0; i < data.length; i++) {
             str += '<option class="opt" value="' + data[i].platformID + '">' + data[i].platformName + '</option>';
         }
@@ -142,7 +142,7 @@ function getCountriesSCB(data) {
         alert("אין מדינות עדיין");
     } else {
         let str = "";
-        str += '<option class="opt" value="0">בחר מדינה</option>';
+        str += '<option class="opt" value="0">* בחירת מדינה</option>';
         for (var i = 0; i < data.length; i++) {
             str += '<option class="opt" value="' + data[i].countryID + '">' + data[i].countryName + '</option>';
         }
@@ -165,7 +165,7 @@ function getLanguagesSCB(data) {
         alert("אין שפות עדיין");
     } else {
         let str = "";
-        str += '<option class="opt" value="0">* בחר שפה</option>';
+        str += '<option class="opt" value="0">* בחירת שפה</option>';
         for (var i = 0; i < data.length; i++) {
             str += '<option class="opt" value="' + data[i].languageID + '">' + data[i].languageName + '</option>';
         }

@@ -262,7 +262,7 @@ namespace FOA_Server.Models.DAL
                         ReportID = Convert.ToInt32(dataReader["ReportID"]),
                         Date = date,
                         StartTime = dateTimeStart,
-                        EndTine = dateTimeEnd,
+                        EndTime = dateTimeEnd,
                         Status = Convert.ToInt32(dataReader["Status"]),
                         Count = Convert.ToInt32(dataReader["Count"])
                     });

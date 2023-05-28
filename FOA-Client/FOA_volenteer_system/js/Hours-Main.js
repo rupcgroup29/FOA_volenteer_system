@@ -3,6 +3,7 @@ var isLoggedIn;
 var currentUser = sessionStorage.getItem("user");
 var currentUserDetails;
 var usersArr = [];
+var currentTeamId;
 
 // Define an array to store the changed selection values
 var selectionChanges = [];
@@ -23,6 +24,21 @@ $(document).ready(function () {
     hideHoursMainButtons();
 
 });
+//headline 
+function renderHeadline(data) {
+    if (data.hoursCount == 0) {
+        str = "<h2>";
+        str += data.firstName + ", טרם אושרו לך שעות התנדבות";
+        str += "</h2>";
+        document.getElementById("subHeadline").innerHTML += str;
+    }
+    else {
+        str = "<h2>";
+        str += data.firstName + ", אושרו לך עד היום " + data.hoursCount + " שעות התנדבות! כל הכבוד!";
+        str += "</h2>";
+        document.getElementById("subHeadline").innerHTML += str;
+    }
+}
 
 // get My Hours
 function getMyHours() {
@@ -195,13 +211,11 @@ function deleteHours(reportID) {
     ajaxCall("DELETE", api + "HourReports/" + reportID, "", deleteHoursSCB, deleteHoursECB);
     return false;
 }
-
 function deleteHoursSCB(num) {
     alert("דיווח השעות נמחק בהצלחה!");
     window.location.assign("Hours-Main.html");
     location.assign("Hours-Main.html")
 }
-
 function deleteHoursECB(err) {
     alert("Failed to delete the hour report. Error: " + err.responseText);
 }
@@ -211,7 +225,6 @@ function readMyDetails() {
     ajaxCall("GET", api + "UserServices/user_details/" + currentUser[0], "", readMyDetailsSCB, readMyDetailsECB);
     return false;
 }
-
 function readMyDetailsSCB(data) {
     currentUserDetails = data;
     if (currentUser[1] == 3) { //team leader
@@ -222,37 +235,22 @@ function readMyDetailsSCB(data) {
     }
     renderHeadline(data);
 }
-
 function readMyDetailsECB(err) {
     alert("Input Error");
 }
 
-//headline 
-function renderHeadline(data) {
-    if (data.hoursCount == 0) {
-        str = "<h2>";
-        str += data.firstName + ", טרם אושרו לך שעות התנדבות";
-        str += "</h2>";
-        document.getElementById("subHeadline").innerHTML += str;
-    }
-    else {
-        str = "<h2>";
-        str += data.firstName + ", אושרו לך עד היום " + data.hoursCount + " שעות התנדבות! כל הכבוד!";
-        str += "</h2>";
-        document.getElementById("subHeadline").innerHTML += str;
-    }
-}
+
 
 // get Volunteers In My Team
 function getVolunteersInMyTeam() {
-    ajaxCall("GET", api + "UserServices/usersInTeam/" + currentUserDetails.teamID, "", getVolunteersInMyTeamSCB, getVolunteersInMyTeamECB);
+    currentTeamId = currentUserDetails.teamID;
+    sessionStorage.setItem("teamID", JSON.stringify(currentTeamId));
+    ajaxCall("GET", api + "UserServices/usersInTeam/" + currentTeamId, "", getVolunteersInMyTeamSCB, getVolunteersInMyTeamECB);
 }
-
 function getVolunteersInMyTeamSCB(data) {
     usersArr = data;
     renderVolunteersInMyTeam(usersArr);
 }
-
 function getVolunteersInMyTeamECB(err) {
     alert("לא הצלחתי למצוא את המשתמשים בצוות שלך");
 }
@@ -261,16 +259,15 @@ function getVolunteersInMyTeamECB(err) {
 function getAllVolunteers() {
     ajaxCall("GET", api + "UserServices", "", getAllVolunteersSCB, getAllVolunteersECB);
 }
-
 function getAllVolunteersSCB(data) {
     usersArr = data;
     renderVolunteersInMyTeam(usersArr);
 }
-
 function getAllVolunteersECB(err) {
     alert("לא הצלחתי למצוא את המשתמשים");
 }
 
+//render Volunteers In My Team (to selection list- permission 3)
 function renderVolunteersInMyTeam(usersArr) {
     let str = "";
     str += `<option value="` + currentUserDetails.userID + `">` + currentUserDetails.userName + `</option>`;
@@ -287,7 +284,7 @@ function ChangeVolHours() {
     getVolunteerHours($("#usersList").val());
 }
 
-// get Volunteer Hours
+// get all Volunteer Hours (to selection list- permission 2+1)
 function getVolunteerHours(userID) {
     ajaxCall("GET", api + "HourReports/" + userID, "", getVolunteerHoursSCB, getVolunteerHoursECB);
     return false;
@@ -301,13 +298,19 @@ function getVolunteerHoursECB(err) {
 
 //hide Hours Main Buttons from premmition 4
 function hideHoursMainButtons() {
-    if (currentUser[1] === 4) {
+    if (currentUser[1] === 4) //volunteer
+    {
         document.getElementById("allUsersReportsButton").style.display = "none";
         document.getElementById("teamUsersReportsButton").style.display = "none";
         document.getElementById("UsersOptions").style.display = "none";
     }
-    if (currentUser[1] == 3 && currentUser) {
+    if (currentUser[1] === 3)//team leader
+    {
         document.getElementById("allUsersReportsButton").style.display = "none";
+    }
+    if (currentUser[1] === 2 || currentUser[1] === 1)
+    {
+        document.getElementById("teamUsersReportsButton").style.display = "none";
     }
 }
 

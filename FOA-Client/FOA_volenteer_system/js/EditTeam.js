@@ -132,7 +132,7 @@ function addToSelectedUsers() {
 
     if (selectedUserId !== "0" && !isUserAlreadySelected(selectedUserId)) {
         var user = {
-            userId: selectedUserId,
+            userID: selectedUserId,
             name: selectedUserName,
             teamID: currentTeamId
         };

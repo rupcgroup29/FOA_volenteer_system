@@ -47,7 +47,6 @@ namespace FOA_Server.Controllers
         {
             try
             {
-                //int reportID, int status, int userId;
                 HourReport shiftsStatus = new HourReport();
                 bool affected = shiftsStatus.UpdateShiftStatus(listOfHours);
                 if (affected)

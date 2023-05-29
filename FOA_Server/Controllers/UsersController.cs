@@ -4,6 +4,7 @@ using System;
 using System.Diagnostics;
 using System.Net;
 using System.Net.Mail;
+using System.Text.Json;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -86,7 +87,7 @@ namespace FOA_Server.Controllers
                         // bulid & send the email 
                         string messageBody = $" ברוכים הבאים {newUser.FirstName} {newUser.Surname} למערכת ההתנדבות של FOA! ";
                         messageBody += $" הסיסמא שלך היא: {newUser.Password} ";
-                        string subject = "Welcome to the FOA Volenteer System";
+                        string subject = "ברוכים הבאים למערכת ההתנדבות של FOA!";
                         EmailService emailService = new EmailService();
                         emailService.SendEmail(emailService.createMailMessage(newUser.Email, messageBody, subject));
                         return true;
@@ -141,8 +142,8 @@ namespace FOA_Server.Controllers
                 Guid newPassword = Guid.NewGuid();      // create random password
 
                 // bulid & send the email 
-                string messageBody = $"בעקבות לחיצה שלך על כפתור 'שכחתי סיסמא', להלן הסיסמא החדשה שלך למערכת המתנדבים של FOA: {newPassword}";
-                string subject = "Reset Password to the FOA Volenteer System";
+                string messageBody = $"בעקבות שלחצת על כפתור 'שכחתי סיסמא', להלן הסיסמא החדשה שלך למערכת: {newPassword}";
+                string subject = "איפוס סיסמא למערכת ההתנדבות של FOA";
                 EmailService emailService = new EmailService();
                 emailService.SendEmail(emailService.createMailMessage(resetEmail, messageBody, subject));
 
@@ -208,7 +209,18 @@ namespace FOA_Server.Controllers
             catch (Exception e) { throw new Exception(e.Message); }
         }
 
-
+        // PUT api/<UserServicesController>/5
+        [HttpPut("team")]     //update users teamID
+        public bool PutUsersTeam(JsonElement[] users)
+        {
+            try
+            {
+                UserService user = new UserService();
+                bool affected = user.UpdateUsersTeam(users);
+                return affected;
+            }
+            catch (Exception e) { throw new Exception(e.Message); }
+        }
 
     }
 }

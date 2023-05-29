@@ -1,4 +1,6 @@
 ﻿using FOA_Server.Models.DAL;
+using System.Net;
+using System.Text.Json;
 using System.Text.RegularExpressions;
 
 namespace FOA_Server.Models
@@ -190,7 +192,7 @@ namespace FOA_Server.Models
         public bool UpdateUserWithPassword()
         {
             UsersList = ReadAllUsers();
-        
+
             try
             {
                 foreach (UserService u in UsersList)
@@ -240,6 +242,32 @@ namespace FOA_Server.Models
             }
         }
 
+
+        // update user's teamID
+        public bool UpdateUsersTeam(JsonElement[] users)
+        {
+            bool allUpdated = true;
+            DBusers dBusers = new DBusers();
+
+            foreach (JsonElement u in users)
+            {
+                int userID = Convert.ToInt32(u.GetProperty("userID").GetInt32());
+                int teamID = Convert.ToInt32(u.GetProperty("teamID").GetInt32());
+                //string userName = u.GetProperty("name").ToString();
+
+                int rowsAffected = dBusers.UpdateTeamLeaderTeam(userID, teamID);
+                if (rowsAffected == 0)
+                {
+                    allUpdated = false;
+                    break;    // Exit loop early if any report fails to insert
+                }
+            }
+
+            if (allUpdated)
+                return allUpdated;
+            else { throw new Exception(" לא הצליח לעדכן למשתמשים שבחרת את הצוות החדש "); }
+
+        }
 
 
         // user log in

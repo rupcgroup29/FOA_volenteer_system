@@ -1,5 +1,4 @@
 ﻿var api;
-var isLoggedIn;
 var TeamsArr = [];
 var currentUser = sessionStorage.getItem("user");
 

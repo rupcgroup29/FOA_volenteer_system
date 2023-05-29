@@ -58,6 +58,18 @@ namespace FOA_Server.Models
                 {
                     try
                     {
+                        if (report.StartTime > DateTime.Now)    //אם הזמן שהיוזר הזין הוא עתידי
+                        {
+                            throw new Exception(" הכנסת זמן עתידי ");
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        throw new Exception(ex.Message);
+                    }
+
+                    try
+                    {
                         TimeSpan timeSpane = report.EndTime - report.StartTime;
                         if (timeSpane.TotalMilliseconds < 0)    //אם הזמן שהיוזר הזין הוא שלילי
                         {
@@ -74,9 +86,12 @@ namespace FOA_Server.Models
                         List<HourReport> usersList = ReadUserHourReports(report.UserID);
                         foreach (HourReport user in usersList)
                         {
-                            if (!((report.StartTime >= user.EndTime) || (report.EndTime <= user.StartTime)))
+                            if (((report.StartTime > user.StartTime) && (report.StartTime < user.EndTime)) ||
+                                ((report.EndTime > user.StartTime) && (report.EndTime < user.EndTime)) ||
+                                ((report.StartTime < user.StartTime) && (report.EndTime > user.EndTime)) ||
+                                !((report.StartTime >= user.EndTime) || (report.EndTime <= user.StartTime)))
                             {
-                                throw new Exception(" כבר הכנסת דיווח שעות עם אותם הזמנים ");
+                                throw new Exception("כבר הכנסת דיווח שעות עם אותם הזמנים");
                             }
                         }
                     }

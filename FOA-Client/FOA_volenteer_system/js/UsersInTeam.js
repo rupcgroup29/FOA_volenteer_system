@@ -1,5 +1,4 @@
 ﻿var api;
-var isLoggedIn;
 var usersArr = [];
 var currentTeamId = JSON.parse(sessionStorage.getItem("team"));
 

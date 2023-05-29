@@ -12941,12 +12941,13 @@ label, .dataTables_wrapper .dataTables_paginate {
 
 .view-button {
     border-radius: 0.25rem;
-    background-color: transparent;
+    background-color: #00000029;
     color: lightyellow;
-    border: 2px solid #358079;
+    border: 2.5px solid #358079;
     padding: 5px 10px;
     cursor: pointer;
     margin: 2px;
+    letter-spacing: 0.04em;
 }
 
     .round-button a, .view-button a {

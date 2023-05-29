@@ -1,5 +1,4 @@
 ﻿var api;
-var isLoggedIn;
 var currentUser = sessionStorage.getItem("user");
 var currentUserDetails;
 var usersArr = [];
@@ -22,6 +21,7 @@ $(document).ready(function () {
     closePopup();
 
 });
+
 //headline 
 function renderHeadline(data) {
     if (data.hoursCount == 0) {
@@ -48,7 +48,7 @@ function getMyHoursSCB(data) {
 
 }
 function getMyHoursECB(err) {
-    alert("Input Error");
+    alert("Input Error1");
 }
 
 //Render Hours List
@@ -228,13 +228,13 @@ function readMyDetailsSCB(data) {
     if (currentUser[1] == 3) { //team leader
         getVolunteersInMyTeam();
     }
-    if (currentUser[1] == 2) { //manager
+    if (currentUser[1] === 2 || currentUser[1] === 1) { //manager
         getAllVolunteers();
     }
     renderHeadline(data);
 }
 function readMyDetailsECB(err) {
-    alert("Input Error");
+    alert("Input Error2");
 }
 
 
@@ -273,10 +273,12 @@ function renderVolunteersInMyTeam(usersArr) {
         if (currentUserDetails.userID != usersArr[i].userID) {
             str += `<option value="` + usersArr[i].userID + `">` + usersArr[i].userName + `</option>`;
         }
-
     }
     document.getElementById("usersList").innerHTML += str;
-    AlertShiftsForApproval();
+
+    if (currentUser[1] === 3) { //team leader
+        AlertShiftsForApproval();
+    }
 }
 
 function ChangeVolHours() {
@@ -292,7 +294,7 @@ function getVolunteerHoursSCB(data) {
     RenderHoursList(data);
 }
 function getVolunteerHoursECB(err) {
-    alert("Input Error");
+    alert("Error in getting hours");
 }
 
 //hide Hours Main Buttons from premmition 4
@@ -306,10 +308,16 @@ function ViewByPermissions() {
     if (currentUser[1] === 3)//team leader
     {
         document.getElementById("allUsersReportsButton").style.display = "none";
+        document.getElementById("UsersOptions").classList.add("col-4");
+        document.getElementById("teamUsersReportsButton").classList.add("col-4");
+        document.getElementById("addNewHourReportButton").classList.add("col-4");
     }
     if (currentUser[1] === 2 || currentUser[1] === 1)
     {
         document.getElementById("teamUsersReportsButton").style.display = "none";
+        document.getElementById("allUsersReportsButton").classList.add("col-4");
+        document.getElementById("addNewHourReportButton").classList.add("col-4");
+        document.getElementById("UsersOptions").classList.add("col-4");
     }
 }
 
@@ -324,7 +332,7 @@ function AlertShiftsForApprovalSCB(data) {
     openPopup1();
 }
 function AlertShiftsForApprovalECB(err) {
-    alert("Input Error");
+    alert("Error");
 }
 
 function openPopup1() {

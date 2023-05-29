@@ -255,19 +255,19 @@
                 <h2 class="section-heading text-uppercase">דיווחי שעות התנדבות</h2>
                 <div id="subHeadline"></div>
                 <div class="row" id="HoursMainButtons">
-                    <div class="col-4" id="UsersOptions">
+                    <div id="UsersOptions">
                         <select id="usersList">
                             <!-- Render Users List -->
                         </select>
                         <button type="button" class="round-button" onclick="ChangeVolHours()">החל</button>
                     </div>
-                    <div class="col-4">
+                    <div id="addNewHourReportButton">
                         <buttonn type="button" class="round-button"><a href="AddHours.html">הוספת דיווח שעות</a></buttonn>
                     </div>
-                    <div class="col-4" id="allUsersReportsButton">
+                    <div id="allUsersReportsButton">
                         <button class="round-button"><a href="AllHours.html">כלל דיווחי שעות</a></button>
                     </div>
-                    <div class="col-4" id="teamUsersReportsButton">
+                    <div id="teamUsersReportsButton">
                         <button class="round-button"><a href="teamHours.html">נותר לי לאשר</a></button>
                     </div>
                 </div>
@@ -287,7 +287,8 @@
                     </table>
 
                     <div id="updateShiftsBTN_Div" class="col-12 text-center mt-4">
-                        <button class="view-button" type="button" onclick="updateStatus()">שמירה</button>
+                        <!--<button class="view-button" type="button" onclick="updateStatus()">שמירה</button>-->
+                        <button id="submitButton" class="btn btn-primary btn-xl text-uppercase" type="submit" onclick="updateStatus()">שמירה</button>
                     </div>
                 </div>
             </div>

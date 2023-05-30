@@ -32,7 +32,7 @@ function postAddNewTeamSCB(data) {
 }
 
 function postAddNewTeamECB(err) {
-    alert(err);
+    alert(err.responseJSON.errorMessage);
 }
 
 
@@ -56,5 +56,5 @@ function getTeamLeadersListSCB(data) {
     }
 }
 function getTeamLeadersListECB(err) {
-    console.log(err);
+    console.log(err.responseJSON.errorMessage);
 }

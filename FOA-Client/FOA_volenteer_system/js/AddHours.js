@@ -82,68 +82,174 @@ function postAddShiftsECB(err) {
 //}
 
 
+//function RenderOneMoreRow() {
+//    // Create a new div element with the desired class
+//    var parentDiv = document.createElement('div');
+//    parentDiv.className = 'row';
+//    parentDiv.id = 'row' + rowNum; // Unique ID
+//    parentDiv.style.direction = 'rtl';
+
+//    //trash -start
+//    var trashcanHtml = document.createElement('span');
+//    trashcanHtml.className = 'delete-icon col-1';
+//    trashcanHtml.onclick = function () {
+//        confirmDelete(parentDiv.id);
+//    };
+//    var trashcanIcon = document.createElement('i');
+//    trashcanIcon.className = 'fas fa-trash-alt';
+//    trashcanHtml.appendChild(trashcanIcon);
+
+//    parentDiv.appendChild(trashcanHtml);
+//    //trash -end
+
+//    // Create a new div element
+//    var newDivDate = document.createElement('div');
+//    newDivDate.className = 'col-3 form-headers form-group';
+
+//    var paragraph = document.createElement('p');
+//    paragraph.textContent = 'תאריך'; // Set the content of the <p> element
+//    newDivDate.appendChild(paragraph);
+
+//    // Create date input
+//    var dateInput = document.createElement('input');
+//    dateInput.type = 'date';
+//    dateInput.id = 'dateInput' + rowNum; // Unique ID
+//    dateInput.name = 'date';
+//    dateInput.className = 'form-control'; // Add class
+//    newDivDate.appendChild(dateInput);
+
+//    // Create a new div element
+//    var newDivStartTime = document.createElement('div');
+//    newDivStartTime.className = 'col-3 form-headers form-group';
+
+//    var paragraph = document.createElement('p');
+//    paragraph.textContent = 'שעת התחלה'; // Set the content of the <p> element
+//    newDivStartTime.appendChild(paragraph);
+
+//    // Create startTime input
+//    var startTimeInput = document.createElement('input');
+//    startTimeInput.type = 'time';
+//    startTimeInput.id = 'startTimeInput' + rowNum; // Unique ID
+//    startTimeInput.name = 'startTime';
+//    startTimeInput.className = 'form-control'; // Add class
+//    newDivStartTime.appendChild(startTimeInput);
+
+//    // Create a new div element
+//    var newDivEndTime = document.createElement('div');
+//    newDivEndTime.className = 'col-3 form-headers form-group';
+
+//    var paragraph = document.createElement('p');
+//    paragraph.textContent = 'שעת סיום'; // Set the content of the <p> element
+//    newDivEndTime.appendChild(paragraph);
+
+//    // Create endTime input
+//    var endTimeInput = document.createElement('input');
+//    endTimeInput.type = 'time';
+//    endTimeInput.id = 'endTimeInput' + rowNum; // Unique ID
+//    endTimeInput.name = 'endTime';
+//    endTimeInput.className = 'form-control'; // Add class
+//    newDivEndTime.appendChild(endTimeInput);
+
+//    // Append the newDiv to the parentDiv
+//    parentDiv.appendChild(newDivDate);
+//    parentDiv.appendChild(newDivStartTime);
+//    parentDiv.appendChild(newDivEndTime);
+
+//    // Add the new div to the container
+//    var inputsContainer = document.getElementById('RenderShifts');
+//    inputsContainer.appendChild(parentDiv);
+
+//    rowNum++; // Increment the counter for the next set of inputs
+//}
+
+//// delete report
+//function confirmDelete(reportID) {
+//    // Get the parent element of the row to be deleted
+//    var parentDiv = document.getElementById("RenderShifts");
+
+//    // Get the row element to be deleted based on the rowNum
+//    var rowToDelete = document.getElementById(reportID);
+
+//    // Remove the row from the parent element
+//    if (rowToDelete) {
+//        parentDiv.removeChild(rowToDelete);
+//    }
+//}
+
+
 function RenderOneMoreRow() {
-    // Create a new div element with the desired class
-    var parentDiv = document.createElement('div');
-    parentDiv.className = 'row';
-    parentDiv.style.direction = 'rtl';
+    var table = document.getElementById('shiftTable'); // Get the table element
 
-    // Create a new div element
-    var newDivDate = document.createElement('div');
-    newDivDate.className = 'col-4 form-headers form-group';
+    // Create a new row element
+    var newRow = table.insertRow();
+    newRow.id = 'newRow' + rowNum; // Unique ID
 
-    var paragraph = document.createElement('p');
-    paragraph.textContent = 'תאריך'; // Set the content of the <p> element
-    newDivDate.appendChild(paragraph);
+    // Create cell for delete icon
+    var deleteCell = newRow.insertCell();
+    deleteCell.className = 'delete-icon';
 
-    // Create date input
+    // Create a new button element
+    var deleteButton = document.createElement('button');
+    deleteButton.id = 'deleteBtn';
+    deleteButton.onclick = function () {
+        confirmDelete(newRow.id);
+    };
+
+    // Create trashcan icon
+    var trashcanIcon = document.createElement('i');
+    trashcanIcon.className = 'fas fa-trash-alt';
+    deleteButton.appendChild(trashcanIcon);
+    deleteCell.appendChild(deleteButton);
+
+    // Create cell for date input
+    var dateCell = newRow.insertCell();
+    dateCell.className = 'form-headers';
+
+    var dateLabel = document.createElement('p');
+    dateLabel.textContent = 'תאריך';
+    dateCell.appendChild(dateLabel);
+
     var dateInput = document.createElement('input');
     dateInput.type = 'date';
-    dateInput.id = 'dateInput' + rowNum; // Unique ID
     dateInput.name = 'date';
-    dateInput.className = 'form-control'; // Add class
-    newDivDate.appendChild(dateInput);
+    dateInput.className = 'form-control';
+    dateInput.id = 'dateInput' + rowNum; // Unique ID
+    dateCell.appendChild(dateInput);
 
-    // Create a new div element
-    var newDivStartTime = document.createElement('div');
-    newDivStartTime.className = 'col-4 form-headers form-group';
+    // Create cell for start time input
+    var startTimeCell = newRow.insertCell();
+    startTimeCell.className = 'form-headers';
 
-    var paragraph = document.createElement('p');
-    paragraph.textContent = 'שעת התחלה'; // Set the content of the <p> element
-    newDivStartTime.appendChild(paragraph);
+    var startTimeLabel = document.createElement('p');
+    startTimeLabel.textContent = 'שעת התחלה';
+    startTimeCell.appendChild(startTimeLabel);
 
-    // Create startTime input
     var startTimeInput = document.createElement('input');
     startTimeInput.type = 'time';
-    startTimeInput.id = 'startTimeInput' + rowNum; // Unique ID
     startTimeInput.name = 'startTime';
-    dateInput.className = 'form-control'; // Add class
-    newDivStartTime.appendChild(startTimeInput);
+    startTimeInput.className = 'form-control';
+    startTimeInput.id = 'startTimeInput' + rowNum; // Unique ID
+    startTimeCell.appendChild(startTimeInput);
 
-    // Create a new div element
-    var newDivEndTime = document.createElement('div');
-    newDivEndTime.className = 'col-4 form-headers form-group';
+    // Create cell for end time input
+    var endTimeCell = newRow.insertCell();
+    endTimeCell.className = 'form-headers';
 
-    var paragraph = document.createElement('p');
-    paragraph.textContent = 'שעת סיום'; // Set the content of the <p> element
-    newDivEndTime.appendChild(paragraph);
+    var endTimeLabel = document.createElement('p');
+    endTimeLabel.textContent = 'שעת סיום';
+    endTimeCell.appendChild(endTimeLabel);
 
-    // Create endTime input
     var endTimeInput = document.createElement('input');
     endTimeInput.type = 'time';
-    endTimeInput.id = 'endTimeInput' + rowNum; // Unique ID
     endTimeInput.name = 'endTime';
-    dateInput.className = 'form-control'; // Add class
-    newDivEndTime.appendChild(endTimeInput);
+    endTimeInput.className = 'form-control';
+    endTimeInput.id = 'endTimeInput' + rowNum; // Unique ID
+    endTimeCell.appendChild(endTimeInput);
 
-    // Append the newDiv to the parentDiv
-    parentDiv.appendChild(newDivDate);
-    parentDiv.appendChild(newDivStartTime);
-    parentDiv.appendChild(newDivEndTime);
+    rowNum++;
+}
 
-    // Add the new div to the container
-    var inputsContainer = document.getElementById('RenderShifts');
-    inputsContainer.appendChild(parentDiv);
-
-    rowNum++; // Increment the counter for the next set of inputs
+// delete report
+function confirmDelete(rowIndex) {
+    document.getElementById(rowIndex).remove();
 }

@@ -23,7 +23,7 @@ function getHoursDetailsSCB(data) {
     RenderHoursList(data);
 }
 function getHoursDetailsECB(err) {
-    alert(err);
+    alert(err.responseJSON.errorMessage);
 }
 
 
@@ -143,7 +143,7 @@ function RenderHoursList(array) {
                 }
             });
         } catch (err) {
-            alert(err);
+            alert(err.responseJSON.errorMessage);
         }
     }
 }
@@ -169,7 +169,7 @@ function updateStatusSCB(data) {
     location.assign("Hours-Main.html")
 }
 function updateStatusECB(err) {
-    alert(err);
+    alert(err.responseJSON.errorMessage);
 }
 
 
@@ -192,5 +192,5 @@ function deleteHoursSCB(num) {
     location.assign("Hours-Main.html")
 }
 function deleteHoursECB(err) {
-    alert("Failed to delete the hour report. Error: " + err.responseText);
+    alert("Failed to delete the hour report. " + err.responseJSON.errorMessage);
 }

@@ -41,7 +41,46 @@ h2 {
     padding-bottom: 5rem;
 }
 
-:root {
+#addNewHoursDivBtn {
+    text-align: right;
+    font-size: 20px;
+}
+
+#shiftTable {
+    direction: rtl;
+    width: 100%;
+    margin-bottom: 10px;
+}
+
+    #shiftTable td {
+        padding: 10px;
+    }
+
+td.delete-icon {
+    width: 42px;
+}
+
+#deleteBtn {
+    cursor: pointer;
+    color: #d33333;
+    background-color: transparent;
+    border: none;
+    font-size: 18px;
+}
+
+#shiftTable p {
+    font-size: 18px;
+    letter-spacing: 0;
+    margin: 0 0 16px;
+}
+
+#shiftTable input {
+    height: 64px;
+    margin-top: -1rem;
+    text-align-last: right;
+}
+
+: root {
     --bs-blue: #0d6efd;
     --bs-indigo: #6610f2;
     --bs-purple: #6f42c1;
@@ -12915,7 +12954,7 @@ label, .dataTables_wrapper .dataTables_paginate {
 
 .delete-icon {
     cursor: pointer;
-    color: darkred;
+    color: #d33333;
 }
 
 #subHeadline {
@@ -12928,13 +12967,13 @@ label, .dataTables_wrapper .dataTables_paginate {
     padding: 2rem;
 }
 
-    /* round-button */
+/* round-button */
 .round-button {
     border-radius: 0.25rem;
     background-color: transparent;
     color: lightyellow;
     border: 2px solid goldenrod;
-    padding: 5px 10px;
+    padding: 10px 10px;
     cursor: pointer;
     height: 3.2rem;
 }

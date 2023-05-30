@@ -40,7 +40,7 @@ function readPostByIDSCB(data) {
     RenderRelevantDetails();
 }
 function readPostByIDECB(err) {
-    alert("Input Error");
+    alert(err.responseJSON.errorMessage);
 }
 
 
@@ -139,10 +139,7 @@ function RenderRelevantDetails() {
     imgStr = `<img class="screenshotImg" src='${src}'/>`;
 
     document.getElementById("showScreenshot").innerHTML = imgStr;
-
 }
-
-
 
 
 // edit post - submit
@@ -180,7 +177,7 @@ function editPostSCB(data) {
     location.assign("HomePage.html")
 }
 function editPostECB(err) {
-    alert("שגיאה בעדכון הדיווח, אנא נסו שוב");
+    alert("שגיאה בעדכון הדיווח " + err.responseJSON.errorMessage);
 }
 
 
@@ -203,4 +200,5 @@ function enableInitialReportingFields() {
 function enableEditingFields() {
     $("#removalStatus").attr("disabled", true);
     $("#ManagerStatus").attr("disabled", true);
+    $("#submitBtn").hide();
 }

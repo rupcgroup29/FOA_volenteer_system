@@ -73,7 +73,7 @@ namespace FOA_Server.Models
                         TimeSpan timeSpane = report.EndTime - report.StartTime;
                         if (timeSpane.TotalMilliseconds < 0)    //אם הזמן שהיוזר הזין הוא שלילי
                         {
-                            throw new Exception(" שעת הכניסה שהזנת היא אחרי שעת הסיום, אנא נסה שוב ");
+                            throw new Exception(" שעת הכניסה שהזנת היא אחרי שעת הסיום ");
                         }
                     }
                     catch (Exception ex)
@@ -91,7 +91,7 @@ namespace FOA_Server.Models
                                 ((report.StartTime < user.StartTime) && (report.EndTime > user.EndTime)) ||
                                 !((report.StartTime >= user.EndTime) || (report.EndTime <= user.StartTime)))
                             {
-                                throw new Exception("כבר הכנסת דיווח שעות עם אותם הזמנים");
+                                throw new Exception("כבר הכנסת דיווח שעות עם אותם הזמנים ");
                             }
                         }
                     }
@@ -149,7 +149,7 @@ namespace FOA_Server.Models
                 DBusers dbusers = new DBusers();
                 return dbusers.DeleteHourReports(reportID);
             }
-            else throw new Exception(" cannot delete an hour report becouse its status has already changed ");
+            else throw new Exception(" לא ניתן למחוק את דיווח השעות כי כבר הוזן לו סטטוס ");
         }
 
 

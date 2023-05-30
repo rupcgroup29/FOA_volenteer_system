@@ -43,9 +43,8 @@ function postRegisterSCB(data) { // הוספת משתמש הצליחה
     window.location.assign("Teams-main.html");
     location.assign("Teams-main.html")
 }
-
 function postRegisterECB(err) {
-    alert(err);
+    alert(err.responseJSON.errorMessage);
 }
 
 

@@ -45,10 +45,9 @@ function getMyHours() {
 }
 function getMyHoursSCB(data) {
     RenderHoursList(data);
-
 }
 function getMyHoursECB(err) {
-    alert("Input Error1");
+    alert(err.responseJSON.errorMessage);
 }
 
 //Render Hours List
@@ -166,7 +165,7 @@ function RenderHoursList(array) {
                 }
             });
         } catch (err) {
-            alert(err);
+            alert(err.responseJSON.errorMessage);
         }
     }
 }
@@ -192,7 +191,7 @@ function updateStatusSCB(data) {
     location.assign("Hours-Main.html")
 }
 function updateStatusECB(err) {
-    alert(err);
+    alert(err.responseJSON.errorMessage);
 }
 
 
@@ -215,7 +214,7 @@ function deleteHoursSCB(num) {
     location.assign("Hours-Main.html")
 }
 function deleteHoursECB(err) {
-    alert("Failed to delete the hour report. Error: " + err.responseText);
+    alert("Failed to delete the hour report. Error: " + err.responseJSON.errorMessage);
 }
 
 // read My Details
@@ -234,7 +233,7 @@ function readMyDetailsSCB(data) {
     renderHeadline(data);
 }
 function readMyDetailsECB(err) {
-    alert("Input Error2");
+    alert(err.responseJSON.errorMessage);
 }
 
 
@@ -250,7 +249,7 @@ function getVolunteersInMyTeamSCB(data) {
     renderVolunteersInMyTeam(usersArr);
 }
 function getVolunteersInMyTeamECB(err) {
-    alert("לא הצלחתי למצוא את המשתמשים בצוות שלך");
+    alert(err.responseJSON.errorMessage);
 }
 
 // get all Volunteers
@@ -262,7 +261,7 @@ function getAllVolunteersSCB(data) {
     renderVolunteersInMyTeam(usersArr);
 }
 function getAllVolunteersECB(err) {
-    alert("לא הצלחתי למצוא את המשתמשים");
+    alert(err.responseJSON.errorMessage);
 }
 
 //render Volunteers In My Team (to selection list- permission 3)
@@ -294,7 +293,7 @@ function getVolunteerHoursSCB(data) {
     RenderHoursList(data);
 }
 function getVolunteerHoursECB(err) {
-    alert("Error in getting hours");
+    alert("Error in getting hours " + err.responseJSON.errorMessage);
 }
 
 //hide Hours Main Buttons from premmition 4
@@ -332,7 +331,7 @@ function AlertShiftsForApprovalSCB(data) {
     openPopup1();
 }
 function AlertShiftsForApprovalECB(err) {
-    alert("Error");
+    alert(err.responseJSON.errorMessage);
 }
 
 function openPopup1() {

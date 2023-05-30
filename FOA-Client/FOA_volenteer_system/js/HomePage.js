@@ -46,7 +46,7 @@ function readPostsSCB(data) {
     drawPostsDataTable(postsArr);
 }
 function readPostsECB(err) {
-    alert("Error " + err);
+    alert(err.responseJSON.errorMessage);
 }
 
 // render the posts list
@@ -130,7 +130,7 @@ function AlertPostsForApprovalSCB(data) {
     openPopup();
 }
 function AlertPostsForApprovalECB(err) {
-    alert("Input Error");
+    alert(err.responseJSON.errorMessage);
 }
 
 function openPopup() {
@@ -151,7 +151,7 @@ function getRecommendationSCB(data) {
     renderRecommendation();
 }
 function getRecommendationECB(err) {
-    alert("Input Error");
+    alert(err.responseJSON.errorMessage);
 }
 
 function renderRecommendation() {

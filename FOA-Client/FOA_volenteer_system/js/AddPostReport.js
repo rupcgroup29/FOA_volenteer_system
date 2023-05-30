@@ -97,7 +97,7 @@ function postAddNewPostSCB(data) { // הוספת דיווח הצליחה
     location.assign("HomePage.html")
 }
 function postAddNewPostECB(err) {
-    alert("שגיאה בהוספת הדיווח, אנא נסו שוב");
+    alert("שגיאה בהוספת הדיווח, " + err.responseJSON.errorMessage + " אנא נסו שוב");
 }
 
 //

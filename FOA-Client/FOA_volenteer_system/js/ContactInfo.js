@@ -19,7 +19,7 @@ function getManagerDetailsSCB(data) {
     renderManagerDetails(data);
 }
 function getManagerDetailsECB(err) {
-    alert("Input Error");
+    alert(err.responseJSON.errorMessage);
 }
 
 function renderManagerDetails(data) {

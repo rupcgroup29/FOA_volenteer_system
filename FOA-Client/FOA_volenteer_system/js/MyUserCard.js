@@ -47,7 +47,7 @@ function getMyUserDetailsSCB(data) {
     renderMyUserDetails();
 }
 function getMyUserDetailsECB(err) {
-    alert("Input Error");
+    alert(err.responseJSON.errorMessage);
 }
 
 function renderMyUserDetails() {
@@ -142,7 +142,7 @@ function updateUserSCB(data) {
 }
 
 function updateUserECB(err) {
-    alert("שגיאה בעדכון המשתמש, אנא נסו שוב");
+    alert("שגיאה בעדכון המשתמש " + err.responseJSON.errorMessage);
 }
 
 

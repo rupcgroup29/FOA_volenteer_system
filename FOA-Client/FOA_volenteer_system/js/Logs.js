@@ -19,7 +19,7 @@ function readLogsSCB(data) {
     drawLogsDataTable(data);
 }
 function readLogsECB(err) {
-    alert(err);
+    alert(err.responseJSON.errorMessage);
 }
 
 // render the log list
@@ -53,7 +53,7 @@ function drawLogsDataTable(array) {
                 }
             });
         } catch (err) {
-            alert(err);
+            alert(err.responseJSON.errorMessage);
         }
     }
 }

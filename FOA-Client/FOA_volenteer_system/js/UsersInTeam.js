@@ -21,7 +21,7 @@ function getTeamDetailsSCB(data) {
     RenderTeamDetails(data);
 }
 function getTeamDetailsECB(err) {
-    alert(err);
+    alert(err.responseJSON.errorMessage);
 }
 
 function RenderTeamDetails(data) {
@@ -48,7 +48,7 @@ function getAllUsersSCB(data) {
     RenderUsersList(usersArr);
 }
 function getAllUsersECB(err) {
-    alert("Error " + err);
+    alert(err.responseJSON.errorMessage);
 }
 
 // render the team's users list
@@ -80,7 +80,7 @@ function RenderUsersList(array) {
                 }
             });
         } catch (err) {
-            alert(err);
+            alert(err.responseJSON.errorMessage);
         }
     }
 }

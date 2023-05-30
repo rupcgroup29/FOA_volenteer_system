@@ -44,7 +44,7 @@ function putEditTeamSCB(data) {
     location.assign("Teams-main.html")
 }
 function putEditTeamECB(err) {
-    alert(err);
+    alert(err.responseJSON.errorMessage);
 }
 
 

@@ -36,26 +36,23 @@ $(document).ready(function () {
 
 // GET Another User Details
 function getAnotherUserDetails() {
-    ajaxCall("GET", api + "UserServices/user_details/" + relevantUserID, "", getAnotherUserDetailsSCB, getAnotherUserDetailsECB);
+    ajaxCall("GET", api + "UserServices/user_details/" + relevantUserID, "", getAnotherUserDetailsSCB, getUserDetailsECB);
 }
 function getAnotherUserDetailsSCB(data) {
     relevantUserObject = data;
     renderUserDetails();
 }
-function getAnotherUserDetailsECB(err) {
-    alert("Input Error");
+function getUserDetailsECB(err) {
+    alert(err.responseJSON.errorMessage);
 }
 
 // GET My User Details
 function getMyUserDetails() {
-    ajaxCall("GET", api + "UserServices/" + currentUser[0], "", getMyUserDetailsSCB, getMyUserDetailsECB);
+    ajaxCall("GET", api + "UserServices/" + currentUser[0], "", getMyUserDetailsSCB, getUserDetailsECB);
 }
 function getMyUserDetailsSCB(data) {
     relevantUserObject = data;
     renderUserDetails();
-}
-function getMyUserDetailsECB(err) {
-    alert("Input Error");
 }
 
 function renderUserDetails() {
@@ -159,7 +156,7 @@ function updateUserSCB(data) {
 }
 
 function updateUserECB(err) {
-    alert("שגיאה בעדכון המשתמש, אנא נסו שוב");
+    alert(err.responseJSON.errorMessage);
 }
 
 

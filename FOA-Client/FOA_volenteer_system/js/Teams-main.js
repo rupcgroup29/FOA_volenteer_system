@@ -24,7 +24,7 @@ function getAllTeamsSCB(data) {
 
 }
 function getAllTeamsECB(err) {
-    alert("Input Error");
+    alert(err.responseJSON.errorMessage);
 }
 
 //Render Teams

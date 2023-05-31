@@ -11,11 +11,9 @@ $(document).ready(function () {
     }
     else api = "https://proj.ruppin.ac.il/cgroup29/prod/api/";
 
-    // if volanteer is login
-    if (currentUser[1] == 4)
-        enableEditingFields();
-
     $('#contactForm').submit(updateUser);
+
+    showMode();
 
     // get the volunteer Program list
     getVolunteerProgramsList();
@@ -53,25 +51,25 @@ function getMyUserDetailsECB(err) {
 function renderMyUserDetails() {
     //Card Header
     let str_header = "";
-    str_header += `<h2 class="section-heading text-uppercase"> מתנדב מספר ` + relevantUserObject.userID + `</h2>`;
-    document.getElementById("CardHeader").innerHTML += str_header;
+    str_header += `<h2 class="section-heading text-uppercase"> פרטי משתמש </h2>`;
+    document.getElementById("CardHeader").innerHTML = str_header;
     //is active
-    let str_isActive = "";
-    if (relevantUserObject.isActive == true) {
-        str_isActive += `<option class="opt" value="0">כן </option>`;
-        str_isActive += `<option class="opt" value="1">לא </option>`;
-    }
-    else {
-        str_isActive += `<option class="opt" value="1">לא </option>`;
-        str_isActive += `<option class="opt" value="0">כן </option>`;
-    }
-    document.getElementById("IsActive").innerHTML += str_isActive;
+    //let str_isActive = "";
+    //if (relevantUserObject.isActive == true) {
+    //    str_isActive += `<option class="opt" value="0">כן </option>`;
+    //    str_isActive += `<option class="opt" value="1">לא </option>`;
+    //}
+    //else {
+    //    str_isActive += `<option class="opt" value="1">לא </option>`;
+    //    str_isActive += `<option class="opt" value="0">כן </option>`;
+    //}
+    //document.getElementById("IsActive").innerHTML += str_isActive;
     //volunteerProgram
     let str_Prog = "";
     str_Prog += '<option class="opt" value="' + relevantUserObject.programID + '">' + relevantUserObject.programName + '</option>';
     for (var i = 0; i < programsArr.length; i++) {
         if (programsArr[i].programID != relevantUserObject.programID)
-        str_Prog += '<option class="opt" value="' + programsArr[i].programID + '">' + programsArr[i].programName + '</option>';
+            str_Prog += '<option class="opt" value="' + programsArr[i].programID + '">' + programsArr[i].programName + '</option>';
     }
     str_Prog += '<option class="opt" value="999">אחר </option>';
     document.getElementById("volunteerProgram").innerHTML += str_Prog;
@@ -116,6 +114,34 @@ function renderMyUserDetails() {
     //Password
     $("#Password").val(relevantUserObject.password);
 }
+
+
+function showMode() {
+    $("#firstName").attr("disabled", true);
+    $("#surname").attr("disabled", true);
+    $("#volunteerProgram").attr("disabled", true);
+    $("#permission").attr("disabled", true);
+    $("#team").attr("disabled", true);
+    $("#roleDescription").attr("disabled", true);
+    $("#user_name").attr("disabled", true);
+    $("#phone").attr("disabled", true);
+    $("#email").attr("disabled", true);
+    $("#Password").attr("disabled", true);
+    $("#submitButton").hide();
+    $("#IsActiveDiv").hide();
+}
+
+function editMode() {
+    $("#submitButton").show();
+
+    // if volanteer is login
+    if (currentUser[1] == 4 || currentUser[1] == 3) {
+        $("#isActive").hide();
+        enableEditingFieldsVolenteeen();
+    } else if (currentUser[1] == 2) enableEditingFieldsManager();
+    else enableEditingFieldsAdmin();
+}
+
 
 function updateUser() {
     const updateUser = {
@@ -164,19 +190,7 @@ function enableOther() {
         }
     });
 }
-//function enableOther() {
-//    var sel = document.getElementById('volunteerProgram');
-//    sel.addEventListener("change", ShowDivIfOtherSelected);
-//}
-//function ShowDivIfOtherSelected() {
-//    if (sel.value === '999') {
-//        $("#Different_school").attr("readonly", false);
-//    }
-//    else {
-//        $("#Different_school").attr("readonly", true);
-//        document.getElementById('Different_school').value = '';
-//    }
-//}
+
 
 // get the Volunteer Programs list
 function getVolunteerProgramsList() {
@@ -210,11 +224,24 @@ function getTeamECB(err) {
 }
 
 // אם מתנדב מחובר אז שהוא לא יוכל לערוך חלק מהשדות
-function enableEditingFields() {
-    $("#IsActive").attr("disabled", true);
-    $("#volunteerProgram").attr("disabled", true);
-    $("#permission").attr("disabled", true);
-    $("#team").attr("disabled", true);
-    $("#roleDescription").attr("disabled", true);
-    $("#user_name").attr("disabled", true);
+function enableEditingFieldsVolenteeen() {
+    $("#firstName").attr("disabled", false);
+    $("#surname").attr("disabled", false);
+    $("#phone").attr("disabled", false);
+    $("#email").attr("disabled", false);
+    $("#Password").attr("disabled", false);
+}
+
+// אם מנהל מחובר אז הוא יכול לערוך את כל השדות
+function enableEditingFieldsManager() {
+    enableEditingFieldsVolenteeen();
+    $("#volunteerProgram").attr("disabled", false);
+    $("#team").attr("disabled", false);
+    $("#user_name").attr("disabled", false);
+}
+
+function enableEditingFieldsAdmin() {
+    enableEditingFieldsManager();
+    $("#roleDescription").attr("disabled", false);
+    $("#permission").attr("disabled", false);
 }

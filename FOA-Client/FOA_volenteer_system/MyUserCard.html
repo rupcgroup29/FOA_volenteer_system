@@ -10,6 +10,7 @@
     <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
     <!-- Font Awesome icons (free version)-->
     <script src="https://use.fontawesome.com/releases/v6.1.0/js/all.js" crossorigin="anonymous"></script>
+    <script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script>
     <!-- Core theme CSS (includes Bootstrap)-->
     <link href="css/styles.css" rel="stylesheet" />
 
@@ -239,117 +240,155 @@
 
     <!-- New User Details-->
     <section class="page-section" id="contact">
-        <div class="container">
+        <div>
             <div class="text-center" id="CardHeader">
                 <!--render Card Header-->
             </div>
-            <form id="contactForm" data-sb-form-api-token="API_TOKEN">
-                <div class="row align-items-stretch mb-5">
-                    <div class="col-md-6">
-                        <div class="form-group" id="IsActiveDiv">
-                            <!-- IsActive-->
-                            <div class="form-headers">
-                                <p> מתנדב פעיל</p>
-                            </div>
-                            <select dir="rtl" class="form-control" id="IsActive">
-                                <!--render isActive selection-->
-                            </select>
-                        </div>
-                        <div dir="rtl" class="row" id="Selection+Other">
 
-                            <div dir="rtl" class="form-group" id="schoolDiv">
-                                <!-- volunteerProgram-->
+            <div class="container">
+                <form id="contactForm" data-sb-form-api-token="API_TOKEN">
+                    <p class="littleHeadline" style="color:white">
+                        <button onclick="editMode()" class="fa fa-pencil editBtn">&#xf040;</button>
+                        פרטים אישיים
+                    </p>
+
+                    <div class="row align-items-stretch">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <!-- First Name input-->
                                 <div class="form-headers">
-                                    <p> מסגרת התנדבות</p>
+                                    <p> שם פרטי</p>
                                 </div>
-                                <select dir="rtl" class="form-control" id="volunteerProgram" required>
+                                <input dir="rtl" class="form-control" id="firstName" type="text" required />
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <!--Last Name input-->
+                                <div class="form-headers">
+                                    <p> שם משפחה</p>
+                                </div>
+                                <input dir="rtl" class="form-control" id="surname" type="text" required />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row align-items-stretch">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <!-- Email address input-->
+                                <div class="form-headers">
+                                    <p> כתובת אימייל</p>
+                                </div>
+                                <input dir="rtl" class="form-control" id="email" type="email" required />
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <!-- Phone number input-->
+                                <div class="form-headers">
+                                    <p> טלפון</p>
+                                </div>
+                                <input dir="rtl" class="form-control" id="phone" type="tel" required />
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="row align-items-stretch">
+                        <div class="col-md-6">
+                            <div class="form-group" id="PasswordDiv">
+                                <!-- password input-->
+                                <div class="form-headers">
+                                    <p> סיסמא</p>
+                                </div>
+                                <input dir="rtl" class="form-control" id="Password" name="Password" type="Password" />
+                                <i class="bi bi-eye-slash" id="togglePassword"></i>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div dir="rtl" class="row" id="Selection+Other">
+                                <div dir="rtl" class="form-group" id="schoolDiv">
+                                    <!-- volunteerProgram-->
+                                    <div class="form-headers">
+                                        <p> מסגרת התנדבות</p>
+                                    </div>
+                                    <select dir="rtl" class="form-control" id="volunteerProgram" required>
+                                        <!-- render -->
+                                    </select>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="col-6 form-headers form-group" id="DifSchoolDiv">
+                                        <!-- Different_school-->
+                                        <p> אחר</p>
+                                        <input id="Different_school" class="form-control" type="text" placeholder="אחר" readonly />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!--<div class="form-group" id="IsActiveDiv">-->
+                        <!-- IsActive-->
+                        <!--<div class="form-headers">
+            <p> מתנדב פעיל</p>
+        </div>
+        <select dir="rtl" class="form-control" id="IsActive">-->
+                        <!--render isActive selection-->
+                        <!--</select>
+        </div>-->
+
+
+                    </div>
+                    <br />
+                    <p class="littleHeadline">פרטי מערכת</p>
+                    <div class="row align-items-stretch">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <!-- User_name-->
+                                <div class="form-headers">
+                                    <p> שם משתמש</p>
+                                </div>
+                                <input dir="rtl" class="form-control" id="user_name" type="text" required />
+                            </div>
+                        </div> <div class="col-md-6">
+                            <div class="form-group">
+                                <!-- Team -->
+                                <div class="form-headers">
+                                    <p>צוות התנדבות</p>
+                                </div>
+                                <select dir="rtl" class="form-control" id="team" required>
                                     <!-- render -->
                                 </select>
                             </div>
-                            <div class="col-6 form-headers form-group" id="DifSchoolDiv">
-                                <!-- Different_school-->
-                                <p> אחר</p>
-                                <input id="Different_school" class="form-control" type="text" placeholder="אחר" readonly />
+                        </div>
+                    </div>
+                    <div class="row align-items-stretch">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <!-- Permission-->
+                                <div class="form-headers">
+                                    <p> הרשאת</p>
+                                </div>
+                                <select dir="rtl" class="form-control" id="permission" required>
+                                    <!-- render -->
+                                </select>
                             </div>
                         </div>
-                        <div class="form-group">
-                            <!-- Permission-->
-                            <div class="form-headers">
-                                <p> הרשאת מערכת</p>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <!-- roleDescription-->
+                                <div class="form-headers">
+                                    <p> תיאור תפקיד בעמותה</p>
+                                </div>
+                                <input dir="rtl" class="form-control" id="roleDescription" maxlength="250" />
                             </div>
-                            <select dir="rtl" class="form-control" id="permission" required>
-                                <!-- render -->
-                            </select>
                         </div>
-                        <div class="form-group">
-                            <!-- Team -->
-                            <div class="form-headers">
-                                <p>צוות התנדבות</p>
-                            </div>
-                            <select dir="rtl" class="form-control" id="team" required>
-                                <!-- render -->
-                            </select>
-                        </div>
-                        <div class="form-group">
-                            <!-- roleDescription-->
-                            <div class="form-headers">
-                                <p> תיאור תפקיד בעמותה</p>
-                            </div>
-                            <input dir="rtl" class="form-control" id="roleDescription" maxlength="250" />
-                        </div>
+                    </div>
 
+                    <!--Submit Button-->
+                    <div class="text-center">
+                        <button class="btn btn-primary btn-xl text-uppercase" id="submitButton" type="submit">עידכון</button>
                     </div>
-                    <div class="col-md-6">
-                        <div class="form-group">
-                            <!-- First Name input-->
-                            <div class="form-headers">
-                                <p> שם פרטי</p>
-                            </div>
-                            <input dir="rtl" class="form-control" id="firstName" type="text" required />
-                        </div>
-                        <div class="form-group">
-                            <!--Last Name input-->
-                            <div class="form-headers">
-                                <p> שם משפחה</p>
-                            </div>
-                            <input dir="rtl" class="form-control" id="surname" type="text" required />
-                        </div>
-                        <div class="form-group">
-                            <!-- User_name-->
-                            <div class="form-headers">
-                                <p> שם משתמש במערכת</p>
-                            </div>
-                            <input dir="rtl" class="form-control" id="user_name" type="text" required />
-                        </div>
-                        <div class="form-group">
-                            <!-- Email address input-->
-                            <div class="form-headers">
-                                <p> כתובת אימייל</p>
-                            </div>
-                            <input dir="rtl" class="form-control" id="email" type="email" required />
-                        </div>
-                        <div class="form-group">
-                            <!-- Phone number input-->
-                            <div class="form-headers">
-                                <p> טלפון</p>
-                            </div>
-                            <input dir="rtl" class="form-control" id="phone" type="tel" required />
-                        </div>
-                        <div class="form-group" id="PasswordDiv">
-                            <!-- password input-->
-                            <div class="form-headers">
-                                <p> סיסמא</p>
-                            </div>
-                            <input dir="rtl" class="form-control" id="Password" name="Password" type="Password" />
-                            <i class="bi bi-eye-slash" id="togglePassword"></i>
-                        </div>
-                    </div>
-                </div>
-                <!--Submit Button-->
-                <div class="text-center">
-                    <button class="btn btn-primary btn-xl text-uppercase" id="submitButton" type="submit">עידכון</button>
-                </div>
-            </form>
+                </form>
+            </div>
         </div>
     </section>
 

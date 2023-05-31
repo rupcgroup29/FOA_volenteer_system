@@ -18,6 +18,7 @@ $(document).ready(function () {
     else api = "https://proj.ruppin.ac.il/cgroup29/prod/api/";
 
     $('#contactForm').submit(updateUser);
+    showMode();
 
     // get the volunteer Program list
     getVolunteerProgramsList();
@@ -76,7 +77,7 @@ function renderUserDetails() {
     str_Prog += '<option class="opt" value="' + relevantUserObject.programID + '">' + relevantUserObject.programName + '</option>';
     for (var i = 0; i < programsArr.length; i++) {
         if (programsArr[i].programID != relevantUserObject.programID)
-        str_Prog += '<option class="opt" value="' + programsArr[i].programID + '">' + programsArr[i].programName + '</option>';
+            str_Prog += '<option class="opt" value="' + programsArr[i].programID + '">' + programsArr[i].programName + '</option>';
     }
     str_Prog += '<option class="opt" value="999">אחר </option>';
     document.getElementById("volunteerProgram").innerHTML += str_Prog;
@@ -195,18 +196,57 @@ function getTeamECB(err) {
 
 // enable Other volunteer program only if other selected
 function enableOther() {
-    var sel = document.getElementById('volunteerProgram');
+    var difSchoolDiv = document.getElementById('DifSchoolDiv');
+    difSchoolDiv.style.display = 'none';
 
-    sel.addEventListener("change", ShowDivIfOtherSelected);
-
-    function ShowDivIfOtherSelected() {
-
-        if (sel.value === '999') {
-            $("#Different_school").attr("readonly", false);
+    var volunteerProgramSelect = document.getElementById('volunteerProgram');
+    volunteerProgramSelect.addEventListener('change', function () {
+        if (volunteerProgramSelect.value === '999') {
+            difSchoolDiv.style.display = 'block';
+            document.getElementById('Different_school').removeAttribute('readonly');
+            schoolDiv.classList.add('col-6');
+        } else {
+            difSchoolDiv.style.display = 'none';
+            document.getElementById('Different_school').setAttribute('readonly', 'readonly');
+            schoolDiv.classList.remove('col-6');
         }
-        else {
-            $("#Different_school").attr("readonly", true);
-            document.getElementById('Different_school').value = '';
-        }
+    });
+}
+
+
+function showMode() {
+    $("#firstName").attr("disabled", true);
+    $("#surname").attr("disabled", true);
+    $("#volunteerProgram").attr("disabled", true);
+    $("#permission").attr("disabled", true);
+    $("#team").attr("disabled", true);
+    $("#roleDescription").attr("disabled", true);
+    $("#user_name").attr("disabled", true);
+    $("#phone").attr("disabled", true);
+    $("#email").attr("disabled", true);
+    $("#Password").attr("disabled", true);
+    $("#IsActive").attr("disabled", true);
+    $("#submitButton").hide();
+}
+
+function editMode() {
+    $("#submitButton").show();
+
+    // if menager or admin is login
+    if (currentUser[1] == 2 || currentUser[1] == 1) {
+        enableEditingFieldsForEditUser();
     }
+}
+
+function enableEditingFieldsForEditUser() {
+    $("#firstName").attr("disabled", false);
+    $("#surname").attr("disabled", false);
+    $("#phone").attr("disabled", false);
+    $("#email").attr("disabled", false);
+    $("#volunteerProgram").attr("disabled", false);
+    $("#team").attr("disabled", false);
+    $("#user_name").attr("disabled", false);
+    $("#roleDescription").attr("disabled", false);
+    $("#permission").attr("disabled", false);
+    $("#IsActive").attr("disabled", false);
 }

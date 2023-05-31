@@ -12631,13 +12631,6 @@ select::-ms-expand {
     height: 2rem;
 }
 
-
-.exposureDiv {
-    float: left;
-    width: 33.334%;
-    padding: 0px 4px 0px 4px;
-}
-
 .panel {
     text-align: right;
 }

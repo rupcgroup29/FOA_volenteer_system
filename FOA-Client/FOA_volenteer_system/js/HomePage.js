@@ -1,6 +1,7 @@
 ﻿var api;
 var isLoggedIn;
 var postsArr = [];
+var postsIDs = [];
 var PlatformsArr = [];
 var languageArr = [];
 var exposure;
@@ -43,10 +44,20 @@ function readPosts() {
 }
 function readPostsSCB(data) {
     postsArr = data;
+    savePostIDs(postsArr);
     drawPostsDataTable(postsArr);
 }
 function readPostsECB(err) {
     alert(err.responseJSON.errorMessage);
+}
+
+//save posts IDs to array
+function savePostIDs(array) {
+    for (var i = 0; i < array.length; i++) {
+        var id = array[i].postID;
+        postsIDs.push(id);
+    }
+    sessionStorage.setItem("postsIDs", JSON.stringify(postsIDs));
 }
 
 // render the posts list
@@ -54,7 +65,7 @@ function readPostsECB(err) {
 function drawPostsDataTable(array) {
     let str = "";
     if (array.length == 0) {
-        alert("There's no posts yet");
+        alert("אין פוסטים במערכת");
     } else {
         try {
             tbl = $('#dataTable').DataTable({

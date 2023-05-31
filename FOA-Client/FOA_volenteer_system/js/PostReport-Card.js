@@ -1,8 +1,10 @@
 ﻿var api;
 var imageFolder;
 var currentUser = JSON.parse(sessionStorage.getItem("user"));
-var currentPostID = JSON.parse(sessionStorage.getItem("post"));;
+var currentPostID = JSON.parse(sessionStorage.getItem("post"));
 var currentPostObject;
+var postsIDs = JSON.parse(sessionStorage.getItem("postsIDs"));
+
 
 $(document).ready(function () {
     if (location.hostname === "localhost" || location.hostname === "127.0.0.1") {
@@ -34,6 +36,7 @@ $(document).ready(function () {
 // read Post By ID
 function readPostByID() {
     ajaxCall("GET", api + "ReadPosts/" + currentPostID, "", readPostByIDSCB, readPostByIDECB);
+    return false;
 }
 function readPostByIDSCB(data) {
     currentPostObject = data;
@@ -178,6 +181,38 @@ function editPostSCB(data) {
 }
 function editPostECB(err) {
     alert("שגיאה בעדכון הדיווח " + err.responseJSON.errorMessage);
+}
+
+// next & prev post
+function nextPost() {
+    for (var i = 0; i < postsIDs.length; i++) {
+        if (postsIDs[i] === currentPostID) {
+            nextPostID = postsIDs[i + 1];
+            if (nextPostID == null) {   //זה הפוסט האחרון שהועלה
+                return null;
+            }
+            assignNewPostInPage(nextPostID);
+        }
+    }
+    readPostByID();
+}
+function prevPost() {
+    let prevPostID;
+    for (var i = 0; i < postsIDs.length; i++) {
+        if (postsIDs[i] === currentPostID) {
+            prevPostID = postsIDs[i - 1];
+            if (prevPostID == null) {   //זה הפוסט האחרון שהועלה
+                return null;
+            }
+            assignNewPostInPage(prevPostID);
+        }
+    }
+    readPostByID();
+}
+function assignNewPostInPage(nextPostID) {
+    sessionStorage.removeItem("post");      //איפוס בסשיין סטורג
+    sessionStorage.setItem("post", JSON.stringify(nextPostID)); // השמת הפוסט אידי הבא/הקודם
+    location.reload();
 }
 
 

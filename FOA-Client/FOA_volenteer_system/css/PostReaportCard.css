@@ -1,0 +1,48 @@
+﻿html, body {
+    font-size: 14px !important;
+}
+
+.next, .previous {
+    text-decoration: none;
+    display: inline-block;
+    padding: 8px 16px;
+}
+
+    .next:hover, .previous:hover {
+        color: #ffc800;
+        border: 1px solid #ffc800;
+    }
+
+.previous {
+    float: left;
+    color: white;
+    font-size: 20px;
+    padding: 7px 14px;
+    border: 1px solid white;
+    text-shadow: 0px 0px 1px #997800;
+    background-color: transparent !important;
+}
+
+.next {
+    float: right;
+    color: white;
+    font-size: 20px;
+    padding: 7px 14px;
+    border: 1px solid white;
+    text-shadow: 0px 0px 1px #997800;
+    background-color: transparent !important;
+}
+
+#nextNprevDiv {
+    margin-bottom: 55px;
+}
+
+#exposureLikesDiv {
+    padding-right: 0 !important;
+    margin-right: 13px !important;
+}
+.exposureDiv {
+    float:right;
+    width: 33%;
+    margin-left: -4px;
+}

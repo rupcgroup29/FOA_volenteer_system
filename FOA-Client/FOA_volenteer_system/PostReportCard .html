@@ -33,6 +33,7 @@
     <script src="js/PostReport-Card.js"></script>
     <link href="css/navbar.css" rel="stylesheet" />
     <script src="js/scripts.js"></script>
+    <link href="css/PostReaportCard.css" rel="stylesheet" />
 
 </head>
 <body id="page-top">
@@ -244,6 +245,12 @@
             <div class="text-center" id="PostCardHeader">
                 <!--render header with postID-->
             </div>
+
+            <div id="nextNprevDiv">
+                <button id="newxBtn" class="next" onclick="nextPost()">&#8250;</button>
+                <button id="prevBtn" class="previous" onclick="prevPost()">&#8249;</button>
+            </div>
+            
             <div>
                 <form id="contactForm" data-sb-form-api-token="API_TOKEN">
                     <div dir="rtl" class="align-items-stretch mb-5">
@@ -324,7 +331,7 @@
                             </div>
                             <div class="col-md-6">
                                 <div class="row">
-                                    <div class="col-4 form-group exposureDiv">
+                                    <div id="exposureLikesDiv" class="col-4 form-group exposureDiv">
                                         <!-- exposure_likes-->
                                         <div class="form-headers">
                                             <p> לייקים</p>

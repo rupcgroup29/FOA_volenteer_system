@@ -10,6 +10,8 @@ if (relevantUserID == undefined) {
 var relevantUserObject;
 var programsArr = [];
 var teamsArr = [];
+var permissionsArr = [];
+
 
 $(document).ready(function () {
     if (location.hostname === "localhost" || location.hostname === "127.0.0.1") {
@@ -24,6 +26,8 @@ $(document).ready(function () {
     getVolunteerProgramsList();
     // get the teams list
     getTeamsList();
+    // get permission list
+    getPermissions()
 
     enableOther();
 
@@ -34,6 +38,20 @@ $(document).ready(function () {
     else getMyUserDetails();
 
 });
+
+
+// GET permission list
+function getPermissions() {
+    ajaxCall("GET", api + "Permissions", "", getPermissionsSCB, getPermissionsECB);
+    return false;
+}
+function getPermissionsSCB(data) {
+    permissionsArr = data;
+}
+function getPermissionsECB(err) {
+    console.log(err);
+}
+
 
 // GET Another User Details
 function getAnotherUserDetails() {
@@ -81,24 +99,17 @@ function renderUserDetails() {
     }
     str_Prog += '<option class="opt" value="999">אחר </option>';
     document.getElementById("volunteerProgram").innerHTML += str_Prog;
+
     //permission
     let str_perm = "";
-    if (relevantUserObject.permission == 4) {
-        str_perm += `<option class="opt" value="4">מתנדב.ת</option>`;
-        str_perm += `<option class="opt" value="3">מנהל.ת צוות</option>`;
-        str_perm += `<option class="opt" value="2">מנהל.ת</option>`;
-    }
-    if (relevantUserObject.permission == 3) {
-        str_perm += `<option class="opt" value="3">מנהל.ת צוות</option>`;
-        str_perm += `<option class="opt" value="4">מתנדב.ת</option>`;
-        str_perm += `<option class="opt" value="2">מנהל.ת</option>`;
-    }
-    else {
-        str_perm += `<option class="opt" value="2">מנהל.ת</option>`;
-        str_perm += `<option class="opt" value="3">מנהל.ת צוות</option>`;
-        str_perm += `<option class="opt" value="4">מתנדב.ת</option>`;
+    str_perm += '<option class="opt" value="' + relevantUserObject.permissionID + '">' + relevantUserObject.permissionName + '</option>';
+    for (var i = 0; i < permissionsArr.length; i++) {
+        if (permissionsArr[i].permissionID != relevantUserObject.permissionID) {
+            str_perm += '<option class="opt" value="' + permissionsArr[i].permissionID + '">' + permissionsArr[i].permissionName + '</option>';
+        }
     }
     document.getElementById("permission").innerHTML += str_perm;
+
     //team
     let str_team = "";
     str_team += '<option class="opt" value="' + relevantUserObject.teamID + '">' + relevantUserObject.teamName + '</option>';

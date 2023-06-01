@@ -2,6 +2,7 @@
 var currentUser = JSON.parse(sessionStorage.getItem("user"));
 var programsArr = [];
 var teamsArr = [];
+var permissionsArr = [];
 var relevantUserObject;
 
 
@@ -19,6 +20,8 @@ $(document).ready(function () {
     getVolunteerProgramsList();
     // get the teams list
     getTeamsList();
+    // get permission list
+    getPermissions()
 
     enableOther();
     getMyUserDetails();
@@ -36,9 +39,24 @@ $(document).ready(function () {
 
 });
 
+
+// GET permission list
+function getPermissions() {
+    ajaxCall("GET", api + "Permissions", "", getPermissionsSCB, getPermissionsECB);
+    return false;
+}
+function getPermissionsSCB(data) {
+    permissionsArr = data;
+}
+function getPermissionsECB(err) {
+    console.log(err);
+}
+
+
 // GET My User Details
 function getMyUserDetails() {
     ajaxCall("GET", api + "UserServices/" + currentUser[0], "", getMyUserDetailsSCB, getMyUserDetailsECB);
+    return false;
 }
 function getMyUserDetailsSCB(data) {
     relevantUserObject = data;
@@ -76,19 +94,11 @@ function renderMyUserDetails() {
 
     //permission
     let str_perm = "";
-    if (relevantUserObject.permissionID == 4) {
-        str_perm += `<option class="opt" value="4" >מתנדב.ת</option>`;
-        //str_perm += `<option class="opt" value="3">מנהל.ת צוות</option>`;
-        //str_perm += `<option class="opt" value="2">מנהל.ת</option>`;
-    } else if (relevantUserObject.permissionID == 3) {
-        str_perm += `<option class="opt" value="3">מנהל.ת צוות</option>`;
-        //str_perm += `<option class="opt" value="4">מתנדב.ת</option>`;
-        //str_perm += `<option class="opt" value="2">מנהל.ת</option>`;
-    }
-    else {
-        str_perm += `<option class="opt" value="2">מנהל.ת</option>`;
-        str_perm += `<option class="opt" value="3">מנהל.ת צוות</option>`;
-        str_perm += `<option class="opt" value="4">מתנדב.ת</option>`;
+    str_perm += '<option class="opt" value="' + relevantUserObject.permissionID + '">' + relevantUserObject.permissionName + '</option>';
+    for (var i = 0; i < permissionsArr.length; i++) {
+        if (permissionsArr[i].permissionID != relevantUserObject.permissionID) {
+            str_perm += '<option class="opt" value="' + permissionsArr[i].permissionID + '">' + permissionsArr[i].permissionName + '</option>';
+        }
     }
     document.getElementById("permission").innerHTML += str_perm;
 

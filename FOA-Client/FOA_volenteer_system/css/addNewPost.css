@@ -11,12 +11,11 @@
 .mdl-checkbox {
     height: auto !important;
     margin: 4px !important;
+    direction: ltr;
 }
 
 .mdl-checkbox__input {
     margin-left: 4px;
 }
-
-
 
 

@@ -60,7 +60,7 @@ function getVolunteerProgramsSCB(data) {
         alert("There's no Volunteer Programs yet");
     } else {
         let str = "";
-        str += '<option class="opt" value="0">מסגרת לימודים דרכה מתנדב.ת *</option>';
+        str += '<option class="opt" value="0">* מסגרת לימודים דרכה מתנדב.ת</option>';
         for (var i = 0; i < data.length; i++) {
             str += '<option class="opt" value="' + data[i].programID + '">' + data[i].programName + '</option>';
         }
@@ -83,7 +83,7 @@ function getTeamSCB(data) {
         alert("There are no teams yet");
     } else {
         let str = "";
-        str += '<option class="opt" value="0">בחירת צוות התנדבות *</option>';
+        str += '<option class="opt" value="0">* חברות בצוות</option>';
         for (var i = 0; i < data.length; i++) {
             str += '<option class="opt" value="' + data[i].teamID + '">' + data[i].teamName + '</option>';
         }
@@ -102,10 +102,10 @@ function getPermissionsList() {
 
 function getPermissionsSCB(data) {
     if (data == null) {
-        alert("There are no teams yet");
+        alert("There are no permissions");
     } else {
         let str = "";
-        str += '<option class="opt" value="0">סוג הרשאת מערכת *</option>';
+        str += '<option class="opt" value="0">* סוג הרשאה במערכת</option>';
         for (var i = 0; i < data.length; i++) {
             str += '<option class="opt" value="' + data[i].permissionID + '">' + data[i].permissionName + '</option>';
         }
@@ -118,19 +118,20 @@ function getPermissionsECB(err) {
 
 // enable Other volunteer program only if other selected
 function enableOther() {
-    var sel = document.getElementById('volunteerProgram');
+    var difSchoolDiv = document.getElementById('DifSchoolDiv');
+    difSchoolDiv.style.display = 'none';
 
-    sel.addEventListener("change", ShowDivIfOtherSelected);
-
-    function ShowDivIfOtherSelected() {
-
-        if (sel.value === '999') {
-            $("#Different_school").attr("readonly", false);
+    var volunteerProgramSelect = document.getElementById('volunteerProgram');
+    volunteerProgramSelect.addEventListener('change', function () {
+        if (volunteerProgramSelect.value === '999') {
+            difSchoolDiv.style.display = 'block';
+            document.getElementById('Different_school').removeAttribute('readonly');
+            schoolDiv.classList.add('col-6');
+        } else {
+            difSchoolDiv.style.display = 'none';
+            document.getElementById('Different_school').setAttribute('readonly', 'readonly');
+            schoolDiv.classList.remove('col-6');
         }
-        else {
-            $("#Different_school").attr("readonly", true);
-            document.getElementById('Different_school').value = '';
-        }
-    }
+    });
 }
 

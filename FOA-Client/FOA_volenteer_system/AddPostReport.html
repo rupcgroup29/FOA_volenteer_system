@@ -247,8 +247,18 @@
             <div class="text-center">
                 <h2 class="section-heading text-uppercase">הוספת דיווח</h2>
             </div>            <!-- to get an API token!-->
+
             <form id="contactForm" enctype="multipart/form-data" data-sb-form-api-token="API_TOKEN">
-                <div class="row align-items-stretch mb-5">
+                <div class="row align-items-stretch">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <!-- UrlLink-->
+                            <div class="form-headers">
+                                <p>URL LINK</p>
+                            </div>
+                            <input dir="rtl" class="form-control" id="urlLink" type="text" placeholder="* URL LINK" required data-sb-validations="required" />
+                        </div>
+                    </div>
                     <div class="col-md-6">
                         <div class="form-group">
                             <!-- content_threat?-->
@@ -264,8 +274,21 @@
                                 <option class="opt" value="3">לא בטוח.ה</option>
                             </select>
                         </div>
+                    </div>
+                </div>
+                <div class="row align-items-stretch">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <!-- content-->
+                            <div class="form-headers">
+                                <p>תיאור קצר של התוכן</p>
+                            </div>
+                            <input dir="rtl" class="form-control" id="description" type="text" required placeholder="* תיאור קצר של התוכן" data-sb-validations="required,email" />
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div dir="rtl" class="row" id="Selection+Other">
 
-                        <div class="row" dir="rtl">
                             <div class="form-group" id="platformDiv">
                                 <!-- platform-->
                                 <div class="form-headers">
@@ -283,8 +306,20 @@
                                 <input dir="rtl" class="form-control" id="platform_diff" type="text" placeholder="אחר " />
                             </div>
                         </div>
-
-                        <div class="row" dir="rtl">
+                    </div>
+                </div>
+                <div class="row align-items-stretch">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <!-- Keywords_hashtags-->
+                            <div class="form-headers">
+                                <p> מילות מפתח או האשטאגים</p>
+                            </div>
+                            <input dir="ltr" class="form-control" id="keywords_hashtags" type="text" placeholder="* key words,#hashtags" data-sb-validations="required" />
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div dir="rtl" class="row" id="Selection+Other">
                             <div id="countryDiv" class="form-group">
                                 <!-- Country-->
                                 <div class="form-headers">
@@ -301,10 +336,21 @@
                                 </div>
                                 <input dir="rtl" class="form-control" id="country_diff" type="text" placeholder="אחר " />
                             </div>
-
                         </div>
-
-                        <div class="row" dir="rtl">
+                    </div>
+                </div>
+                <div class="row align-items-stretch">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <!-- Screenshot-->
+                            <div class="form-headers">
+                                <p> צילום מסך של הפוסט</p>
+                            </div>
+                            <input dir="ltr" type="file" class="form-control" id="screenshotFiles" name="files" />
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div dir="rtl" class="row" id="Selection+Other">
                             <div id="languageDiv" class="form-group ">
                                 <!-- language-->
                                 <div class="form-headers">
@@ -322,9 +368,37 @@
                                 <input dir="rtl" class="form-control" id="language_diff" type="text" placeholder="אחר " />
                             </div>
                         </div>
-
+                    </div>
+                </div>
+                <div class="row align-items-stretch">
+                    <div class="col-md-6">
+                        <div class="row">
+                            <div class="col-4 form-group exposureDiv">
+                                <!--exposure_likes-->
+                                <div class="form-headers">
+                                    <p> לייקים</p>
+                                </div>
+                                <input dir="rtl" class="form-control" id="exposure_likes" type="number" placeholder="* כמות" min="0" required data-sb-validations="required" />
+                            </div>
+                            <div class="col-4 form-group exposureDiv">
+                                <!--exposure_Comments-->
+                                <div class="form-headers">
+                                    <p> תגובות</p>
+                                </div>
+                                <input dir="rtl" class="form-control" id="exposure_Comments" type="number" placeholder="* כמות" min="0" required data-sb-validations="required" />
+                            </div>
+                            <div class="col-4 form-group exposureDiv">
+                                <!--exposure_shares-->
+                                <div class="form-headers">
+                                    <p> שיתופים</p>
+                                </div>
+                                <input dir="rtl" class="form-control" id="exposure_shares" type="number" placeholder="* כמות" required min="0" data-sb-validations="required" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
                         <div class="form-group">
-                            <!-- IHRA-->
+                            <!--IHRA-->
                             <div class="form-headers">
                                 <p>
                                     IHRA קטגוריה
@@ -335,96 +409,16 @@
                                 <!-- render list -->
                             </div>
                         </div>
-
                     </div>
-                    <div class="col-md-6">
-                        <div class="form-group">
-                            <!-- UrlLink-->
-                            <div class="form-headers">
-                                <p>URL LINK</p>
-                            </div>
-                            <input dir="rtl" class="form-control" id="urlLink" type="text" placeholder="* URL LINK" required data-sb-validations="required" />
-                        </div>
+                </div>
 
-
-                        <div class="form-group">
-                            <!-- content-->
-                            <div class="form-headers">
-                                <p>תיאור קצר של התוכן</p>
-                            </div>
-                            <input dir="rtl" class="form-control" id="description" type="text" required placeholder="* תיאור קצר של התוכן" data-sb-validations="required,email" />
-                        </div>
-                        <div class="form-group">
-                            <!-- Keywords_hashtags-->
-                            <div class="form-headers">
-                                <p> מילות מפתח או האשטאגים</p>
-                            </div>
-                            <input dir="ltr" class="form-control" id="keywords_hashtags" type="text" placeholder="* key words,#hashtags" data-sb-validations="required" />
-                        </div>
-
-                        <div class="form-group">
-                            <!-- Screenshot-->
-                            <div class="form-headers">
-                                <p> צילום מסך של הפוסט</p>
-                            </div>
-                            <input dir="ltr" type="file" class="form-control" id="screenshotFiles" name="files" />
-                        </div>
-                        <div class="row ">
-                            <div class=" form-group exposureDiv">
-                                <!-- exposure_likes-->
-                                <div class="form-headers">
-                                    <p> לייקים</p>
-                                </div>
-                                <input dir="rtl" class="form-control" id="exposure_likes" type="number" placeholder="* כמות" min="0" required data-sb-validations="required" />
-                            </div>
-                            <div class=" form-group exposureDiv">
-                                <!-- exposure_Comments-->
-                                <div class="form-headers">
-                                    <p> תגובות</p>
-                                </div>
-                                <input dir="rtl" class="form-control" id="exposure_Comments" type="number" placeholder="* כמות" min="0" required data-sb-validations="required" />
-                            </div>
-                            <div class=" form-group exposureDiv">
-                                <!-- exposure_shares-->
-                                <div class="form-headers">
-                                    <p> שיתופים</p>
-                                </div>
-                                <input dir="rtl" class="form-control" id="exposure_shares" type="number" placeholder="* כמות" required min="0" data-sb-validations="required" />
-                            </div>
-                        </div>
-                    </div>
-                    <!-- Submit Button-->
-                    <div class="text-center"><button class="btn btn-primary btn-xl text-uppercase" id="submitButton" type="submit">הוספה</button></div>
+                <!--Submit Button-->
+                <div class="text-center">
+                    <button class="btn btn-primary btn-xl text-uppercase" id="submitButton" type="submit">הוספה</button>
                 </div>
             </form>
         </div>
     </section>
 
-    <!-- Footer-->
-    <!--<footer class="footer py-4">
-        <div class="container">
-            <div class="row align-items-center">
-                <div class="col-lg-4 text-lg-start">Copyright &copy; Your Website 2022</div>
-                <div class="col-lg-4 my-3 my-lg-0">
-                    <a class="btn btn-dark btn-social mx-2" href="#!" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
-                    <a class="btn btn-dark btn-social mx-2" href="#!" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
-                    <a class="btn btn-dark btn-social mx-2" href="#!" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
-                </div>
-                <div class="col-lg-4 text-lg-end">
-                    <a class="link-dark text-decoration-none me-3" href="#!">Privacy Policy</a>
-                    <a class="link-dark text-decoration-none" href="#!">Terms of Use</a>
-                </div>
-            </div>
-        </div>
-    </footer>-->
-    <!-- Bootstrap core JS-->
-    <!--<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>-->
-    <!-- Core theme JS-->
-    <!--<script src="js/scripts.js"></script>-->
-    <!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *-->
-    <!-- * *                               SB Forms JS                               * *-->
-    <!-- * * Activate your form at https://startbootstrap.com/solution/contact-forms * *-->
-    <!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *-->
-    <!--<script src="https://cdn.startbootstrap.com/sb-forms-latest.js"></script>-->
 </body>
 </html>

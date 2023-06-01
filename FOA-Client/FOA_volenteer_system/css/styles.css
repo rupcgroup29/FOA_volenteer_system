@@ -16,6 +16,11 @@
     font-family: 'Arimo' !important;
 }
 
+
+#contactForm {
+    direction: rtl;
+}
+
 h2 {
     font-weight: bold !important;
 }

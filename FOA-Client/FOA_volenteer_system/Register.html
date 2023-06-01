@@ -55,8 +55,7 @@
                                 <div class="u41_text text">
                                     <p>
                                         <span>
-                                            <button class="logout"
-                                                    /button>
+                                            <button class="logout">התנתקות</button>
                                         </span>
                                     </p>
                                 </div>
@@ -161,14 +160,53 @@
         <div class="container">
             <div class="text-center">
                 <h2 class="section-heading text-uppercase">רישום מתנדב חדש</h2>
-            </div>
-            </div>            <!-- to get an API token!-->
+            </div>           
             <form id="contactForm" data-sb-form-api-token="API_TOKEN">
-                <div class="row align-items-stretch mb-5">
+                <div class="row align-items-stretch">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <!-- First Name input-->
+                            <div class="form-headers">
+                                <p> שם פרטי</p>
+                            </div>
+                            <input dir="rtl" class="form-control" id="firstName" type="text" required />
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <!--Last Name input-->
+                            <div class="form-headers">
+                                <p> שם משפחה</p>
+                            </div>
+                            <input dir="rtl" class="form-control" id="surname" type="text" required />
+                        </div>
+                    </div>
+                </div>
+                <div class="row align-items-stretch">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <!-- Email address input-->
+                            <div class="form-headers">
+                                <p> כתובת אימייל</p>
+                            </div>
+                            <input dir="rtl" class="form-control" id="email" type="email" required />
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <!-- Phone number input-->
+                            <div class="form-headers">
+                                <p> טלפון</p>
+                            </div>
+                            <input dir="rtl" class="form-control" id="phone" type="tel" required />
+                        </div>
+                    </div>
+
+                </div>
+                <div class="row align-items-stretch">
                     <div class="col-md-6">
                         <div dir="rtl" class="row" id="Selection+Other">
-
-                            <div dir="rtl" class="col-6 form-group" id="schoolDiv">
+                            <div dir="rtl" class="form-group" id="schoolDiv">
                                 <!-- volunteerProgram-->
                                 <div class="form-headers">
                                     <p> מסגרת התנדבות</p>
@@ -177,98 +215,64 @@
                                     <!-- render -->
                                 </select>
                             </div>
-                            <div class="col-6 form-headers form-group " id="DifSchoolDiv">
-                                <!-- Different_school-->
-                                <p> אחר</p>
-                                <input id="Different_school" class="form-control" type="text" placeholder="אחר" readonly />
+                            <div class="col-md-6">
+                                <div class="form-headers form-group" id="DifSchoolDiv">
+                                    <!-- Different_school-->
+                                    <p> אחר</p>
+                                    <input id="Different_school" class="form-control" type="text" placeholder="אחר" readonly />
+                                </div>
                             </div>
                         </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <!-- User_name-->
+                            <div class="form-headers">
+                                <p> שם משתמש</p>
+                            </div>
+                            <input dir="rtl" class="form-control" id="user_name" type="text" required />
+                        </div>
+                    </div>
+                </div>
+                <div class="row align-items-stretch">
+                    <div class="col-md-6">
                         <div class="form-group">
                             <!-- Permission-->
                             <div class="form-headers">
-                                <p> הרשאת מערכת</p>
+                                <p> הרשאת</p>
                             </div>
                             <select dir="rtl" class="form-control" id="permission" required>
                                 <!-- render -->
                             </select>
                         </div>
+                    </div>
+                    <div class="col-md-6">
                         <div class="form-group">
                             <!-- Team -->
                             <div class="form-headers">
-                                <p> בחירת צוות התנדבות</p>
+                                <p>צוות התנדבות</p>
                             </div>
                             <select dir="rtl" class="form-control" id="team" required>
                                 <!-- render -->
                             </select>
                         </div>
+                    </div>
+                </div>
+                <div class="row align-items-stretch">
+                    <div class="col-md-6">
                         <div class="form-group">
                             <!-- roleDescription-->
                             <div class="form-headers">
                                 <p> תיאור תפקיד בעמותה</p>
                             </div>
-                            <input dir="rtl" class="form-control" id="roleDescription" placeholder="תיאור תפקיד " maxlength="250" />
-                        </div>
-                    </div>
-                    <div class="col-md-6">
-                        <div class="form-group">
-                            <!-- First Name input-->
-                            <div class="form-headers">
-                                <p> שם פרטי</p>
-                            </div>
-                            <input dir="rtl" class="form-control" id="firstName" type="text" placeholder="שם פרטי *" required />
-                        </div>
-                        <div class="form-group">
-                            <!--Last Name input-->
-                            <div class="form-headers">
-                                <p> שם משפחה</p>
-                            </div>
-                            <input dir="rtl" class="form-control" id="surname" type="text" placeholder="שם משפחה *" required />
-                        </div>
-                        <div class="form-group">
-                            <!-- User_name-->
-                            <div class="form-headers">
-                                <p> שם משתמש במערכת</p>
-                            </div>
-                            <input dir="rtl" class="form-control" id="user_name" type="text" placeholder="שם משתמש *" required />
-                        </div>
-                        <div class="form-group">
-                            <!-- Email address input-->
-                            <div class="form-headers">
-                                <p> הרשאת מערכת</p>
-                            </div>
-                            <select dir="rtl" class="form-control" id="permission" required>
-                                <!-- render -->
-                            </select>
-                        </div>
-                    </div>
-                    <div class="col-md-6">
-                        <div class="form-group">
-                            <!-- Team -->
-                            <div class="form-headers">
-                                <p> טלפון</p>
-                            </div>
-                            <input dir="rtl" class="form-control" id="phone" type="tel" placeholder="טלפון *" required />
+                            <input dir="rtl" class="form-control" id="roleDescription" maxlength="250" />
                         </div>
                     </div>
                 </div>
-                <!-- Submit success message-->
-                <!---->
-                <!-- This is what your users will see when the form-->
-                <!-- has successfully submitted-->
-                <!--<div class="d-none" id="submitSuccessMessage">
-                    <div class="text-center text-white mb-3">
-                        <div class="fw-bolder">מתנדב.ת נשמר.ה בהצלחה!!</div>
-                    </div>
-                </div>
-                 Submit error message
 
-                 This is what your users will see when there is
-                 an error submitting the form
-                <div class="d-none" id="submitErrorMessage"><div class="text-center text-danger mb-3">בעיה בשמירת הנתונים!</div></div>-->
                 <!--Submit Button-->
                 <div class="text-center">
-                    <!--<input type="submit" id="submitButton" value="הוספת משתמש" class="btn btn-primary btn-xl text-uppercase" />-->
-                    <button class="btn btn-primary btn-xl text-uppercase" id="submitButton" type="submit">שמירה</button>
+                    <button class="btn btn-primary btn-xl text-uppercase" id="submitButton" type="submit">הוספה</button>
                 </div>
             </form>
         </div>

@@ -102,7 +102,7 @@ function getTeamDetailsECB(err) {
 function RenderDetails(data) {
     //Card Header
     let str_header = "";
-    str_header += `<h2 class="section-heading text-uppercase"> צוות ` + data.teamName + `</h2>`;
+    str_header += `<h2 class="section-heading text-uppercase"> עריכת צוות ` + data.teamName + `</h2>`;
     document.getElementById("CardHeader").innerHTML += str_header;
     //team Leader
     let teamLeader = "";

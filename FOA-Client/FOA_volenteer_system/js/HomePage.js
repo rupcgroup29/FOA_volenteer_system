@@ -117,7 +117,6 @@ function drawPostsDataTable(array) {
                 language: {
                     url: '//cdn.datatables.net/plug-ins/1.13.4/i18n/he.json'
                 }
-
             });
         } catch (err) {
             alert(err);

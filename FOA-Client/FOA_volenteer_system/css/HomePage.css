@@ -76,3 +76,9 @@
         background-color: transparent;
         border: none;
     }
+
+tfoot select {
+    width: 100%;
+    padding: 3px;
+    box-sizing: border-box;
+}

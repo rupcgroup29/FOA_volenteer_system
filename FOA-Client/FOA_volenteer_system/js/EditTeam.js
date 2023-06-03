@@ -11,7 +11,7 @@ $(document).ready(function () {
     }
     else api = "https://proj.ruppin.ac.il/cgroup29/prod/api/";
 
-    $('#contactForm').submit(EditTeam);
+    $('#contactForm').submit(EditTeamDetails);
 
     // get the Team Leaders list
     getTeamLeadersList();
@@ -25,13 +25,12 @@ $(document).ready(function () {
 });
 
 
-function EditTeam() {
+function EditTeamDetails() {
     const Team = {
         teamID: currentTeamId,
         teamName: $("#TeamName").val(),
         description: $("#description").val(),
         teamLeader: $("#teamLeader").val(),
-        selectedUsers: selectedUsers
     }
 
     ajaxCall("PUT", api + "Teams", JSON.stringify(Team), putEditTeamSCB, putEditTeamECB);
@@ -39,11 +38,23 @@ function EditTeam() {
     return false;
 }
 function putEditTeamSCB(data) {
+    ChangeUsersTeam();
+}
+function putEditTeamECB(err) {
+    alert(err.responseJSON.errorMessage);
+}
+
+// Updating the teamID to all the volunteers that the user added to the team
+function ChangeUsersTeam() {
+    ajaxCall("PUT", api + "UserServices/team", JSON.stringify(selectedUsers), putChangeUsersTeamSCB, putChangeUsersTeamECB);
+    return false;
+}
+function putChangeUsersTeamSCB(data) {
     alert("הצוות התעדכן בהצלחה");
     window.location.assign("Teams-main.html");
     location.assign("Teams-main.html")
 }
-function putEditTeamECB(err) {
+function putChangeUsersTeamECB(err) {
     alert(err.responseJSON.errorMessage);
 }
 
@@ -132,9 +143,9 @@ function addToSelectedUsers() {
 
     if (selectedUserId !== "0" && !isUserAlreadySelected(selectedUserId)) {
         var user = {
-            userID: selectedUserId,
-            name: selectedUserName,
-            teamID: currentTeamId
+            userID: parseInt(selectedUserId),
+            teamID: parseInt(currentTeamId),
+            name: selectedUserName
         };
 
         selectedUsers.push(user);

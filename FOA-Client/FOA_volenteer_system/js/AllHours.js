@@ -33,6 +33,22 @@ function RenderHourReports(array) {
         alert("There's no Hour Reports yet");
     } else {
         try {
+            // Custom sorting plugin for date column
+            jQuery.extend(jQuery.fn.dataTableExt.oSort, {
+                "date-eu-pre": function (a) {
+                    const dateParts = a.split('/');
+                    return new Date(dateParts[2], dateParts[1] - 1, dateParts[0]);
+                },
+
+                "date-eu-asc": function (a, b) {
+                    return ((a < b) ? -1 : ((a > b) ? 1 : 0));
+                },
+
+                "date-eu-desc": function (a, b) {
+                    return ((a < b) ? 1 : ((a > b) ? -1 : 0));
+                }
+            });
+
             tbl = $('#dataTable').DataTable({
                 "info": false,
                 data: array,
@@ -60,13 +76,15 @@ function RenderHourReports(array) {
                         render: function (data, type, row) {
                             // Convert the datetime value to date
                             const datetime = new Date(data);
-                            const day = datetime.getDate().toString().padStart(2, '0');
-                            const month = (datetime.getMonth() + 1).toString().padStart(2, '0');
-                            const year = datetime.getFullYear();
-                            const formattedDate = day + '/' + month + '/' + year;
+                            const formattedDate = datetime.toLocaleDateString('en-GB', {
+                                day: '2-digit',
+                                month: '2-digit',
+                                year: 'numeric'
+                            });
 
                             return formattedDate;
-                        }
+                        },
+                        type: 'date-eu', // Use the custom sorting plugin for date column
                     },
                     {
                         data: "startTime",
@@ -92,6 +110,7 @@ function RenderHourReports(array) {
                             return time;
                         }
                     },
+                    { data: 'shiftTime' },
                     {
                         data: "status",
                         render: function (data, type, row) {
@@ -114,7 +133,7 @@ function RenderHourReports(array) {
                         }
                     }
                 ],
-                order: [[3, 'desc']],  // sort the sec column (date) in descending order
+                order: [[3, 'desc']],  // sort the second column (date) in descending order
                 language: {
                     url: '//cdn.datatables.net/plug-ins/1.13.4/i18n/he.json'
                 }

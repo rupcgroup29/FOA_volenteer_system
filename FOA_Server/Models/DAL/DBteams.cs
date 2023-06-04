@@ -265,7 +265,8 @@ namespace FOA_Server.Models.DAL
                         EndTime = dateTimeEnd,
                         Status = Convert.ToInt32(dataReader["Status"]),
                         Count = Convert.ToInt32(dataReader["Count"]),
-                        userName = dataReader["userName"].ToString()
+                        userName = dataReader["userName"].ToString(),
+                        UserID = Convert.ToInt32(dataReader["UserID"])
                     });
                 }
                 return list;

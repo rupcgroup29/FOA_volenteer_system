@@ -52,7 +52,6 @@ function getPermissionsECB(err) {
     console.log(err);
 }
 
-
 // GET Another User Details
 function getAnotherUserDetails() {
     ajaxCall("GET", api + "UserServices/user_details/" + relevantUserID, "", getAnotherUserDetailsSCB, getUserDetailsECB);
@@ -74,6 +73,7 @@ function getMyUserDetailsSCB(data) {
     renderUserDetails();
 }
 
+//render User Details
 function renderUserDetails() {
     //Card Header
     let str_header = "";
@@ -142,6 +142,7 @@ function renderUserDetails() {
     }
 }
 
+// PUT User Details
 function updateUser() {
     const newUser = {
         UserID: relevantUserID,
@@ -166,7 +167,6 @@ function updateUserSCB(data) {
     window.location.assign("Teams-main.html");
     location.assign("Teams-main.html");
 }
-
 function updateUserECB(err) {
     alert(err.responseJSON.errorMessage);
 }
@@ -177,7 +177,6 @@ function getVolunteerProgramsList() {
     ajaxCall("GET", api + "VolunteerPrograms", "", getVolunteerProgramsSCB, getVolunteerProgramsECB);
     return false;
 }
-
 function getVolunteerProgramsSCB(data) {
     if (data == null)
         alert("There's no Volunteer Programs yet");
@@ -194,13 +193,11 @@ function getTeamsList() {
     ajaxCall("GET", api + "Teams", "", getTeamSCB, getTeamECB);
     return false;
 }
-
 function getTeamSCB(data) {
     if (data == null)
         alert("There are no teams yet");
     else teamsArr = data;
 }
-
 function getTeamECB(err) {
     console.log(err);
 }
@@ -224,7 +221,7 @@ function enableOther() {
     });
 }
 
-
+//all values are disabled 
 function showMode() {
     $("#firstName").attr("disabled", true);
     $("#surname").attr("disabled", true);
@@ -240,24 +237,36 @@ function showMode() {
     $("#submitButton").hide();
 }
 
+//values are editable by permission 
 function editMode() {
     $("#submitButton").show();
-
-    // if menager or admin is login
-    if (currentUser[1] == 2 || currentUser[1] == 1) {
-        enableEditingFieldsForEditUser();
-    }
+    if (currentUser[1] == 4 || currentUser[1] == 3) {
+        $("#isActive").hide();
+        enableEditingFieldsVolenteeen();
+    } else if (currentUser[1] == 2) enableEditingFieldsManager();
+    else enableEditingFieldsAdmin();
 }
 
-function enableEditingFieldsForEditUser() {
+// אם מתנדב מחובר אז שהוא לא יוכל לערוך חלק מהשדות
+function enableEditingFieldsVolenteeen() {
     $("#firstName").attr("disabled", false);
     $("#surname").attr("disabled", false);
     $("#phone").attr("disabled", false);
     $("#email").attr("disabled", false);
+    $("#Password").attr("disabled", false);
+}
+
+// אם מנהל מחובר אז הוא יכול לערוך את כל השדות
+function enableEditingFieldsManager() {
+    enableEditingFieldsVolenteeen();
     $("#volunteerProgram").attr("disabled", false);
     $("#team").attr("disabled", false);
     $("#user_name").attr("disabled", false);
+}
+
+
+function enableEditingFieldsAdmin() {
+    enableEditingFieldsManager();
     $("#roleDescription").attr("disabled", false);
     $("#permission").attr("disabled", false);
-    $("#IsActive").attr("disabled", false);
 }

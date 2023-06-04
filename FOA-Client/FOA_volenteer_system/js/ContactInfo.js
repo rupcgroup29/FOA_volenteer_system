@@ -13,7 +13,7 @@ $(document).ready(function () {
 });
 
 function getManagerDetails() {
-    ajaxCall("GET", api + "UserServices/" + currentUser[0], "", getManagerDetailsSCB, getManagerDetailsECB);
+    ajaxCall("GET", api + "UserServices/teamLeader/" + currentUser[0], "", getManagerDetailsSCB, getManagerDetailsECB);
 }
 function getManagerDetailsSCB(data) {
     renderManagerDetails(data);

@@ -69,19 +69,18 @@ function getMyUserDetailsECB(err) {
 function renderMyUserDetails() {
     //Card Header
     let str_header = "";
-    str_header += `<h2 class="section-heading text-uppercase"> פרטי משתמש </h2>`;
-    document.getElementById("CardHeader").innerHTML = str_header;
+    str_header += `<h2 class="section-heading text-uppercase"> מתנדב מספר ` + currentUser[0] + `</h2>`;
+    document.getElementById("CardHeader").innerHTML += str_header;
     //is active
-    //let str_isActive = "";
-    //if (relevantUserObject.isActive == true) {
-    //    str_isActive += `<option class="opt" value="0">כן </option>`;
-    //    str_isActive += `<option class="opt" value="1">לא </option>`;
-    //}
-    //else {
-    //    str_isActive += `<option class="opt" value="1">לא </option>`;
-    //    str_isActive += `<option class="opt" value="0">כן </option>`;
-    //}
-    //document.getElementById("IsActive").innerHTML += str_isActive;
+    let str_isActive = "";
+    if (relevantUserObject.isActive == true) {
+        str_isActive += `<option class="opt" value="0">כן </option>`;
+        str_isActive += `<option class="opt" value="1">לא </option>`;
+    }
+    else {
+        str_isActive += `<option class="opt" value="1">לא </option>`;
+        str_isActive += `<option class="opt" value="0">כן </option>`;
+    }
     //volunteerProgram
     let str_Prog = "";
     str_Prog += '<option class="opt" value="' + relevantUserObject.programID + '">' + relevantUserObject.programName + '</option>';
@@ -121,9 +120,11 @@ function renderMyUserDetails() {
     $("#email").val(relevantUserObject.email);
     //phone
     $("#phone").val(relevantUserObject.phoneNum);
-    //Password
+    //password
     $("#Password").val(relevantUserObject.password);
+
 }
+
 
 
 function showMode() {

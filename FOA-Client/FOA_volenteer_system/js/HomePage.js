@@ -61,7 +61,6 @@ function savePostIDs(array) {
 }
 
 // render the posts list
-// יש להוסיף פילטור של פוסטים מאושרים ע"י מנהל בלבד
 function drawPostsDataTable(array) {
     let str = "";
     if (array.length == 0) {

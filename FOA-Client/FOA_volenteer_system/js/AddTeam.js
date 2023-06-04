@@ -16,7 +16,7 @@ $(document).ready(function () {
 
 function AddNewTeam() {
     const newTeam = {
-        teamID: "", //במטרה לשלוח אובייקט צוות שלם, ישתנה בדאטה בייס
+        teamID: 0, //במטרה לשלוח אובייקט צוות שלם, ישתנה בדאטה בייס
         teamName: $("#TeamName").val(),
         description: $("#description").val(),
         teamLeader: $("#teamLeader").val()

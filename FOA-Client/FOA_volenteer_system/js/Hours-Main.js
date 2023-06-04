@@ -65,6 +65,22 @@ function RenderHoursList(array) {
             // Clear the table container
             $('#dataTableContainer').empty();
 
+            // Custom sorting plugin for date column
+            jQuery.extend(jQuery.fn.dataTableExt.oSort, {
+                "date-eu-pre": function (a) {
+                    const dateParts = a.split('/');
+                    return new Date(dateParts[2], dateParts[1] - 1, dateParts[0]);
+                },
+
+                "date-eu-asc": function (a, b) {
+                    return ((a < b) ? -1 : ((a > b) ? 1 : 0));
+                },
+
+                "date-eu-desc": function (a, b) {
+                    return ((a < b) ? 1 : ((a > b) ? -1 : 0));
+                }
+            });
+
             // Create the new table
             tbl = $('#dataTable').DataTable({
                 "info": false,
@@ -89,13 +105,15 @@ function RenderHoursList(array) {
                         render: function (data, type, row) {
                             // Convert the datetime value to date
                             const datetime = new Date(data);
-                            const day = datetime.getDate().toString().padStart(2, '0');
-                            const month = (datetime.getMonth() + 1).toString().padStart(2, '0');
-                            const year = datetime.getFullYear();
-                            const formattedDate = day + '/' + month + '/' + year;
+                            const formattedDate = datetime.toLocaleDateString('en-GB', {
+                                day: '2-digit',
+                                month: '2-digit',
+                                year: 'numeric'
+                            });
 
                             return formattedDate;
-                        }
+                        },
+                        type: 'date-eu', // Use the custom sorting plugin for date column
                     },
                     {
                         data: "startTime",
@@ -159,7 +177,7 @@ function RenderHoursList(array) {
                         },
                     }
                 ],
-                order: [[1, 'desc']],  // sort the sec column (date) in descending order
+                order: [[1, 'desc']],  // sort the second column (date) in descending order
                 language: {
                     url: '//cdn.datatables.net/plug-ins/1.13.4/i18n/he.json'
                 }
@@ -326,7 +344,12 @@ function AlertShiftsForApproval() {
     return false;
 }
 function AlertShiftsForApprovalSCB(data) {
-    str_popup = 'ישנם ' + data.length + ' דיווחי שעות הממתינים לאישורך';
+    if (data.length == 0) {
+        str_popup = 'אין דיווחי שעות הממתינים לאישורך';
+    }
+    else {
+        str_popup = 'ישנם ' + data.length + ' דיווחי שעות הממתינים לאישורך';
+    }
     $('#popupHeadline1').text(str_popup);
     openPopup1();
 }

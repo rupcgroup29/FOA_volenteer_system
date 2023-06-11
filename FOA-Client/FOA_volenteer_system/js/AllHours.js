@@ -55,20 +55,6 @@ function RenderHourReports(array) {
                 pageLength: 10,     //כמה שורות יהיו בכל עמוד
 
                 columns: [
-                    {
-                        data: null,
-                        render: function (data, type, row) {
-                            let trashcanHtml = '';
-                            if (data.status === 0) {
-                                trashcanHtml = `
-                                    <span class="delete-icon" onclick="confirmDelete('${data.reportID}')">
-                                        <i class="fas fa-trash-alt"></i>
-                                    </span>
-                                `;
-                            }
-                            return trashcanHtml;
-                        }
-                    },
                     { data: "teamName" },
                     { data: 'userName' },
                     {
@@ -133,7 +119,7 @@ function RenderHourReports(array) {
                         }
                     }
                 ],
-                order: [[3, 'desc']],  // sort the second column (date) in descending order
+                order: [[2, 'desc']],  // sort the second column (date) in descending order
                 language: {
                     url: '//cdn.datatables.net/plug-ins/1.13.4/i18n/he.json'
                 }

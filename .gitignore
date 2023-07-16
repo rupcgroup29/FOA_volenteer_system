@@ -3,7 +3,9 @@
 ##
 ## Get latest from https://github.com/github/gitignore/blob/main/VisualStudio.gitignore
 
+git rm --cached EmailService.cs
 FOA_volenteer_system/FOA_Server/Models/EmailService.cs
+
 
 # User-specific files
 *.rsuser

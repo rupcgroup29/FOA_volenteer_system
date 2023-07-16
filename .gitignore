@@ -397,5 +397,5 @@ FodyWeavers.xsd
 # JetBrains Rider
 *.sln.iml
 
-FOA_volenteer_system/FOA_Server/Models
+FOA_volenteer_system/FOA_Server/Models/EmailService.cs
 
